@@ -7,7 +7,7 @@ filter_names = ["Horizontal Filter", "Vertical Filter", "Diagonal Filter",...
 % TODO: COME UP WITH OWN KERNELS
 horizontal_grad = [1 2 1; 0 0 0; -1 -2 -1];
 vertical_grad = [1 0 -1; 2 0 -2; 1 0 -1];
-diag_grad = [2 1 0; 1 0 -1; 0 -1 2];
+diag_grad = [2 1 0; 1 0 -1; 0 -1 -2];
 sharp = [0 -1 0; -1 5 -1; 0 -1 0];
 [gaussian_kernel, normalisation] = gaussian_blur_kernel(1, 5, 5);
 fprintf('\nGaussian Kernel Normalisation = %f\n', normalisation);
@@ -49,5 +49,5 @@ subplot(334); imshow(filtered_images(:,:,1)); title('Horizontal Gradient Filtere
 subplot(335); imshow(filtered_images(:,:,2)); title('Vertical Gradient Filtered Image');
 subplot(336); imshow(filtered_images(:,:,3)); title('Diagonal Gradient Filtered Image');
 subplot(337); imshow(filtered_images(:,:,4)); title('Sharpened Image');
-subplot(339); imshow(filtered_images(:,:,4)); title('Gaussian Blurred Image');
+subplot(339); imshow(filtered_images(:,:,5)); title('Gaussian Blurred Image');
 
