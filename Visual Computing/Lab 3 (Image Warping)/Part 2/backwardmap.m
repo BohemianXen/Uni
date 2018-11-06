@@ -69,7 +69,7 @@ if (f2_vu(2)>size(source_img,2)) % Right Edge
     f2 = 0; f4 = 0; alpha = 1;
 end
 
-if (f3_vu(2)>size(source_img,1)) % Bottom Edge
+if (f3_vu(1)>size(source_img,1)) % Bottom Edge
     f3 = 0; f4 = 0; beta= 1;
 end
 

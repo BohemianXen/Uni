@@ -1,27 +1,29 @@
 close all; 
-%clear all; 
+clear all; 
 
 source = im2double(imread('window.jpg'));
-target = zeros(size(source)); target2 = zeros(size(source));
+target = zeros(size(source)); %target2 = zeros(size(source));
 
 calib_params = [474.53 0 405.96; 0 474.53 217.81; 0 0 1];
-distortion_coefficients = [-0.27194, 0.11517 -0.029859];
+distortion_coefficients = [-0.27194, 0.11517, -0.029859];
 
-for row = 1:size(source, 1)
-    for col = 1:size(source, 2)
-        [u, v] = undistort(calib_params, distortion_coefficients, row, col);
-        if (floor(u)>0 && floor(v)>0 && ceil(u)<=size(source,1) && ceil(v)<=size(source,2))  
-            target(row, col, :) = bilinear_interpolation(source, v, u);
-%             target2(row, col, :) = source(round(u), round(v),:);
-        else
-            disp([x y u v])
+for y = 1:size(source, 1)
+    for x = 1:size(source, 2)
+       
+        [u, v] = undistort(calib_params, distortion_coefficients, x, y);
+        
+        % Check if target pixel falls inside the image domain.
+        if (u > 0 && v > 0 && u <= size(source, 2) && v <= size(source, 1))
+            % Sample the target pixel colour from the source pixel.
+            target(y, x, :) = bilinear_interpolation(source, u, v);
+%             target2(y, x, :) = source(round(v), round(u), :);
         end
     end
 end
 
 imshow([source target])% target2])
 
-function [u_prime,v_prime] = undistort(K, coefficients,u,v)
+function [u_prime, v_prime] = undistort(K, coefficients, u, v)
 fx = K(1,1); fy = K(2,2);
 px = K(1,3); py = K(2,3);
 k1 = coefficients(1); k2 = coefficients(2); k3 = coefficients(3);
@@ -34,6 +36,7 @@ u_prime = (x_prime*fx) + px;
 v_prime = (y_prime*fy) + py;
 end
 
+% Returns weighted pixel value of neighbouring pixels
 function [pixel_val] = bilinear_interpolation(source_img, u_prime, v_prime)
 
 % Obtain neighbouring pixel coordinates 
@@ -79,3 +82,4 @@ pixel_val = ((1-alpha)*(1-beta)*f1) + (alpha*(1-beta)*f2) + ...
             ((1-alpha)*beta*f3) + (alpha*beta*f4);
        
 end
+
