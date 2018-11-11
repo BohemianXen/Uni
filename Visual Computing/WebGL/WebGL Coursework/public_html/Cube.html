@@ -22,13 +22,11 @@
                         
                         //  Default Camera Positioning
                         var defaultCameraPos = [2, 1, 7];
-                        camera.position.x = defaultCameraPos[0];
-                        camera.position.y = defaultCameraPos[1];
-                        camera.position.z = defaultCameraPos[2];
-            
+                        resetCamera();        
                         
                         // Event Listeners
-                        document.addEventListener("keydown", onDocumentKeyDown, false);
+                        document.addEventListener("keydown", onKeyDown, false);
+                        document.addEventListener("wheel", onWheelScroll, false);
                        
                         // Cube Setup
                         var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);         
@@ -171,24 +169,60 @@
                              
                         // Camera Adjustment
                         
+                        var cameraMovementDistance = 0.5;
                         
+                        function resetCamera(){
+                            camera.position.x = defaultCameraPos[0];
+                            camera.position.y = defaultCameraPos[1];
+                            camera.position.z = defaultCameraPos[2];
+                        }
+
+                        // Event Handlers
                         
-                        // Keydown Event Handler
-                        function onDocumentKeyDown(e){
-                            switch(e.keyCode){
+                        // Key press event handler
+                        function onKeyDown(e){
+                            switch(e.which){
                                 // Pause cube rotation
                                 case 32:
                                     toggleCubeAnimation();
                                     break;
-                                 //Toggle cube edge rendering (inc. primitive triangles) on 'e' keydown
+                                // Move camera left on left arrow KeyDown
+                                case 37:
+                                    camera.translateX(-cameraMovementDistance);                              
+                                    break;
+                                // Move camera up on up arrow KeyDown
+                                case 38:
+                                    camera.translateY(cameraMovementDistance);
+                                    break;
+                                // Move camera right on right arrow KeyDown
+                                case 39:
+                                    camera.translateX(cameraMovementDistance);                              
+                                    break;
+                                // Move camera down on down arrow KeyDown
+                                case 40:
+                                    camera.translateY(-cameraMovementDistance);
+                                    break;
+                                // Zoom in on '+' KeyDown; can also be invoked by using the mousewheel
+                                case 107:
+                                    camera.translateZ(-cameraMovementDistance);
+                                    break;
+                                // Zoom out on '-' KeyDown; can also be invoked by using the mousewheel
+                                case 109:
+                                    camera.translateZ(cameraMovementDistance);
+                                    break;
+                                // Reset camera position on 'r' KeyDown
+                                case 82:
+                                    resetCamera();
+                                    break;
+                                // Toggle cube edge rendering (inc. primitive triangles) on 'e' KeyDown
                                 case 69:
                                     toggleEdges();
                                     break;
-                                // Toggle cube faces on 'f' keydown
+                                // Toggle cube faces on 'f' KeyDown
                                 case 70: 
                                     toggleFaces();
-                                    break;
-                                // Toggle cube vertex rendering on 'v' keydown
+                                    break;                      
+                                // Toggle cube vertex rendering on 'v' KeyDown
                                 case 86: 
                                     toggleVertices();
                                     break;                                        
@@ -196,7 +230,16 @@
                                     break;                            
                             }
                         }
-
+                        
+                        // Scroll wheel event handler 
+                        // Used to zoom camera in and out via the scroll wheel
+                        function onWheelScroll(e){
+                            if (e.wheelDelta > 0){
+                                camera.translateZ(-cameraMovementDistance);
+                            } else {
+                                camera.translateZ(cameraMovementDistance);
+                            }
+                        }
 		</script>
 	</body>
 </html>
