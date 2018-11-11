@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>Cube Manipulation</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>
+			var scene = new THREE.Scene();
+                        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+                        var renderer = new THREE.WebGLRenderer();
+                        renderer.setSize(window.innerWidth, window.innerHeight);
+                        document.body.appendChild(renderer.domElement);
+                        document.addEventListener("keydown", onDocumentKeyDown, false);
+                       
+                        // Cube
+                        var geometry = new THREE.BoxGeometry(1, 1, 1);         
+                        var wireframeMaterial = new THREE.MeshBasicMaterial({color: 0x000000, wireframe: true});
+                        var material = new THREE.MeshBasicMaterial({color: 0x008B8B, vertexColors: THREE.VertexColors});
+                        var cube = new THREE.Mesh(geometry, material);
+                        var wireframe = new THREE.Mesh(geometry, wireframeMaterial);
+                        //cube.add(wireframe);
+                        scene.add(cube);
+                        
+                        // Axes                 
+                        var geometryX = new THREE.Geometry();
+                        var geometryY = geometryX.clone();
+                        var geometryZ = geometryX.clone();
+                        var materialX = new THREE.LineBasicMaterial({ color: 0xff0000 });
+                        var materialY = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+                        var materialZ = new THREE.LineBasicMaterial({ color: 0x0000ff });
+                        
+                        geometryX.vertices.push(
+                                new THREE.Vector3(),
+                                new THREE.Vector3(5, 0, 0)
+                        );
+                
+                        geometryY.vertices.push(
+                                new THREE.Vector3(),
+                                new THREE.Vector3(0, 5, 0)
+                        );
+                              
+                        geometryZ.vertices.push(
+                                new THREE.Vector3(),
+                                new THREE.Vector3(0, 0, 5)
+                        );
+                        
+                        var xAxis = new THREE.Line(geometryX, materialX);
+                        var yAxis = new THREE.Line(geometryY, materialY);
+                        var zAxis = new THREE.Line(geometryZ, materialZ);
+                        
+                        scene.add(xAxis, yAxis, zAxis);
+          
+                        camera.position.x = 2;
+                        camera.position.y = 1;
+                        camera.position.z = 7;
+            
+                        var animationID;                     
+                        function rotateX() {
+                            animationID = requestAnimationFrame(rotateX);                   
+                            cube.rotation.x += 0.01;
+                            if (cube.rotation.x >= 2*Math.PI){
+                                cube.rotation.x = 0;
+                                cancelAnimationFrame(animationID); 
+                                rotateY();
+                            }
+                            renderer.render(scene, camera);
+                        }
+                        
+                        function rotateY() {
+                            animationID = requestAnimationFrame(rotateY);                       
+                            cube.rotation.y += 0.01;
+                            if (cube.rotation.y >= 2*Math.PI){
+                                cube.rotation.y = 0;
+                                cancelAnimationFrame(animationID); 
+                                rotateZ();
+                            }
+                            renderer.render(scene, camera);
+                        }  
+                        
+                        function rotateZ() {
+                            animationID = requestAnimationFrame(rotateZ);                       
+                            cube.rotation.z += 0.01;
+                            if (cube.rotation.z >= 2*Math.PI){
+                                cube.rotation.z = 0;
+                                cancelAnimationFrame(animationID); 
+                                rotateX();
+                            }
+                            renderer.render(scene, camera);
+                        }
+                                           
+                        rotateX();
+                        
+    // TODO: check 'children field in cube to see if already toggled?                     
+    function onDocumentKeyDown(e){
+                            console.log(cube);
+                            if (e.keyCode === 86) {
+                                //if cube.
+                                cube.add(wireframe);
+                                console.log(cube);
+                            }
+                        }
+		</script>
+	</body>
+</html>
