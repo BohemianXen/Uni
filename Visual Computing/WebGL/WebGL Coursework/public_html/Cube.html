@@ -106,14 +106,16 @@
                         var cubeRotating = true;
                         
                         // Render modes 
-      
-                        var cubeWireframeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true});
-                        var cubeWireframe = new THREE.Mesh(cubeGeometry, cubeWireframeMaterial);
                         var cubePointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.1});
+                        var cubeWireframeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true});
                         var cubePoints = new THREE.Points(cubeGeometry, cubePointsMaterial);
+                        var cubeWireframe = new THREE.Mesh(cubeGeometry, cubeWireframeMaterial);
                         
-                        var vertexRenderMode = false;
-                        var edgeRenderMode = false;
+                        cube.add(cubePoints);
+                        cube.add(cubeWireframe);
+                        
+                        var vertexRenderMode = true;
+                        var edgeRenderMode = true;
                         var faceRenderMode = true;
                                            
                         function onDocumentKeyDown(e){
@@ -126,7 +128,7 @@
                                     }     
                                     edgeRenderMode = !edgeRenderMode;
                                     break;
-                                case 86: // Toggle cube vertices rendering
+                                case 86: // Toggle cube vertex rendering
                                     if (!vertexRenderMode){
                                         cube.add(cubePoints);
                                     } else {
