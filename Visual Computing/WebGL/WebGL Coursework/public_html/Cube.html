@@ -25,8 +25,13 @@
                         resetCamera();        
                         
                         // Event Listeners
-                        document.addEventListener("keydown", onKeyDown, false);
-                        document.addEventListener("wheel", onWheelScroll, false);
+                        document.addEventListener("keydown", onKeyDown); //TODO: Pausing cube blocks other events until resumption
+                        document.addEventListener("wheel", onWheelScroll);
+                        document.addEventListener("mousedown", onMouseDown);
+                        document.addEventListener("mousemove", onMouseMove);
+                        document.addEventListener("mouseup", onMouseUp);
+                        
+                    
                        
                         // Cube Setup
                         var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);         
@@ -66,11 +71,12 @@
                         scene.add(xAxis, yAxis, zAxis);       
                         
                         // Cube Rotation
-                        var animationID;  
+                        var animationID; 
+                        var rotationStep = 0.01;
                         
                         function rotateX() {
                             animationID = requestAnimationFrame(rotateX); 
-                            cube.rotation.x += 0.01;
+                            cube.rotation.x += rotationStep;
                             if (cube.rotation.x >= 2*Math.PI){
                                 cube.rotation.x = 0;
                                 cancelAnimationFrame(animationID); 
@@ -81,7 +87,7 @@
                         
                         function rotateY() {
                             animationID = requestAnimationFrame(rotateY);
-                            cube.rotation.y += 0.01;
+                            cube.rotation.y += rotationStep;
                             if (cube.rotation.y >= 2*Math.PI){
                                 cube.rotation.y = 0;
                                 cancelAnimationFrame(animationID); 
@@ -92,7 +98,7 @@
                         
                         function rotateZ() {
                             animationID = requestAnimationFrame(rotateZ); 
-                            cube.rotation.z += 0.01;
+                            cube.rotation.z += rotationStep;
                             if (cube.rotation.z >= 2*Math.PI){
                                 cube.rotation.z = 0;
                                 cancelAnimationFrame(animationID); 
@@ -167,9 +173,9 @@
                             vertexRenderMode = !vertexRenderMode;   
                         }
                              
-                        // Camera Adjustment
+                        // Camera Translation
                         
-                        var cameraMovementDistance = 0.5;
+                        var cameraMovementDistance = 0.1;
                         
                         function resetCamera(){
                             camera.position.x = defaultCameraPos[0];
@@ -177,6 +183,22 @@
                             camera.position.z = defaultCameraPos[2];
                         }
 
+                        
+                        // Camera Orbit
+                        
+                        var orbitMode = false;
+                        var xFocus, yFocus, xMove, yMove;
+                        function orbitCamera(){
+                            //var x = normalize()
+                            console.log(xFocus, yFocus);
+                            var up = (camera.position.x - xFocus).normalize();
+                            
+                            var zFocus = Math.sqrt(xFocus*xFocus + yFocus*yFocus);
+                            //camera.lookAt(xFocus, yFocus, zFocus);
+                            //camera.rotation.x = xMove*cameraMovementDistance;
+                            //camera.rotation.y = (-yMove*cameraMovementDistance);
+                        }
+                        
                         // Event Handlers
                         
                         // Key press event handler
@@ -240,6 +262,26 @@
                                 camera.translateZ(cameraMovementDistance);
                             }
                         }
+                        
+                        function onMouseDown(e){
+                            if (e.which === 1){
+                                xFocus = e.x; yFocus = e.y;
+                                orbitMode = true;
+                            }
+                        }
+                        
+                        function onMouseMove(e){
+                            if (orbitMode){
+                                xMove = e.movementX;  yMove = e.movementY;
+                                orbitCamera();
+                            }
+                        }
+                        
+                        function onMouseUp(e){
+                            xFocus = 0; yFocus = 0; xMove = 0; yMove = 0;
+                            orbitMode = false;
+                        }
+                       
 		</script>
 	</body>
 </html>
