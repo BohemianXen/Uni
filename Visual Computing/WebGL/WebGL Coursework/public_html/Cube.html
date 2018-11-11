@@ -20,6 +20,13 @@
                         renderer.setSize(window.innerWidth, window.innerHeight);
                         document.body.appendChild(renderer.domElement);
                         
+                        //  Default Camera Positioning
+                        var defaultCameraPos = [2, 1, 7];
+                        camera.position.x = defaultCameraPos[0];
+                        camera.position.y = defaultCameraPos[1];
+                        camera.position.z = defaultCameraPos[2];
+            
+                        
                         // Event Listeners
                         document.addEventListener("keydown", onDocumentKeyDown, false);
                        
@@ -60,12 +67,6 @@
                         
                         scene.add(xAxis, yAxis, zAxis);       
                         
-                        // Camera Positioning
-                        camera.position.x = 2;
-                        camera.position.y = 1;
-                        camera.position.z = 7;
-            
-                        
                         // Cube Rotation
                         var animationID;  
                         
@@ -101,9 +102,32 @@
                             }
                             renderer.render(scene, camera);
                         }
-                                           
+                                                       
+                                 
                         rotateX();
                         var cubeRotating = true;
+                        
+                        function toggleCubeAnimation(){
+                            if (cubeRotating){
+                                cancelAnimationFrame(animationID); 
+                            } else {
+                                if (cube.rotation.y !== 0){
+                                    cube.rotation.x = 0;
+                                    cube.rotation.z = 0;
+                                    rotateY();
+                                } else if (cube.rotation.z !== 0){
+                                    cube.rotation.x = 0;
+                                    cube.rotation.y = 0;
+                                    rotateZ();
+                                } else { 
+                                    cube.rotation.y = 0;
+                                    cube.rotation.z = 0;
+                                    rotateX();                                 
+                                }
+                            }
+                            cubeRotating = !cubeRotating; 
+                        }
+                           
                         
                         // Render modes 
                         var cubePointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.1});
@@ -117,57 +141,62 @@
                         var vertexRenderMode = true;
                         var edgeRenderMode = true;
                         var faceRenderMode = true;
-                                           
+                        
+                        function toggleEdges(){
+                            if (!edgeRenderMode){
+                                cube.add(cubeWireframe);
+                            } else {
+                                cube.remove(cubeWireframe);
+                            }     
+                            edgeRenderMode = !edgeRenderMode;   
+                        }
+                        
+                        function toggleFaces(){
+                             if (!faceRenderMode){
+                                cubeMaterial.color = cubeColor;
+                            } else {
+                                cubeMaterial.color = new THREE.Color(0x000000);
+                            }     
+                            faceRenderMode = !faceRenderMode;
+                        }     
+    
+                        function toggleVertices(){
+                        if (!vertexRenderMode){
+                                cube.add(cubePoints);
+                            } else {
+                                cube.remove(cubePoints);
+                            }     
+                            vertexRenderMode = !vertexRenderMode;   
+                        }
+                             
+                        // Camera Adjustment
+                        
+                        
+                        
+                        // Keydown Event Handler
                         function onDocumentKeyDown(e){
                             switch(e.keyCode){
-                                case 69: //Toggle cube edge rendering (inc. primitive triangles)
-                                    if (!edgeRenderMode){
-                                        cube.add(cubeWireframe);
-                                    } else {
-                                        cube.remove(cubeWireframe);
-                                    }     
-                                    edgeRenderMode = !edgeRenderMode;
+                                // Pause cube rotation
+                                case 32:
+                                    toggleCubeAnimation();
                                     break;
-                                case 86: // Toggle cube vertex rendering
-                                    if (!vertexRenderMode){
-                                        cube.add(cubePoints);
-                                    } else {
-                                        cube.remove(cubePoints);
-                                    }     
-                                    vertexRenderMode = !vertexRenderMode;
+                                 //Toggle cube edge rendering (inc. primitive triangles) on 'e' keydown
+                                case 69:
+                                    toggleEdges();
                                     break;
-                                case 70: // Toggle cube faces
-                                    if (!faceRenderMode){
-                                        cubeMaterial.color = cubeColor;
-                                    } else {
-                                        cubeMaterial.color = new THREE.Color(0x000000);
-                                    }     
-                                    faceRenderMode = !faceRenderMode;
+                                // Toggle cube faces on 'f' keydown
+                                case 70: 
+                                    toggleFaces();
                                     break;
-                                case 32: // Pause cube rotation
-                                    if (cubeRotating){
-                                        cancelAnimationFrame(animationID); 
-                                    }
-                                    else{
-                                        if (cube.rotation.y !== 0){
-                                            cube.rotation.x = 0;
-                                            cube.rotation.z = 0;
-                                            rotateY();
-                                        } else if (cube.rotation.z !== 0){
-                                            cube.rotation.x = 0;
-                                            cube.rotation.y = 0;
-                                            rotateZ();
-                                        } else { 
-                                            cube.rotation.y = 0;
-                                            cube.rotation.z = 0;
-                                            rotateX();                                 
-                                        }
-                                    }
-                                    cubeRotating = !cubeRotating;                    
+                                // Toggle cube vertex rendering on 'v' keydown
+                                case 86: 
+                                    toggleVertices();
+                                    break;                                        
                                 default:
                                     break;                            
                             }
                         }
+
 		</script>
 	</body>
 </html>
