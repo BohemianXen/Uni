@@ -38,7 +38,6 @@
                         var cubeColor = new THREE.Color(0x008B8B);
                         var cubeMaterial = new THREE.MeshBasicMaterial({color: cubeColor, vertexColors: THREE.VertexColors});
                         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-                       
                         scene.add(cube);
                         
                         // Axes Setup                
@@ -182,23 +181,46 @@
                             camera.position.y = defaultCameraPos[1];
                             camera.position.z = defaultCameraPos[2];
                         }
-
-                        
+                       
                         // Camera Orbit
                         
                         var orbitMode = false;
                         var xFocus, yFocus, xMove, yMove;
                         function orbitCamera(){
-                            //var x = normalize()
+                            /*var x = normalize()
                             console.log(xFocus, yFocus);
                             var up = (camera.position.x - xFocus).normalize();
                             
                             var zFocus = Math.sqrt(xFocus*xFocus + yFocus*yFocus);
                             //camera.lookAt(xFocus, yFocus, zFocus);
                             //camera.rotation.x = xMove*cameraMovementDistance;
-                            //camera.rotation.y = (-yMove*cameraMovementDistance);
+                            //camera.rotation.y = (-yMove*cameraMovementDistance);*/
                         }
                         
+                        
+                        // Cube Texture 
+                        var cubeTextureLoader = new THREE.CubeTextureLoader();
+                        cubeTextureLoader.setPath("resources/");
+                        cubeTextureLoader.minFilter = THREE.NearestFilter; //THREE.LinearFilter;    
+                        var cubeTexture = cubeTextureLoader.load([
+                                'bronze.jpg', 
+                                'bronze.jpg',
+                                'bronze.jpg',
+                                'bronze.jpg',
+                                'bronze.jpg', 
+                                'bronze.jpg'
+                        ]);
+                        var cubeTextureMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, envMap: cubeTexture});
+                        var textureMode = false;
+                        
+                        function toggleTextures(){
+                            if (!textureMode){
+                                cube.material = cubeTextureMaterial;
+                            } else {
+                                cube.material = cubeMaterial;
+                            }
+                            textureMode = !textureMode;   
+                         }
                         // Event Handlers
                         
                         // Key press event handler
@@ -247,7 +269,11 @@
                                 // Toggle cube vertex rendering on 'v' KeyDown
                                 case 86: 
                                     toggleVertices();
-                                    break;                                        
+                                    break;       
+                                // Apply textures
+                                case 84: 
+                                    toggleTextures();
+                                    break; 
                                 default:
                                     break;                            
                             }
