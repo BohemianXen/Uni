@@ -20,9 +20,11 @@
                         renderer.setSize(window.innerWidth, window.innerHeight);
                         document.body.appendChild(renderer.domElement);
                         
+                        
                         //  Default Camera Positioning
                         var defaultCameraPos = [2, 1, 7];
                         resetCamera();        
+                        
                         
                         // Event Listeners
                         document.addEventListener("keydown", onKeyDown); //TODO: Pausing cube blocks other events until resumption
@@ -32,13 +34,13 @@
                         document.addEventListener("mouseup", onMouseUp);
                         
                     
-                       
                         // Cube Setup
                         var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);         
                         var cubeColor = new THREE.Color(0x008B8B);
                         var cubeMaterial = new THREE.MeshBasicMaterial({color: cubeColor, vertexColors: THREE.VertexColors});
                         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
                         scene.add(cube);
+                        
                         
                         // Axes Setup                
                         var xAxisGeometry = new THREE.Geometry();
@@ -47,20 +49,20 @@
                         var xAxisMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
                         var yAxisMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
                         var zAxisMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
-                        
+                        var axisLength = 20;
                         xAxisGeometry.vertices.push(
-                                new THREE.Vector3(),
-                                new THREE.Vector3(5, 0, 0)
+                                new THREE.Vector3(-axisLength, 0, 0),
+                                new THREE.Vector3(axisLength, 0, 0)
                         );
                 
                         yAxisGeometry.vertices.push(
-                                new THREE.Vector3(),
-                                new THREE.Vector3(0, 5, 0)
+                                new THREE.Vector3(0, -axisLength, 0),
+                                new THREE.Vector3(0, axisLength, 0)
                         );
                               
                         zAxisGeometry.vertices.push(
-                                new THREE.Vector3(),
-                                new THREE.Vector3(0, 0, 5)
+                                new THREE.Vector3(0, 0, -axisLength),
+                                new THREE.Vector3(0, 0, axisLength)
                         );
                         
                         var xAxis = new THREE.Line(xAxisGeometry, xAxisMaterial);
@@ -69,11 +71,12 @@
                         
                         scene.add(xAxis, yAxis, zAxis);       
                         
+                        
                         // Cube Rotation
                         var animationID; 
                         var rotationStep = 0.01;
                         
-                        function rotateX() {
+                        var rotateX = function() {
                             animationID = requestAnimationFrame(rotateX); 
                             cube.rotation.x += rotationStep;
                             if (cube.rotation.x >= 2*Math.PI){
@@ -82,9 +85,9 @@
                                 rotateY();
                             }
                             renderer.render(scene, camera);
-                        }
+                        };
                         
-                        function rotateY() {
+                        var rotateY = function() {
                             animationID = requestAnimationFrame(rotateY);
                             cube.rotation.y += rotationStep;
                             if (cube.rotation.y >= 2*Math.PI){
@@ -93,9 +96,9 @@
                                 rotateZ();
                             }
                             renderer.render(scene, camera);
-                        }  
+                        };  
                         
-                        function rotateZ() {
+                        var rotateZ = function() {
                             animationID = requestAnimationFrame(rotateZ); 
                             cube.rotation.z += rotationStep;
                             if (cube.rotation.z >= 2*Math.PI){
@@ -104,13 +107,12 @@
                                 rotateX();
                             }
                             renderer.render(scene, camera);
-                        }
-                                                       
-                                 
+                        };
+                                                                                     
                         rotateX();
                         var cubeRotating = true;
                         
-                        function toggleCubeAnimation(){
+                        var toggleCubeAnimation = function() {
                             if (cubeRotating){
                                 cancelAnimationFrame(animationID); 
                             } else {
@@ -129,7 +131,7 @@
                                 }
                             }
                             cubeRotating = !cubeRotating; 
-                        }
+                        };
                            
                         
                         // Render modes 
@@ -145,48 +147,47 @@
                         var edgeRenderMode = true;
                         var faceRenderMode = true;
                         
-                        function toggleEdges(){
+                        var toggleEdges = function () {
                             if (!edgeRenderMode){
                                 cube.add(cubeWireframe);
                             } else {
                                 cube.remove(cubeWireframe);
                             }     
                             edgeRenderMode = !edgeRenderMode;   
-                        }
+                        };
                         
-                        function toggleFaces(){
+                        var toggleFaces = function () {
                              if (!faceRenderMode){
                                 cubeMaterial.color = cubeColor;
                             } else {
                                 cubeMaterial.color = new THREE.Color(0x000000);
                             }     
                             faceRenderMode = !faceRenderMode;
-                        }     
+                        };     
     
-                        function toggleVertices(){
+                        var toggleVertices = function () {
                         if (!vertexRenderMode){
                                 cube.add(cubePoints);
                             } else {
                                 cube.remove(cubePoints);
                             }     
                             vertexRenderMode = !vertexRenderMode;   
-                        }
+                        };
                              
-                        // Camera Translation
-                        
+                             
+                        // Camera Translation                     
                         var cameraMovementDistance = 0.1;
                         
-                        function resetCamera(){
+                        function resetCamera() {
                             camera.position.x = defaultCameraPos[0];
                             camera.position.y = defaultCameraPos[1];
                             camera.position.z = defaultCameraPos[2];
                         }
                        
-                        // Camera Orbit
-                        
+                        // Camera Orbit                      
                         var orbitMode = false;
                         var xFocus, yFocus, xMove, yMove;
-                        function orbitCamera(){
+                        var orbitCamera = function () {
                             /*var x = normalize()
                             console.log(xFocus, yFocus);
                             var up = (camera.position.x - xFocus).normalize();
@@ -195,7 +196,7 @@
                             //camera.lookAt(xFocus, yFocus, zFocus);
                             //camera.rotation.x = xMove*cameraMovementDistance;
                             //camera.rotation.y = (-yMove*cameraMovementDistance);*/
-                        }
+                        };
                         
                         
                         // Cube Texture 
@@ -213,14 +214,16 @@
                         var cubeTextureMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, envMap: cubeTexture});
                         var textureMode = false;
                         
-                        function toggleTextures(){
+                        var toggleTextures = function() {
                             if (!textureMode){
                                 cube.material = cubeTextureMaterial;
                             } else {
                                 cube.material = cubeMaterial;
                             }
                             textureMode = !textureMode;   
-                         }
+                         };
+                         
+                         
                         // Event Handlers
                         
                         // Key press event handler
@@ -306,8 +309,7 @@
                         function onMouseUp(e){
                             xFocus = 0; yFocus = 0; xMove = 0; yMove = 0;
                             orbitMode = false;
-                        }
-                       
+                        }                    
 		</script>
 	</body>
 </html>
