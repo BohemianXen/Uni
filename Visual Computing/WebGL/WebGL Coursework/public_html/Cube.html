@@ -15,15 +15,9 @@
                         var scene = new THREE.Scene();
                         var sceneBackground = scene.background;
                         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
                         var renderer = new THREE.WebGLRenderer();
                         renderer.setSize(window.innerWidth, window.innerHeight);
                         document.body.appendChild(renderer.domElement);
-                        
-                        
-                        //  Default Camera Positioning
-                        var defaultCameraPos = [2, 1, 7];
-                        resetCamera();        
                         
                         
                         // Event Listeners
@@ -34,8 +28,22 @@
                         document.addEventListener("mouseup", onMouseUp);
                         
                         
+                        // Default Camera Positioning
+                        var defaultCamera = camera.clone();
+                        var defaultCameraPos = [2, 1, 7];
+                        defaultCamera.position.x = defaultCameraPos[0]; 
+                        defaultCamera.position.y = defaultCameraPos[1];
+                        defaultCamera.position.z = defaultCameraPos[2];
+                        
+                        var resetCamera = function () {
+                            camera = defaultCamera.clone();                            
+                        };
+                        
+                        resetCamera();  
+                        
+                        
                         // Cube States                    
-                        var CubeState = {
+                        var CubeStates = {
                             rotating: true,
                             vertexRendering: false,
                             edgeRendering: false, 
@@ -122,10 +130,10 @@
                         };
                                                                                      
                         rotateX();
-                        CubeState.rotating = true;
+                        CubeStates.rotating = true;
                         
                         var toggleCubeAnimation = function() {
-                            if (CubeState.rotating){
+                            if (CubeStates.rotating){
                                 cancelAnimationFrame(animationID); 
                             } else {
                                 if (cube.rotation.y !== 0){
@@ -142,7 +150,7 @@
                                     rotateX();                                 
                                 }
                             }
-                            CubeState.rotating = !CubeState.rotating; 
+                            CubeStates.rotating = !CubeStates.rotating; 
                         };
                            
                         
@@ -156,19 +164,19 @@
                         //cube.add(cubeWireframe);
                         
                         var toggleEdges = function () {
-                            if (!CubeState.edgeRendering){
+                            if (!CubeStates.edgeRendering){
                                 cube.add(cubeWireframe);
                             } else {
                                 cube.remove(cubeWireframe);
                             }     
-                            CubeState.edgeRendering = !CubeState.edgeRendering;   
+                            CubeStates.edgeRendering = !CubeStates.edgeRendering;   
                         };
                         
                         var toggleFaces = function () {
-                            if (!CubeState.faceRendering){
+                            if (!CubeStates.faceRendering){
                                 cube.material.opacity = 0.0;
                                 cube.material.transparent = true;
-                                if (CubeState.textureRendering){                            
+                                if (CubeStates.textureRendering){                            
                                     for (var i = 0; i < cube.material.length; i++)
                                     {
                                         cube.material[i].opacity = 0.0;
@@ -178,35 +186,59 @@
                             } else {   
                                 cube.material.opacity = 1.0;
                                 cube.material.transparent = false;
-                                if (CubeState.textureRendering){
+                                if (CubeStates.textureRendering){
                                     for (var i = 0; i < cube.material.length; i++){
                                         cube.material[i].opacity = 1.0;
                                         cube.material[i].transparent = false;
                                     }
                                 }
                             }    
-                            CubeState.faceRendering = !CubeState.faceRendering;
+                            CubeStates.faceRendering = !CubeStates.faceRendering;
                         };     
     
                         var toggleVertices = function () {
-                        if (!CubeState.vertexRendering){
+                        if (!CubeStates.vertexRendering){
                                 cube.add(cubePoints);
                             } else {
                                 cube.remove(cubePoints);
                             }     
-                            CubeState.vertexRendering = !CubeState.vertexRendering;   
+                            CubeStates.vertexRendering = !CubeStates.vertexRendering;   
                         };
                              
                              
-                        // Camera Translation                     
-                        var cameraMovementDistance = 0.1;
-                        
-                        function resetCamera() {
-                            camera.position.x = defaultCameraPos[0];
-                            camera.position.y = defaultCameraPos[1];
-                            camera.position.z = defaultCameraPos[2];
-                        }
+                        // Camera Translation    
                         // TODO: Change Camera.up and see if up still does the same thing
+                        // TODO: Change scrollwheel to zoom on scrollwheel, not z translation
+                        var cameraMovementDistance = 0.1;
+                        //  camera.up = new THREE.Vector3(1, 0, 0);
+                        console.log(camera);
+                        
+                        var translateCamera = function (direction) {
+                            switch (direction){
+                                case 'left':
+                                    camera.translateX(-cameraMovementDistance);
+                                    break;
+                                case 'up':
+                                    camera.translateY(cameraMovementDistance);
+                                    break;
+                                case 'right':
+                                    camera.translateX(cameraMovementDistance);                              
+                                    break;
+                                case 'down':
+                                    camera.translateY(-cameraMovementDistance);
+                                    break;
+                                case 'forwards':
+                                    camera.translateZ(-cameraMovementDistance);
+                                    break;
+                                case 'backwards':
+                                    camera.translateZ(cameraMovementDistance);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            
+                        };
+                       
                         // TODO: orbitcontrols might be a thing
                         // 
                         // Camera Orbit                      
@@ -237,16 +269,16 @@
                         
                         // Use textured material by default
                         cube.material = textures;
-                        CubeState.textureRendering = true;
+                        CubeStates.textureRendering = true;
                         
                         var toggleTextures = function() {
-                            if (!CubeState.textureRendering){
+                            if (!CubeStates.textureRendering){
                                 cube.material = textures;
                             } else {
                                 cube.material = cubeMaterial;
                             }
-                            CubeState.faceRendering = true;
-                            CubeState.textureRendering = !CubeState.textureRendering; 
+                            CubeStates.faceRendering = true;
+                            CubeStates.textureRendering = !CubeStates.textureRendering; 
                             toggleFaces();
                          };
                          
@@ -262,27 +294,27 @@
                                     break;
                                 // Move camera left on left arrow KeyDown
                                 case 37:
-                                    camera.translateX(-cameraMovementDistance);                              
+                                    translateCamera('left');
                                     break;
                                 // Move camera up on up arrow KeyDown
                                 case 38:
-                                    camera.translateY(cameraMovementDistance);
+                                    translateCamera('up');
                                     break;
                                 // Move camera right on right arrow KeyDown
-                                case 39:
-                                    camera.translateX(cameraMovementDistance);                              
-                                    break;
+                                case 39:                            
+                                    translateCamera('right');
+                                    break; 
                                 // Move camera down on down arrow KeyDown
                                 case 40:
-                                    camera.translateY(-cameraMovementDistance);
-                                    break;
-                                // Zoom in on '+' KeyDown; can also be invoked by using the mousewheel
+                                    translateCamera('down');
+                                    break;                                
+                                // Move camera forwards on '+' KeyDown; can also be invoked by using the mousewheel
                                 case 107:
-                                    camera.translateZ(-cameraMovementDistance);
-                                    break;
-                                // Zoom out on '-' KeyDown; can also be invoked by using the mousewheel
+                                    translateCamera('forwards');
+                                    break;                                
+                                // Move camera backwards '-' KeyDown; can also be invoked by using the mousewheel
                                 case 109:
-                                    camera.translateZ(cameraMovementDistance);
+                                    translateCamera('backwards');
                                     break;
                                 // Reset camera position on 'r' KeyDown
                                 case 82:
@@ -311,23 +343,24 @@
                         
                         // Scroll wheel event handler 
                         // Used to zoom camera in and out via the scroll wheel
-                        function onWheelScroll(e){
-                            if (e.wheelDelta > 0){
-                                camera.translateZ(-cameraMovementDistance);
+                        function onWheelScroll(e){                        
+                           if (e.wheelDelta > 0){
+                                camera.position.z -= cameraMovementDistance;
                             } else {
-                                camera.translateZ(cameraMovementDistance);
+                                camera.position.z += cameraMovementDistance;
                             }
+                            //console.log(camera.zoom);
                         }
                         
                         function onMouseDown(e){
                             if (e.which === 1){
                                 xFocus = e.x; yFocus = e.y;
-                                CubeState.orbiting = true;
+                                CubeStates.orbiting = true;
                             }
                         }
                         
                         function onMouseMove(e){
-                            if (CubeState.orbiting){
+                            if (CubeStates.orbiting){
                                 xMove = e.movementX;  yMove = e.movementY;
                                 orbitCamera();
                             }
@@ -335,7 +368,7 @@
                         
                         function onMouseUp(e){
                             xFocus = 0; yFocus = 0; xMove = 0; yMove = 0;
-                            CubeState.orbiting = false;
+                            CubeStates.orbiting = false;
                         }                    
 		</script>
 	</body>
