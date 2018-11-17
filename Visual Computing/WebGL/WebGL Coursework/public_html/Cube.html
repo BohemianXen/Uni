@@ -33,6 +33,17 @@
                         document.addEventListener("mousemove", onMouseMove);
                         document.addEventListener("mouseup", onMouseUp);
                         
+                        
+                        // Cube States                    
+                        var CubeState = {
+                            rotating: true,
+                            vertexRendering: false,
+                            edgeRendering: false, 
+                            faceRendering: false, // Inverted initialisation
+                            textureRendering: true,
+                            orbiting: false
+                        };
+                        
                     
                         // Cube Setup
                         var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);         
@@ -50,6 +61,7 @@
                         var yAxisMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
                         var zAxisMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
                         var axisLength = 20;
+                        
                         xAxisGeometry.vertices.push(
                                 new THREE.Vector3(-axisLength, 0, 0),
                                 new THREE.Vector3(axisLength, 0, 0)
@@ -70,7 +82,7 @@
                         var zAxis = new THREE.Line(zAxisGeometry, zAxisMaterial);
                         
                         scene.add(xAxis, yAxis, zAxis);       
-                        
+                       
                         
                         // Cube Rotation
                         var animationID; 
@@ -110,10 +122,10 @@
                         };
                                                                                      
                         rotateX();
-                        var cubeRotating = true;
+                        CubeState.rotating = true;
                         
                         var toggleCubeAnimation = function() {
-                            if (cubeRotating){
+                            if (CubeState.rotating){
                                 cancelAnimationFrame(animationID); 
                             } else {
                                 if (cube.rotation.y !== 0){
@@ -130,7 +142,7 @@
                                     rotateX();                                 
                                 }
                             }
-                            cubeRotating = !cubeRotating; 
+                            CubeState.rotating = !CubeState.rotating; 
                         };
                            
                         
@@ -140,38 +152,49 @@
                         var cubePoints = new THREE.Points(cubeGeometry, cubePointsMaterial);
                         var cubeWireframe = new THREE.Mesh(cubeGeometry, cubeWireframeMaterial);
                         
-                        cube.add(cubePoints);
-                        cube.add(cubeWireframe);
-                        
-                        var vertexRenderMode = true;
-                        var edgeRenderMode = true;
-                        var faceRenderMode = true;
+                        //cube.add(cubePoints);
+                        //cube.add(cubeWireframe);
                         
                         var toggleEdges = function () {
-                            if (!edgeRenderMode){
+                            if (!CubeState.edgeRendering){
                                 cube.add(cubeWireframe);
                             } else {
                                 cube.remove(cubeWireframe);
                             }     
-                            edgeRenderMode = !edgeRenderMode;   
+                            CubeState.edgeRendering = !CubeState.edgeRendering;   
                         };
                         
                         var toggleFaces = function () {
-                             if (!faceRenderMode){
-                                cubeMaterial.color = cubeColor;
-                            } else {
-                                cubeMaterial.color = new THREE.Color(0x000000);
-                            }     
-                            faceRenderMode = !faceRenderMode;
+                            if (!CubeState.faceRendering){
+                                cube.material.opacity = 0.0;
+                                cube.material.transparent = true;
+                                if (CubeState.textureRendering){                            
+                                    for (var i = 0; i < cube.material.length; i++)
+                                    {
+                                        cube.material[i].opacity = 0.0;
+                                        cube.material[i].transparent = true;
+                                    }  
+                                }
+                            } else {   
+                                cube.material.opacity = 1.0;
+                                cube.material.transparent = false;
+                                if (CubeState.textureRendering){
+                                    for (var i = 0; i < cube.material.length; i++){
+                                        cube.material[i].opacity = 1.0;
+                                        cube.material[i].transparent = false;
+                                    }
+                                }
+                            }    
+                            CubeState.faceRendering = !CubeState.faceRendering;
                         };     
     
                         var toggleVertices = function () {
-                        if (!vertexRenderMode){
+                        if (!CubeState.vertexRendering){
                                 cube.add(cubePoints);
                             } else {
                                 cube.remove(cubePoints);
                             }     
-                            vertexRenderMode = !vertexRenderMode;   
+                            CubeState.vertexRendering = !CubeState.vertexRendering;   
                         };
                              
                              
@@ -183,9 +206,10 @@
                             camera.position.y = defaultCameraPos[1];
                             camera.position.z = defaultCameraPos[2];
                         }
-                       
+                        // TODO: Change Camera.up and see if up still does the same thing
+                        // TODO: orbitcontrols might be a thing
+                        // 
                         // Camera Orbit                      
-                        var orbitMode = false;
                         var xFocus, yFocus, xMove, yMove;
                         var orbitCamera = function () {
                             /*var x = normalize()
@@ -200,27 +224,30 @@
                         
                         
                         // Cube Texture 
-                        var cubeTextureLoader = new THREE.CubeTextureLoader();
-                        cubeTextureLoader.setPath("resources/");
-                        cubeTextureLoader.minFilter = THREE.NearestFilter; //THREE.LinearFilter;    
-                        var cubeTexture = cubeTextureLoader.load([
-                                'bronze.jpg', 
-                                'bronze.jpg',
-                                'bronze.jpg',
-                                'bronze.jpg',
-                                'bronze.jpg', 
-                                'bronze.jpg'
-                        ]);
-                        var cubeTextureMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, envMap: cubeTexture});
-                        var textureMode = false;
+                        var textureNames = ['bronze', 'wire', 'scratched', 'shapes', 'colour', 'water'];
+                        var textures = [];
+                        var textureLoader = new THREE.TextureLoader();
+                        textureLoader.setPath("resources/");
+         
+                        for (texture in textureNames){                          
+                            textures.push(new THREE.MeshBasicMaterial({
+                                map: textureLoader.load(textureNames[texture] + '.jpg')
+                            }));
+                        }
+                        
+                        // Use textured material by default
+                        cube.material = textures;
+                        CubeState.textureRendering = true;
                         
                         var toggleTextures = function() {
-                            if (!textureMode){
-                                cube.material = cubeTextureMaterial;
+                            if (!CubeState.textureRendering){
+                                cube.material = textures;
                             } else {
                                 cube.material = cubeMaterial;
                             }
-                            textureMode = !textureMode;   
+                            CubeState.faceRendering = true;
+                            CubeState.textureRendering = !CubeState.textureRendering; 
+                            toggleFaces();
                          };
                          
                          
@@ -295,12 +322,12 @@
                         function onMouseDown(e){
                             if (e.which === 1){
                                 xFocus = e.x; yFocus = e.y;
-                                orbitMode = true;
+                                CubeState.orbiting = true;
                             }
                         }
                         
                         function onMouseMove(e){
-                            if (orbitMode){
+                            if (CubeState.orbiting){
                                 xMove = e.movementX;  yMove = e.movementY;
                                 orbitCamera();
                             }
@@ -308,7 +335,7 @@
                         
                         function onMouseUp(e){
                             xFocus = 0; yFocus = 0; xMove = 0; yMove = 0;
-                            orbitMode = false;
+                            CubeState.orbiting = false;
                         }                    
 		</script>
 	</body>
