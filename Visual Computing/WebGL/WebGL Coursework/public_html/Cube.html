@@ -56,13 +56,7 @@
                         var ActiveObject = { 
                             selected: null,
                             points: null,
-                            wireframe: null
-                            /*geometry: null,
-                            color: null,
-                            material: null,
-                            points: null,
-                            wireframe: null,*/
-                            
+                            wireframe: null                        
                         };
                                       
     
@@ -110,10 +104,11 @@
                         var rotationStep = 0.01;
                         
                         var rotateX = function() {
+                            var obj = ActiveObject.selected;
                             animationID = requestAnimationFrame(rotateX); 
-                            ActiveObject.selected.rotation.x += rotationStep;
-                            if (ActiveObject.selected.rotation.x >= 2*Math.PI){
-                                ActiveObject.selected.rotation.x = 0;
+                            obj.rotation.x += rotationStep;
+                            if (obj.rotation.x >= 2*Math.PI){
+                                 obj.rotation.x = 0;
                                 cancelAnimationFrame(animationID); 
                                 rotateY();
                             }
@@ -121,10 +116,11 @@
                         };
                         
                         var rotateY = function() {
+                            var obj = ActiveObject.selected;
                             animationID = requestAnimationFrame(rotateY);
-                            ActiveObject.selected.rotation.y += rotationStep;
-                            if (ActiveObject.selected.rotation.y >= 2*Math.PI){
-                                ActiveObject.selected.rotation.y = 0;
+                            obj.rotation.y += rotationStep;
+                            if (obj.rotation.y >= 2*Math.PI){
+                                obj.rotation.y = 0;
                                 cancelAnimationFrame(animationID); 
                                 rotateZ();
                             }
@@ -132,10 +128,11 @@
                         };  
                         
                         var rotateZ = function() {
+                            var obj = ActiveObject.selected;
                             animationID = requestAnimationFrame(rotateZ); 
-                            ActiveObject.selected.rotation.z += rotationStep;
-                            if (ActiveObject.selected.rotation.z >= 2*Math.PI){
-                                ActiveObject.selected.rotation.z = 0;
+                            obj.rotation.z += rotationStep;
+                            if (obj.rotation.z >= 2*Math.PI){
+                                obj.rotation.z = 0;
                                 cancelAnimationFrame(animationID); 
                                 rotateX();
                             }
@@ -146,20 +143,21 @@
                         States.rotating = true;
                         
                         var toggleAnimation = function() {
+                            var obj = ActiveObject.selected;
                             if (States.rotating){
                                 cancelAnimationFrame(animationID); 
                             } else {
-                                if (ActiveObject.selected.rotation.y !== 0){
-                                    ActiveObject.selected.rotation.x = 0;
-                                    ActiveObject.selected.rotation.z = 0;
+                                if (obj.rotation.y !== 0){
+                                    obj.rotation.x = 0;
+                                    obj.rotation.z = 0;
                                     rotateY();
-                                } else if (ActiveObject.selected.rotation.z !== 0){
-                                    ActiveObject.selected.rotation.x = 0;
-                                    ActiveObject.selected.rotation.y = 0;
+                                } else if (obj.rotation.z !== 0){
+                                    obj.rotation.x = 0;
+                                    obj.rotation.y = 0;
                                     rotateZ();
                                 } else { 
-                                    ActiveObject.selected.rotation.y = 0;
-                                    ActiveObject.selected.rotation.z = 0;
+                                    obj.rotation.y = 0;
+                                    obj.rotation.z = 0;
                                     rotateX();                                 
                                 }
                             }
@@ -288,15 +286,17 @@
                         cube.material = textures;
                         States.textureRendering = true;
                         
-                        var toggleTextures = function() {
-                            if (!States.textureRendering){
+                        var toggleTextures = function(obj) {
+                            if (obj === cube){
+                                if (!States.textureRendering){
                                 cube.material = textures;
-                            } else {
-                                cube.material = cubeMaterial;
+                                } else {
+                                    cube.material = cubeMaterial;
+                                }
+                                States.faceRendering = true;
+                                States.textureRendering = !States.textureRendering; 
+                                toggleFaces(obj);
                             }
-                            States.faceRendering = true;
-                            States.textureRendering = !States.textureRendering; 
-                            toggleFaces();
                          };
                          
                          
