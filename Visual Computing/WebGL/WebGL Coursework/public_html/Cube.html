@@ -259,17 +259,68 @@
                        
                         // Camera Orbit   
                         var Orbit = {
+                            started: false,
+                            xStart: 0,
+                            yStart: 0,
                             xFocus: 0, 
                             yFocus: 0,
                             xMove: 0,
-                            yMove: 0
+                            yMove: 0,
+                            newX: 0,
+                            newY: 0,
+                            newZ: 0,
+                            lookAtPoint: null
                         };
                         
+                        var sqr = val => val*val;
+                        var sum = (accumulator, val) => accumulator + val;
+                        var angleStep = Math.PI/4;
                         var orbitCamera = function () {
-                            
+                            if (!Orbit.started){
+                                xStart = Orbit.xFocus; yStart = Orbit.yFocus;
+                                Orbit.lookAtPoint = screen2Cartesian(xStart, yStart);
+                                Orbit.started = true;                          
+                            } else {
+                                var temp = cartesian2Spherical(Orbit.lookAtPoint);                       
+                                var currentCamPos = camera.position;    
+                                console.log(Orbit.yMove, Orbit.xMove);
+                                temp[1] += Orbit.yMove * angleStep;
+                                temp[2] += Orbit.xMove * angleStep;
+                                console.log(temp);
+                                var newPos = spherical2Cartesian(temp);
+                                //console.log(newPos);
+                                //console.log(camera.position);
+                                camera.translateX(newPos.x);
+                                camera.translateY(newPos.y);
+                                camera.translateZ(newPos.z);
+                            }
+                            camera.lookAt(Orbit.lookAtPoint);
                         };
                         
+                        var screen2Cartesian = function (xScreen, yScreen) {
+                            var x = -1 + (2*xScreen/window.innerWidth);
+                            var y = -(-1 + (2*yScreen/window.innerHeight));    
+                            var z = Math.sqrt(sqr(x) + sqr(y));           
+                            return new THREE.Vector3(x, y, z);  
+                        };
                         
+                        var cartesian2Spherical = function(cartesianVector3) {
+                            var cartesian = [cartesianVector3.x, cartesianVector3.y, cartesianVector3.z];
+                            var radius = Math.sqrt(cartesian.map(val => sqr(val)).reduce(sum));
+                            var theta = Math.acos(cartesianVector3.z/radius);
+                            var phi = Math.atan(cartesianVector3.y/cartesianVector3.x);
+                            return [radius, theta, phi];
+                        };
+                        
+                       var spherical2Cartesian = function(spherical) {
+                            var radius = spherical[0]; var theta = spherical[1];
+                            var phi = spherical[2];
+                            var x = radius*Math.sin(theta)*Math.cos(phi);
+                            var y = radius*Math.sin(theta)*Math.sin(phi);    
+                            var z = radius*Math.cos(theta);         
+                            return new THREE.Vector3(x, y, z);  
+                        };
+   
                         // Cube Texture 
                         var textureNames = ['bronze', 'wire', 'scratched', 'shapes', 'colour', 'water'];
                         var textures = [];
@@ -298,7 +349,6 @@
                                 toggleFaces(obj);
                             }
                          };
-                         
                          
                         // Event Handlers
                         
@@ -382,13 +432,14 @@
                             if (States.orbiting){
                                 Orbit.xMove = e.movementX; Orbit.yMove = e.movementY;
                                 orbitCamera();
+                                renderer.render(scene, camera);
                             }
                         }
                         
                         function onMouseUp(e){
                             Orbit.xFocus = 0; Orbit.yFocus = 0; 
                             Orbit.xMove = 0; Orbit.yMove = 0;
-                            States.orbiting = false;
+                            States.orbiting = false; Orbit.started = false;
                         }                    
 		</script>
 	</body>
