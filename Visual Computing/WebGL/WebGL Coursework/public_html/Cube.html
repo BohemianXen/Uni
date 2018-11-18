@@ -16,6 +16,7 @@
                         var sceneBackground = scene.background;
                         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
                         var renderer = new THREE.WebGLRenderer();
+                        //var controls = new THREE.OrbitControls(camera, renderer.domElement);
                         renderer.setSize(window.innerWidth, window.innerHeight);
                         document.body.appendChild(renderer.domElement);
                         
@@ -30,7 +31,7 @@
                         
                         // Default Camera Positioning
                         var defaultCamera = camera.clone();
-                        var defaultCameraPos = [2, 1, 7];
+                        var defaultCameraPos = [2, 1, 5];
                         defaultCamera.position.x = defaultCameraPos[0]; 
                         defaultCamera.position.y = defaultCameraPos[1];
                         defaultCamera.position.z = defaultCameraPos[2];
@@ -42,8 +43,8 @@
                         resetCamera();  
                         
                         
-                        // Cube States                    
-                        var CubeStates = {
+                        // Object States                    
+                        var States = {
                             rotating: true,
                             vertexRendering: false,
                             edgeRendering: false, 
@@ -52,14 +53,26 @@
                             orbiting: false
                         };
                         
-                    
+                        var ActiveObject = { 
+                            selected: null,
+                            points: null,
+                            wireframe: null
+                            /*geometry: null,
+                            color: null,
+                            material: null,
+                            points: null,
+                            wireframe: null,*/
+                            
+                        };
+                                      
+    
                         // Cube Setup
                         var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);         
                         var cubeColor = new THREE.Color(0x008B8B);
                         var cubeMaterial = new THREE.MeshBasicMaterial({color: cubeColor, vertexColors: THREE.VertexColors});
                         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-                        scene.add(cube);
-                        
+                        ActiveObject.selected = cube;
+                        scene.add(ActiveObject.selected);
                         
                         // Axes Setup                
                         var xAxisGeometry = new THREE.Geometry();
@@ -68,7 +81,7 @@
                         var xAxisMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
                         var yAxisMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
                         var zAxisMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
-                        var axisLength = 20;
+                        var axisLength = 4;
                         
                         xAxisGeometry.vertices.push(
                                 new THREE.Vector3(-axisLength, 0, 0),
@@ -98,9 +111,9 @@
                         
                         var rotateX = function() {
                             animationID = requestAnimationFrame(rotateX); 
-                            cube.rotation.x += rotationStep;
-                            if (cube.rotation.x >= 2*Math.PI){
-                                cube.rotation.x = 0;
+                            ActiveObject.selected.rotation.x += rotationStep;
+                            if (ActiveObject.selected.rotation.x >= 2*Math.PI){
+                                ActiveObject.selected.rotation.x = 0;
                                 cancelAnimationFrame(animationID); 
                                 rotateY();
                             }
@@ -109,9 +122,9 @@
                         
                         var rotateY = function() {
                             animationID = requestAnimationFrame(rotateY);
-                            cube.rotation.y += rotationStep;
-                            if (cube.rotation.y >= 2*Math.PI){
-                                cube.rotation.y = 0;
+                            ActiveObject.selected.rotation.y += rotationStep;
+                            if (ActiveObject.selected.rotation.y >= 2*Math.PI){
+                                ActiveObject.selected.rotation.y = 0;
                                 cancelAnimationFrame(animationID); 
                                 rotateZ();
                             }
@@ -120,9 +133,9 @@
                         
                         var rotateZ = function() {
                             animationID = requestAnimationFrame(rotateZ); 
-                            cube.rotation.z += rotationStep;
-                            if (cube.rotation.z >= 2*Math.PI){
-                                cube.rotation.z = 0;
+                            ActiveObject.selected.rotation.z += rotationStep;
+                            if (ActiveObject.selected.rotation.z >= 2*Math.PI){
+                                ActiveObject.selected.rotation.z = 0;
                                 cancelAnimationFrame(animationID); 
                                 rotateX();
                             }
@@ -130,88 +143,95 @@
                         };
                                                                                      
                         rotateX();
-                        CubeStates.rotating = true;
+                        States.rotating = true;
                         
-                        var toggleCubeAnimation = function() {
-                            if (CubeStates.rotating){
+                        var toggleAnimation = function() {
+                            if (States.rotating){
                                 cancelAnimationFrame(animationID); 
                             } else {
-                                if (cube.rotation.y !== 0){
-                                    cube.rotation.x = 0;
-                                    cube.rotation.z = 0;
+                                if (ActiveObject.selected.rotation.y !== 0){
+                                    ActiveObject.selected.rotation.x = 0;
+                                    ActiveObject.selected.rotation.z = 0;
                                     rotateY();
-                                } else if (cube.rotation.z !== 0){
-                                    cube.rotation.x = 0;
-                                    cube.rotation.y = 0;
+                                } else if (ActiveObject.selected.rotation.z !== 0){
+                                    ActiveObject.selected.rotation.x = 0;
+                                    ActiveObject.selected.rotation.y = 0;
                                     rotateZ();
                                 } else { 
-                                    cube.rotation.y = 0;
-                                    cube.rotation.z = 0;
+                                    ActiveObject.selected.rotation.y = 0;
+                                    ActiveObject.selected.rotation.z = 0;
                                     rotateX();                                 
                                 }
                             }
-                            CubeStates.rotating = !CubeStates.rotating; 
+                            States.rotating = !States.rotating; 
                         };
                            
                         
                         // Render modes 
-                        var cubePointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.1});
-                        var cubeWireframeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true});
-                        var cubePoints = new THREE.Points(cubeGeometry, cubePointsMaterial);
-                        var cubeWireframe = new THREE.Mesh(cubeGeometry, cubeWireframeMaterial);
-                        
-                        //cube.add(cubePoints);
-                        //cube.add(cubeWireframe);
-                        
-                        var toggleEdges = function () {
-                            if (!CubeStates.edgeRendering){
-                                cube.add(cubeWireframe);
-                            } else {
-                                cube.remove(cubeWireframe);
-                            }     
-                            CubeStates.edgeRendering = !CubeStates.edgeRendering;   
+                        var pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.1});
+                        var wireframeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true});
+                        var cubePoints = new THREE.Points(cubeGeometry, pointsMaterial);
+                        var cubeWireframe = new THREE.Mesh(cubeGeometry, wireframeMaterial);
+                      
+                        var updateActivePoints = function (newPoints){
+                             ActiveObject.points = newPoints;
                         };
                         
-                        var toggleFaces = function () {
-                            if (!CubeStates.faceRendering){
-                                cube.material.opacity = 0.0;
-                                cube.material.transparent = true;
-                                if (CubeStates.textureRendering){                            
-                                    for (var i = 0; i < cube.material.length; i++)
+                        var updateActiveWireframe= function (newWireframe){
+                             ActiveObject.wireframe = newWireframe;
+                        };
+                        
+                        updateActivePoints(cubePoints);
+                        updateActiveWireframe(cubeWireframe);
+                        
+                        var toggleEdges = function (obj) {
+                            if (!States.edgeRendering){
+                                obj.add(ActiveObject.wireframe);
+                            } else {
+                                obj.remove(ActiveObject.wireframe);
+                            }     
+                            States.edgeRendering = !States.edgeRendering;   
+                        };
+                        
+                        // TODO: Fix bugs -> T then F needs second F also a subsquent T does not bring the texture back
+                        //                   F then T means T behaves like F
+                        var toggleFaces = function (obj) {
+                            if (!States.faceRendering){
+                                obj.material.opacity = 0.0;
+                                obj.material.transparent = true;
+                                if (States.textureRendering){                            
+                                    for (var i = 0; i < obj.material.length; i++)
                                     {
-                                        cube.material[i].opacity = 0.0;
-                                        cube.material[i].transparent = true;
+                                        obj.material[i].opacity = 0.0;
+                                        obj.material[i].transparent = true;
                                     }  
                                 }
                             } else {   
-                                cube.material.opacity = 1.0;
-                                cube.material.transparent = false;
-                                if (CubeStates.textureRendering){
-                                    for (var i = 0; i < cube.material.length; i++){
-                                        cube.material[i].opacity = 1.0;
-                                        cube.material[i].transparent = false;
+                                obj.material.opacity = 1.0;
+                                obj.material.transparent = false;
+                                if (States.textureRendering){
+                                    for (var i = 0; i < obj.material.length; i++){
+                                        obj.material[i].opacity = 1.0;
+                                        obj.material[i].transparent = false;
                                     }
                                 }
                             }    
-                            CubeStates.faceRendering = !CubeStates.faceRendering;
+                            States.faceRendering = !States.faceRendering;
                         };     
     
-                        var toggleVertices = function () {
-                        if (!CubeStates.vertexRendering){
-                                cube.add(cubePoints);
+                        var toggleVertices = function (obj) {
+                        if (!States.vertexRendering){
+                                obj.add(ActiveObject.points);
                             } else {
-                                cube.remove(cubePoints);
+                                obj.remove(ActiveObject.points);
                             }     
-                            CubeStates.vertexRendering = !CubeStates.vertexRendering;   
+                            States.vertexRendering = !States.vertexRendering;   
                         };
                              
                              
                         // Camera Translation    
-                        // TODO: Change Camera.up and see if up still does the same thing
                         // TODO: Change scrollwheel to zoom on scrollwheel, not z translation
                         var cameraMovementDistance = 0.1;
-                        //  camera.up = new THREE.Vector3(1, 0, 0);
-                        console.log(camera);
                         
                         var translateCamera = function (direction) {
                             switch (direction){
@@ -219,7 +239,7 @@
                                     camera.translateX(-cameraMovementDistance);
                                     break;
                                 case 'up':
-                                    camera.translateY(cameraMovementDistance);
+                                     camera.translateY(cameraMovementDistance);
                                     break;
                                 case 'right':
                                     camera.translateX(cameraMovementDistance);                              
@@ -236,22 +256,19 @@
                                 default:
                                     break;
                             }
-                            
                         };
                        
-                        // TODO: orbitcontrols might be a thing
-                        // 
-                        // Camera Orbit                      
-                        var xFocus, yFocus, xMove, yMove;
+                       
+                        // Camera Orbit   
+                        var Orbit = {
+                            xFocus: 0, 
+                            yFocus: 0,
+                            xMove: 0,
+                            yMove: 0
+                        };
+                        
                         var orbitCamera = function () {
-                            /*var x = normalize()
-                            console.log(xFocus, yFocus);
-                            var up = (camera.position.x - xFocus).normalize();
                             
-                            var zFocus = Math.sqrt(xFocus*xFocus + yFocus*yFocus);
-                            //camera.lookAt(xFocus, yFocus, zFocus);
-                            //camera.rotation.x = xMove*cameraMovementDistance;
-                            //camera.rotation.y = (-yMove*cameraMovementDistance);*/
                         };
                         
                         
@@ -269,16 +286,16 @@
                         
                         // Use textured material by default
                         cube.material = textures;
-                        CubeStates.textureRendering = true;
+                        States.textureRendering = true;
                         
                         var toggleTextures = function() {
-                            if (!CubeStates.textureRendering){
+                            if (!States.textureRendering){
                                 cube.material = textures;
                             } else {
                                 cube.material = cubeMaterial;
                             }
-                            CubeStates.faceRendering = true;
-                            CubeStates.textureRendering = !CubeStates.textureRendering; 
+                            States.faceRendering = true;
+                            States.textureRendering = !States.textureRendering; 
                             toggleFaces();
                          };
                          
@@ -288,9 +305,9 @@
                         // Key press event handler
                         function onKeyDown(e){
                             switch(e.which){
-                                // Pause cube rotation
+                                // Pause object rotation
                                 case 32:
-                                    toggleCubeAnimation();
+                                    toggleAnimation();
                                     break;
                                 // Move camera left on left arrow KeyDown
                                 case 37:
@@ -322,15 +339,15 @@
                                     break;
                                 // Toggle cube edge rendering (inc. primitive triangles) on 'e' KeyDown
                                 case 69:
-                                    toggleEdges();
+                                    toggleEdges(ActiveObject.selected);
                                     break;
                                 // Toggle cube faces on 'f' KeyDown
                                 case 70: 
-                                    toggleFaces();
+                                    toggleFaces(ActiveObject.selected);
                                     break;                      
                                 // Toggle cube vertex rendering on 'v' KeyDown
                                 case 86: 
-                                    toggleVertices();
+                                    toggleVertices(ActiveObject.selected);
                                     break;       
                                 // Apply textures on 't' KeyDown
                                 case 84: 
@@ -339,6 +356,8 @@
                                 default:
                                     break;                            
                             }
+                            
+                            renderer.render(scene, camera);
                         }
                         
                         // Scroll wheel event handler 
@@ -354,21 +373,22 @@
                         
                         function onMouseDown(e){
                             if (e.which === 1){
-                                xFocus = e.x; yFocus = e.y;
-                                CubeStates.orbiting = true;
+                                Orbit.xFocus = e.x; Orbit.yFocus = e.y;
+                                States.orbiting = true;
                             }
                         }
                         
                         function onMouseMove(e){
-                            if (CubeStates.orbiting){
-                                xMove = e.movementX;  yMove = e.movementY;
+                            if (States.orbiting){
+                                Orbit.xMove = e.movementX; Orbit.yMove = e.movementY;
                                 orbitCamera();
                             }
                         }
                         
                         function onMouseUp(e){
-                            xFocus = 0; yFocus = 0; xMove = 0; yMove = 0;
-                            CubeStates.orbiting = false;
+                            Orbit.xFocus = 0; Orbit.yFocus = 0; 
+                            Orbit.xMove = 0; Orbit.yMove = 0;
+                            States.orbiting = false;
                         }                    
 		</script>
 	</body>
