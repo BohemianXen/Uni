@@ -32,12 +32,13 @@
                         // Default Camera Positioning
                         var defaultCamera = camera.clone();
                         var defaultCameraPos = [2, 1, 5];
+                        var defaultLookAt = new THREE.Vector3(0.0031250000000000444, -0.22544951590594753, 0.9742498396986135);
                         defaultCamera.position.x = defaultCameraPos[0]; 
                         defaultCamera.position.y = defaultCameraPos[1];
                         defaultCamera.position.z = defaultCameraPos[2];
-                        
                         var resetCamera = function () {
-                            camera = defaultCamera.clone();                            
+                            camera = defaultCamera.clone(); 
+                            camera.lookAt(defaultLookAt);
                         };
                         
                         resetCamera();  
@@ -260,48 +261,73 @@
                         // Camera Orbit   
                         var Orbit = {
                             started: false,
-                            xStart: 0,
-                            yStart: 0,
                             xFocus: 0, 
                             yFocus: 0,
                             xMove: 0,
                             yMove: 0,
-                            newX: 0,
-                            newY: 0,
-                            newZ: 0,
+                            radius: -1,
                             lookAtPoint: null
                         };
                         
                         var sqr = val => val*val;
                         var sum = (accumulator, val) => accumulator + val;
-                        var angleStep = Math.PI/4;
+
                         var orbitCamera = function () {
                             if (!Orbit.started){
                                 xStart = Orbit.xFocus; yStart = Orbit.yFocus;
                                 Orbit.lookAtPoint = screen2Cartesian(xStart, yStart);
+                                Orbit.prevX = xStart; Orbit.prevY = yStart;
+                                Orbit.radius = Orbit.lookAtPoint.z;
                                 Orbit.started = true;                          
                             } else {
-                                var temp = cartesian2Spherical(Orbit.lookAtPoint);                       
-                                var currentCamPos = camera.position;    
-                                console.log(Orbit.yMove, Orbit.xMove);
-                                temp[1] += Orbit.yMove * angleStep;
-                                temp[2] += Orbit.xMove * angleStep;
-                                console.log(temp);
-                                var newPos = spherical2Cartesian(temp);
-                                //console.log(newPos);
-                                //console.log(camera.position);
-                                camera.translateX(newPos.x);
-                                camera.translateY(newPos.y);
-                                camera.translateZ(newPos.z);
+                                 if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {
+                                    var op1 = screen2Cartesian(Orbit.xFocus, Orbit.yFocus);
+                                    var op2 = screen2Cartesian(Orbit.xFocus + Orbit.xMove, Orbit.prevY + Orbit.yMove);
+                                    var angle = Math.acos(Math.min(1, dotProduct(op1, op2)));
+                                    var orthogonalVector = crossProduct(op1, op2);
+                                    
+                                    camera.translateX(op2.x - op1.x); // 4)*());
+                                    camera.translateY(op2.y - op1.y);
+                                    //camera.translateZ(op2.z - op1.z);
+                                    //console.log(op1, op2);
+                                    console.log(angle);
+                                    //console.log(orthogonalVector);
+
+                                    camera.rotateOnAxis(orthogonalVector, angle*2*Math.PI);
+                                }
                             }
+;
                             camera.lookAt(Orbit.lookAtPoint);
                         };
                         
-                        var screen2Cartesian = function (xScreen, yScreen) {
-                            var x = -1 + (2*xScreen/window.innerWidth);
-                            var y = -(-1 + (2*yScreen/window.innerHeight));    
-                            var z = Math.sqrt(sqr(x) + sqr(y));           
-                            return new THREE.Vector3(x, y, z);  
+                        var dotProduct = function(a, b) {
+                            var result = [a.x*b.x, a.y*b.y, a.z*b.z];
+                            return result.reduce(sum);
+                        };
+                        
+                        var crossProduct = function(a, b) {
+                            return new THREE.Vector3(
+                                    (a.y*b.z) - (a.z*b.y),
+                                    (a.z*b.x) - (a.x*b.z), 
+                                    (a.x*b.y) - (a.y*b.x)
+                                );
+                        };
+                            
+                        var screen2Cartesian = function(xScreen, yScreen) {
+                            var result = [];
+                            result.push(-1 + (2*xScreen/window.innerWidth));
+                            result.push(-(-1 + (2*yScreen/window.innerHeight))); 
+                            var zSquared = sqr(result[0]) + sqr(result[1]);
+                            result.push(zSquared);
+                            if (Orbit.radius === -1){
+                                Orbit.radius = zSquared;
+                            }
+                            if (zSquared <= Orbit.radius){
+                                result[2] = Math.sqrt(zSquared);//Orbit.radius - zSquared);
+                            } else {
+                                result = result.map(x => x / zSquared);        
+                            }
+                            return new THREE.Vector3(result[0], result[1], result[2]);  
                         };
                         
                         var cartesian2Spherical = function(cartesianVector3) {
@@ -312,7 +338,7 @@
                             return [radius, theta, phi];
                         };
                         
-                       var spherical2Cartesian = function(spherical) {
+                        var spherical2Cartesian = function(spherical) {
                             var radius = spherical[0]; var theta = spherical[1];
                             var phi = spherical[2];
                             var x = radius*Math.sin(theta)*Math.cos(phi);
@@ -437,9 +463,12 @@
                         }
                         
                         function onMouseUp(e){
-                            Orbit.xFocus = 0; Orbit.yFocus = 0; 
-                            Orbit.xMove = 0; Orbit.yMove = 0;
-                            States.orbiting = false; Orbit.started = false;
+                            Orbit.started = false;
+                            Orbit.xFocus = 0;   Orbit.yFocus = 0; 
+                            Orbit.xMove = 0;    Orbit.yMove = 0;
+                            Orbit.radius = -1;  Orbit.lookAtPoint = null;
+                                                      
+                            States.orbiting = false;
                         }                    
 		</script>
 	</body>
