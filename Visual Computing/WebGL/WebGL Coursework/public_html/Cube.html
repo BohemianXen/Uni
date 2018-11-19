@@ -272,6 +272,9 @@
                         var sqr = val => val*val;
                         var sum = (accumulator, val) => accumulator + val;
 
+                        // TODO: - Fix rotation speed 
+                        //       - Zooms out if you drag sideways a bunch
+                                
                         var orbitCamera = function () {
                             if (!Orbit.started){
                                 xStart = Orbit.xFocus; yStart = Orbit.yFocus;
@@ -366,7 +369,7 @@
                         var toggleTextures = function(obj) {
                             if (obj === cube){
                                 if (!States.textureRendering){
-                                cube.material = textures;
+                                    cube.material = textures;
                                 } else {
                                     cube.material = cubeMaterial;
                                 }
@@ -427,7 +430,7 @@
                                     break;       
                                 // Apply textures on 't' KeyDown
                                 case 84: 
-                                    toggleTextures();
+                                    toggleTextures(ActiveObject.selected);
                                     break; 
                                 default:
                                     break;                            
@@ -440,9 +443,9 @@
                         // Used to zoom camera in and out via the scroll wheel
                         function onWheelScroll(e){                        
                            if (e.wheelDelta > 0){
-                                camera.position.z -= cameraMovementDistance;
+                                translateCamera('forwards');
                             } else {
-                                camera.position.z += cameraMovementDistance;
+                                translateCamera('backwards');
                             }
                             //console.log(camera.zoom);
                         }
