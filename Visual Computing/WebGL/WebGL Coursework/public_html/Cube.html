@@ -10,13 +10,17 @@
 	</head>
 	<body>
 		<script src="js/three.js"></script>
+                <script src="js/OBJLoader.js"></script>
 		<script>
 			// Scene Setup
                         var scene = new THREE.Scene();
                         var sceneBackground = scene.background;
                         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
                         var renderer = new THREE.WebGLRenderer();
-                        //var controls = new THREE.OrbitControls(camera, renderer.domElement);
+                        
+                        var ambientLight = new THREE.AmbientLight(0x404040);
+			scene.add(ambientLight);
+                        
                         renderer.setSize(window.innerWidth, window.innerHeight);
                         document.body.appendChild(renderer.domElement);
                         
@@ -51,7 +55,9 @@
                             edgeRendering: false, 
                             faceRendering: false, // Inverted initialisation
                             textureRendering: true,
-                            orbiting: false
+                            orbiting: false,
+                            objectLoaded: false, 
+                            objectLoadedDisplayed: false
                         };
                         
                         var ActiveObject = { 
@@ -79,17 +85,17 @@
                         var axisLength = 4;
                         
                         xAxisGeometry.vertices.push(
-                                new THREE.Vector3(-axisLength, 0, 0),
+                                new THREE.Vector3(0, 0, 0),
                                 new THREE.Vector3(axisLength, 0, 0)
                         );
                 
                         yAxisGeometry.vertices.push(
-                                new THREE.Vector3(0, -axisLength, 0),
+                                new THREE.Vector3(0, 0, 0),
                                 new THREE.Vector3(0, axisLength, 0)
                         );
                               
                         zAxisGeometry.vertices.push(
-                                new THREE.Vector3(0, 0, -axisLength),
+                                new THREE.Vector3(0, 0, 0),
                                 new THREE.Vector3(0, 0, axisLength)
                         );
                         
@@ -104,7 +110,7 @@
                         var animationID; 
                         var rotationStep = 0.01;
                         
-                        var rotateX = function() {
+                        var rotateX = function () {
                             var obj = ActiveObject.selected;
                             animationID = requestAnimationFrame(rotateX); 
                             obj.rotation.x += rotationStep;
@@ -116,7 +122,7 @@
                             renderer.render(scene, camera);
                         };
                         
-                        var rotateY = function() {
+                        var rotateY = function () {
                             var obj = ActiveObject.selected;
                             animationID = requestAnimationFrame(rotateY);
                             obj.rotation.y += rotationStep;
@@ -128,7 +134,7 @@
                             renderer.render(scene, camera);
                         };  
                         
-                        var rotateZ = function() {
+                        var rotateZ = function () {
                             var obj = ActiveObject.selected;
                             animationID = requestAnimationFrame(rotateZ); 
                             obj.rotation.z += rotationStep;
@@ -143,7 +149,7 @@
                         rotateX();
                         States.rotating = true;
                         
-                        var toggleAnimation = function() {
+                        var toggleAnimation = function () {
                             var obj = ActiveObject.selected;
                             if (States.rotating){
                                 cancelAnimationFrame(animationID); 
@@ -303,12 +309,12 @@
                             camera.lookAt(Orbit.lookAtPoint);
                         };
                         
-                        var dotProduct = function(a, b) {
+                        var dotProduct = function (a, b) {
                             var result = [a.x*b.x, a.y*b.y, a.z*b.z];
                             return result.reduce(sum);
                         };
                         
-                        var crossProduct = function(a, b) {
+                        var crossProduct = function (a, b) {
                             return new THREE.Vector3(
                                     (a.y*b.z) - (a.z*b.y),
                                     (a.z*b.x) - (a.x*b.z), 
@@ -316,7 +322,7 @@
                                 );
                         };
                             
-                        var screen2Cartesian = function(xScreen, yScreen) {
+                        var screen2Cartesian = function (xScreen, yScreen) {
                             var result = [];
                             result.push(-1 + (2*xScreen/window.innerWidth));
                             result.push(-(-1 + (2*yScreen/window.innerHeight))); 
@@ -333,7 +339,7 @@
                             return new THREE.Vector3(result[0], result[1], result[2]);  
                         };
                         
-                        var cartesian2Spherical = function(cartesianVector3) {
+                        var cartesian2Spherical = function (cartesianVector3) {
                             var cartesian = [cartesianVector3.x, cartesianVector3.y, cartesianVector3.z];
                             var radius = Math.sqrt(cartesian.map(val => sqr(val)).reduce(sum));
                             var theta = Math.acos(cartesianVector3.z/radius);
@@ -341,7 +347,7 @@
                             return [radius, theta, phi];
                         };
                         
-                        var spherical2Cartesian = function(spherical) {
+                        var spherical2Cartesian = function (spherical) {
                             var radius = spherical[0]; var theta = spherical[1];
                             var phi = spherical[2];
                             var x = radius*Math.sin(theta)*Math.cos(phi);
@@ -366,7 +372,7 @@
                         cube.material = textures;
                         States.textureRendering = true;
                         
-                        var toggleTextures = function(obj) {
+                        var toggleTextures = function (obj) {
                             if (obj === cube){
                                 if (!States.textureRendering){
                                     cube.material = textures;
@@ -379,44 +385,105 @@
                             }
                          };
                          
+                         
+                        // Object Loadng/ Switch Active Object
+                        var bunny;
+                        var bunnyScaling = 0.5; //0.15;
+                        var bunnyColor = 0xf44298; //cubeColor; 
+                        var bunnyMaterial = new THREE.MeshPhongMaterial({color: bunnyColor});
+                        var bunnyWireframe; var bunnyPoints;
+                        
+                        var loader = new THREE.OBJLoader();
+                        loader.setPath('resources/');
+
+                        var loadObject = function (filename) {
+                            
+                            
+                            if (!States.objectLoaded) {
+                                loader.load(filename,
+                                
+                                    function(object) {   
+                                        bunny = object; 
+                           
+                                        bunny.traverse(function (child) {
+						if (child.isMesh) {
+                                                    child.material = bunnyMaterial;
+                                                }
+         
+					});
+                                        
+                                        bunny.position.x = 2;
+                                        bunny.scale.x = bunnyScaling;
+                                        bunny.scale.y = bunnyScaling; 
+                                        bunny.scale.z = bunnyScaling;
+                                        
+                                        scene.add(bunny);
+                                        toggleActiveObject();
+                                        States.objectLoaded = true;
+                                    }
+                                );
+                            } else {
+                                toggleActiveObject();
+                            }
+                        }; 
+                        
+                        var toggleActiveObject = function () {
+                            if (ActiveObject.selected === cube) {
+                                if (!States.faceRendering) {
+                                    toggleFaces(cube);
+                                }
+                                if (!States.edgeRendering) {
+                                    toggleEdges(cube);
+                                }
+                                ActiveObject.selected = bunny;
+                                ActiveObject.points = bunnyPoints; 
+                                ActiveObject.wireframe = bunnyWireframe; 
+                                States.faceRendering = !States.faceRendering;
+                                
+                            } else {
+                                ActiveObject.selected = cube;
+                                ActiveObject.points = cubePoints; 
+                                ActiveObject.wireframe = cubeWireframe; 
+                            }     
+                        };
+                        
                         // Event Handlers
                         
                         // Key press event handler
                         function onKeyDown(e){
                             switch(e.which){
-                                // Pause object rotation
+                                // Pause object rotation on spacebar Keydown
                                 case 32:
                                     toggleAnimation();
                                     break;
-                                // Move camera left on left arrow KeyDown
-                                case 37:
+                                // Move camera left on left arrow Keydown
                                     translateCamera('left');
                                     break;
-                                // Move camera up on up arrow KeyDown
+                                // Move camera up on up arrow Keydown
                                 case 38:
                                     translateCamera('up');
                                     break;
-                                // Move camera right on right arrow KeyDown
+                                // Move camera right on right arrow Keydown
                                 case 39:                            
                                     translateCamera('right');
                                     break; 
-                                // Move camera down on down arrow KeyDown
+                                // Move camera down on down arrow Keydown
                                 case 40:
                                     translateCamera('down');
                                     break;                                
-                                // Move camera forwards on '+' KeyDown; can also be invoked by using the mousewheel
+                                // Move camera forwards on '+' Keydown; can also be invoked by using the mousewheel
                                 case 107:
                                     translateCamera('forwards');
                                     break;                                
-                                // Move camera backwards '-' KeyDown; can also be invoked by using the mousewheel
+                                // Move camera backwards '-' Keydown; can also be invoked by using the mousewheel
                                 case 109:
                                     translateCamera('backwards');
                                     break;
-                                // Reset camera position on 'r' KeyDown
+                                // Reset camera position on 'r' Keydown
                                 case 82:
                                     resetCamera();
                                     break;
-                                // Toggle cube edge rendering (inc. primitive triangles) on 'e' KeyDown
+                                // Toggle cube edge rendering (inc. primitive triangles) on 'e' Keydown
                                 case 69:
                                     toggleEdges(ActiveObject.selected);
                                     break;
@@ -424,14 +491,18 @@
                                 case 70: 
                                     toggleFaces(ActiveObject.selected);
                                     break;                      
-                                // Toggle cube vertex rendering on 'v' KeyDown
+                                // Toggle cube vertex rendering on 'v' Keydown
                                 case 86: 
                                     toggleVertices(ActiveObject.selected);
                                     break;       
-                                // Apply textures on 't' KeyDown
+                                // Apply textures on 't' Keydown
                                 case 84: 
                                     toggleTextures(ActiveObject.selected);
                                     break; 
+                                // Load/switch active object on 's' Keydown
+                                case 83: 
+                                    loadObject('bunny-5000.obj');
+                                    break;
                                 default:
                                     break;                            
                             }
@@ -441,7 +512,7 @@
                         
                         // Scroll wheel event handler 
                         // Used to zoom camera in and out via the scroll wheel
-                        function onWheelScroll(e){                        
+                        function onWheelScroll (e){                        
                            if (e.wheelDelta > 0){
                                 translateCamera('forwards');
                             } else {
@@ -450,14 +521,14 @@
                             //console.log(camera.zoom);
                         }
                         
-                        function onMouseDown(e){
+                        function onMouseDown (e){
                             if (e.which === 1){
                                 Orbit.xFocus = e.x; Orbit.yFocus = e.y;
                                 States.orbiting = true;
                             }
                         }
                         
-                        function onMouseMove(e){
+                        function onMouseMove (e){
                             if (States.orbiting){
                                 Orbit.xMove = e.movementX; Orbit.yMove = e.movementY;
                                 orbitCamera();
@@ -465,7 +536,7 @@
                             }
                         }
                         
-                        function onMouseUp(e){
+                        function onMouseUp (e){
                             Orbit.started = false;
                             Orbit.xFocus = 0;   Orbit.yFocus = 0; 
                             Orbit.xMove = 0;    Orbit.yMove = 0;
