@@ -4,8 +4,8 @@
 		<meta charset=utf-8>
 		<title>Cube Manipulation</title>
 		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
+			body {margin: 0;}
+			canvas {width: 100%; height: 100%}
 		</style>
 	</head>
 	<body>
@@ -17,14 +17,27 @@
                         var sceneBackground = scene.background;
                         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
                         var renderer = new THREE.WebGLRenderer();
-                        
-                        var ambientLight = new THREE.AmbientLight(0x404040);
-			scene.add(ambientLight);
-                        
                         renderer.setSize(window.innerWidth, window.innerHeight);
                         document.body.appendChild(renderer.domElement);
                         
                         
+                        // Lights Setup
+                        var ambientLight = new THREE.AmbientLight(0x404040);
+			scene.add(ambientLight);
+                        var lights = [];
+			lights[0] = new THREE.PointLight(0xffffff, 1, 0);
+			lights[1] = new THREE.PointLight(0xffffff, 1, 0);
+			lights[2] = new THREE.PointLight(0xffffff, 1, 0);
+
+			lights[0].position.set(0, 200, 0);
+			lights[1].position.set(100, 200, 100);
+			lights[2].position.set(-100, -200, -100 );
+                        
+                        for (var i = 0; i < lights.length; i++) {
+                            scene.add(lights[i]);
+                        }
+                        
+  
                         // Event Listeners
                         document.addEventListener("keydown", onKeyDown); //TODO: Pausing cube blocks other events until resumption
                         document.addEventListener("wheel", onWheelScroll);
@@ -53,27 +66,36 @@
                             rotating: true,
                             vertexRendering: false,
                             edgeRendering: false, 
-                            faceRendering: false, // Inverted initialisation
-                            textureRendering: true,
+                            faceRendering: true, // Inverted initialisation
+                            textureRendering: false,
                             orbiting: false,
                             objectLoaded: false, 
+                            cubeDisplayed: false,
                             objectLoadedDisplayed: false
                         };
                         
                         var ActiveObject = { 
                             selected: null,
-                            points: null,
-                            wireframe: null                        
+                            points: null                       
+                        };
+                        
+                        var updateSelectedObject = function (newSelectedObject){
+                             ActiveObject.selected = newSelectedObject;
+                        };
+                                               
+                        var updateActivePoints = function (newPoints){
+                             ActiveObject.points = newPoints;
                         };
                                       
-    
                         // Cube Setup
                         var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);         
-                        var cubeColor = new THREE.Color(0x008B8B);
-                        var cubeMaterial = new THREE.MeshBasicMaterial({color: cubeColor, vertexColors: THREE.VertexColors});
+                        var cubeColor = new THREE.Color(0x00fB8B);
+                        var cubeMaterial = new THREE.MeshPhongMaterial({color: cubeColor, vertexColors: THREE.VertexColors , flatShading: true});
                         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-                        ActiveObject.selected = cube;
-                        scene.add(ActiveObject.selected);
+                       
+                        scene.add(cube);
+                        updateSelectedObject(cube);
+                        States.cubeDisplayed = true;
                         
                         // Axes Setup                
                         var xAxisGeometry = new THREE.Geometry();
@@ -174,52 +196,53 @@
                         
                         // Render modes 
                         var pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.1});
-                        var wireframeMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true});
                         var cubePoints = new THREE.Points(cubeGeometry, pointsMaterial);
-                        var cubeWireframe = new THREE.Mesh(cubeGeometry, wireframeMaterial);
-                      
-                        var updateActivePoints = function (newPoints){
-                             ActiveObject.points = newPoints;
-                        };
-                        
-                        var updateActiveWireframe= function (newWireframe){
-                             ActiveObject.wireframe = newWireframe;
-                        };
                         
                         updateActivePoints(cubePoints);
-                        updateActiveWireframe(cubeWireframe);
                         
+                        // TODO: - Cannot enter edge mode from texture mode
                         var toggleEdges = function (obj) {
-                            if (!States.edgeRendering){
-                                obj.add(ActiveObject.wireframe);
+                            if (!States.edgeRendering){ 
+                                obj.traverse(
+                                    function (child) {
+                                        if (child.material !== undefined && child.material.isMaterial) { 
+                                            child.material.wireframe = true; 
+                                        }        
+                                    });
                             } else {
-                                obj.remove(ActiveObject.wireframe);
-                            }     
-                            States.edgeRendering = !States.edgeRendering;   
+                                obj.traverse(
+                                    function (child) {
+                                        if (child.material !== undefined && child.material.isMaterial) { 
+                                            child.material.wireframe = false; 
+                                        }        
+                                    });
+                            }  
+                            
+                            if (!States.textureRendering) {
+                                States.edgeRendering = !States.edgeRendering;
+                            }   
                         };
                         
                         // TODO: Fix bugs -> T then F needs second F also a subsquent T does not bring the texture back
                         //                   F then T means T behaves like F
                         var toggleFaces = function (obj) {
                             if (!States.faceRendering){
-                                obj.material.opacity = 0.0;
-                                obj.material.transparent = true;
-                                if (States.textureRendering){                            
-                                    for (var i = 0; i < obj.material.length; i++)
-                                    {
-                                        obj.material[i].opacity = 0.0;
-                                        obj.material[i].transparent = true;
-                                    }  
-                                }
-                            } else {   
-                                obj.material.opacity = 1.0;
-                                obj.material.transparent = false;
-                                if (States.textureRendering){
-                                    for (var i = 0; i < obj.material.length; i++){
-                                        obj.material[i].opacity = 1.0;
-                                        obj.material[i].transparent = false;
-                                    }
-                                }
+                                 obj.traverse(
+                                    function (child) {
+                                        if (child.material !== undefined && child.material.isMaterial) { 
+                                            child.material.opacity = 0.0;
+                                            child.material.transparent = true;
+                                        }        
+                                    });
+                            } else { 
+                                if (States.edgeRendering) { toggleEdges(obj); }
+                                obj.traverse(
+                                    function (child) {
+                                        if (child.material !== undefined && child.material.isMaterial) { 
+                                            child.material.opacity = 1.0;
+                                            child.material.transparent = false;
+                                        }        
+                                    });
                             }    
                             States.faceRendering = !States.faceRendering;
                         };     
@@ -238,7 +261,7 @@
                         // TODO: Change scrollwheel to zoom on scrollwheel, not z translation
                         var cameraMovementDistance = 0.1;
                         
-                        var translateCamera = function (direction) {
+                        var translateCamera = function (direction)  {
                             switch (direction){
                                 case 'left':
                                     camera.translateX(-cameraMovementDistance);
@@ -368,13 +391,10 @@
                             }));
                         }
                         
-                        // Use textured material by default
-                        cube.material = textures;
-                        States.textureRendering = true;
-                        
                         var toggleTextures = function (obj) {
                             if (obj === cube){
                                 if (!States.textureRendering){
+                                    if (States.edgeRendering) { toggleEdges(obj); }
                                     cube.material = textures;
                                 } else {
                                     cube.material = cubeMaterial;
@@ -387,39 +407,40 @@
                          
                          
                         // Object Loadng/ Switch Active Object
-                        var bunny;
+                        var bunny; var bunnyGeometry;
+                        var bunnyPoints; 
                         var bunnyScaling = 0.5; //0.15;
                         var bunnyColor = 0xf44298; //cubeColor; 
                         var bunnyMaterial = new THREE.MeshPhongMaterial({color: bunnyColor});
-                        var bunnyWireframe; var bunnyPoints;
                         
-                        var loader = new THREE.OBJLoader();
-                        loader.setPath('resources/');
+                        var objLoader = new THREE.OBJLoader();
+                        objLoader.setPath("resources/");
 
-                        var loadObject = function (filename) {
-                            
-                            
+                        var loadObject = function (filename) {                            
+                          
                             if (!States.objectLoaded) {
-                                loader.load(filename,
+                                objLoader.load(filename,
                                 
                                     function(object) {   
                                         bunny = object; 
-                           
+                                        States.objectLoaded = true;
+                                        
                                         bunny.traverse(function (child) {
-						if (child.isMesh) {
-                                                    child.material = bunnyMaterial;
-                                                }
-         
+						if (child.isMesh) { child.material = bunnyMaterial; }        
 					});
                                         
                                         bunny.position.x = 2;
                                         bunny.scale.x = bunnyScaling;
                                         bunny.scale.y = bunnyScaling; 
                                         bunny.scale.z = bunnyScaling;
-                                        
+                                        //bunnyPoints = new THREE.Points(bunny.geometry, pointsMaterial);
+                                        bunnyPoints = objLoader.parse('points');  
+                                        console.log(bunnyPoints);
+                                        console.log(cubePoints);
                                         scene.add(bunny);
+                                        States.objectLoadedDisplayed = true;
                                         toggleActiveObject();
-                                        States.objectLoaded = true;
+                                        
                                     }
                                 );
                             } else {
@@ -429,23 +450,39 @@
                         
                         var toggleActiveObject = function () {
                             if (ActiveObject.selected === cube) {
-                                if (!States.faceRendering) {
-                                    toggleFaces(cube);
-                                }
-                                if (!States.edgeRendering) {
-                                    toggleEdges(cube);
-                                }
-                                ActiveObject.selected = bunny;
-                                ActiveObject.points = bunnyPoints; 
-                                ActiveObject.wireframe = bunnyWireframe; 
-                                States.faceRendering = !States.faceRendering;
+                                if (States.textureRendering) { toggleTextures(cube); }
+                                if (!States.edgeRendering) { toggleEdges(cube); }                               
+                                if (States.vertexRendering) { toggleVertices(cube); }
+
+                                updateSelectedObject(bunny);
+                                updateActivePoints(bunnyPoints); 
+                                States.faceRendering = true;
+                                States.edgeRendering = false;
                                 
                             } else {
-                                ActiveObject.selected = cube;
-                                ActiveObject.points = cubePoints; 
-                                ActiveObject.wireframe = cubeWireframe; 
+                                updateSelectedObject(cube);
+                                updateActivePoints(cubePoints); 
                             }     
                         };
+                        
+                        var toggleNonActiveObjectDisplay = function () {            
+                            if (ActiveObject.selected === cube && States.objectLoaded) {
+                                if (States.objectLoadedDisplayed) {
+                                    scene.remove(bunny);
+                                } else {
+                                    scene.add(bunny);
+                                }
+                                States.objectLoadedDisplayed = !States.objectLoadedDisplayed;
+                            } else {
+                                if (States.cubeDisplayed) {
+                                    scene.remove(cube);
+                                } else {
+                                    scene.add(cube);
+                                }
+                                States.cubeDisplayed = !States.cubeDisplayed;
+                            }
+                        };
+                        
                         
                         // Event Handlers
                         
@@ -502,6 +539,10 @@
                                 // Load/switch active object on 's' Keydown
                                 case 83: 
                                     loadObject('bunny-5000.obj');
+                                    break;
+                                // Toggle non-active object on 'x' Keydown
+                                case 88: 
+                                    toggleNonActiveObjectDisplay();
                                     break;
                                 default:
                                     break;                            
