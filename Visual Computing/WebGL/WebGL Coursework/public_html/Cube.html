@@ -195,12 +195,14 @@
                            
                         
                         // Render modes 
-                        var pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.1});
+                        var pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.05});
                         var cubePoints = new THREE.Points(cubeGeometry, pointsMaterial);
                         
                         updateActivePoints(cubePoints);
                         
                         // TODO: - Cannot enter edge mode from texture mode
+                        //       - Cannot enter edge mode from off face mode
+                        //       - Revert back to overlayed edge mode
                         var toggleEdges = function (obj) {
                             if (!States.edgeRendering){ 
                                 obj.traverse(
@@ -246,7 +248,9 @@
                             }    
                             States.faceRendering = !States.faceRendering;
                         };     
-    
+                        
+                        // TODO  - Cannot enter vertices mode from off face mode
+                         //      - T -> F -> V -> F -> F now stuck with V=F
                         var toggleVertices = function (obj) {
                         if (!States.vertexRendering){
                                 obj.add(ActiveObject.points);
@@ -303,7 +307,7 @@
 
                         // TODO: - Fix rotation speed 
                         //       - Zooms out if you drag sideways a bunch
-                                
+                        //       - Always looks at origin too much         
                         var orbitCamera = function () {
                             if (!Orbit.started){
                                 xStart = Orbit.xFocus; yStart = Orbit.yFocus;
@@ -406,12 +410,14 @@
                          };
                          
                          
-                        // Object Loadng/ Switch Active Object
+                        // Object Loading/Switch Active Object
                         var bunny; var bunnyGeometry;
-                        var bunnyPoints; 
-                        var bunnyScaling = 0.5; //0.15;
-                        var bunnyColor = 0xf44298; //cubeColor; 
+                        var bunnyPoints;
+                        var bunnyScaling = 0.15;
+                        var bunnyColor = 0xf44298;
                         var bunnyMaterial = new THREE.MeshPhongMaterial({color: bunnyColor});
+                        var bunnyPointsMaterial = pointsMaterial.clone();
+                        bunnyPointsMaterial.size = 0.01;
                         
                         var objLoader = new THREE.OBJLoader();
                         objLoader.setPath("resources/");
@@ -422,25 +428,24 @@
                                 objLoader.load(filename,
                                 
                                     function(object) {   
-                                        bunny = object; 
-                                        States.objectLoaded = true;
-                                        
+                                        bunny = object;                                                  
                                         bunny.traverse(function (child) {
-						if (child.isMesh) { child.material = bunnyMaterial; }        
+						if (child.isMesh) { 
+                                                    child.material = bunnyMaterial;
+                                                    bunnyPoints = new THREE.Points(child.geometry, bunnyPointsMaterial);
+                                                    //console.log(child);
+                                                }        
 					});
-                                        
-                                        bunny.position.x = 2;
+                                       
                                         bunny.scale.x = bunnyScaling;
                                         bunny.scale.y = bunnyScaling; 
                                         bunny.scale.z = bunnyScaling;
-                                        //bunnyPoints = new THREE.Points(bunny.geometry, pointsMaterial);
-                                        bunnyPoints = objLoader.parse('points');  
-                                        console.log(bunnyPoints);
-                                        console.log(cubePoints);
+
                                         scene.add(bunny);
+                                        
                                         States.objectLoadedDisplayed = true;
                                         toggleActiveObject();
-                                        
+                                        States.objectLoaded = true;
                                     }
                                 );
                             } else {
@@ -449,11 +454,14 @@
                         }; 
                         
                         var toggleActiveObject = function () {
+                           
                             if (ActiveObject.selected === cube) {
-                                if (States.textureRendering) { toggleTextures(cube); }
-                                if (!States.edgeRendering) { toggleEdges(cube); }                               
-                                if (States.vertexRendering) { toggleVertices(cube); }
-
+                                if (!States.objectLoaded) {
+                                    if (States.textureRendering) { toggleTextures(cube); }
+                                    if (!States.edgeRendering) { toggleEdges(cube); }                               
+                                    if (States.vertexRendering) { toggleVertices(cube); }
+                                }
+                                
                                 updateSelectedObject(bunny);
                                 updateActivePoints(bunnyPoints); 
                                 States.faceRendering = true;
