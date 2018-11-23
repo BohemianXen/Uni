@@ -12,6 +12,7 @@
 		<script src="js/three.js"></script>
                 <script src="js/OBJLoader.js"></script>
 		<script>
+                        //TODO: Refactor code to not clog up the global namespace
 			// Scene Setup
                         var scene = new THREE.Scene();
                         var sceneBackground = scene.background;
@@ -195,7 +196,7 @@
                            
                         
                         // Render modes 
-                        var pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.05});
+                        var pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size:0.075});
                         var cubePoints = new THREE.Points(cubeGeometry, pointsMaterial);
                         
                         updateActivePoints(cubePoints);
@@ -433,7 +434,7 @@
 						if (child.isMesh) { 
                                                     child.material = bunnyMaterial;
                                                     bunnyPoints = new THREE.Points(child.geometry, bunnyPointsMaterial);
-                                                    //console.log(child);
+                                                    //  console.log(child);
                                                 }        
 					});
                                        
