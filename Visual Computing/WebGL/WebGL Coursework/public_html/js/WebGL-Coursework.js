@@ -1,7 +1,8 @@
 "use strict"; // https://stackoverflow.com/q/1335851/72470
 
 var camera, defaultCamera, scene, renderer;
-var cube, cubeMaterial, bunny, bunnyMaterial, pointsMaterial;;
+var cube, cubeMaterial, bunny, bunnyMaterial, pointsMaterial;
+var rubiksCube; var rubiksFaces; 
 var animationID; 
 var activeObject;
 
@@ -26,15 +27,17 @@ var Defaults = {
 
 // Object States                    
 var States = {
-    rotating: true,
+    rotating: false,
     vertexRendering: false,
     edgeRendering: false, 
-    faceRendering: true, // Inverted initialisation
+    faceRendering: false,
     textureRendering: false,
     orbiting: false,
     objectLoaded: false, 
     cubeDisplayed: false,
-    objectLoadedDisplayed: false
+    objectLoadedDisplayed: false, 
+    rubiksCubeMode: false, 
+    rubiksCubeGenerated: false
 };
 
 
@@ -78,35 +81,45 @@ function init () {
 
     // Default Camera Positioning
     defaultCamera = camera.clone();  
-    defaultCamera.position.x = Defaults.cameraPos[0]; 
-    defaultCamera.position.y = Defaults.cameraPos[1];
-    defaultCamera.position.z = Defaults.cameraPos[2];
+    defaultCamera.position.set(
+                Defaults.cameraPos[0], 
+                Defaults.cameraPos[1],
+                Defaults.cameraPos[2]
+            );
     
     resetCamera();
-    setupCube();
-    setupAxes();
+    cubeSetup();
+    axesSetup();
 }
 
 function resetCamera () {
     camera = defaultCamera.clone(); 
+    if (States.rubiksCubeMode) {
+        camera.position.set(
+            3.8403576514431155,
+            2.2156435527398592,
+            5.262113506418356 
+        );
+    }
     camera.lookAt(Defaults.cameraLookAt);
 }
 
-function setupCube () {
-    var geometry = new THREE.BoxGeometry(1, 1, 1);         
+function cubeSetup () {
+    var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);         
     cubeMaterial = new THREE.MeshPhongMaterial({color: Defaults.cubeColor, vertexColors: THREE.VertexColors , flatShading: true});
-    cube = new THREE.Mesh(geometry, cubeMaterial);
+    cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
     scene.add(cube);
     activeObject = cube;
     States.cubeDisplayed = true;
+    States.faceRendering = true;
     
     pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size: 0.075});
-    var cubePoints = new THREE.Points(geometry, pointsMaterial);
+    var cubePoints = new THREE.Points(cubeGeometry, pointsMaterial);
     cube.points = cubePoints;
 }
 
-function setupAxes () {
+function axesSetup () {
     var xAxisGeometry = new THREE.Geometry();
     var yAxisGeometry = xAxisGeometry.clone();
     var zAxisGeometry = xAxisGeometry.clone();
@@ -364,7 +377,7 @@ function orbitCamera () {
             var orthogonalVector = crossProduct(op1, op2);
 
             camera.translateX(op2.x - op1.x); // 4)*());
-            camera.translateY(op2.y - op1.y);
+            camera.translateY(-(op2.y - op1.y));
             //camera.translateZ(op2.z - op1.z);
             //console.log(op1, op2);
             console.log(angle);
@@ -474,6 +487,62 @@ function toggleNonActiveObjectDisplay () {
 }
 
 
+// Rubik's Cube Mode 
+
+function toggleRubiksCube () {
+    if (!States.rubiksCubeMode){
+        //TODO: activeObject? disable other keys? stop rotation and other states
+        /*if (States.rotating) { toggleRotation(); }
+        if (States.cubeDisplayed) { scene.remove(cube); }
+        if (States.objectLoadedDisplayed) { scene.remove(bunny); }
+        
+        States.cubeDisplayed = false;
+        States.objectLoadedDisplayed = false;*/
+        
+        if (!States.rubiksCubeGenerated) { generateRubiksCube(); }
+        scene.add(rubiksCube);
+        console.log(rubiksCube);
+    } else {
+        /*if (!States.cubeDisplayed) { scene.add(cube); }
+        if (!States.rotating) { toggleRotation(); }
+        States.cubeDisplayed = true;
+        //if (States.objectLoaded) { scene.add(bunny); }*/
+        scene.remove(rubiksCube);
+        //activeObject = cube;
+    }
+    
+    States.rubiksCubeMode = !States.rubiksCubeMode;
+    resetCamera();
+}
+
+function generateRubiksCube () {
+    var colors = ['orange', 'green', 'red', 'blue', 'white', 'yellow'];
+    var rubiksCubeGeometry = new THREE.BoxGeometry(3, 3, 3, 3, 3, 3);
+    
+    var innerCounter = 0; var outerCounter = 0;
+    for (var face in rubiksCubeGeometry.faces) {
+       rubiksCubeGeometry.faces[face].color = new THREE.Color(colors[outerCounter]);
+       innerCounter++;
+       if (innerCounter > 17) { 
+           innerCounter = 0;
+           outerCounter++;
+       }
+    }
+    
+    var rubiksCubeMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, vertexColors: THREE.FaceColors, flatShading: true}); 
+    var cubeWireframe = new THREE.MeshBasicMaterial({color: 'black', wireframe: true});
+    cubeWireframe = new THREE.Mesh(rubiksCubeGeometry, cubeWireframe);
+    
+    rubiksCube = new THREE.Mesh(rubiksCubeGeometry, rubiksCubeMaterial);
+    rubiksCube.add(cubeWireframe);
+    rubiksFaces = rubiksCube.geometry.faces;
+
+    //rubiksCube.geometry.colorsNeedUpdate = true;
+    States.rubiksCubeGenerated = true;
+    //activeObject = rubiksCube;
+}
+
+
 // Event Handlers
 
 // Key press event handler
@@ -484,7 +553,7 @@ function onKeyDown(e){
             toggleRotation();
             break;
         // Move camera left on left arrow Keydown
-            translateCamera('left');
+        case 37: translateCamera('left');
             break;
         // Move camera up on up arrow Keydown
         case 38:
@@ -535,6 +604,10 @@ function onKeyDown(e){
         case 88: 
             toggleNonActiveObjectDisplay();
             break;
+        // Toggle Rubik's cube mode on 'z' Keydown
+        case 90: 
+            toggleRubiksCube();
+            break;
         default:
             break;                            
     }
@@ -550,7 +623,7 @@ function onWheelScroll (e){
     } else {
         translateCamera('backwards');
     }
-    //console.log(camera.zoom);
+    renderer.render(scene, camera);
 }
 
 function onMouseDown (e){
