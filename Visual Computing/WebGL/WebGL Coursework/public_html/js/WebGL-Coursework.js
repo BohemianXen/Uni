@@ -2,7 +2,7 @@
 
 var camera, defaultCamera, scene, renderer;
 var cube, cubeMaterial, bunny, bunnyMaterial, pointsMaterial;
-var rubiksCube; var rubiksFaces; 
+var rubiksCube, perfectRubiksCube, rubiksFaces; 
 var animationID; 
 var activeObject;
 
@@ -40,6 +40,26 @@ var States = {
     rubiksCubeGenerated: false
 };
 
+var RubiksIndexes = {
+    rightTop: null,
+    rightMid: null,
+    rightBot: null,
+    leftTop: null,
+    leftMid: null,
+    leftBot: null,
+    upTop: null,
+    upMid: null,
+    upBot: null,
+    downTop: null,
+    downMid: null,
+    downBot: null,
+    frontTop: null,
+    frontMid: null,
+    frontBot: null,
+    backTop: null,
+    backMid: null,
+    backBot: null
+};
 
 init();
 rotateX();
@@ -516,38 +536,82 @@ function toggleRubiksCube () {
 }
 
 function generateRubiksCube () {
-    var colors = ['orange', 'green', 'red', 'blue', 'white', 'yellow'];
+    //              red      orange    white     yellow     green      blue
+    var colors = [0xff0000, 0xffa500, 0xffffff, 0xffff00, 0x00ff00, 0x0000ff];
     var rubiksCubeGeometry = new THREE.BoxGeometry(3, 3, 3, 3, 3, 3);
     
-    var innerCounter = 0; var outerCounter = 0;
-    for (var face in rubiksCubeGeometry.faces) {
-       rubiksCubeGeometry.faces[face].color = new THREE.Color(colors[outerCounter]);
-       innerCounter++;
-       if (innerCounter > 17) { 
-           innerCounter = 0;
-           outerCounter++;
-       }
-    }
-    
+    var colorFaces = function () {
+        var innerCounter = 0; var outerCounter = 0;
+        for (var face in rubiksCubeGeometry.faces) {
+           rubiksCubeGeometry.faces[face].color.setHex(colors[outerCounter]);
+           innerCounter++;
+           if (innerCounter > 17) { 
+               innerCounter = 0;
+               outerCounter++;
+           }
+        }
+    };
+   
+    colorFaces(); 
     var rubiksCubeMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, vertexColors: THREE.FaceColors, flatShading: true}); 
     var cubeWireframe = new THREE.MeshBasicMaterial({color: 'black', wireframe: true});
     cubeWireframe = new THREE.Mesh(rubiksCubeGeometry, cubeWireframe);
     
     rubiksCube = new THREE.Mesh(rubiksCubeGeometry, rubiksCubeMaterial);
     rubiksCube.add(cubeWireframe);
+    perfectRubiksCube = rubiksCube.clone();
     rubiksFaces = rubiksCube.geometry.faces;
-
-    //rubiksCube.geometry.colorsNeedUpdate = true;
+ 
+    updateRubiksIndexes();
     States.rubiksCubeGenerated = true;
     //activeObject = rubiksCube;
+}; 
+
+ function updateRubiksIndexes () {
+    var start = 0; var stop = 6;
+    for (var row in RubiksIndexes) {
+        if (RubiksIndexes.hasOwnProperty(row)) {
+            RubiksIndexes[row] = rubiksFaces.slice(start, stop);
+            start += 6;
+            stop += 6;
+        }
+    }
+}
+    
+function rotateRubiksBottom () {
+    rubiksCube.geometry.colorsNeedUpdate = true;
+}
+
+function rotateRubiksLeft () {
+    rubiksCube.geometry.colorsNeedUpdate = true; 
+}
+
+function rotateRubiksRight () {
+    rubiksCube.geometry.colorsNeedUpdate = true;
+}
+
+function rotateRubiksTop () {
+   var front = RubiksIndexes.frontTop;
+   //var up = RubiksIndexes. // TODO: Extend for top side rotations fml 
+   var left = RubiksIndexes.leftTop;
+   var back = RubiksIndexes.backTop;
+   var right = RubiksIndexes.rightTop;
+   //var starts = []
+   //for ()
+   rubiksFaces[72].color.setHex(0x0000ff);
+   //rubiksFaces.splice(72, right.length, ...right);
+   //rubiksFaces.splice(0, right.length, ...back);
+   //rubiksFaces.splice(90, right.length, ...left);
+   //rubiksFaces.splice(18, right.length, ...front);
+   rubiksCube.geometry.colorsNeedUpdate = true;
 }
 
 
 // Event Handlers
 
 // Key press event handler
-function onKeyDown(e){
-    switch(e.which){
+function onKeyDown (e) {
+    switch (e.which) {
         // Pause object rotation on spacebar Keydown
         case 32:
             toggleRotation();
@@ -608,6 +672,26 @@ function onKeyDown(e){
         case 90: 
             toggleRubiksCube();
             break;
+        // Rotate bottom of rubiks cube anticlockwise on '2' keydown
+        case 50:
+        case 98:
+            if (States.rubiksCubeMode) { rotateRubiksBottom(); }
+            break;
+        // Rotate left side of rubiks cube anticlockwise on '4' keydown
+        case 52:
+        case 100:
+            if (States.rubiksCubeMode) { rotateRubiksLeft(); }
+            break;
+        // Rotate bottom of rubiks cube anticlockwise on '6' keydown
+        case 54:
+        case 102:
+            if (States.rubiksCubeMode) { rotateRubiksRight(); }
+            break;
+        // Rotate top of rubiks cube anticlockwise on '8' keydown
+        case 56:
+        case 104:
+            if (States.rubiksCubeMode) { rotateRubiksTop(); }
+            break;
         default:
             break;                            
     }
@@ -617,7 +701,7 @@ function onKeyDown(e){
 
 // Scroll wheel event handler 
 // Used to zoom camera in and out via the scroll wheel
-function onWheelScroll (e){                        
+function onWheelScroll (e) {                        
    if (e.wheelDelta > 0){
         translateCamera('forwards');
     } else {
@@ -626,14 +710,14 @@ function onWheelScroll (e){
     renderer.render(scene, camera);
 }
 
-function onMouseDown (e){
+function onMouseDown (e) {
     if (e.which === 1){
         Orbit.xFocus = e.x; Orbit.yFocus = e.y;
         States.orbiting = true;
     }
 }
 
-function onMouseMove (e){
+function onMouseMove (e) {
     if (States.orbiting){
         Orbit.xMove = e.movementX; Orbit.yMove = e.movementY;
         orbitCamera();
@@ -641,7 +725,7 @@ function onMouseMove (e){
     }
 }
 
-function onMouseUp (e){
+function onMouseUp (e) {
     Orbit.started = false;
     Orbit.xFocus = 0;   Orbit.yFocus = 0; 
     Orbit.xMove = 0;    Orbit.yMove = 0;
@@ -651,8 +735,7 @@ function onMouseUp (e){
 }  
 
 // Handle resizing of the browser window.
-function onResize()
-{
+function onResize () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
