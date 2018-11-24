@@ -2,7 +2,7 @@
 
 var camera, defaultCamera, scene, renderer;
 var cube, cubeMaterial, bunny, bunnyMaterial, pointsMaterial;
-var rubiksCube, perfectRubiksCube, rubiksFaces; 
+var rubiksCube, perfectRubiksCube, activeRubiksGroup; 
 var animationID; 
 var activeObject;
 
@@ -19,10 +19,10 @@ var Defaults = {
     cameraLookAt: new THREE.Vector3(0.0031250000000000444, -0.22544951590594753, 0.9742498396986135),
     cubeColor: new THREE.Color(0x00fB8B),
     bunnyColor: new THREE.Color(0xf44298),
-    bunnyScaling: 0.15,
+    bunnyScaling: 0.3,
     bunnyPointsSize: 0.01,
     rotationStep: 0.01, 
-    cameraMovementDistance: 0.1,
+    cameraMovementDistance: 0.1
 };
 
 // Object States                    
@@ -40,26 +40,6 @@ var States = {
     rubiksCubeGenerated: false
 };
 
-var RubiksIndexes = {
-    rightTop: null,
-    rightMid: null,
-    rightBot: null,
-    leftTop: null,
-    leftMid: null,
-    leftBot: null,
-    upTop: null,
-    upMid: null,
-    upBot: null,
-    downTop: null,
-    downMid: null,
-    downBot: null,
-    frontTop: null,
-    frontMid: null,
-    frontBot: null,
-    backTop: null,
-    backMid: null,
-    backBot: null
-};
 
 init();
 rotateX();
@@ -125,7 +105,7 @@ function resetCamera () {
 }
 
 function cubeSetup () {
-    var cubeGeometry = new THREE.BoxGeometry(1, 1, 1);         
+    var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);         
     cubeMaterial = new THREE.MeshPhongMaterial({color: Defaults.cubeColor, vertexColors: THREE.VertexColors , flatShading: true});
     cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
@@ -512,72 +492,221 @@ function toggleNonActiveObjectDisplay () {
 function toggleRubiksCube () {
     if (!States.rubiksCubeMode){
         //TODO: activeObject? disable other keys? stop rotation and other states
-        /*if (States.rotating) { toggleRotation(); }
+        if (States.rotating) { toggleRotation(); }
         if (States.cubeDisplayed) { scene.remove(cube); }
         if (States.objectLoadedDisplayed) { scene.remove(bunny); }
         
         States.cubeDisplayed = false;
-        States.objectLoadedDisplayed = false;*/
+        States.objectLoadedDisplayed = false;
         
         if (!States.rubiksCubeGenerated) { generateRubiksCube(); }
         scene.add(rubiksCube);
-        console.log(rubiksCube);
+        //console.log(rubiksCube);
     } else {
-        /*if (!States.cubeDisplayed) { scene.add(cube); }
+        if (!States.cubeDisplayed) { scene.add(cube); }
         if (!States.rotating) { toggleRotation(); }
         States.cubeDisplayed = true;
-        //if (States.objectLoaded) { scene.add(bunny); }*/
+        if (States.objectLoaded) { scene.add(bunny); }
         scene.remove(rubiksCube);
-        //activeObject = cube;
+        activeObject = cube;
     }
     
     States.rubiksCubeMode = !States.rubiksCubeMode;
     resetCamera();
 }
 
-function generateRubiksCube () {
-    //              red      orange    white     yellow     green      blue
-    var colors = [0xff0000, 0xffa500, 0xffffff, 0xffff00, 0x00ff00, 0x0000ff];
-    var rubiksCubeGeometry = new THREE.BoxGeometry(3, 3, 3, 3, 3, 3);
+//                    red0   orange1     white2   yellow3    green4     blue5
+var rubiksColors = [0xff0000, 0xffa500, 0xffffff, 0xffff00, 0x00ff00, 0x0000ff];
     
-    var colorFaces = function () {
-        var innerCounter = 0; var outerCounter = 0;
-        for (var face in rubiksCubeGeometry.faces) {
-           rubiksCubeGeometry.faces[face].color.setHex(colors[outerCounter]);
-           innerCounter++;
-           if (innerCounter > 17) { 
-               innerCounter = 0;
-               outerCounter++;
-           }
-        }
-    };
-   
-    colorFaces(); 
-    var rubiksCubeMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, vertexColors: THREE.FaceColors, flatShading: true}); 
-    var cubeWireframe = new THREE.MeshBasicMaterial({color: 'black', wireframe: true});
-    cubeWireframe = new THREE.Mesh(rubiksCubeGeometry, cubeWireframe);
-    
-    rubiksCube = new THREE.Mesh(rubiksCubeGeometry, rubiksCubeMaterial);
-    rubiksCube.add(cubeWireframe);
-    perfectRubiksCube = rubiksCube.clone();
-    rubiksFaces = rubiksCube.geometry.faces;
- 
-    updateRubiksIndexes();
-    States.rubiksCubeGenerated = true;
-    //activeObject = rubiksCube;
-}; 
+var FaceIndexes = {
+  'r': 0,
+  'l': 2,
+  'u': 4,
+  'd': 6,
+  'f': 8,
+  'b': 10
+};
 
- function updateRubiksIndexes () {
-    var start = 0; var stop = 6;
-    for (var row in RubiksIndexes) {
-        if (RubiksIndexes.hasOwnProperty(row)) {
-            RubiksIndexes[row] = rubiksFaces.slice(start, stop);
-            start += 6;
-            stop += 6;
-        }
+var RubiksMap = {
+    'cube0': {
+        faces: ['l', 'u', 'f'],
+        colors: [1, 2, 4],
+        position: [-1, 1, 1]
+    },
+    'cube1': {
+        faces: ['u', 'f'],
+        colors: [2, 4],
+        position: [0, 1, 1]
+    },
+    'cube2': {
+        faces: ['r', 'u', 'f'],
+        colors: [0, 2, 4],
+        position: [1, 1, 1] 
+    },
+    'cube3': {
+        faces: ['l', 'f'],
+        colors: [1, 4],
+        position: [-1, 0, 1] 
+    },
+    'cube4': {
+        faces: ['f'],
+        colors: [4],
+        position: [0, 0, 1] 
+    },
+    'cube5': {
+        faces: ['r', 'f'],
+        colors: [0, 4],
+        position: [1, 0, 1] 
+    },
+    'cube6': {
+        faces: ['l', 'd', 'f'],
+        colors: [1, 3, 4],
+        position: [-1, -1, 1] 
+    },
+    'cube7': {
+        faces: ['d', 'f'],
+        colors: [3, 4],
+        position: [0, -1, 1] 
+    },
+    'cube8': {
+        faces: ['r', 'd', 'f'],
+        colors: [5, 3, 4],
+        position: [1, -1, 1] 
+    },
+    'cube9': {
+        faces: ['l', 'u'],
+        colors: [1, 2],
+        position: [-1, 1, 0] 
+    },
+    'cube10': {
+        faces: ['u'],
+        colors: [2],
+        position: [0, 1, 0] 
+    },
+    'cube11': {
+        faces: ['r', 'u'],
+        colors: [0, 2],
+        position: [1, 1, 0] 
+    },
+    'cube12': {
+        faces: ['l'],
+        colors: [1],
+        position: [-1, 0, 0] 
+    },
+    'cube13': {
+        faces: ['r'],
+        colors: [0],
+        position: [1, 0, 0] 
+    },
+    'cube14': {
+        faces: ['l','d'],
+        colors: [1, 3],
+        position: [-1, -1, 0] 
+    },
+    'cube15': {
+        faces: ['d'],
+        colors: [3],
+        position: [0, -1, 0] 
+    },
+    'cube16': {
+        faces: ['r', 'd'],
+        colors: [0, 3],
+        position: [1, -1, 0] 
+    },
+    'cube17': {
+        faces: ['l', 'u', 'b'],
+        colors: [1, 2, 5],
+        position: [-1, 1, -1] 
+    },
+    'cube18': {
+        faces: ['u', 'b'],
+        colors: [2, 5],
+        position: [0, 1, -1] 
+    },
+    'cube19': {
+        faces: ['r', 'u', 'b'],
+        colors: [0, 2, 5],
+        position: [1, 1, -1] 
+    },
+    'cube20': {
+        faces: ['l', 'b'],
+        colors: [1, 5],
+        position: [-1, 0, -1] 
+    },
+    'cube21': {
+       faces: ['b'],
+       colors: [5],
+       position: [0, 0, -1] 
+   },
+    'cube22': {
+       faces: ['r', 'b'],
+       colors: [0, 5],
+       position: [1, 0, -1] 
+   },
+    'cube23': {
+       faces: ['l', 'd', 'b'],
+       colors: [1, 3, 5],
+       position: [-1, -1, -1] 
+   },
+    'cube24': {
+       faces: ['d', 'b'],
+       colors: [3, 5],
+       position: [0, -1, -1] 
+   },
+    'cube25': {
+       faces: ['r', 'd', 'b'],
+       colors: [0, 3, 5],
+       position: [1, -1, -1] 
+   }
+};
+
+
+function generateRubiksCube () {
+    var rubiksCubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+    var rubiksCubeMaterial = new THREE.MeshPhongMaterial({color: 'white', vertexColors: THREE.FaceColors, flatShading: true}); 
+    var cubeWireframe = new THREE.MeshBasicMaterial({color: 'black', wireframe: true});
+    rubiksCube = new THREE.Group();
+    activeRubiksGroup = new THREE.Group();
+    cubeWireframe = new THREE.Mesh(rubiksCubeGeometry, cubeWireframe);
+
+    for (var i = 0; i < 26; i++) {
+        var newCube = new THREE.Mesh(rubiksCubeGeometry, rubiksCubeMaterial);
+        var newCubeWireframe = cubeWireframe.clone();
+        newCube.add(newCubeWireframe);
+        var cubeID = 'cube' + i;
+     
+        newCube.position.set(
+            RubiksMap[cubeID].position[0],
+            RubiksMap[cubeID].position[1],
+            RubiksMap[cubeID].position[2]
+        );
+        
+        setupSubCubeColors(
+            newCube, 
+            RubiksMap[cubeID].faces,  
+            RubiksMap[cubeID].colors        
+        );
+
+        rubiksCube.add(newCube);
     }
+    perfectRubiksCube = rubiksCube.clone();
+    States.rubiksCubeGenerated = true;
 }
-    
+
+function setupSubCubeColors (newCube, newCubeFaces, newCubeColors) {
+    var counter = 0;
+    newCubeFaces.forEach( function (face) {
+       var primitiveFaceIndex = FaceIndexes[face]; 
+       var currentColor = rubiksColors[newCubeColors[counter]];
+       for (var i = 0; i < 2; i++) {
+           newCube.geometry.faces[primitiveFaceIndex + i].color.setHex(currentColor);
+       }
+       counter++;
+    });
+    newCube.geometry.colorsNeedUpdate = true;
+    console.log(newCube);
+}
+   
 function rotateRubiksBottom () {
     rubiksCube.geometry.colorsNeedUpdate = true;
 }
