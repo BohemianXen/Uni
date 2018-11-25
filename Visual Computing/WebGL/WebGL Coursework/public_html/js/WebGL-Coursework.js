@@ -27,7 +27,10 @@ var Defaults = {
 
 // Object States                    
 var States = {
-    rotating: false,
+    rotating: {
+        on: false,
+        axis: 'x'
+    },
     vertexRendering: false,
     edgeRendering: false, 
     faceRendering: false,
@@ -42,8 +45,8 @@ var States = {
 
 
 init();
-rotateX();
-States.rotating = true;
+rotateObj();
+States.rotating.on = true;
 
 
 // Scene Setup
@@ -152,62 +155,64 @@ function axesSetup () {
 
 
 // Object Rotation
-function rotateX () {
+function rotateObj () {
     var obj = activeObject;
-    animationID = requestAnimationFrame(rotateX); 
-    obj.rotation.x += Defaults.rotationStep;
-    if (obj.rotation.x >= 2*Math.PI){
-         obj.rotation.x = 0;
+    animationID = requestAnimationFrame(rotateObj); 
+    obj.rotation[States.rotating.axis] += Defaults.rotationStep;
+    zeroOtherAxes();
+    
+    if (obj.rotation[States.rotating.axis] >= 2*Math.PI){
+        obj.rotation[States.rotating.axis] = 0;
         cancelAnimationFrame(animationID); 
-        rotateY();
+
+        switch (States.rotating.axis) {
+            case 'x':
+                States.rotating.axis = 'y';
+                break;
+            case 'y':
+                States.rotating.axis = 'z';
+                break
+            default:
+                States.rotating.axis = 'x';
+                break;
+        }
+        rotateObj();
     }
     renderer.render(scene, camera);
 }
 
-function rotateY () {
+function zeroOtherAxes() {
     var obj = activeObject;
-    animationID = requestAnimationFrame(rotateY);
-    obj.rotation.y += Defaults.rotationStep;
-    if (obj.rotation.y >= 2*Math.PI){
+    
+    if (obj.rotation.x !== 0) { 
         obj.rotation.y = 0;
-        cancelAnimationFrame(animationID); 
-        rotateZ();
+        obj.rotation.z = 0;                               
     }
-    renderer.render(scene, camera);
-} 
-
-function rotateZ () {
-    var obj = activeObject;
-    animationID = requestAnimationFrame(rotateZ); 
-    obj.rotation.z += Defaults.rotationStep;
-    if (obj.rotation.z >= 2*Math.PI){
+    if (obj.rotation.y !== 0) {
+        obj.rotation.x = 0;
         obj.rotation.z = 0;
-        cancelAnimationFrame(animationID); 
-        rotateX();
     }
-    renderer.render(scene, camera);
+    if (obj.rotation.z !== 0) {
+        obj.rotation.x = 0;
+        obj.rotation.y = 0;
+    }    
 }
 
-function toggleRotation () {
+function toggleRotation ()  {
     var obj = activeObject;
-    if (States.rotating){
+    if (States.rotating.on){
         cancelAnimationFrame(animationID); 
     } else {
         if (obj.rotation.y !== 0){
-            obj.rotation.x = 0;
-            obj.rotation.z = 0;
-            rotateY();
+            States.rotating.axis = 'y';
         } else if (obj.rotation.z !== 0){
-            obj.rotation.x = 0;
-            obj.rotation.y = 0;
-            rotateZ();
+            States.rotating.axis = 'z';
         } else { 
-            obj.rotation.y = 0;
-            obj.rotation.z = 0;
-            rotateX();                                 
+            States.rotating.axis = 'x';                                 
         }
+        rotateObj();
     }
-    States.rotating = !States.rotating; 
+    States.rotating.on = !States.rotating.on; 
 }
 
 
@@ -429,7 +434,7 @@ function loadObject (filename) {
 
         function(object) {   
             bunny = object;                                                  
-            bunny.traverse(function (child) {
+            bunny.traverse( function (child) {
                     if (child.isMesh) { 
                         child.material = bunnyMaterial;
                         var bunnyPoints = new THREE.Points(child.geometry, bunnyPointsMaterial);
@@ -492,7 +497,7 @@ function toggleNonActiveObjectDisplay () {
 function toggleRubiksCube () {
     if (!States.rubiksCubeMode){
         //TODO: activeObject? disable other keys? stop rotation and other states
-        if (States.rotating) { toggleRotation(); }
+        if (States.rotating.on) { toggleRotation(); }
         if (States.cubeDisplayed) { scene.remove(cube); }
         if (States.objectLoadedDisplayed) { scene.remove(bunny); }
         
@@ -504,7 +509,7 @@ function toggleRubiksCube () {
         //console.log(rubiksCube);
     } else {
         if (!States.cubeDisplayed) { scene.add(cube); }
-        if (!States.rotating) { toggleRotation(); }
+        if (!States.rotating.on) { toggleRotation(); }
         States.cubeDisplayed = true;
         if (States.objectLoaded) { scene.add(bunny); }
         scene.remove(rubiksCube);
@@ -694,45 +699,53 @@ function generateRubiksCube () {
 }
 
 function setupSubCubeColors (newCube, newCubeFaces, newCubeColors) {
-    var counter = 0;
+    var newCubeColorsIndex = 0;
     newCubeFaces.forEach( function (face) {
        var primitiveFaceIndex = FaceIndexes[face]; 
-       var currentColor = rubiksColors[newCubeColors[counter]];
+       var currentColor = rubiksColors[newCubeColors[newCubeColorsIndex]];
        for (var i = 0; i < 2; i++) {
            newCube.geometry.faces[primitiveFaceIndex + i].color.setHex(currentColor);
        }
-       counter++;
+       newCubeColorsIndex++;
     });
-    newCube.geometry.colorsNeedUpdate = true;
-    console.log(newCube);
-}
-   
-function rotateRubiksBottom () {
-    rubiksCube.geometry.colorsNeedUpdate = true;
-}
+}  
 
-function rotateRubiksLeft () {
-    rubiksCube.geometry.colorsNeedUpdate = true; 
-}
-
-function rotateRubiksRight () {
-    rubiksCube.geometry.colorsNeedUpdate = true;
-}
-
-function rotateRubiksTop () {
-   var front = RubiksIndexes.frontTop;
-   //var up = RubiksIndexes. // TODO: Extend for top side rotations fml 
-   var left = RubiksIndexes.leftTop;
-   var back = RubiksIndexes.backTop;
-   var right = RubiksIndexes.rightTop;
-   //var starts = []
-   //for ()
-   rubiksFaces[72].color.setHex(0x0000ff);
-   //rubiksFaces.splice(72, right.length, ...right);
-   //rubiksFaces.splice(0, right.length, ...back);
-   //rubiksFaces.splice(90, right.length, ...left);
-   //rubiksFaces.splice(18, right.length, ...front);
-   rubiksCube.geometry.colorsNeedUpdate = true;
+//TODO: Fix mixed rotations
+function rotateRubiks (rotationAxis, axisVal) {
+    var activeCubes = []; var preRotationPos = [];
+    var newPosMapping = [2, 4, 7, 1, 6, 0, 3, 5];
+    
+    var cubesSelected = 0;
+    rubiksCube.children.forEach( 
+        function (child) {
+            if (activeCubes.length < 9) {
+                if (child.position[rotationAxis] === axisVal) { 
+                    activeCubes.push(child);
+                    preRotationPos.push(new THREE.Vector3());
+                    preRotationPos[cubesSelected].copy(child.position);
+                    cubesSelected++;
+                } 
+            } 
+        }
+    );
+    
+    activeCubes.splice(4, 1);
+    preRotationPos.splice(4, 1);
+    var pointer = 0;
+    
+    activeCubes.forEach(
+        function (child) {            
+            if (pointer < preRotationPos.length) {
+                    child.position.set(
+                        preRotationPos[newPosMapping[pointer]].x,
+                        preRotationPos[newPosMapping[pointer]].y,
+                        preRotationPos[newPosMapping[pointer]].z
+                    );
+            }
+            child.rotation[rotationAxis] += Math.PI/2;      
+            pointer++;
+        }
+    );
 }
 
 
@@ -801,25 +814,35 @@ function onKeyDown (e) {
         case 90: 
             toggleRubiksCube();
             break;
-        // Rotate bottom of rubiks cube anticlockwise on '2' keydown
+        // Rotate 'front' side of rubiks cube anticlockwise on '1' keydown
+        case 49:
+        case 97:
+            if (States.rubiksCubeMode) { rotateRubiks('z', 1); }
+            break;
+        // Rotate 'down' side of rubiks cube anticlockwise on '2' keydown
         case 50:
         case 98:
-            if (States.rubiksCubeMode) { rotateRubiksBottom(); }
+            if (States.rubiksCubeMode) { rotateRubiks('y', -1); }
             break;
-        // Rotate left side of rubiks cube anticlockwise on '4' keydown
+        // Rotate 'left' side of rubiks cube anticlockwise on '4' keydown
         case 52:
         case 100:
-            if (States.rubiksCubeMode) { rotateRubiksLeft(); }
+            if (States.rubiksCubeMode) { rotateRubiks('x', -1); }
             break;
-        // Rotate bottom of rubiks cube anticlockwise on '6' keydown
+        // Rotate 'right' of rubiks cube anticlockwise on '6' keydown
         case 54:
         case 102:
-            if (States.rubiksCubeMode) { rotateRubiksRight(); }
+            if (States.rubiksCubeMode) { rotateRubiks('x', 1); }
             break;
-        // Rotate top of rubiks cube anticlockwise on '8' keydown
+        // Rotate 'up' of rubiks cube anticlockwise on '8' keydown
         case 56:
         case 104:
-            if (States.rubiksCubeMode) { rotateRubiksTop(); }
+            if (States.rubiksCubeMode) { rotateRubiks('y', 1); }
+            break;
+        // Rotate 'back' side of rubiks cube anticlockwise on '9' keydown
+        case 57:
+        case 105:
+            if (States.rubiksCubeMode) { rotateRubiks('z', -1); }
             break;
         default:
             break;                            
@@ -854,7 +877,7 @@ function onMouseMove (e) {
     }
 }
 
-function onMouseUp (e) {
+function onMouseUp () {
     Orbit.started = false;
     Orbit.xFocus = 0;   Orbit.yFocus = 0; 
     Orbit.xMove = 0;    Orbit.yMove = 0;
