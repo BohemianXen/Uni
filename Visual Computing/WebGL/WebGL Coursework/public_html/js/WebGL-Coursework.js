@@ -1,8 +1,8 @@
 "use strict"; // https://stackoverflow.com/q/1335851/72470
 
 var camera, defaultCamera, scene, renderer;
-var cube, cubeMaterial, bunny, bunnyMaterial, pointsMaterial;
-var rubiksCube, perfectRubiksCube, activeRubiksGroup; 
+var cube, bunny;
+var rubiksCube, perfectRubiksCube;
 var animationID; 
 var activeObject;
 
@@ -15,9 +15,13 @@ var sqr = val => val*val;
 var sum = (accumulator, val) => accumulator + val;
 
 var Defaults = {
-    cameraPos: [2, 1, 5],
-    cameraLookAt: new THREE.Vector3(0.0031250000000000444, -0.22544951590594753, 0.9742498396986135),
+    backgroundColor: new THREE.Color(0x000000),
+    cameraPos: [3, 4, 5],
+    cameraLookAt: new THREE.Vector3(0, 0, 0),
     cubeColor: new THREE.Color(0x00fB8B),
+    wireframeColor: new THREE.Color(0xffff00),
+    pointsColor: new THREE.Color(0xffffff),
+    pointsSize: 0.075,
     bunnyColor: new THREE.Color(0xf44298),
     bunnyScaling: 0.3,
     bunnyPointsSize: 0.01,
@@ -36,9 +40,9 @@ var States = {
     faceRendering: false,
     textureRendering: false,
     orbiting: false,
-    objectLoaded: false, 
+    bunnyLoaded: false, 
     cubeDisplayed: false,
-    objectLoadedDisplayed: false, 
+    bunnyDisplayed: false, 
     rubiksCubeMode: false, 
     rubiksCubeGenerated: false
 };
@@ -52,8 +56,10 @@ States.rotating.on = true;
 // Scene Setup
 function init () {
     scene = new THREE.Scene();
+    scene.background = Defaults.backgroundColor;
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     renderer = new THREE.WebGLRenderer();
+    renderer.setPixelRatio(window.devicePixelRatio); // HiDPI/retina rendering
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     
@@ -108,18 +114,25 @@ function resetCamera () {
 }
 
 function cubeSetup () {
-    var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);         
-    cubeMaterial = new THREE.MeshPhongMaterial({color: Defaults.cubeColor, vertexColors: THREE.VertexColors , flatShading: true});
-    cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    var geometry = new THREE.BoxGeometry(2, 2, 2);  
+    var material = new THREE.MeshPhongMaterial({color: Defaults.cubeColor, vertexColors: THREE.VertexColors , flatShading: true});
+    var pointsMaterial = new THREE.PointsMaterial({color:Defaults.pointsColor, size: Defaults.pointsSize});
+    var points = new THREE.Points(geometry, pointsMaterial);
+    var wireframeMaterial = new THREE.MeshBasicMaterial({color: Defaults.wireframeColor, wireframe: true});           
+    var wireframe = new THREE.Mesh(geometry, wireframeMaterial);
+   
+    cube = new THREE.Mesh(geometry, material);
 
     scene.add(cube);
     activeObject = cube;
     States.cubeDisplayed = true;
-    States.faceRendering = true;
     
-    pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size: 0.075});
-    var cubePoints = new THREE.Points(cubeGeometry, pointsMaterial);
-    cube.userData.points = cubePoints;
+    cube.userData.material = material;
+    cube.userData.pointsMaterial = pointsMaterial;
+    cube.userData.points = points;
+    cube.userData.wireframeMaterial = wireframeMaterial;  
+    cube.userData.wireframe = wireframe;    
+    cube.userData.textures = [];
 }
 
 function axesSetup () {
@@ -222,73 +235,45 @@ function toggleRotation ()  {
 //       - Revert back to overlayed edge mode
 function toggleEdges (obj) {
     if (!States.edgeRendering){ 
-        obj.traverse(
-            function (child) {
-                if (child.material !== undefined && child.material.isMaterial) { 
-                    child.material.wireframe = true; 
-                }        
-            });
+        obj.add(obj.userData.wireframe);
     } else {
-        obj.traverse(
-            function (child) {
-                if (child.material !== undefined && child.material.isMaterial) { 
-                    child.material.wireframe = false; 
-                }        
-            });
-    }  
-
-    if (!States.textureRendering) {
-        States.edgeRendering = !States.edgeRendering;
-    }   
+        obj.remove(obj.userData.wireframe);
+    }
+    States.edgeRendering = !States.edgeRendering; 
 }
 
 // TODO: Fix bugs -> T then F needs second F also a subsquent T does not bring the texture back
 //                   F then T means T behaves like F
 function toggleFaces (obj) {
-    if (!States.faceRendering){
-         obj.traverse(
-            function (child) {
-                if (child.material !== undefined && child.material.isMaterial) { 
-                    child.material.opacity = 0.0;
-                    child.material.transparent = true;
-                }        
-            });
-    } else { 
-        if (States.edgeRendering) { toggleEdges(obj); }
-        obj.traverse(
-            function (child) {
-                if (child.material !== undefined && child.material.isMaterial) { 
-                    child.material.opacity = 1.0;
-                    child.material.transparent = false;
-                }        
-            });
-    }    
-    States.faceRendering = !States.faceRendering;
+    if (!States.textureRendering)   { 
+        if (!States.faceRendering){
+             obj.traverse(
+                function (child) {
+                    if (child.material !== undefined && child.material.isMaterial && !child.material.wireframe && !child.isPoints) {
+                        child.material.opacity = 0.0;
+                        child.material.transparent = true;
+                    }        
+                });
+        } else {
+            obj.traverse(
+                function (child) {
+                    if (child.material !== undefined && child.material.isMaterial && !child.material.wireframe && !child.isPoints) { 
+                        child.material.opacity = 1.0;
+                        child.material.transparent = false;
+                    }        
+                });
+        }    
+        States.faceRendering = !States.faceRendering;
+    }
 }    
 
 // TODO  - Cannot enter vertices mode from off face mode
  //      - T -> F -> V -> F -> F now stuck with V=F
 function toggleVertices (obj) {
 if (!States.vertexRendering){
-        obj.traverse(
-           function (child) {
-               if (child !== undefined && child.isMesh) { 
-                  obj.add(obj.points);
-               }        
-        });
+        obj.add(obj.userData.points);
     } else {
-        //TODO: Investigate why this throws when toggling bunny vertices off
-        try { 
-            obj.traverse(
-            function (child) {
-                if (child !== undefined && !child.isPoints && child.isMesh) { 
-                   obj.remove(obj.points);
-                }        
-            });
-        } catch (exception) {
-            console.log(exception);
-        }
-
+        obj.remove(obj.userData.points);
     }     
     States.vertexRendering = !States.vertexRendering;   
 }
@@ -399,36 +384,36 @@ function orbitCamera () {
 
 // Cube Texture 
 var textureNames = ['bronze', 'wire', 'scratched', 'shapes', 'colour', 'water'];
-var textures = [];
 
 for (var texture in textureNames){                          
-    textures.push(new THREE.MeshBasicMaterial({
+    cube.userData.textures.push(new THREE.MeshBasicMaterial({
         map: textureLoader.load(textureNames[texture] + '.jpg')
     }));
 }
 
 function toggleTextures (obj) {
-    if (obj === cube){
+    if (activeObject === cube){
         if (!States.textureRendering){
-            if (States.edgeRendering) { toggleEdges(obj); }
-            cube.material = textures;
+            cube.material = cube.userData.textures;
         } else {
-            cube.material = cubeMaterial;
+            cube.material = cube.userData.material;
         }
-        States.faceRendering = true;
-        States.textureRendering = !States.textureRendering; 
-        toggleFaces(obj);
+        States.faceRendering = false;
+        //toggleFaces(obj);
+        States.textureRendering = !States.textureRendering;      
     }
  };
 
 
 // Object Loading/Switch Active Object
 
-function loadObject (filename) {                            
+function loadBunny (filename) {                            
 
-    bunnyMaterial = new THREE.MeshPhongMaterial({color: Defaults.bunnyColor});
-    var bunnyPointsMaterial = pointsMaterial.clone();
-    bunnyPointsMaterial.size = Defaults.bunnyPointsSize;   
+    var material = new THREE.MeshPhongMaterial({color: Defaults.bunnyColor});
+    var pointsMaterial = cube.userData.pointsMaterial.clone();
+    pointsMaterial.size = Defaults.bunnyPointsSize; 
+    var wireframeMaterial = cube.userData.wireframeMaterial.clone();
+    var points, wireframe;
 
     objLoader.load(filename,
 
@@ -436,58 +421,60 @@ function loadObject (filename) {
             bunny = object;                                                  
             bunny.traverse( function (child) {
                     if (child.isMesh) { 
-                        child.material = bunnyMaterial;
-                        var bunnyPoints = new THREE.Points(child.geometry, bunnyPointsMaterial);
-                        bunny.userData.points = bunnyPoints;
+                        child.material = material;
+                        points = new THREE.Points(child.geometry, pointsMaterial);
+                        wireframe = new THREE.Mesh(child.geometry, wireframeMaterial);
+                        bunny.userData.points = points;
+                        bunny.userData.wireframe = wireframe;
                     }        
             });
-
+            
             bunny.scale.x = Defaults.bunnyScaling;
             bunny.scale.y = Defaults.bunnyScaling; 
             bunny.scale.z = Defaults.bunnyScaling;
-
+            
             scene.add(bunny);
-
-            States.objectLoadedDisplayed = true;
+                    
+            States.bunnyDisplayed = true;
             toggleActiveObject();
-            States.objectLoaded = true;
+            States.bunnyLoaded = true;
         }
     );
 }
         
 function toggleActiveObject () {
-
     if (activeObject === cube) {
-        if (!States.objectLoaded) {
-            if (States.textureRendering) { toggleTextures(cube); }
-            if (!States.edgeRendering) { toggleEdges(cube); }                               
-            if (States.vertexRendering) { toggleVertices(cube); }
-        }
-
+        if (!States.bunnyDisplayed) { scene.add(bunny); } 
+        if (States.textureRendering) { toggleTextures(cube); }
+        if (!States.edgeRendering) { toggleEdges(cube); }                               
+        if (!States.faceRendering) { toggleFaces(cube); }     
+        States.faceRendering = false;
+        States.edgeRendering = false;  
         activeObject = bunny;
-        States.faceRendering = true;
-        States.edgeRendering = false;
-
     } else {
+        if (!States.cubeDisplayed) { scene.add(cube); } 
+        States.faceRendering = !States.faceRendering;
         activeObject = cube;
     }     
 }
 
 function toggleNonActiveObjectDisplay () {            
-    if (activeObject === cube && States.objectLoaded) {
-        if (States.objectLoadedDisplayed) {
+    if (activeObject === cube && States.bunnyLoaded) {
+        if (States.bunnyDisplayed) {
             scene.remove(bunny);
         } else {
             scene.add(bunny);
         }
-        States.objectLoadedDisplayed = !States.objectLoadedDisplayed;
+        States.bunnyDisplayed = !States.bunnyDisplayed;
     } else {
-        if (States.cubeDisplayed) {
-            scene.remove(cube);
-        } else {
-            scene.add(cube);
+        if (States.bunnyLoaded) { 
+            if (States.cubeDisplayed) {
+                scene.remove(cube);
+            } else {
+                scene.add(cube);
+            }
+            States.cubeDisplayed = !States.cubeDisplayed;
         }
-        States.cubeDisplayed = !States.cubeDisplayed;
     }
 }
 
@@ -496,24 +483,12 @@ function toggleNonActiveObjectDisplay () {
 
 function toggleRubiksCube () {
     if (!States.rubiksCubeMode){
-        //TODO: activeObject? disable other keys? stop rotation and other states
-        if (States.rotating.on) { toggleRotation(); }
-        if (States.cubeDisplayed) { scene.remove(cube); }
-        if (States.objectLoadedDisplayed) { scene.remove(bunny); }
-        
-        States.cubeDisplayed = false;
-        States.objectLoadedDisplayed = false;
-        
+        if (States.rotating.on) { toggleRotation(); }       
         if (!States.rubiksCubeGenerated) { generateRubiksCube(); }
         scene.add(rubiksCube);
-        //console.log(rubiksCube);
-    } else {
-        if (!States.cubeDisplayed) { scene.add(cube); }
-        if (!States.rotating.on) { toggleRotation(); }
-        States.cubeDisplayed = true;
-        if (States.objectLoaded) { scene.add(bunny); }
+    } else {  
         scene.remove(rubiksCube);
-        activeObject = cube;
+        if (!States.rotating.on) { toggleRotation(); }
     }
     
     States.rubiksCubeMode = !States.rubiksCubeMode;
@@ -671,7 +646,6 @@ function generateRubiksCube () {
     var rubiksCubeMaterial = new THREE.MeshPhongMaterial({color: 'white', vertexColors: THREE.FaceColors, flatShading: true}); 
     var cubeWireframe = new THREE.MeshBasicMaterial({color: 'black', wireframe: true});
     rubiksCube = new THREE.Group();
-    activeRubiksGroup = new THREE.Group();
     cubeWireframe = new THREE.Mesh(rubiksCubeGeometry, cubeWireframe);
 
     for (var i = 0; i < 26; i++) {
@@ -816,7 +790,7 @@ function onKeyDown (e) {
             break; 
         // Load/switch active object on 's' Keydown
         case 83: 
-            if (!States.objectLoaded) { loadObject('bunny-5000.obj'); }
+            if (!States.bunnyLoaded) { loadBunny('bunny-5000.obj'); }
             else { toggleActiveObject(); }
             break;
         // Toggle non-active object on 'x' Keydown
