@@ -119,7 +119,7 @@ function cubeSetup () {
     
     pointsMaterial = new THREE.PointsMaterial({color: 0xffff00, size: 0.075});
     var cubePoints = new THREE.Points(cubeGeometry, pointsMaterial);
-    cube.points = cubePoints;
+    cube.userData.points = cubePoints;
 }
 
 function axesSetup () {
@@ -438,7 +438,7 @@ function loadObject (filename) {
                     if (child.isMesh) { 
                         child.material = bunnyMaterial;
                         var bunnyPoints = new THREE.Points(child.geometry, bunnyPointsMaterial);
-                        bunny.points = bunnyPoints;
+                        bunny.userData.points = bunnyPoints;
                     }        
             });
 
@@ -524,12 +524,12 @@ function toggleRubiksCube () {
 var rubiksColors = [0xff0000, 0xffa500, 0xffffff, 0xffff00, 0x00ff00, 0x0000ff];
     
 var FaceIndexes = {
-  'r': 0,
-  'l': 2,
-  'u': 4,
-  'd': 6,
-  'f': 8,
-  'b': 10
+    'r': 0,
+    'l': 2,
+    'u': 4,
+    'd': 6,
+    'f': 8,
+    'b': 10
 };
 
 var RubiksMap = {
@@ -710,27 +710,34 @@ function setupSubCubeColors (newCube, newCubeFaces, newCubeColors) {
     });
 }  
 
-//TODO: Fix mixed rotations
-function rotateRubiks (rotationAxis, axisVal) {
-    var activeCubes = []; var preRotationPos = [];
+//TODO: Fix mixed rotations - need to also swap indexing within rubiks cube, not just the coords
+function rotateRubiks (side, rotationAxis, axisVal) {
+    var activeCubes = []; var preRotationPos = []; var preRotationIndex = [];
     var newPosMapping = [2, 4, 7, 1, 6, 0, 3, 5];
-    
-    var cubesSelected = 0;
+    if (side === 'l' || side === 'd' || side === 'f') { newPosMapping.reverse(); } 
+
+    var cubesSelected = 0; var cubeIndex = 0;
     rubiksCube.children.forEach( 
         function (child) {
             if (activeCubes.length < 9) {
-                if (child.position[rotationAxis] === axisVal) { 
-                    activeCubes.push(child);
+                if (child.position[rotationAxis] === axisVal) {
+                    // https://github.com/mrdoob/three.js/issues/7375
+                    activeCubes.push(child.clone());
+                    activeCubes[cubesSelected].rotation.copy(child.rotation);
+                    
                     preRotationPos.push(new THREE.Vector3());
                     preRotationPos[cubesSelected].copy(child.position);
+                    preRotationIndex.push(cubeIndex);
+                    
                     cubesSelected++;
                 } 
+                cubeIndex++;
             } 
         }
     );
-    
     activeCubes.splice(4, 1);
     preRotationPos.splice(4, 1);
+    preRotationIndex.splice(4, 1);
     var pointer = 0;
     
     activeCubes.forEach(
@@ -742,7 +749,13 @@ function rotateRubiks (rotationAxis, axisVal) {
                         preRotationPos[newPosMapping[pointer]].z
                     );
             }
-            child.rotation[rotationAxis] += Math.PI/2;      
+            child.rotation[rotationAxis] += Math.PI/2;
+            if (child.rotation[rotationAxis] >= 2*Math.PI) { 
+                child.rotation[rotationAxis] = 0
+            }
+            //console.log(child.rotation);
+            var newCubeIndex = preRotationIndex[newPosMapping[pointer]];
+            rubiksCube.children[newCubeIndex] = child;
             pointer++;
         }
     );
@@ -817,32 +830,32 @@ function onKeyDown (e) {
         // Rotate 'front' side of rubiks cube anticlockwise on '1' keydown
         case 49:
         case 97:
-            if (States.rubiksCubeMode) { rotateRubiks('z', 1); }
+            if (States.rubiksCubeMode) { rotateRubiks('f', 'z', 1); }
             break;
         // Rotate 'down' side of rubiks cube anticlockwise on '2' keydown
         case 50:
         case 98:
-            if (States.rubiksCubeMode) { rotateRubiks('y', -1); }
+            if (States.rubiksCubeMode) { rotateRubiks('d', 'y', -1); }
             break;
         // Rotate 'left' side of rubiks cube anticlockwise on '4' keydown
         case 52:
         case 100:
-            if (States.rubiksCubeMode) { rotateRubiks('x', -1); }
+            if (States.rubiksCubeMode) { rotateRubiks('l', 'x', -1); }
             break;
         // Rotate 'right' of rubiks cube anticlockwise on '6' keydown
         case 54:
         case 102:
-            if (States.rubiksCubeMode) { rotateRubiks('x', 1); }
+            if (States.rubiksCubeMode) { rotateRubiks('r', 'x', 1); }
             break;
         // Rotate 'up' of rubiks cube anticlockwise on '8' keydown
         case 56:
         case 104:
-            if (States.rubiksCubeMode) { rotateRubiks('y', 1); }
+            if (States.rubiksCubeMode) { rotateRubiks('u', 'y', 1); }
             break;
         // Rotate 'back' side of rubiks cube anticlockwise on '9' keydown
         case 57:
         case 105:
-            if (States.rubiksCubeMode) { rotateRubiks('z', -1); }
+            if (States.rubiksCubeMode) { rotateRubiks('b', 'z', -1); }
             break;
         default:
             break;                            
