@@ -25,6 +25,7 @@ var Defaults = {
     bunnyColor: new THREE.Color(0xf44298),
     bunnyScaling: 0.3,
     bunnyPointsSize: 0.01,
+    axisLength: 4,
     rotationStep: 0.01, 
     cameraMovementDistance: 0.1
 };
@@ -76,9 +77,7 @@ function init () {
     lights[1].position.set(100, 200, 100);
     lights[2].position.set(-100, -200, -100 );
 
-    for (var i = 0; i < lights.length; i++) {
-        scene.add(lights[i]);
-    }
+    for (var i = 0; i < lights.length; i++) { scene.add(lights[i]); }
 
     // Event Listeners
     document.addEventListener("keydown", onKeyDown); //TODO: Pausing cube blocks other events until resumption
@@ -122,7 +121,6 @@ function cubeSetup () {
     var wireframe = new THREE.Mesh(geometry, wireframeMaterial);
    
     cube = new THREE.Mesh(geometry, material);
-
     scene.add(cube);
     activeObject = cube;
     States.cubeDisplayed = true;
@@ -142,21 +140,20 @@ function axesSetup () {
     var xAxisMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
     var yAxisMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
     var zAxisMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
-    var axisLength = 4;
 
     xAxisGeometry.vertices.push(
             new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(axisLength, 0, 0)
+            new THREE.Vector3(Defaults.axisLength, 0, 0)
     );
 
     yAxisGeometry.vertices.push(
             new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(0, axisLength, 0)
+            new THREE.Vector3(0, Defaults.axisLength, 0)
     );
 
     zAxisGeometry.vertices.push(
             new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(0, 0, axisLength)
+            new THREE.Vector3(0, 0, Defaults.axisLength)
     );
 
     var xAxis = new THREE.Line(xAxisGeometry, xAxisMaterial);
@@ -230,9 +227,7 @@ function toggleRotation ()  {
 
 
 // Render modes 
-// TODO: - Cannot enter edge mode from texture mode
-//       - Cannot enter edge mode from off face mode
-//       - Revert back to overlayed edge mode
+
 function toggleEdges (obj) {
     if (!States.edgeRendering){ 
         obj.add(obj.userData.wireframe);
@@ -242,8 +237,6 @@ function toggleEdges (obj) {
     States.edgeRendering = !States.edgeRendering; 
 }
 
-// TODO: Fix bugs -> T then F needs second F also a subsquent T does not bring the texture back
-//                   F then T means T behaves like F
 function toggleFaces (obj) {
     if (!States.textureRendering)   { 
         if (!States.faceRendering){
@@ -267,8 +260,6 @@ function toggleFaces (obj) {
     }
 }    
 
-// TODO  - Cannot enter vertices mode from off face mode
- //      - T -> F -> V -> F -> F now stuck with V=F
 function toggleVertices (obj) {
 if (!States.vertexRendering){
         obj.add(obj.userData.points);
@@ -309,82 +300,95 @@ function translateCamera (direction) {
 // Camera Orbit   
 var Orbit = {
     started: false,
-    xFocus: 0, 
-    yFocus: 0,
+    xStart: 0, 
+    yStart: 0,
     xMove: 0,
     yMove: 0,
-    radius: -1,
+    xSensitivity: 7.25,
+    ySensitivity: 6.5,
+    xMax: Defaults.axisLength,
+    yMax: Defaults.axisLength,
+    xMaxStep: 0.8,
+    yMaxStep: 0.8,
+    radius: 0,
+    cameraDistance: 0,
     lookAtPoint: null
 };
 
-// TODO: - Fix rotation speed 
-//       - Zooms out if you drag sideways a bunch
+// TODO: - Fix rotation limits
 //       - Always looks at origin too much         
 function orbitCamera () {
-        
-    var dotProduct = function (a, b) {
-    var result = [a.x*b.x, a.y*b.y, a.z*b.z];
-    return result.reduce(sum);
-};
-
-    var crossProduct = function (a, b) {
-    return new THREE.Vector3(
-            (a.y*b.z) - (a.z*b.y),
-            (a.z*b.x) - (a.x*b.z), 
-            (a.x*b.y) - (a.y*b.x)
-        );
-};
-
     var screen2Cartesian = function (xScreen, yScreen) {
     var result = [];
     result.push(-1 + (2*xScreen/window.innerWidth));
     result.push(-(-1 + (2*yScreen/window.innerHeight))); 
     var zSquared = sqr(result[0]) + sqr(result[1]);
     result.push(zSquared);
-    if (Orbit.radius === -1){
-        Orbit.radius = zSquared;
-    }
+    if (!Orbit.started) { Orbit.radius = zSquared; }
     if (zSquared <= Orbit.radius){
-        result[2] = Math.sqrt(zSquared);//Orbit.radius - zSquared);
+        result[2] = Math.sqrt(Orbit.radius - zSquared);
     } else {
         result = result.map(x => x / zSquared);        
     }
     return new THREE.Vector3(result[0], result[1], result[2]);  
 };  
-
-    if (!Orbit.started){
-        var xStart = Orbit.xFocus; 
-        var yStart = Orbit.yFocus;
-        Orbit.lookAtPoint = screen2Cartesian(xStart, yStart);
-        Orbit.prevX = xStart; Orbit.prevY = yStart;
-        Orbit.radius = Orbit.lookAtPoint.z;
+    var getXYZDistances = function (point1, point2) {
+        var xDistance = point1.x - point2.x;
+        var yDistance = point1.y - point2.y;
+        var zDistance = point1.z - point2.z;
+        return [xDistance, yDistance, zDistance];
+    };
+    var calculateDistance = function (point1, point2) {
+        var distances = getXYZDistances(point1, point2);
+        return Math.sqrt(sqr(distances[0])+sqr(distances[1])+sqr(distances[2]));
+    };   
+    var fixDistance = function (cameraPos, lookAtPos, distance) {
+        var distances = getXYZDistances(cameraPos, lookAtPos);
+        var newCameraZ = Math.sqrt(
+            sqr(distance) - sqr(distances[0]) -  sqr(distances[1])
+        );
+        
+        if (Math.abs(distance[2]) < 0.2 || Number.isNaN(newCameraZ) ) { 
+            newCameraZ = 0.2;
+            Orbit.xMax = cameraPos.x; Orbit.yMax = cameraPos.y; 
+            console.log(distances);
+        }
+        return newCameraZ;
+    };
+    
+    if (!Orbit.started) {
+        Orbit.lookAtPoint = screen2Cartesian(Orbit.xStart, Orbit.yStart);
+        Orbit.cameraDistance = calculateDistance(camera.position, Orbit.lookAtPoint);
         Orbit.started = true;                          
     } else {
-         if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {
-            var op1 = screen2Cartesian(Orbit.xFocus, Orbit.yFocus);
-            var op2 = screen2Cartesian(Orbit.xFocus + Orbit.xMove, Orbit.prevY + Orbit.yMove);
-            var angle = Math.acos(Math.min(1, dotProduct(op1, op2)));
-            var orthogonalVector = crossProduct(op1, op2);
-
-            camera.translateX(op2.x - op1.x); // 4)*());
-            camera.translateY(-(op2.y - op1.y));
-            //camera.translateZ(op2.z - op1.z);
-            //console.log(op1, op2);
-            console.log(angle);
-            //console.log(orthogonalVector);
-
-            camera.rotateOnAxis(orthogonalVector, angle*2*Math.PI);
+        if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {      
+            var xDiff = Orbit.xMove/window.innerWidth;
+            var yDiff = Orbit.yMove/window.innerHeight;
+            var xTrans = (Math.abs(xDiff) <= Orbit.xMaxStep)? xDiff : Orbit.xMaxStep; 
+            var yTrans = (Math.abs(yDiff) <= Orbit.yMaxStep)? yDiff : Orbit.yMaxStep;
+            var newX = Orbit.xSensitivity * xTrans;
+            var newY = Orbit.ySensitivity * yTrans;
+            if (Math.abs(newX) > Orbit.xMax) { newX = Orbit.xMax; }
+            if (Math.abs(newY) > Orbit.yMax) { newY = Orbit.yMax; }
+            camera.translateX(newX);
+            camera.translateY(newY); 
         }
     }
-    
     camera.lookAt(Orbit.lookAtPoint);
-
+    var newCameraDistance = calculateDistance(camera.position, Orbit.lookAtPoint);
+    if (newCameraDistance !== Orbit.cameraDistance) {
+       var newZ = fixDistance(
+            camera.position, Orbit.lookAtPoint, Orbit.cameraDistance
+        );
+        camera.position.z = newZ;
+        //console.log(newZ);
+        //console.log(calculateDistance(camera.position, Orbit.lookAtPoint));
+    }
 };
 
 
 // Cube Texture 
 var textureNames = ['bronze', 'wire', 'scratched', 'shapes', 'colour', 'water'];
-
 for (var texture in textureNames){                          
     cube.userData.textures.push(new THREE.MeshBasicMaterial({
         map: textureLoader.load(textureNames[texture] + '.jpg')
@@ -399,14 +403,12 @@ function toggleTextures (obj) {
             cube.material = cube.userData.material;
         }
         States.faceRendering = false;
-        //toggleFaces(obj);
         States.textureRendering = !States.textureRendering;      
     }
  };
 
 
 // Object Loading/Switch Active Object
-
 function loadBunny (filename) {                            
 
     var material = new THREE.MeshPhongMaterial({color: Defaults.bunnyColor});
@@ -851,7 +853,7 @@ function onWheelScroll (e) {
 
 function onMouseDown (e) {
     if (e.which === 1){
-        Orbit.xFocus = e.x; Orbit.yFocus = e.y;
+        Orbit.xStart = e.x; Orbit.yStart = e.y;
         States.orbiting = true;
     }
 }
@@ -865,12 +867,11 @@ function onMouseMove (e) {
 }
 
 function onMouseUp () {
-    Orbit.started = false;
-    Orbit.xFocus = 0;   Orbit.yFocus = 0; 
-    Orbit.xMove = 0;    Orbit.yMove = 0;
-    Orbit.radius = -1;  Orbit.lookAtPoint = null;
-
-    States.orbiting = false;
+    Orbit.started = false;  States.orbiting = false;
+    Orbit.xStart = 0;   Orbit.yStart = 0;   Orbit.radius = 0;
+    Orbit.xMove = 0;    Orbit.yMove = 0;    Orbit. cameraDistance = 0;
+    Orbit.xMax = Defaults.axisLength;  Orbit.yMax =  Orbit.xMax;
+    Orbit.lookAtPoint = null;
 }  
 
 // Handle resizing of the browser window.
