@@ -314,9 +314,7 @@ var Orbit = {
     cameraDistance: 0,
     lookAtPoint: null
 };
-
-// TODO: - Fix rotation limits
-//       - Always looks at origin too much         
+       
 function orbitCamera () {
     var screen2Cartesian = function (xScreen, yScreen) {
     var result = [];
@@ -338,7 +336,7 @@ function orbitCamera () {
         var zDistance = point1.z - point2.z;
         return [xDistance, yDistance, zDistance];
     };
-    var calculateDistance = function (point1, point2) {
+    var getDistance = function (point1, point2) {
         var distances = getXYZDistances(point1, point2);
         return Math.sqrt(sqr(distances[0])+sqr(distances[1])+sqr(distances[2]));
     };   
@@ -350,15 +348,14 @@ function orbitCamera () {
         
         if (Math.abs(distance[2]) < 0.2 || Number.isNaN(newCameraZ) ) { 
             newCameraZ = 0.2;
-            Orbit.xMax = cameraPos.x; Orbit.yMax = cameraPos.y; 
-            console.log(distances);
+            Orbit.xMax = cameraPos.x; Orbit.yMax = cameraPos.y;       
         }
         return newCameraZ;
     };
     
     if (!Orbit.started) {
         Orbit.lookAtPoint = screen2Cartesian(Orbit.xStart, Orbit.yStart);
-        Orbit.cameraDistance = calculateDistance(camera.position, Orbit.lookAtPoint);
+        Orbit.cameraDistance = getDistance(camera.position, Orbit.lookAtPoint);
         Orbit.started = true;                          
     } else {
         if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {      
@@ -366,23 +363,18 @@ function orbitCamera () {
             var yDiff = Orbit.yMove/window.innerHeight;
             var xTrans = (Math.abs(xDiff) <= Orbit.xMaxStep)? xDiff : Orbit.xMaxStep; 
             var yTrans = (Math.abs(yDiff) <= Orbit.yMaxStep)? yDiff : Orbit.yMaxStep;
-            var newX = Orbit.xSensitivity * xTrans;
-            var newY = Orbit.ySensitivity * yTrans;
-            if (Math.abs(newX) > Orbit.xMax) { newX = Orbit.xMax; }
-            if (Math.abs(newY) > Orbit.yMax) { newY = Orbit.yMax; }
-            camera.translateX(newX);
-            camera.translateY(newY); 
+            var xTransAdj = -Orbit.xSensitivity * xTrans;
+            var yTransAdj = Orbit.ySensitivity * yTrans;
+            camera.translateX(xTransAdj); camera.translateY(yTransAdj); 
         }
     }
     camera.lookAt(Orbit.lookAtPoint);
-    var newCameraDistance = calculateDistance(camera.position, Orbit.lookAtPoint);
+    var newCameraDistance = getDistance(camera.position, Orbit.lookAtPoint);
     if (newCameraDistance !== Orbit.cameraDistance) {
        var newZ = fixDistance(
             camera.position, Orbit.lookAtPoint, Orbit.cameraDistance
         );
         camera.position.z = newZ;
-        //console.log(newZ);
-        //console.log(calculateDistance(camera.position, Orbit.lookAtPoint));
     }
 };
 
