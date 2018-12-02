@@ -1,5 +1,4 @@
 "use strict"; // https://stackoverflow.com/q/1335851/72470
-//TODO: Remove cube shadow when rubiks. Add rubiks and bunny shadows.
 /*-------------------------------- Globals -----------------------------------*/
 var camera, defaultCamera, scene, renderer;
 var cube, bunny, xyWall, yzWall, grass;
@@ -21,6 +20,7 @@ var sum = (accumulator, val) => accumulator + val;
 var Defaults = {
     backgroundColor: new THREE.Color(0x000000),
     cameraPos: [3, 4, 5],
+    cameraZoomPos: [2.5, 1.8, 2.5],
     cameraLookAt: new THREE.Vector3(0, 0, 0),
     cubeColor: new THREE.Color(0x00fB8B),
     wireframeColor: new THREE.Color(0xffff00),
@@ -122,13 +122,15 @@ function resetCamera () {
     camera.lookAt(Defaults.cameraLookAt);
 }
 
-function zoomCamera () {
-    camera.position.set(
-        2.5088376176592715,
-        1.4774882298978955,
-        2.656459883158694
-    );
-    camera.lookAt(Defaults.cameraLookAt);
+function zoomCamera ()  {
+    if (!States.rubiksCubeMode) { 
+        camera.position.set(
+            Defaults.cameraZoomPos[0],
+            Defaults.cameraZoomPos[1],
+            Defaults.cameraZoomPos[2]
+        );
+        camera.lookAt(Defaults.cameraLookAt);
+    }
 }
 
 function cubeSetup () {
@@ -282,11 +284,8 @@ function toggleRotation ()  {
 
 /*------------------------------ Render Modes --------------------------------*/
 function toggleEdges (obj) {
-    if (!States.edgeRendering){ 
-        obj.add(obj.userData.wireframe);
-    } else {
-        obj.remove(obj.userData.wireframe); obj.castShadow = true;
-    }
+    if (!States.edgeRendering){ obj.add(obj.userData.wireframe); }
+    else { obj.remove(obj.userData.wireframe); }
     States.edgeRendering = !States.edgeRendering; 
 }
 
@@ -300,15 +299,14 @@ function toggleFaces (obj) {
                        child.material.transparent = true;
                        child.castShadow = false;
                    }        
-               });
-            
+               });       
         } else {
             obj.traverse(
                 function (child) {
                     if (child.material !== undefined && child.material.isMaterial && !child.material.wireframe && !child.isPoints) { 
                         child.material.opacity = 1.0;
                         child.material.transparent = false;
-                        obj.castShadow = true;
+                        child.castShadow = true;
                     }        
                 });
         }    
@@ -465,7 +463,8 @@ function loadBunny (filename) {
         function(object) {   
             bunny = object;                                                  
             bunny.traverse( function (child) {
-                    if (child.isMesh) { 
+                    if (child.isMesh) {
+                        child.castShadow = true;
                         child.material = material;
                         points = new THREE.Points(child.geometry, pointsMaterial);
                         wireframe = new THREE.Mesh(child.geometry, wireframeMaterial);
@@ -477,7 +476,7 @@ function loadBunny (filename) {
             bunny.scale.x = Defaults.bunnyScaling;
             bunny.scale.y = Defaults.bunnyScaling; 
             bunny.scale.z = Defaults.bunnyScaling;
-            bunny.castShadow = true;
+            
             States.bunnyDisplayed = true;
             scene.add(bunny);
             toggleActiveObject();
@@ -706,6 +705,7 @@ function generateRubiksCube () {
             RubiksMap[cubeID].colors        
         );
 
+        newCube.castShadow = true;
         rubiksCube.add(newCube);
     }
     perfectRubiksCube = rubiksCube.clone();
