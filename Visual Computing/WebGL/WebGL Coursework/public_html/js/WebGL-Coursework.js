@@ -1,5 +1,5 @@
 "use strict"; // https://stackoverflow.com/q/1335851/72470
-
+/*-------------------------------- Globals -----------------------------------*/
 var camera, defaultCamera, scene, renderer;
 var cube, bunny;
 var rubiksCube, perfectRubiksCube;
@@ -14,6 +14,7 @@ objLoader.setPath("resources/");
 var sqr = val => val*val;
 var sum = (accumulator, val) => accumulator + val;
 
+/*-------------------------------- Defaults ----------------------------------*/
 var Defaults = {
     backgroundColor: new THREE.Color(0x000000),
     cameraPos: [3, 4, 5],
@@ -30,7 +31,7 @@ var Defaults = {
     cameraMovementDistance: 0.1
 };
 
-// Object States                    
+/*------------------------------ Object States -------------------------------*/                 
 var States = {
     rotating: {
         on: false,
@@ -48,13 +49,12 @@ var States = {
     rubiksCubeGenerated: false
 };
 
-
+/*-------------------------------- Init Call ---------------------------------*/
 init();
 rotateObj();
 States.rotating.on = true;
 
-
-// Scene Setup
+/*------------------------------- Scene Setup --------------------------------*/
 function init () {
     scene = new THREE.Scene();
     scene.background = Defaults.backgroundColor;
@@ -80,7 +80,7 @@ function init () {
     for (var i = 0; i < lights.length; i++) { scene.add(lights[i]); }
 
     // Event Listeners
-    document.addEventListener("keydown", onKeyDown); //TODO: Pausing cube blocks other events until resumption
+    document.addEventListener("keydown", onKeyDown);
     document.addEventListener("wheel", onWheelScroll);
     document.addEventListener("mousedown", onMouseDown);
     document.addEventListener("mousemove", onMouseMove);
@@ -163,8 +163,8 @@ function axesSetup () {
     scene.add(xAxis, yAxis, zAxis);       
 }
 
-
-// Object Rotation
+//function wallSetup () 
+/*----------------------------- Object Rotation ------------------------------*/
 function rotateObj () {
     var obj = activeObject;
     animationID = requestAnimationFrame(rotateObj); 
@@ -225,9 +225,7 @@ function toggleRotation ()  {
     States.rotating.on = !States.rotating.on; 
 }
 
-
-// Render modes 
-
+/*------------------------------ Render Modes --------------------------------*/
 function toggleEdges (obj) {
     if (!States.edgeRendering){ 
         obj.add(obj.userData.wireframe);
@@ -269,8 +267,7 @@ if (!States.vertexRendering){
     States.vertexRendering = !States.vertexRendering;   
 }
 
-
-// Camera Translation    
+/*---------------------------- Camera Translation ----------------------------*/    
 function translateCamera (direction) {
     switch (direction){
         case 'left':
@@ -296,8 +293,7 @@ function translateCamera (direction) {
     }
 };
 
-
-// Camera Orbit   
+/*------------------------------ Camera Orbit --------------------------------*/   
 var Orbit = {
     started: false,
     xStart: 0, 
@@ -378,8 +374,7 @@ function orbitCamera () {
     }
 };
 
-
-// Cube Texture 
+/*------------------------------ Cube Texture --------------------------------*/ 
 var textureNames = ['bronze', 'wire', 'scratched', 'shapes', 'colour', 'water'];
 for (var texture in textureNames){                          
     cube.userData.textures.push(new THREE.MeshBasicMaterial({
@@ -387,7 +382,7 @@ for (var texture in textureNames){
     }));
 }
 
-function toggleTextures (obj) {
+function toggleTextures () {
     if (activeObject === cube){
         if (!States.textureRendering){
             cube.material = cube.userData.textures;
@@ -399,10 +394,8 @@ function toggleTextures (obj) {
     }
  };
 
-
-// Object Loading/Switch Active Object
+/*------------------ Object Loading/Switch Active Object ---------------------*/
 function loadBunny (filename) {                            
-
     var material = new THREE.MeshPhongMaterial({color: Defaults.bunnyColor});
     var pointsMaterial = cube.userData.pointsMaterial.clone();
     pointsMaterial.size = Defaults.bunnyPointsSize; 
@@ -439,7 +432,7 @@ function loadBunny (filename) {
 function toggleActiveObject () {
     if (activeObject === cube) {
         if (!States.bunnyDisplayed) { scene.add(bunny); } 
-        if (States.textureRendering) { toggleTextures(cube); }
+        if (States.textureRendering) { toggleTextures(); }
         if (!States.edgeRendering) { toggleEdges(cube); }                               
         if (!States.faceRendering) { toggleFaces(cube); }     
         States.faceRendering = false;
@@ -472,9 +465,7 @@ function toggleNonActiveObjectDisplay () {
     }
 }
 
-
-// Rubik's Cube Mode 
-
+/*--------------------------- Rubik's Cube Mode ------------------------------*/
 function toggleRubiksCube () {
     if (!States.rubiksCubeMode){
         if (States.rotating.on) { toggleRotation(); }       
@@ -489,7 +480,6 @@ function toggleRubiksCube () {
     resetCamera();
 }
 
-//                    red0   orange1     white2   yellow3    green4     blue5
 var rubiksColors = [0xff0000, 0xffa500, 0xffffff, 0xffff00, 0x00ff00, 0x0000ff];
     
 var FaceIndexes = {
@@ -634,7 +624,6 @@ var RubiksMap = {
    }
 };
 
-
 function generateRubiksCube () {
     var rubiksCubeGeometry = new THREE.BoxGeometry(1, 1, 1);
     var rubiksCubeMaterial = new THREE.MeshPhongMaterial({color: 'white', vertexColors: THREE.FaceColors, flatShading: true}); 
@@ -678,7 +667,7 @@ function setupSubCubeColors (newCube, newCubeFaces, newCubeColors) {
     });
 }  
 
-//TODO: Fix mixed rotations - need to also swap indexing within rubiks cube, not just the coords
+// TODO: Fix mixed rotations
 function rotateRubiks (side, rotationAxis, axisVal) {
     var activeCubes = []; var preRotationPos = []; var preRotationIndex = [];
     var newPosMapping = [2, 4, 7, 1, 6, 0, 3, 5];
@@ -729,10 +718,7 @@ function rotateRubiks (side, rotationAxis, axisVal) {
     );
 }
 
-
-// Event Handlers
-
-// Key press event handler
+/*------------------------------ Event Handlers ------------------------------*/
 function onKeyDown (e) {
     switch (e.which) {
         // Pause object rotation on spacebar Keydown
@@ -780,7 +766,7 @@ function onKeyDown (e) {
             break;       
         // Apply textures on 't' Keydown
         case 84: 
-            toggleTextures(activeObject);
+            toggleTextures();
             break; 
         // Load/switch active object on 's' Keydown
         case 83: 
@@ -832,7 +818,6 @@ function onKeyDown (e) {
     renderer.render(scene, camera);
 }
 
-// Scroll wheel event handler 
 // Used to zoom camera in and out via the scroll wheel
 function onWheelScroll (e) {                        
    if (e.wheelDelta > 0){
