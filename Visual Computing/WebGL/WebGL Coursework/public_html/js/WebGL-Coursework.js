@@ -1,16 +1,19 @@
 "use strict"; // https://stackoverflow.com/q/1335851/72470
+//TODO: Remove cube shadow when rubiks. Add rubiks and bunny shadows.
 /*-------------------------------- Globals -----------------------------------*/
 var camera, defaultCamera, scene, renderer;
-var cube, bunny;
+var cube, bunny, xyWall, yzWall, grass;
 var rubiksCube, perfectRubiksCube;
 var animationID; 
 var activeObject;
 
-var textureLoader = new THREE.TextureLoader();
+var textureLoader = new THREE.TextureLoader();  
+var cubeTextureLoader = new THREE.CubeTextureLoader();
 var objLoader = new THREE.OBJLoader();
-textureLoader.setPath("resources/");
+cubeTextureLoader.setPath("resources/"); textureLoader.setPath("resources/");
 objLoader.setPath("resources/");
 
+var PI = Math.PI;
 var sqr = val => val*val;
 var sum = (accumulator, val) => accumulator + val;
 
@@ -26,9 +29,10 @@ var Defaults = {
     bunnyColor: new THREE.Color(0xf44298),
     bunnyScaling: 0.3,
     bunnyPointsSize: 0.01,
-    axisLength: 4,
+    axisLength: 5,
     rotationStep: 0.01, 
-    cameraMovementDistance: 0.1
+    cameraMovementDistance: 0.1,
+    wallDistance: 5
 };
 
 /*------------------------------ Object States -------------------------------*/                 
@@ -44,6 +48,7 @@ var States = {
     orbiting: false,
     bunnyLoaded: false, 
     cubeDisplayed: false,
+    wallsDisplayed: false,
     bunnyDisplayed: false, 
     rubiksCubeMode: false, 
     rubiksCubeGenerated: false
@@ -62,6 +67,7 @@ function init () {
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio); // HiDPI/retina rendering
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
     document.body.appendChild(renderer.domElement);
     
     // Lights Setup
@@ -73,11 +79,14 @@ function init () {
     lights[1] = new THREE.PointLight(0xffffff, 1, 0);
     lights[2] = new THREE.PointLight(0xffffff, 1, 0);
 
-    lights[0].position.set(0, 200, 0);
-    lights[1].position.set(100, 200, 100);
-    lights[2].position.set(-100, -200, -100 );
+    lights[0].position.set(0, 100, 0);
+    lights[1].position.set(10, 10, 5);
+    lights[2].position.set(-100, -200, -100);
 
-    for (var i = 0; i < lights.length; i++) { scene.add(lights[i]); }
+    for (var i = 0; i < lights.length; i++) { 
+        if (i === 1) { lights[i].castShadow = true; }
+        scene.add(lights[i]); 
+    }
 
     // Event Listeners
     document.addEventListener("keydown", onKeyDown);
@@ -90,12 +99,13 @@ function init () {
     // Default Camera Positioning
     defaultCamera = camera.clone();  
     defaultCamera.position.set(
-                Defaults.cameraPos[0], 
-                Defaults.cameraPos[1],
-                Defaults.cameraPos[2]
-            );
+        Defaults.cameraPos[0], 
+        Defaults.cameraPos[1],
+        Defaults.cameraPos[2]
+    );
     
     resetCamera();
+    wallSetup();
     cubeSetup();
     axesSetup();
 }
@@ -112,6 +122,15 @@ function resetCamera () {
     camera.lookAt(Defaults.cameraLookAt);
 }
 
+function zoomCamera () {
+    camera.position.set(
+        2.5088376176592715,
+        1.4774882298978955,
+        2.656459883158694
+    );
+    camera.lookAt(Defaults.cameraLookAt);
+}
+
 function cubeSetup () {
     var geometry = new THREE.BoxGeometry(2, 2, 2);  
     var material = new THREE.MeshPhongMaterial({color: Defaults.cubeColor, vertexColors: THREE.VertexColors , flatShading: true});
@@ -121,6 +140,7 @@ function cubeSetup () {
     var wireframe = new THREE.Mesh(geometry, wireframeMaterial);
    
     cube = new THREE.Mesh(geometry, material);
+    cube.castShadow = true;
     scene.add(cube);
     activeObject = cube;
     States.cubeDisplayed = true;
@@ -163,7 +183,42 @@ function axesSetup () {
     scene.add(xAxis, yAxis, zAxis);       
 }
 
-//function wallSetup () 
+function wallSetup () {
+    var dim = Defaults.axisLength + Defaults.wallDistance + 1;
+    var geometry = new THREE.BoxGeometry(dim, dim, 1, 10);
+    var wallTextures = []; var grassTextures = [];
+    for (var i = 0; i < 6; i++) { 
+        wallTextures.push('brick.jpg'); 
+        grassTextures.push('grass.jpg');
+    }
+    
+    cubeTextureLoader.minFilter = THREE.NearestFilter; 
+    var wallTexture = cubeTextureLoader.load(wallTextures);
+    var grassTexture = cubeTextureLoader.load(grassTextures);
+    var wallMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, envMap: wallTexture});
+    var grassMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, envMap: grassTexture});
+
+    xyWall = new THREE.Mesh(geometry, wallMaterial);
+    yzWall = xyWall.clone();
+    xyWall.position.z -= Defaults.wallDistance;
+    yzWall.position.x -= Defaults.wallDistance;
+    yzWall.rotation.y += PI/2;
+    
+    grass = new THREE.Mesh(geometry, grassMaterial);
+    grass.rotation.x -= PI/2;
+    grass.position.y -= Defaults.wallDistance + 1;
+    xyWall.receiveShadow = true; yzWall.receiveShadow = true;
+    grass.receiveShadow = true;
+}
+
+function toggleWalls () {
+    if (!States.wallsDisplayed) { 
+        scene.add(xyWall, yzWall, grass); zoomCamera();
+    } else { 
+        scene.remove(xyWall, yzWall, grass); resetCamera();
+    }
+    States.wallsDisplayed = !States.wallsDisplayed;
+}
 /*----------------------------- Object Rotation ------------------------------*/
 function rotateObj () {
     var obj = activeObject;
@@ -171,7 +226,7 @@ function rotateObj () {
     obj.rotation[States.rotating.axis] += Defaults.rotationStep;
     zeroOtherAxes();
     
-    if (obj.rotation[States.rotating.axis] >= 2*Math.PI){
+    if (obj.rotation[States.rotating.axis] >= 2*PI){
         obj.rotation[States.rotating.axis] = 0;
         cancelAnimationFrame(animationID); 
 
@@ -230,7 +285,7 @@ function toggleEdges (obj) {
     if (!States.edgeRendering){ 
         obj.add(obj.userData.wireframe);
     } else {
-        obj.remove(obj.userData.wireframe);
+        obj.remove(obj.userData.wireframe); obj.castShadow = true;
     }
     States.edgeRendering = !States.edgeRendering; 
 }
@@ -238,19 +293,22 @@ function toggleEdges (obj) {
 function toggleFaces (obj) {
     if (!States.textureRendering)   { 
         if (!States.faceRendering){
-             obj.traverse(
-                function (child) {
-                    if (child.material !== undefined && child.material.isMaterial && !child.material.wireframe && !child.isPoints) {
-                        child.material.opacity = 0.0;
-                        child.material.transparent = true;
-                    }        
-                });
+            obj.traverse(
+               function (child) {
+                   if (child.material !== undefined && child.material.isMaterial && !child.material.wireframe && !child.isPoints) {
+                       child.material.opacity = 0.0;
+                       child.material.transparent = true;
+                       child.castShadow = false;
+                   }        
+               });
+            
         } else {
             obj.traverse(
                 function (child) {
                     if (child.material !== undefined && child.material.isMaterial && !child.material.wireframe && !child.isPoints) { 
                         child.material.opacity = 1.0;
                         child.material.transparent = false;
+                        obj.castShadow = true;
                     }        
                 });
         }    
@@ -300,8 +358,8 @@ var Orbit = {
     yStart: 0,
     xMove: 0,
     yMove: 0,
-    xSensitivity: 7.25,
-    ySensitivity: 6.5,
+    xSensitivity: 20,
+    ySensitivity: 15,
     xMax: Defaults.axisLength,
     yMax: Defaults.axisLength,
     xMaxStep: 0.8,
@@ -419,10 +477,9 @@ function loadBunny (filename) {
             bunny.scale.x = Defaults.bunnyScaling;
             bunny.scale.y = Defaults.bunnyScaling; 
             bunny.scale.z = Defaults.bunnyScaling;
-            
-            scene.add(bunny);
-                    
+            bunny.castShadow = true;
             States.bunnyDisplayed = true;
+            scene.add(bunny);
             toggleActiveObject();
             States.bunnyLoaded = true;
         }
@@ -667,7 +724,7 @@ function setupSubCubeColors (newCube, newCubeFaces, newCubeColors) {
     });
 }  
 
-// TODO: Fix mixed rotations
+// TODO: Fix mixed rotations and add full rotation to see hidden sides now orbit is constrained
 function rotateRubiks (side, rotationAxis, axisVal) {
     var activeCubes = []; var preRotationPos = []; var preRotationIndex = [];
     var newPosMapping = [2, 4, 7, 1, 6, 0, 3, 5];
@@ -706,8 +763,8 @@ function rotateRubiks (side, rotationAxis, axisVal) {
                         preRotationPos[newPosMapping[pointer]].z
                     );
             }
-            child.rotation[rotationAxis] += Math.PI/2;
-            if (child.rotation[rotationAxis] >= 2*Math.PI) { 
+            child.rotation[rotationAxis] += PI/2;
+            if (child.rotation[rotationAxis] >= 2*PI) { 
                 child.rotation[rotationAxis] = 0
             }
             //console.log(child.rotation);
@@ -751,6 +808,10 @@ function onKeyDown (e) {
         // Reset camera position on 'r' Keydown
         case 82:
             resetCamera();
+            break;
+        // Toggle wall rendering on 'w' Keydown
+        case 87: 
+            toggleWalls();
             break;
         // Toggle cube edge rendering (inc. primitive triangles) on 'e' Keydown
         case 69:
