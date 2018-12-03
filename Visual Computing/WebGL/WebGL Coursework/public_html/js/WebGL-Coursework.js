@@ -168,35 +168,10 @@ function cubeSetup () {
 }
 
 function axesSetup () {
-    var xAxisGeometry = new THREE.Geometry();
-    var yAxisGeometry = xAxisGeometry.clone();
-    var zAxisGeometry = xAxisGeometry.clone();
-    var xAxisMaterial = new THREE.LineBasicMaterial({color: 0xff0000});
-    var yAxisMaterial = new THREE.LineBasicMaterial({color: 0x00ff00});
-    var zAxisMaterial = new THREE.LineBasicMaterial({color: 0x0000ff});
-
-    xAxisGeometry.vertices.push(
-            new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(Defaults.axisLength, 0, 0)
-    );
-
-    yAxisGeometry.vertices.push(
-            new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(0, Defaults.axisLength, 0)
-    );
-
-    zAxisGeometry.vertices.push(
-            new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(0, 0, Defaults.axisLength)
-    );
-
-    var xAxis = new THREE.Line(xAxisGeometry, xAxisMaterial);
-    var yAxis = new THREE.Line(yAxisGeometry, yAxisMaterial);
-    var zAxis = new THREE.Line(zAxisGeometry, zAxisMaterial);
-
-    scene.add(xAxis, yAxis, zAxis);       
+    var axesHelper = new THREE.AxesHelper(Defaults.axisLength);
+    scene.add(axesHelper);       
 }
-
+    
 function wallSetup () {
     var dim = Defaults.axisLength + Defaults.wallDistance + 1;
     var geometry = new THREE.BoxGeometry(dim, dim, 1, 10);
@@ -368,95 +343,57 @@ var Orbit = {
     yFocus: 0,
     xMove: 0,
     yMove: 0,
-    xSensitivity: 20, //20,
-    ySensitivity: 15, // 15,
-    xMax: Defaults.axisLength,
-    yMax: Defaults.axisLength,
-    xMaxStep: 0.8,
-    yMaxStep: 0.8,
-    radius: -1,
-    cameraDistance: 0,
-    negative: false,
-    lookAtPoint: null
+    xSensitivity: 7.5,
+    ySensitivity: 2.5,
+    radius: 0,
+    lookAtPoint: new THREE.Vector3(), 
+    sphere: new THREE.Spherical()
 };
-     
-function orbitCamera () {
-    var screen2Cartesian = function (xScreen, yScreen) {
-        //https://stackoverflow.com/questions/32973060/converting-2d-mouse-coordinates-to-world-xz-coordinates-in-threejs 
-        var raycaster = new THREE.Raycaster(); // create once
-        var mouse = new THREE.Vector2(); // create once
-        mouse.x = -1 + (2*xScreen/window.innerWidth);
-        mouse.y = -(-1 + (2*yScreen/window.innerHeight));
-        raycaster.setFromCamera( mouse, camera);
-        var intersects = raycaster.intersectObjects(scene.children);
-        return intersects[0].point;
-    };  
-    var getXYZDistances = function (point1, point2) {
-        var xDistance = point1.x - point2.x;
-        var yDistance = point1.y - point2.y;
-        var zDistance = point1.z - point2.z;
-        return [xDistance, yDistance, zDistance];
-    };
-    var getDistance = function (point1, point2) {
-        var distances = getXYZDistances(point1, point2);
-        return Math.sqrt(sqr(distances[0])+sqr(distances[1])+sqr(distances[2]));
-    };   
-    var fixDistance = function (cameraPos, lookAtPos, distance) {
-        var distances = getXYZDistances(cameraPos, lookAtPos);
-        var newCameraZ;
-        if (sqr(distance) - sqr(distances[0]) -  sqr(distances[1]) > 0) { 
-            newCameraZ = Math.sqrt(
-                sqr(distance) - sqr(distances[0]) -  sqr(distances[1])
-            );
-            Orbit.negative = false;
-        } else {
-            newCameraZ = Math.sqrt(
-                Math.abs(sqr(distance) - sqr(distances[0]) -  sqr(distances[1]))
-            );
-            Orbit.negative = true;
-        }
-        
-        if (newCameraZ < 0.2) { }
-        if (Orbit.negative) { console.log(newCameraZ * -1); return newCameraZ * -1; } 
-        else { return newCameraZ; }
-    };
 
-    if (!Orbit.started) {
-        var xStart = Orbit.xFocus; 
-        var yStart = Orbit.yFocus;
-        Orbit.lookAtPoint = screen2Cartesian(xStart, yStart);
-        console.log(Orbit.lookAtPoint);
-        Orbit.cameraDistance = getDistance(camera.position, Orbit.lookAtPoint);
-        //Orbit.radius = Orbit.lookAtPoint.z;
-        Orbit.started = true;                          
-    } else {
-        if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {
-            var xDiff = Orbit.xMove/window.innerWidth;
-            var yDiff = Orbit.yMove/window.innerHeight;
-            var xTrans = (Math.abs(xDiff) <= Orbit.xMaxStep)? xDiff : Orbit.xMaxStep; 
-            var yTrans = (Math.abs(yDiff) <= Orbit.yMaxStep)? yDiff : Orbit.yMaxStep;
-            var xTransAdj = -Orbit.xSensitivity * xTrans;
-            var yTransAdj = Orbit.ySensitivity * yTrans;
-            camera.translateX(xTransAdj); camera.translateY(yTransAdj); 
-           /*var op1 = screen2Cartesian(Orbit.xFocus, Orbit.yFocus);
-           var op2 = screen2Cartesian(Orbit.xFocus + Orbit.xMove, Orbit.yFocus + Orbit.yMove);
-           var angle = Math.acos(Math.min(1, dotProduct(op1, op2)));
-           var orthogonalVector = crossProduct(op1, op2);
-           console.log(op1, op2);
-           camera.translateX(-Orbit.xSensitivity * (op2.x - op1.x));
-           camera.translateY(-Orbit.ySensitivity * (op2.y - op1.y));
-           camera.rotateOnAxis(orthogonalVector, angle*2*Math.PI);*/
-        }
+var screen2Cartesian = function (xScreen, yScreen) {
+    //https://threejs.org/docs/#api/en/core/Raycaster
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
+    var pointFound = false;
+    mouse.x = -1 + (2*xScreen/window.innerWidth);
+    mouse.y = -(-1 + (2*yScreen/window.innerHeight));
+    raycaster.setFromCamera( mouse, camera);
+    var intersects = raycaster.intersectObjects(scene.children);
+    
+    var i = 0;
+    for (i; i < intersects.length; i++) {
+        if (intersects[i].point !== undefined) { pointFound = true; break; }
     }
-    camera.lookAt(Orbit.lookAtPoint);
-    var newCameraDistance = getDistance(camera.position, Orbit.lookAtPoint);
-    //console.log(newCameraDistance);
-    if (newCameraDistance !== Orbit.cameraDistance) {
-       var newZ = fixDistance(
-            camera.position, Orbit.lookAtPoint, Orbit.cameraDistance
-        );
-        camera.position.z = newZ;
+    return (pointFound) ? intersects[i].point : Orbit.lookAtPoint;
+};  
+
+function initOrbit () {
+    Orbit.lookAtPoint = screen2Cartesian(Orbit.xFocus, Orbit.yFocus);
+    Orbit.radius = camera.position.distanceTo(Orbit.lookAtPoint);
+    States.orbiting = true; 
+}
+
+function orbitCamera () {
+   
+    if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {
+        var lookAt2Cam = new THREE.Vector3(); 
+        var newPoint = new THREE.Vector3();
+        
+        lookAt2Cam.setX (camera.position.x - Orbit.lookAtPoint.x);
+        lookAt2Cam.setY (camera.position.y - Orbit.lookAtPoint.y);
+        lookAt2Cam.setZ (camera.position.z - Orbit.lookAtPoint.z);
+        Orbit.sphere.setFromVector3(lookAt2Cam);    
+        Orbit.sphere.phi -= (Orbit.yMove/window.innerHeight)*2*PI*Orbit.ySensitivity;
+        Orbit.sphere.theta -= (Orbit.xMove/window.innerWidth)*2*PI*Orbit.xSensitivity;
+        Orbit.sphere.makeSafe();
+        newPoint.setFromSpherical(Orbit.sphere);    
+        camera.position.addVectors(newPoint, Orbit.lookAtPoint); 
+        
+        /*var arrowHelper = new THREE.ArrowHelper(newPoint, Orbit.lookAtPoint, Orbit.radius/2, 0xffffff);
+        renderer.render(scene, camera);
+        scene.add(arrowHelper);*/
     }
+    camera.lookAt(Orbit.lookAtPoint);    
 }
 
 /*------------------------------ Cube Texture --------------------------------*/ 
@@ -532,19 +469,13 @@ function toggleActiveObject () {
 
 function toggleNonActiveObjectDisplay () {            
     if (activeObject === cube && States.bunnyLoaded) {
-        if (States.bunnyDisplayed) {
-            scene.remove(bunny);
-        } else {
-            scene.add(bunny);
-        }
+        if (States.bunnyDisplayed) { scene.remove(bunny); } 
+        else { scene.add(bunny); }
         States.bunnyDisplayed = !States.bunnyDisplayed;
     } else {
         if (States.bunnyLoaded) { 
-            if (States.cubeDisplayed) {
-                scene.remove(cube);
-            } else {
-                scene.add(cube);
-            }
+            if (States.cubeDisplayed) { scene.remove(cube); }
+            else { scene.add(cube); }
             States.cubeDisplayed = !States.cubeDisplayed;
         }
     }
@@ -796,7 +727,6 @@ function rotateRubiks (side, rotationAxis, axisVal) {
             if (child.rotation[rotationAxis] >= 2*PI) { 
                 child.rotation[rotationAxis] = 0
             }
-            //console.log(child.rotation);
             var newCubeIndex = preRotationIndex[newPosMapping[pointer]];
             rubiksCube.children[newCubeIndex] = child;
             pointer++;
@@ -858,6 +788,10 @@ function onKeyDown (e) {
         case 84: 
             toggleTextures();
             break; 
+        // Move cube for orbit demo purposes 
+        case 77: 
+            (cube.position.x === 3) ? cube.position.x = 0 : cube.position.x = 3;
+            break;
         // Load/switch active object on 's' Keydown
         case 83: 
             if (!States.bunnyLoaded) { loadBunny('bunny-5000.obj'); }
@@ -901,9 +835,6 @@ function onKeyDown (e) {
         case 105:
             if (States.rubiksCubeMode) { rotateRubiks('b', 'z', -1); }
             break;
-        case 77: 
-            cube.position.x += 2;
-            break;
         default:
             break;                            
     }
@@ -923,8 +854,8 @@ function onWheelScroll (e) {
 
 function onMouseDown (e) {
     if (e.which === 1){
-        Orbit.xFocus = e.x; Orbit.yFocus = e.y;
-        States.orbiting = true;
+        Orbit.xFocus = e.x; Orbit.yFocus = e.y; 
+        initOrbit();
     }
 }
 
@@ -938,11 +869,10 @@ function onMouseMove (e) {
 
 function onMouseUp () {
     Orbit.started = false;  States.orbiting = false;
-    Orbit.xStart = 0;   Orbit.yStart = 0;   Orbit.radius = -1;
-    Orbit.xMove = 0;    Orbit.yMove = 0;    Orbit. cameraDistance = 0;
-    Orbit.xMax = Defaults.axisLength;  Orbit.yMax =  Orbit.xMax;
-    Orbit.negative = false;
-    Orbit.lookAtPoint = null;
+    Orbit.xStart = 0;   Orbit.yStart = 0;   Orbit.radius = 0;
+    Orbit.xMove = 0;    Orbit.yMove = 0;
+    Orbit.sphere = new THREE.Spherical();
+    Orbit.lookAtPoint = new THREE.Vector3();
 }  
 
 // Handle resizing of the browser window.
