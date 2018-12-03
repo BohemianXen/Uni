@@ -1,21 +1,33 @@
 "use strict"; // https://stackoverflow.com/q/1335851/72470
-/*-------------------------------- Globals -----------------------------------*/
+/*--------------------------------- Globals ----------------------------------*/
 var camera, defaultCamera, scene, renderer;
 var cube, bunny, xyWall, yzWall, grass;
 var rubiksCube, perfectRubiksCube;
 var animationID; 
 var activeObject;
 
+/*--------------------------------- Loaders ----------------------------------*/
 var textureLoader = new THREE.TextureLoader();  
 var cubeTextureLoader = new THREE.CubeTextureLoader();
 var objLoader = new THREE.OBJLoader();
 cubeTextureLoader.setPath("resources/"); textureLoader.setPath("resources/");
 objLoader.setPath("resources/");
 
+/*----------------------------------- Math -----------------------------------*/
 var PI = Math.PI;
 var sqr = val => val*val;
 var sum = (accumulator, val) => accumulator + val;
-
+var dotProduct = function (a, b) {
+        var result = [a.x*b.x, a.y*b.y, a.z*b.z];
+        return result.reduce(sum);
+    };
+var crossProduct = function (a, b) {
+        return new THREE.Vector3(
+            (a.y*b.z) - (a.z*b.y),
+            (a.z*b.x) - (a.x*b.z), 
+            (a.x*b.y) - (a.y*b.x)
+        );
+    };
 /*-------------------------------- Defaults ----------------------------------*/
 var Defaults = {
     backgroundColor: new THREE.Color(0x000000),
@@ -159,9 +171,9 @@ function axesSetup () {
     var xAxisGeometry = new THREE.Geometry();
     var yAxisGeometry = xAxisGeometry.clone();
     var zAxisGeometry = xAxisGeometry.clone();
-    var xAxisMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
-    var yAxisMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });
-    var zAxisMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
+    var xAxisMaterial = new THREE.LineBasicMaterial({color: 0xff0000});
+    var yAxisMaterial = new THREE.LineBasicMaterial({color: 0x00ff00});
+    var zAxisMaterial = new THREE.LineBasicMaterial({color: 0x0000ff});
 
     xAxisGeometry.vertices.push(
             new THREE.Vector3(0, 0, 0),
@@ -352,36 +364,33 @@ function translateCamera (direction) {
 /*------------------------------ Camera Orbit --------------------------------*/   
 var Orbit = {
     started: false,
-    xStart: 0, 
-    yStart: 0,
+    xFocus: 0, 
+    yFocus: 0,
     xMove: 0,
     yMove: 0,
-    xSensitivity: 20,
-    ySensitivity: 15,
+    xSensitivity: 20, //20,
+    ySensitivity: 15, // 15,
     xMax: Defaults.axisLength,
     yMax: Defaults.axisLength,
     xMaxStep: 0.8,
     yMaxStep: 0.8,
-    radius: 0,
+    radius: -1,
     cameraDistance: 0,
+    negative: false,
     lookAtPoint: null
 };
-       
+     
 function orbitCamera () {
     var screen2Cartesian = function (xScreen, yScreen) {
-    var result = [];
-    result.push(-1 + (2*xScreen/window.innerWidth));
-    result.push(-(-1 + (2*yScreen/window.innerHeight))); 
-    var zSquared = sqr(result[0]) + sqr(result[1]);
-    result.push(zSquared);
-    if (!Orbit.started) { Orbit.radius = zSquared; }
-    if (zSquared <= Orbit.radius){
-        result[2] = Math.sqrt(Orbit.radius - zSquared);
-    } else {
-        result = result.map(x => x / zSquared);        
-    }
-    return new THREE.Vector3(result[0], result[1], result[2]);  
-};  
+        //https://stackoverflow.com/questions/32973060/converting-2d-mouse-coordinates-to-world-xz-coordinates-in-threejs 
+        var raycaster = new THREE.Raycaster(); // create once
+        var mouse = new THREE.Vector2(); // create once
+        mouse.x = -1 + (2*xScreen/window.innerWidth);
+        mouse.y = -(-1 + (2*yScreen/window.innerHeight));
+        raycaster.setFromCamera( mouse, camera);
+        var intersects = raycaster.intersectObjects(scene.children);
+        return intersects[0].point;
+    };  
     var getXYZDistances = function (point1, point2) {
         var xDistance = point1.x - point2.x;
         var yDistance = point1.y - point2.y;
@@ -394,23 +403,34 @@ function orbitCamera () {
     };   
     var fixDistance = function (cameraPos, lookAtPos, distance) {
         var distances = getXYZDistances(cameraPos, lookAtPos);
-        var newCameraZ = Math.sqrt(
-            sqr(distance) - sqr(distances[0]) -  sqr(distances[1])
-        );
-        
-        if (Math.abs(distance[2]) < 0.2 || Number.isNaN(newCameraZ) ) { 
-            newCameraZ = 0.2;
-            Orbit.xMax = cameraPos.x; Orbit.yMax = cameraPos.y;       
+        var newCameraZ;
+        if (sqr(distance) - sqr(distances[0]) -  sqr(distances[1]) > 0) { 
+            newCameraZ = Math.sqrt(
+                sqr(distance) - sqr(distances[0]) -  sqr(distances[1])
+            );
+            Orbit.negative = false;
+        } else {
+            newCameraZ = Math.sqrt(
+                Math.abs(sqr(distance) - sqr(distances[0]) -  sqr(distances[1]))
+            );
+            Orbit.negative = true;
         }
-        return newCameraZ;
+        
+        if (newCameraZ < 0.2) { }
+        if (Orbit.negative) { console.log(newCameraZ * -1); return newCameraZ * -1; } 
+        else { return newCameraZ; }
     };
-    
+
     if (!Orbit.started) {
-        Orbit.lookAtPoint = screen2Cartesian(Orbit.xStart, Orbit.yStart);
+        var xStart = Orbit.xFocus; 
+        var yStart = Orbit.yFocus;
+        Orbit.lookAtPoint = screen2Cartesian(xStart, yStart);
+        console.log(Orbit.lookAtPoint);
         Orbit.cameraDistance = getDistance(camera.position, Orbit.lookAtPoint);
+        //Orbit.radius = Orbit.lookAtPoint.z;
         Orbit.started = true;                          
     } else {
-        if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {      
+        if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {
             var xDiff = Orbit.xMove/window.innerWidth;
             var yDiff = Orbit.yMove/window.innerHeight;
             var xTrans = (Math.abs(xDiff) <= Orbit.xMaxStep)? xDiff : Orbit.xMaxStep; 
@@ -418,17 +438,26 @@ function orbitCamera () {
             var xTransAdj = -Orbit.xSensitivity * xTrans;
             var yTransAdj = Orbit.ySensitivity * yTrans;
             camera.translateX(xTransAdj); camera.translateY(yTransAdj); 
+           /*var op1 = screen2Cartesian(Orbit.xFocus, Orbit.yFocus);
+           var op2 = screen2Cartesian(Orbit.xFocus + Orbit.xMove, Orbit.yFocus + Orbit.yMove);
+           var angle = Math.acos(Math.min(1, dotProduct(op1, op2)));
+           var orthogonalVector = crossProduct(op1, op2);
+           console.log(op1, op2);
+           camera.translateX(-Orbit.xSensitivity * (op2.x - op1.x));
+           camera.translateY(-Orbit.ySensitivity * (op2.y - op1.y));
+           camera.rotateOnAxis(orthogonalVector, angle*2*Math.PI);*/
         }
     }
     camera.lookAt(Orbit.lookAtPoint);
     var newCameraDistance = getDistance(camera.position, Orbit.lookAtPoint);
+    //console.log(newCameraDistance);
     if (newCameraDistance !== Orbit.cameraDistance) {
        var newZ = fixDistance(
             camera.position, Orbit.lookAtPoint, Orbit.cameraDistance
         );
         camera.position.z = newZ;
     }
-};
+}
 
 /*------------------------------ Cube Texture --------------------------------*/ 
 var textureNames = ['bronze', 'wire', 'scratched', 'shapes', 'colour', 'water'];
@@ -872,6 +901,9 @@ function onKeyDown (e) {
         case 105:
             if (States.rubiksCubeMode) { rotateRubiks('b', 'z', -1); }
             break;
+        case 77: 
+            cube.position.x += 2;
+            break;
         default:
             break;                            
     }
@@ -891,7 +923,7 @@ function onWheelScroll (e) {
 
 function onMouseDown (e) {
     if (e.which === 1){
-        Orbit.xStart = e.x; Orbit.yStart = e.y;
+        Orbit.xFocus = e.x; Orbit.yFocus = e.y;
         States.orbiting = true;
     }
 }
@@ -906,9 +938,10 @@ function onMouseMove (e) {
 
 function onMouseUp () {
     Orbit.started = false;  States.orbiting = false;
-    Orbit.xStart = 0;   Orbit.yStart = 0;   Orbit.radius = 0;
+    Orbit.xStart = 0;   Orbit.yStart = 0;   Orbit.radius = -1;
     Orbit.xMove = 0;    Orbit.yMove = 0;    Orbit. cameraDistance = 0;
     Orbit.xMax = Defaults.axisLength;  Orbit.yMax =  Orbit.xMax;
+    Orbit.negative = false;
     Orbit.lookAtPoint = null;
 }  
 
