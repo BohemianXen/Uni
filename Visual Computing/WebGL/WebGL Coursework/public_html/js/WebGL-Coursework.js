@@ -1,3 +1,5 @@
+/* global THREE */
+
 "use strict"; // https://stackoverflow.com/q/1335851/72470
 /*--------------------------------- Globals ----------------------------------*/
 var camera, defaultCamera, scene, renderer;
@@ -16,18 +18,7 @@ objLoader.setPath("resources/");
 /*----------------------------------- Math -----------------------------------*/
 var PI = Math.PI;
 var sqr = val => val*val;
-var sum = (accumulator, val) => accumulator + val;
-var dotProduct = function (a, b) {
-        var result = [a.x*b.x, a.y*b.y, a.z*b.z];
-        return result.reduce(sum);
-    };
-var crossProduct = function (a, b) {
-        return new THREE.Vector3(
-            (a.y*b.z) - (a.z*b.y),
-            (a.z*b.x) - (a.x*b.z), 
-            (a.x*b.y) - (a.y*b.x)
-        );
-    };
+
 /*-------------------------------- Defaults ----------------------------------*/
 var Defaults = {
     backgroundColor: new THREE.Color(0x000000),
@@ -147,17 +138,26 @@ function zoomCamera ()  {
 
 function cubeSetup () {
     var geometry = new THREE.BoxGeometry(2, 2, 2);  
-    var material = new THREE.MeshPhongMaterial({color: Defaults.cubeColor, vertexColors: THREE.VertexColors , flatShading: true});
-    var pointsMaterial = new THREE.PointsMaterial({color:Defaults.pointsColor, size: Defaults.pointsSize});
+    var material = new THREE.MeshPhongMaterial({ 
+        color: Defaults.cubeColor, 
+        flatShading: true
+    });
+    var pointsMaterial = new THREE.PointsMaterial({
+        color:Defaults.pointsColor,
+        size: Defaults.pointsSize
+    });
     var points = new THREE.Points(geometry, pointsMaterial);
-    var wireframeMaterial = new THREE.MeshBasicMaterial({color: Defaults.wireframeColor, wireframe: true});           
+    var wireframeMaterial = new THREE.MeshBasicMaterial({
+        color: Defaults.wireframeColor,
+        wireframe: true
+    });           
     var wireframe = new THREE.Mesh(geometry, wireframeMaterial);
    
     cube = new THREE.Mesh(geometry, material);
-    cube.castShadow = true;
+    cube.castShadow = true; // Used for scene extension 
     scene.add(cube);
-    activeObject = cube;
-    States.cubeDisplayed = true;
+    activeObject = cube; // Used for object reliant rotation and render modes 
+    States.cubeDisplayed = true; // Indicates that the cube is in the scene
     
     cube.userData.material = material;
     cube.userData.pointsMaterial = pointsMaterial;
@@ -208,6 +208,7 @@ function toggleWalls () {
     }
     States.wallsDisplayed = !States.wallsDisplayed;
 }
+
 /*----------------------------- Object Rotation ------------------------------*/
 function rotateObj () {
     var obj = activeObject;
