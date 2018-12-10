@@ -1,5 +1,3 @@
-/* global THREE */
-
 "use strict"; // https://stackoverflow.com/q/1335851/72470
 /*--------------------------------- Globals ----------------------------------*/
 var camera, defaultCamera, scene, renderer;
@@ -60,13 +58,15 @@ var States = {
 /*-------------------------------- Init Call ---------------------------------*/
 init();
 rotateObj();
-States.rotating.on = true;
+States.rotating.on = true; // signals that rotation is occuring
 
 /*------------------------------- Scene Setup --------------------------------*/
 function init () {
     scene = new THREE.Scene();
     scene.background = Defaults.backgroundColor;
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(
+        75, window.innerWidth / window.innerHeight, 0.1, 1000
+    );
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio); // HiDPI/retina rendering
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -154,14 +154,15 @@ function cubeSetup () {
     var wireframe = new THREE.Mesh(geometry, wireframeMaterial);
    
     cube = new THREE.Mesh(geometry, material);
-    cube.castShadow = true; // Used for scene extension 
+    cube.castShadow = true; // used for scene extension 
     scene.add(cube);
-    activeObject = cube; // Used for object reliant rotation and render modes 
-    States.cubeDisplayed = true; // Indicates that the cube is in the scene
+    activeObject = cube; // used for object reliant rotation and render modes 
+    States.cubeDisplayed = true; // indicates that the cube is in the scene
     
+    // add render mode variants to cube userData
     cube.userData.material = material;
     cube.userData.pointsMaterial = pointsMaterial;
-    cube.userData.points = points;
+    cube.userData.points = points; 
     cube.userData.wireframeMaterial = wireframeMaterial;  
     cube.userData.wireframe = wireframe;    
     cube.userData.textures = [];
@@ -171,35 +172,41 @@ function axesSetup () {
     var axesHelper = new THREE.AxesHelper(Defaults.axisLength);
     scene.add(axesHelper);       
 }
-    
+
+// extended scenery and shadow for additional credit    
 function wallSetup () {
     var dim = Defaults.axisLength + Defaults.wallDistance + 1;
     var geometry = new THREE.BoxGeometry(dim, dim, 1, 10);
     var wallTextures = []; var grassTextures = [];
+    // setup texture arrays
     for (var i = 0; i < 6; i++) { 
         wallTextures.push('brick.jpg'); 
         grassTextures.push('grass.jpg');
     }
     
-    cubeTextureLoader.minFilter = THREE.NearestFilter; 
+    // map textures to walls/floor
+    cubeTextureLoader.minFilter = THREE.NearestFilter; // for non-ideal images
     var wallTexture = cubeTextureLoader.load(wallTextures);
     var grassTexture = cubeTextureLoader.load(grassTextures);
     var wallMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, envMap: wallTexture});
     var grassMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, envMap: grassTexture});
-
+    
+    // create wall mesh and adjust wall positions to create scene 
     xyWall = new THREE.Mesh(geometry, wallMaterial);
     yzWall = xyWall.clone();
     xyWall.position.z -= Defaults.wallDistance;
     yzWall.position.x -= Defaults.wallDistance;
     yzWall.rotation.y += PI/2;
-    
+    // create grass mesh and adjust positionig to create scene  
     grass = new THREE.Mesh(geometry, grassMaterial);
     grass.rotation.x -= PI/2;
     grass.position.y -= Defaults.wallDistance + 1;
+    // accept wall/grass shadows (but do not cast them since false by default)
     xyWall.receiveShadow = true; yzWall.receiveShadow = true;
     grass.receiveShadow = true;
 }
 
+// add/remove walls from scene
 function toggleWalls () {
     if (!States.wallsDisplayed) { 
         scene.add(xyWall, yzWall, grass); zoomCamera();
@@ -211,15 +218,16 @@ function toggleWalls () {
 
 /*----------------------------- Object Rotation ------------------------------*/
 function rotateObj () {
-    var obj = activeObject;
-    animationID = requestAnimationFrame(rotateObj); 
+    var obj = activeObject; // set Obj to the selected on screen object
+    animationID = requestAnimationFrame(rotateObj); // get new animation ID 
     obj.rotation[States.rotating.axis] += Defaults.rotationStep;
-    zeroOtherAxes();
+    zeroOtherAxes(); // used as santity check given effect of switched rotations 
     
-    if (obj.rotation[States.rotating.axis] >= 2*PI){
+    // rotate about different axis after one full rotation
+    if (obj.rotation[States.rotating.axis] >= 2*PI) {
         obj.rotation[States.rotating.axis] = 0;
-        cancelAnimationFrame(animationID); 
-
+        cancelAnimationFrame(animationID); // reset animation ID 
+        // set next rotation axis
         switch (States.rotating.axis) {
             case 'x':
                 States.rotating.axis = 'y';
@@ -231,7 +239,7 @@ function rotateObj () {
                 States.rotating.axis = 'x';
                 break;
         }
-        rotateObj();
+        rotateObj(); // begin rotating 
     }
     renderer.render(scene, camera);
 }
@@ -253,6 +261,7 @@ function zeroOtherAxes() {
     }    
 }
 
+// pauses rotation
 function toggleRotation ()  {
     var obj = activeObject;
     if (States.rotating.on){
@@ -271,44 +280,58 @@ function toggleRotation ()  {
 }
 
 /*------------------------------ Render Modes --------------------------------*/
+/* params:
+ * 
+ * @param {Mesh} obj - current activeObject (either cube or bunny)
+ * @returns {undefined}
+ */
 function toggleEdges (obj) {
     if (!States.edgeRendering){ obj.add(obj.userData.wireframe); }
     else { obj.remove(obj.userData.wireframe); }
-    States.edgeRendering = !States.edgeRendering; 
+    States.edgeRendering = !States.edgeRendering; // toggle edge state
 }
 
+/* params:
+ * 
+ * @param {Mesh} obj - current activeObject (either cube or bunny)
+ * @returns {undefined}
+ */
 function toggleFaces (obj) {
     if (!States.textureRendering)   { 
         if (!States.faceRendering){
             obj.traverse(
                function (child) {
-                   if (child.material !== undefined && child.material.isMaterial && !child.material.wireframe && !child.isPoints) {
-                       child.material.opacity = 0.0;
+                    if (child.material !== undefined && child.material.isMaterial 
+                        && !child.material.wireframe && !child.isPoints) {
+                       child.material.opacity = 0.0; // make faces transparent
                        child.material.transparent = true;
                        child.castShadow = false;
                    }        
                });       
-        } else {
+        } else { 
             obj.traverse(
                 function (child) {
-                    if (child.material !== undefined && child.material.isMaterial && !child.material.wireframe && !child.isPoints) { 
-                        child.material.opacity = 1.0;
+                    if (child.material !== undefined && child.material.isMaterial 
+                        && !child.material.wireframe && !child.isPoints) { 
+                        child.material.opacity = 1.0; // make faces opaque
                         child.material.transparent = false;
                         child.castShadow = true;
                     }        
                 });
         }    
-        States.faceRendering = !States.faceRendering;
+        States.faceRendering = !States.faceRendering; // toggle face state
     }
 }    
 
+/* params:
+ * 
+ * @param {Mesh} obj - current activeObject (either cube or bunny)
+ * @returns {undefined}
+ */
 function toggleVertices (obj) {
-if (!States.vertexRendering){
-        obj.add(obj.userData.points);
-    } else {
-        obj.remove(obj.userData.points);
-    }     
-    States.vertexRendering = !States.vertexRendering;   
+    if (!States.vertexRendering){ obj.add(obj.userData.points); } // add points 
+    else { obj.remove(obj.userData.points); } // remove points
+    States.vertexRendering = !States.vertexRendering; // toggle vertex state  
 }
 
 /*---------------------------- Camera Translation ----------------------------*/    
@@ -318,7 +341,7 @@ function translateCamera (direction) {
             camera.translateX(-Defaults.cameraMovementDistance);
             break;
         case 'up':
-             camera.translateY(Defaults.cameraMovementDistance);
+            camera.translateY(Defaults.cameraMovementDistance);
             break;
         case 'right':
             camera.translateX(Defaults.cameraMovementDistance);                              
@@ -348,26 +371,36 @@ var Orbit = {
     ySensitivity: 2.5,
     radius: 0,
     lookAtPoint: new THREE.Vector3(), 
-    sphere: new THREE.Spherical()
+    sphere: new THREE.Spherical() // holds the spherical coordinate
 };
 
+/* params: 
+ * 
+ * @param {int} xScreen - mouse x-value on initial click
+ * @param {int} yScreen - mouse y-value on initial click
+ * @returns {THREE.Vector3}
+ */
 var screen2Cartesian = function (xScreen, yScreen) {
-    //https://threejs.org/docs/#api/en/core/Raycaster
+    // modified from three.js: https://threejs.org/docs/#api/en/core/Raycaster
     var raycaster = new THREE.Raycaster();
     var mouse = new THREE.Vector2();
     var pointFound = false;
+    // normalise mouse coords
     mouse.x = -1 + (2*xScreen/window.innerWidth);
     mouse.y = -(-1 + (2*yScreen/window.innerHeight));
     raycaster.setFromCamera( mouse, camera);
     var intersects = raycaster.intersectObjects(scene.children);
     
     var i = 0;
+    // search for intersecting object, pointFound is true if so
     for (i; i < intersects.length; i++) {
         if (intersects[i].point !== undefined) { pointFound = true; break; }
     }
+    // return the found point or the default look at (origin) otherwise
     return (pointFound) ? intersects[i].point : Orbit.lookAtPoint;
 };  
 
+// sets the new lookAt point and calculates the radius (only for debug purposes)
 function initOrbit () {
     Orbit.lookAtPoint = screen2Cartesian(Orbit.xFocus, Orbit.yFocus);
     Orbit.radius = camera.position.distanceTo(Orbit.lookAtPoint);
@@ -375,26 +408,33 @@ function initOrbit () {
 }
 
 function orbitCamera () {
-   
     if (Orbit.xMove !== 0 || Orbit.yMove !== 0) {
         var lookAt2Cam = new THREE.Vector3(); 
         var newPoint = new THREE.Vector3();
         
+        // get look at point to camera position vector
         lookAt2Cam.setX (camera.position.x - Orbit.lookAtPoint.x);
         lookAt2Cam.setY (camera.position.y - Orbit.lookAtPoint.y);
         lookAt2Cam.setZ (camera.position.z - Orbit.lookAtPoint.z);
-        Orbit.sphere.setFromVector3(lookAt2Cam);    
-        Orbit.sphere.phi -= (Orbit.yMove/window.innerHeight)*2*PI*Orbit.ySensitivity;
-        Orbit.sphere.theta -= (Orbit.xMove/window.innerWidth)*2*PI*Orbit.xSensitivity;
-        Orbit.sphere.makeSafe();
-        newPoint.setFromSpherical(Orbit.sphere);    
-        camera.position.addVectors(newPoint, Orbit.lookAtPoint); 
         
-        /*var arrowHelper = new THREE.ArrowHelper(newPoint, Orbit.lookAtPoint, Orbit.radius/2, 0xffffff);
-        renderer.render(scene, camera);
-        scene.add(arrowHelper);*/
+        Orbit.sphere.setFromVector3(lookAt2Cam); // turn into spherical coords
+        // adjust angles depending on movement distance and sensitivity
+        Orbit.sphere.phi -= 
+                (Orbit.yMove/window.innerHeight)*2*PI*Orbit.ySensitivity;
+        Orbit.sphere.theta -= 
+                (Orbit.xMove/window.innerWidth)*2*PI*Orbit.xSensitivity;
+        Orbit.sphere.makeSafe(); // restrict phi angle
+        newPoint.setFromSpherical(Orbit.sphere); // convert back to cartesian     
+        camera.position.addVectors(newPoint, Orbit.lookAtPoint);  // new cam pos
+        
+        /* DEBUG ONLY 
+         * var arrowHelper = new THREE.ArrowHelper(newPoint, Orbit.lookAtPoint,
+         *                                       Orbit.radius/2, 0xffffff);
+         * renderer.render(scene, camera);
+         * scene.add(arrowHelper); 
+        */
     }
-    camera.lookAt(Orbit.lookAtPoint);    
+    camera.lookAt(Orbit.lookAtPoint);  
 }
 
 /*------------------------------ Cube Texture --------------------------------*/ 
@@ -407,18 +447,16 @@ for (var texture in textureNames){
 
 function toggleTextures () {
     if (activeObject === cube){
-        if (!States.textureRendering){
-            cube.material = cube.userData.textures;
-        } else {
-            cube.material = cube.userData.material;
-        }
-        States.faceRendering = false;
-        States.textureRendering = !States.textureRendering;      
+        if (!States.textureRendering){ cube.material = cube.userData.textures; } 
+        else { cube.material = cube.userData.material; } // switch to normal 
+        States.faceRendering = false; // reset face render mode
+        States.textureRendering = !States.textureRendering; // toggle flag    
     }
  };
 
 /*------------------ Object Loading/Switch Active Object ---------------------*/
-function loadBunny (filename) {                            
+function loadBunny (filename) {  
+    // set up material
     var material = new THREE.MeshPhongMaterial({color: Defaults.bunnyColor});
     var pointsMaterial = cube.userData.pointsMaterial.clone();
     pointsMaterial.size = Defaults.bunnyPointsSize; 
@@ -426,20 +464,27 @@ function loadBunny (filename) {
     var points, wireframe;
 
     objLoader.load(filename,
-
+        // called on successful loading
         function(object) {   
             bunny = object;                                                  
             bunny.traverse( function (child) {
                     if (child.isMesh) {
                         child.castShadow = true;
-                        child.material = material;
-                        points = new THREE.Points(child.geometry, pointsMaterial);
-                        wireframe = new THREE.Mesh(child.geometry, wireframeMaterial);
+                        child.material = material; // set phong material
+                        points = new THREE.Points(
+                            child.geometry, 
+                            pointsMaterial
+                        );
+                        wireframe = new THREE.Mesh(
+                            child.geometry, 
+                            wireframeMaterial
+                        );
+                        // update bunny points and wireframe for render modes
                         bunny.userData.points = points;
                         bunny.userData.wireframe = wireframe;
                     }        
             });
-            
+            // scale bunny down so it fits within the cube
             bunny.scale.x = Defaults.bunnyScaling;
             bunny.scale.y = Defaults.bunnyScaling; 
             bunny.scale.z = Defaults.bunnyScaling;
@@ -454,6 +499,7 @@ function loadBunny (filename) {
         
 function toggleActiveObject () {
     if (activeObject === cube) {
+        // reset states and turn cube faces off so bunny is visible
         if (!States.bunnyDisplayed) { scene.add(bunny); } 
         if (States.textureRendering) { toggleTextures(); }
         if (!States.edgeRendering) { toggleEdges(cube); }                               
@@ -462,12 +508,14 @@ function toggleActiveObject () {
         States.edgeRendering = false;  
         activeObject = bunny;
     } else {
+        // switch to cube view
         if (!States.cubeDisplayed) { scene.add(cube); } 
         States.faceRendering = !States.faceRendering;
         activeObject = cube;
     }     
 }
 
+// removes/adds the non active object from/to the scene
 function toggleNonActiveObjectDisplay () {            
     if (activeObject === cube && States.bunnyLoaded) {
         if (States.bunnyDisplayed) { scene.remove(bunny); } 
@@ -498,7 +546,7 @@ function toggleRubiksCube () {
 }
 
 var rubiksColors = [0xff0000, 0xffa500, 0xffffff, 0xffff00, 0x00ff00, 0x0000ff];
-    
+//  2 primitives per cube face; start indexes for each cube face logged here   
 var FaceIndexes = {
     'r': 0,
     'l': 2,
@@ -507,7 +555,7 @@ var FaceIndexes = {
     'f': 8,
     'b': 10
 };
-
+// individual cube data; positioning along w/ observable faces and there colours 
 var RubiksMap = {
     'cube0': {
         faces: ['l', 'u', 'f'],
@@ -647,7 +695,7 @@ function generateRubiksCube () {
     var cubeWireframe = new THREE.MeshBasicMaterial({color: 'black', wireframe: true});
     rubiksCube = new THREE.Group();
     cubeWireframe = new THREE.Mesh(rubiksCubeGeometry, cubeWireframe);
-
+    // set individual cubes up using rubiks mapping data and add them to group
     for (var i = 0; i < 26; i++) {
         var newCube = new THREE.Mesh(rubiksCubeGeometry, rubiksCubeMaterial);
         var newCubeWireframe = cubeWireframe.clone();
@@ -673,6 +721,12 @@ function generateRubiksCube () {
     States.rubiksCubeGenerated = true;
 }
 
+/* params:
+ * @param {Mesh} newCube - cube input
+ * @param {Face3} newCubeFaces - faces to be coloured 
+ * @param {Hex} newCubeColors - colour for each face 
+ * @returns {undefined}
+ */
 function setupSubCubeColors (newCube, newCubeFaces, newCubeColors) {
     var newCubeColorsIndex = 0;
     newCubeFaces.forEach( function (face) {
@@ -685,7 +739,13 @@ function setupSubCubeColors (newCube, newCubeFaces, newCubeColors) {
     });
 }  
 
-// TODO: Fix mixed rotations and add full rotation to see hidden sides now orbit is constrained
+/* params:
+ * 
+ * @param {char} side - cube face to rotate 
+ * @param {char} rotationAxis - world axis to rotate each individual cube around
+ * @param {int} axisVal - common position of all cubes on rotation side
+ * @returns {undefined}
+ */
 function rotateRubiks (side, rotationAxis, axisVal) {
     var activeCubes = []; var preRotationPos = []; var preRotationIndex = [];
     var newPosMapping = [2, 4, 7, 1, 6, 0, 3, 5];
@@ -738,100 +798,100 @@ function rotateRubiks (side, rotationAxis, axisVal) {
 /*------------------------------ Event Handlers ------------------------------*/
 function onKeyDown (e) {
     switch (e.which) {
-        // Pause object rotation on spacebar Keydown
+        // pause object rotation on spacebar Keydown
         case 32:
             toggleRotation();
             break;
-        // Move camera left on left arrow Keydown
+        // move camera left on left arrow Keydown
         case 37: translateCamera('left');
             break;
-        // Move camera up on up arrow Keydown
+        // move camera up on up arrow Keydown
         case 38:
             translateCamera('up');
             break;
-        // Move camera right on right arrow Keydown
+        // move camera right on right arrow Keydown
         case 39:                            
             translateCamera('right');
             break; 
-        // Move camera down on down arrow Keydown
+        // move camera down on down arrow Keydown
         case 40:
             translateCamera('down');
             break;                                
-        // Move camera forwards on '+' Keydown; can also be invoked by using the mousewheel
+        // move camera forwards on '+' Keydown; can also be invoked by using the mousewheel
         case 107:
             translateCamera('forwards');
             break;                                
-        // Move camera backwards '-' Keydown; can also be invoked by using the mousewheel
+        // move camera backwards '-' Keydown; can also be invoked by using the mousewheel
         case 109:
             translateCamera('backwards');
             break;
-        // Reset camera position on 'r' Keydown
+        // reset camera position on 'r' Keydown
         case 82:
             resetCamera();
             break;
-        // Toggle wall rendering on 'w' Keydown
+        // toggle wall rendering on 'w' Keydown
         case 87: 
             toggleWalls();
             break;
-        // Toggle cube edge rendering (inc. primitive triangles) on 'e' Keydown
+        // toggle cube edge rendering (inc. primitive triangles) on 'e' Keydown
         case 69:
             toggleEdges(activeObject);
             break;
-        // Toggle cube faces on 'f' KeyDown
+        // toggle cube faces on 'f' KeyDown
         case 70: 
             toggleFaces(activeObject);
             break;                      
-        // Toggle cube vertex rendering on 'v' Keydown
+        // toggle cube vertex rendering on 'v' Keydown
         case 86: 
             toggleVertices(activeObject);
             break;       
-        // Apply textures on 't' Keydown
+        // apply textures on 't' Keydown
         case 84: 
             toggleTextures();
             break; 
-        // Move cube for orbit demo purposes 
+        // move cube for orbit demo purposes 
         case 77: 
             (cube.position.x === 3) ? cube.position.x = 0 : cube.position.x = 3;
             break;
-        // Load/switch active object on 's' Keydown
+        // load/switch active object on 's' Keydown
         case 83: 
             if (!States.bunnyLoaded) { loadBunny('bunny-5000.obj'); }
             else { toggleActiveObject(); }
             break;
-        // Toggle non-active object on 'x' Keydown
+        // toggle non-active object on 'x' Keydown
         case 88: 
             toggleNonActiveObjectDisplay();
             break;
-        // Toggle Rubik's cube mode on 'z' Keydown
+        // toggle Rubik's cube mode on 'z' Keydown
         case 90: 
             toggleRubiksCube();
             break;
-        // Rotate 'front' side of rubiks cube anticlockwise on '1' keydown
+        // rotate 'front' side of rubiks cube anticlockwise on '1' keydown
         case 49:
         case 97:
             if (States.rubiksCubeMode) { rotateRubiks('f', 'z', 1); }
             break;
-        // Rotate 'down' side of rubiks cube anticlockwise on '2' keydown
+        // rotate 'down' side of rubiks cube anticlockwise on '2' keydown
         case 50:
         case 98:
             if (States.rubiksCubeMode) { rotateRubiks('d', 'y', -1); }
             break;
-        // Rotate 'left' side of rubiks cube anticlockwise on '4' keydown
+        // rotate 'left' side of rubiks cube anticlockwise on '4' keydown
         case 52:
         case 100:
             if (States.rubiksCubeMode) { rotateRubiks('l', 'x', -1); }
             break;
-        // Rotate 'right' of rubiks cube anticlockwise on '6' keydown
+        // rotate 'right' of rubiks cube anticlockwise on '6' keydown
         case 54:
         case 102:
             if (States.rubiksCubeMode) { rotateRubiks('r', 'x', 1); }
             break;
-        // Rotate 'up' of rubiks cube anticlockwise on '8' keydown
+        // rotate 'up' of rubiks cube anticlockwise on '8' keydown
         case 56:
         case 104:
             if (States.rubiksCubeMode) { rotateRubiks('u', 'y', 1); }
             break;
-        // Rotate 'back' side of rubiks cube anticlockwise on '9' keydown
+        // rotate 'back' side of rubiks cube anticlockwise on '9' keydown
         case 57:
         case 105:
             if (States.rubiksCubeMode) { rotateRubiks('b', 'z', -1); }
@@ -840,7 +900,7 @@ function onKeyDown (e) {
             break;                            
     }
 
-    renderer.render(scene, camera);
+    renderer.render(scene, camera); // render scene
 }
 
 // Used to zoom camera in and out via the scroll wheel
@@ -855,7 +915,7 @@ function onWheelScroll (e) {
 
 function onMouseDown (e) {
     if (e.which === 1){
-        Orbit.xFocus = e.x; Orbit.yFocus = e.y; 
+        Orbit.xFocus = e.x; Orbit.yFocus = e.y; // log mouse coords 
         initOrbit();
     }
 }
@@ -867,7 +927,7 @@ function onMouseMove (e) {
         renderer.render(scene, camera);
     }
 }
-
+// resets Orbit values 
 function onMouseUp () {
     Orbit.started = false;  States.orbiting = false;
     Orbit.xStart = 0;   Orbit.yStart = 0;   Orbit.radius = 0;
