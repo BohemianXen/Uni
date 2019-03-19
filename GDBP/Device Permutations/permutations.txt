@@ -1,0 +1,140 @@
+Viable Permutations:
+
+	ID: P00000,
+	Components: S001, W001, B001, 
+	Unit Cost: 81.82,
+	Volume: 43000.0
+
+	ID: P00002,
+	Components: S003, W001, B001, 
+	Unit Cost: 77.82,
+	Volume: 51000.0
+
+	ID: P00003,
+	Components: S001, W002, B001, 
+	Unit Cost: 84.82,
+	Volume: 50500.0
+
+	ID: P00005,
+	Components: S003, W002, B001, 
+	Unit Cost: 80.82,
+	Volume: 58500.0
+
+	ID: P00008,
+	Components: S003, W003, B001, 
+	Unit Cost: 83.82,
+	Volume: 48000.0
+
+	ID: P00009,
+	Components: S001, W001, B002, 
+	Unit Cost: 82.22,
+	Volume: 39000.0
+
+	ID: P00011,
+	Components: S003, W001, B002, 
+	Unit Cost: 78.22,
+	Volume: 47000.0
+
+	ID: P00014,
+	Components: S003, W002, B002, 
+	Unit Cost: 81.22,
+	Volume: 54500.0
+
+	ID: P00017,
+	Components: S003, W003, B002, 
+	Unit Cost: 84.22,
+	Volume: 44000.0
+
+	ID: P00018,
+	Components: S001, W001, B003, 
+	Unit Cost: 82.02,
+	Volume: 35000.0
+
+	ID: P00020,
+	Components: S003, W001, B003, 
+	Unit Cost: 78.02,
+	Volume: 43000.0
+
+	ID: P00021,
+	Components: S001, W002, B003, 
+	Unit Cost: 85.02,
+	Volume: 42500.0
+
+	ID: P00023,
+	Components: S003, W002, B003, 
+	Unit Cost: 81.02,
+	Volume: 50500.0
+
+	ID: P00026,
+	Components: S003, W003, B003, 
+	Unit Cost: 84.02,
+	Volume: 40000.0
+
+
+Non-Viable Permutations:
+
+	ID: P00001,
+	Components: S002, W001, B001, 
+	Unit Cost: 85.82,
+	Volume: 47000.0
+
+	ID: P00004,
+	Components: S002, W002, B001, 
+	Unit Cost: 88.82,
+	Volume: 54500.0
+
+	ID: P00006,
+	Components: S001, W003, B001, 
+	Unit Cost: 87.82,
+	Volume: 40000.0
+
+	ID: P00007,
+	Components: S002, W003, B001, 
+	Unit Cost: 91.82,
+	Volume: 44000.0
+
+	ID: P00010,
+	Components: S002, W001, B002, 
+	Unit Cost: 86.22,
+	Volume: 43000.0
+
+	ID: P00012,
+	Components: S001, W002, B002, 
+	Unit Cost: 85.22,
+	Volume: 46500.0
+
+	ID: P00013,
+	Components: S002, W002, B002, 
+	Unit Cost: 89.22,
+	Volume: 50500.0
+
+	ID: P00015,
+	Components: S001, W003, B002, 
+	Unit Cost: 88.22,
+	Volume: 36000.0
+
+	ID: P00016,
+	Components: S002, W003, B002, 
+	Unit Cost: 92.22,
+	Volume: 40000.0
+
+	ID: P00019,
+	Components: S002, W001, B003, 
+	Unit Cost: 86.02,
+	Volume: 39000.0
+
+	ID: P00022,
+	Components: S002, W002, B003, 
+	Unit Cost: 89.02,
+	Volume: 46500.0
+
+	ID: P00024,
+	Components: S001, W003, B003, 
+	Unit Cost: 88.02,
+	Volume: 32000.0
+
+	ID: P00025,
+	Components: S002, W003, B003, 
+	Unit Cost: 92.02,
+	Volume: 36000.0
+
