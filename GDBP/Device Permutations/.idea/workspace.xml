@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="dbcb1177-9060-4ee7-b35a-710211c30477" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/viable permutations 2019-03-20 17_29_04.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Components.py" beforeDir="false" afterPath="$PROJECT_DIR$/Components.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components.csv" beforeDir="false" afterPath="$PROJECT_DIR$/components.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,17 +28,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-559">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="146">
+              <caret line="110" column="65" selection-start-line="110" selection-start-column="65" selection-end-line="110" selection-end-column="65" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
                 <element signature="e#224#240#0" />
-                <element signature="e#834#1879#0" />
-                <element signature="e#982#1793#0" />
                 <element signature="e#1630#2556#0" />
-                <element signature="e#3757#4251#0" />
+                <element signature="e#2610#2957#0" />
                 <element signature="e#3985#4206#0" />
-                <element signature="e#4431#4933#0" />
                 <element signature="e#4651#4893#0" />
               </folding>
             </state>
@@ -198,7 +196,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32909605" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.24011299" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.48870057" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -210,6 +208,17 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Script.py</url>
+          <line>105</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
@@ -228,17 +237,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-559">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="146">
+          <caret line="110" column="65" selection-start-line="110" selection-start-column="65" selection-end-line="110" selection-end-column="65" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
             <element signature="e#224#240#0" />
-            <element signature="e#834#1879#0" />
-            <element signature="e#982#1793#0" />
             <element signature="e#1630#2556#0" />
-            <element signature="e#3757#4251#0" />
+            <element signature="e#2610#2957#0" />
             <element signature="e#3985#4206#0" />
-            <element signature="e#4431#4933#0" />
             <element signature="e#4651#4893#0" />
           </folding>
         </state>

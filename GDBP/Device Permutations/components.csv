@@ -1,4 +1,4 @@
-﻿Component Name,ID,Unit Price,Unit Volume,Quantity Needed (per Device)
+﻿Component Name,ID,Unit Price (£),Unit Volume (mm3),Quantity Needed (per Device)
 Sensor 1,S001,19.39,4000,2
 Sensor 2,S002,21.39,6000,2
 Sensor 3,S003,17.39,8000,2

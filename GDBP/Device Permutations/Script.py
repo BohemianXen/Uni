@@ -108,7 +108,7 @@ def record_permutations():
     with open('viable ' + permutations_filename + ' ' + datetime.now().strftime("%Y-%m-%d %H_%M_%S") + '.csv',
               'w',  newline='') as f:
         f_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        f_writer.writerow(['ID', 'Total Cost', 'Total Volume', 'Components'])
+        f_writer.writerow(['ID', 'Total Cost (£)', 'Total Volume (mm3)', 'Components'])
 
         for permutation in viable:
             components = ''
@@ -120,7 +120,7 @@ def record_permutations():
     with open('non-viable ' + permutations_filename + ' ' + datetime.now().strftime("%Y-%m-%d %H_%M_%S") + '.csv',
               'w',  newline='') as f:
         f_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        f_writer.writerow(['ID', 'Total Cost', 'Total Volume', 'Components'])
+        f_writer.writerow(['ID', 'Total Cost (£)', 'Total Volume (mm3)', 'Components'])
 
         for permutation in non_viable:
             components = ''
