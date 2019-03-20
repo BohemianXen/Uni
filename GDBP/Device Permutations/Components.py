@@ -1,20 +1,4 @@
-class Sensor:
-    def __init__(self, ID, cost, volume, quantity):
-        self.ID = ID
-        self.cost = cost
-        self.volume = volume
-        self.quantity = quantity
-
-
-class Wireless:
-    def __init__(self, ID, cost, volume, quantity):
-        self.ID = ID
-        self.cost = cost
-        self.volume = volume
-        self.quantity = quantity
-
-
-class Battery:
+class Component:
     def __init__(self, ID, cost, volume, quantity):
         self.ID = ID
         self.cost = cost

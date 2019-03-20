@@ -1,0 +1,10 @@
+﻿Component Name,ID,Unit Price,Unit Volume,Quantity Needed (per Device)
+Sensor 1,S001,19.39,4000,2
+Sensor 2,S002,21.39,6000,2
+Sensor 3,S003,17.39,8000,2
+Wireless 1,W001,20.18,10000,1.5
+Wireless 2,W002,22.18,15000,1.5
+Wireless 3,W003,24.18,8000,1.5
+Battery 1,B001,0.11,10000,2
+Battery 2,B002,0.31,8000,2
+Battery 3,B003,0.21,6000,2

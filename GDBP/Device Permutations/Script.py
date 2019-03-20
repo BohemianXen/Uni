@@ -1,13 +1,23 @@
 import Components
+import csv
+from datetime import datetime
 
 # TODO: - Try/catch read/writes
-#       - Add sorting
-#       - Use CSV files for Excel exporting
 #       - Multiple sensor logic (for now different string IDs is the only way)
 
+# Expected input file indexes
+index = {
+    'name': 0,
+    'ID': 1,
+    'cost': 2,
+    'volume': 3,
+    'quantity': 4
+}
+
+
 # Filenames
-components_filename = 'components.txt'
-permutations_filename = 'permutations.txt'
+components_filename = 'components.csv'
+permutations_filename = 'permutations'
 
 
 # Fixed Unit Costs (5000 batch)
@@ -41,14 +51,19 @@ def read_components(filename):
         for line in f_in:
             if line is not '\n':
                 fields = line.split(',')
-                if 'S' in fields[0]:
-                    sensors.append(Components.Sensor(fields[0], fields[1], fields[2], fields[3]))
-                elif 'W' in fields[0]:
-                    wireless_modules.append(Components.Wireless(fields[0], fields[1], fields[2], fields[3]))
-                elif 'B' in fields[0]:
-                    batteries.append(Components.Battery(fields[0], fields[1], fields[2], fields[3]))
+                if 'S' in fields[index['name']]:
+                    sensors.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'W' in fields[index['name']]:
+                    wireless_modules.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'B' in fields[index['name']]:
+                    batteries.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'Name' in fields[index['name']]:
+                    continue
                 else:
-                    print('Error determining component: ' + fields[0])
+                    print('Error determining component')
                     return False
 
     okay = create_permutations(sensors, wireless_modules, batteries)
@@ -58,6 +73,7 @@ def read_components(filename):
 # Create permutations (remember to account for quantities
 def create_permutations(sensors, wireless_modules, batteries):
     ID = 0
+    # TODO: Loop will now be different since only one class needed for components
     for battery in batteries:
         for wireless in wireless_modules:
             for sensor in sensors:
@@ -88,27 +104,34 @@ def sum_components(sensor, wireless, battery):
 
 # Write permutations to file
 def record_permutations():
-    with open(permutations_filename, 'w') as f:
-        f.write('Viable Permutations:\n\n')
-        for permutation in viable:
-            f.write('\tID: ' + permutation.ID + ',\n\tComponents: ')
-            for component in permutation.components:
-                f.write(component + ', ')
-            f.write('\n\tUnit Cost: ' + str(permutation.cost) + ',\n')
-            f.write('\tVolume: ' + str(permutation.volume) + '\n\n')
+    # Viable Permutations
+    with open('viable ' + permutations_filename + ' ' + datetime.now().strftime("%Y-%m-%d %H_%M_%S") + '.csv',
+              'w',  newline='') as f:
+        f_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        f_writer.writerow(['ID', 'Total Cost', 'Total Volume', 'Components'])
 
-        f.write('\nNon-Viable Permutations:\n\n')
-        for permutation in non_viable:
-            f.write('\tID: ' + permutation.ID + ',\n\tComponents: ')
+        for permutation in viable:
+            components = ''
             for component in permutation.components:
-                f.write(component + ', ')
-            f.write('\n\tUnit Cost: ' + str(permutation.cost) + ',\n')
-            f.write('\tVolume: ' + str(permutation.volume) + '\n\n')
+                components += component + '; '
+            f_writer.writerow([permutation.ID, str(permutation.cost), str(permutation.volume), components])
+
+    # Non-Viable Permutations
+    with open('non-viable ' + permutations_filename + ' ' + datetime.now().strftime("%Y-%m-%d %H_%M_%S") + '.csv',
+              'w',  newline='') as f:
+        f_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        f_writer.writerow(['ID', 'Total Cost', 'Total Volume', 'Components'])
+
+        for permutation in non_viable:
+            components = ''
+            for component in permutation.components:
+                components += component + '; '
+            f_writer.writerow([permutation.ID, str(permutation.cost), str(permutation.volume), components])
 
     return True
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     success = read_components(components_filename)
     print('Fixed Costs: ' + str(total_fixed_costs))
     print('Script Completed: ' + str(success))
