@@ -22,20 +22,22 @@ permutations_filename = 'permutations'
 
 # Fixed Unit Costs (5000 batch)
 enclosure_cost = 7.32
-pcb_cost = 5
+pcb_cost = 0
 software_cost = 0.23
+battery_cost = 0.42
 misc = 0.0
-total_fixed_costs = enclosure_cost + pcb_cost + software_cost + misc
+total_fixed_costs = enclosure_cost + pcb_cost + software_cost + battery_cost + misc
 
 
 # Constraints
 constraints = {
-    'cost': 85.02,  # GBP
+    'cost': 125.00,  # GBP
     'volume': 80000  # mm^3
 }
 
 
 # Possible Permutations
+variants = []
 viable = []
 non_viable = []
 
@@ -44,21 +46,53 @@ non_viable = []
 def read_components(filename):
     with open(filename, 'r') as f_in:
 
-        sensors = []
-        wireless_modules = []
-        batteries = []
+        MEM = []
+        CON = []
+        MOT = []
+        PRE = []
+        HRT = []
+        AIR = []
+        PCB = []
+        BLE = []
+        WIFI = []
+        WANT = []
+        GPS = []
 
         for line in f_in:
             if line is not '\n':
                 fields = line.split(',')
-                if 'S' in fields[index['name']]:
-                    sensors.append(
+                if 'MEM' in fields[index['ID']]:
+                    MEM.append(
                         Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
-                elif 'W' in fields[index['name']]:
-                    wireless_modules.append(
+                elif 'CON' in fields[index['ID']]:
+                    CON.append(
                         Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
-                elif 'B' in fields[index['name']]:
-                    batteries.append(
+                elif 'MOT' in fields[index['ID']]:
+                    MOT.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'PRE' in fields[index['ID']]:
+                    PRE.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'HRT' in fields[index['ID']]:
+                    HRT.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'AIR' in fields[index['ID']]:
+                    AIR.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'PCB' in fields[index['ID']]:
+                    PCB.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'BLE' in fields[index['ID']]:
+                    BLE.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'WIFI' in fields[index['ID']]:
+                    WIFI.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'WANT' in fields[index['ID']]:
+                    WANT.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'GPS' in fields[index['ID']]:
+                    GPS.append(
                         Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
                 elif 'Name' in fields[index['name']]:
                     continue
@@ -66,39 +100,53 @@ def read_components(filename):
                     print('Error determining component')
                     return False
 
-    okay = create_permutations(sensors, wireless_modules, batteries)
+    okay = create_permutations(MEM, CON, MOT, PRE, HRT, AIR, PCB, BLE, WIFI, WANT, GPS)
     return okay
 
 
 # Create permutations (remember to account for quantities
-def create_permutations(sensors, wireless_modules, batteries):
+def create_permutations(MEM, CON, MOT, PRE, HRT, AIR, PCB, BLE, WIFI, WANT, GPS):
     ID = 0
     # TODO: Loop will now be different since only one class needed for components
-    for battery in batteries:
-        for wireless in wireless_modules:
-            for sensor in sensors:
-                [total_cost, total_volume] = sum_components(sensor, wireless, battery)
-                total_cost += total_fixed_costs
+    for gps in GPS:
+        for want in WANT:
+            for wifi in WIFI:
+                for ble in BLE:
+                    for pcb in PCB:
+                        for air in AIR:
+                            for hrt in HRT:
+                                for pre in PRE:
+                                    for mot in MOT:
+                                        for con in CON:
+                                            for mem in MEM:
+                                                comps = [mem, con, mot, pre, hrt, air, pcb, ble, wifi, want, gps]
+                                                ids = list(map(lambda comp: comp.ID, comps))
+                                                [total_cost, total_volume] = sum_components(comps)
+                                                total_cost += total_fixed_costs
 
-                current_permutation = Components.Permutations('P' + format(ID, '05d'),
-                                                              [sensor.ID, wireless.ID, battery.ID],
-                                                              total_cost,
-                                                              total_volume)
+                                                current_permutation = Components.Permutations('PER_' + format(ID, '05d'),
+                                                                                              ids,
+                                                                                              total_cost,
+                                                                                              total_volume)
 
-                if (current_permutation.cost <= constraints['cost']) and (current_permutation.volume <= constraints['volume']):
-                    viable.append(current_permutation)
-                else:
-                    non_viable.append(current_permutation)
+                                                if (current_permutation.cost <= constraints['cost']) and (current_permutation.volume <= constraints['volume']):
+                                                    viable.append(current_permutation)
+                                                else:
+                                                    non_viable.append(current_permutation)
 
-                ID += 1
+                                                ID += 1
 
     okay = record_permutations()
     return okay
 
 
-def sum_components(sensor, wireless, battery):
-    cost = (float(sensor.cost) * float(sensor.quantity)) + (float(wireless.cost) * float(wireless.quantity)) + (float(battery.cost) * float(battery.quantity))
-    volume = (float(sensor.volume) * float(sensor.quantity)) + (float(wireless.volume) * float(wireless.quantity)) + (float(battery.volume) * float(battery.quantity))
+def sum_components(components):
+    cost = 0
+    volume = 0
+    for component in components:
+        cost += float(component.cost) * float(component.quantity)
+        volume += float(component.volume) * float(component.quantity)
+
     return [cost, volume]
 
 

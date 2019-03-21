@@ -1,10 +1,27 @@
-﻿Component Name,ID,Unit Price (£),Unit Volume (mm3),Quantity Needed (per Device)
-Sensor 1,S001,19.39,4000,2
-Sensor 2,S002,21.39,6000,2
-Sensor 3,S003,17.39,8000,2
-Wireless 1,W001,20.18,10000,1.5
-Wireless 2,W002,22.18,15000,1.5
-Wireless 3,W003,24.18,8000,1.5
-Battery 1,B001,0.11,10000,2
-Battery 2,B002,0.31,8000,2
-Battery 3,B003,0.21,6000,2
+﻿Component Name,ID,Unit Price at 5000 batch (£),Unit Volume (mm3),Quantity Needed per Device
+32MB Flash Memory,MEM_001,1.2033,22.5,2
+256MB Flash Memory,MEM_002,2.15333,22.5,2
+1GB Flash Memory,MEM_003,1.7345,22.5,2
+ATMEGA 2560 Microcontroller,CON_001,7.67514,307.2,2
+PIC24FJ256GB610 Microcontroller,CON_002,2.8155,172.8,2
+AT32UC3A3256 Microcontroller,CON_003,7.58256,2.45,2
+ADXL343BCCZ Accelerometer,MOT_001,1.2072,15.00,2
+L3GD20H Gyroscope ,MOT_002,1.24903,9.00,2
+Acc and Gyro Combo,MOT_003,2.45623,24,2
+RS PRO Piezo Pad,PRE_001,0.296,572.6,4
+BM1383AGLV Pressure Sensor,PRE_002,1.86626,6.25,4
+Pieze and Pressure Combo,PRE_003,2.16226,578.85,4
+MAX30101 Heart Rate Sensor,HRT_001,4.8465,28.6,1
+BH1792GL Heart Rate Sensor,HRT_002,4.10996,7.84,1
+SGPC3 Air Quality Sensor,AIR_001,4.45876,5.4,1
+AS-MLV-P2 Air Quality Sensor,AIR_002,10.06,372.65,1
+Rigid PCB,PCB_001,8.46,5000,2
+Flexi PCB,PCB_002,25.37,5000,2
+BGX13S Bluetooth Module,BLE_001,6.19,81,2
+BlueNor_BT832 Bluetooth Module,BLE_002,3.89,455,2
+ESP8266EX WiFi Module,WIFI_001,1.22,25,1
+ACAG0301(Dual Band Antenna),WANT_001,0.771,36,1
+ACAG0201(Single Band Antenna),WANT_002,0.22,22,1
+Telit J-F2 (+ ACAG0301 1.5GHz Antenna),GPS_001,7.166,332,1
+Telit SL869 (+ ACAG0301 1.5GHz Antenna),GPS_002,14.148,487,1
+Quectel L80-M39 (GPS & Integrated Antenna),GPS_003,14.79,1651,1
