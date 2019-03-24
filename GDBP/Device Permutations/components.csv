@@ -5,8 +5,8 @@
 ATMEGA 2560 Microcontroller,CON_001,7.67514,307.2,2
 PIC24FJ256GB610 Microcontroller,CON_002,2.8155,172.8,2
 AT32UC3A3256 Microcontroller,CON_003,7.58256,2.45,2
-ADXL343BCCZ Accelerometer,MOT_001,1.2072,15.00,2
-L3GD20H Gyroscope ,MOT_002,1.24903,9.00,2
+ADXL343BCCZ Accelerometer,MOT_001,1.2072,15,2
+L3GD20H Gyroscope ,MOT_002,1.24903,9,2
 Acc and Gyro Combo,MOT_003,2.45623,24,2
 RS PRO Piezo Pad,PRE_001,0.296,572.6,4
 BM1383AGLV Pressure Sensor,PRE_002,1.86626,6.25,4
@@ -25,3 +25,7 @@ ACAG0201(Single Band Antenna),WANT_002,0.22,22,1
 Telit J-F2 (+ ACAG0301 1.5GHz Antenna),GPS_001,7.166,332,1
 Telit SL869 (+ ACAG0301 1.5GHz Antenna),GPS_002,14.148,487,1
 Quectel L80-M39 (GPS & Integrated Antenna),GPS_003,14.79,1651,1
+18650 Rechargeable Lithium Cell - 3.7 V 2500 mAh ,BAT_001,4.5,131250,2
+Panasonic CR2032 DL2032 3V Lithium Coin Batteries,BAT_002,0.21,1280,2
+CGAS007 Energizer Single Cell 3.7 V Lithium Ion 1 Ah,BAT_003,9,13320,2
+CA5L Energizer Single Cell 3.7 V Lithium Ion 980 mAh,BAT_004,11,11520,2
