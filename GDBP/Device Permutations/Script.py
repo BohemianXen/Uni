@@ -21,9 +21,9 @@ permutations_filename = 'permutations'
 
 
 # Fixed Unit Costs (5000 batch)
-enclosure_cost = 7.32
+enclosure_cost = 0
 pcb_cost = 0
-software_cost = 0.23
+software_cost = 0
 battery_cost = 0
 misc = 0.0
 total_fixed_costs = enclosure_cost + pcb_cost + software_cost + battery_cost + misc
@@ -58,6 +58,7 @@ def read_components(filename):
         WANT = []
         GPS = []
         BAT = []
+        ENC = []
 
         for line in f_in:
             if line is not '\n':
@@ -98,48 +99,52 @@ def read_components(filename):
                 elif 'BAT' in fields[index['ID']]:
                     BAT.append(
                         Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
+                elif 'ENC' in fields[index['ID']]:
+                    ENC.append(
+                        Components.Component(fields[index['ID']], fields[index['cost']], fields[index['volume']], fields[index['quantity']]))
                 elif 'Name' in fields[index['name']]:
                     continue
                 else:
                     print('Error determining component')
                     return False
 
-    okay = create_permutations(MEM, CON, MOT, PRE, HRT, AIR, PCB, BLE, WIFI, WANT, GPS,BAT)
+    okay = create_permutations(MEM, CON, MOT, PRE, HRT, AIR, PCB, BLE, WIFI, WANT, GPS, BAT, ENC)
     return okay
 
 
 # Create permutations (remember to account for quantities
-def create_permutations(MEM, CON, MOT, PRE, HRT, AIR, PCB, BLE, WIFI, WANT, GPS,BAT):
+def create_permutations(MEM, CON, MOT, PRE, HRT, AIR, PCB, BLE, WIFI, WANT, GPS, BAT, ENC):
     ID = 0
     # TODO: Loop will now be different since only one class needed for components
-    for bat in BAT:
-        for gps in GPS:
-            for want in WANT:
-                for wifi in WIFI:
-                    for ble in BLE:
-                        for pcb in PCB:
-                            for air in AIR:
-                                for hrt in HRT:
-                                    for pre in PRE:
-                                        for mot in MOT:
-                                            for con in CON:
-                                                for mem in MEM:
-                                                    comps = [mem, con, mot, pre, hrt, air, pcb, ble, wifi, want, gps, bat]
-                                                    ids = list(map(lambda comp: comp.ID, comps))
-                                                    [total_cost, total_volume] = sum_components(comps)
-                                                    total_cost += total_fixed_costs
+    for enc in ENC:
+        for bat in BAT:
+            for gps in GPS:
+                for want in WANT:
+                    for wifi in WIFI:
+                        for ble in BLE:
+                            for pcb in PCB:
+                                for air in AIR:
+                                    for hrt in HRT:
+                                        for pre in PRE:
+                                            for mot in MOT:
+                                                for con in CON:
+                                                    for mem in MEM:
+                                                        comps = [mem, con, mot, pre, hrt, air, pcb, ble, wifi, want, gps, bat, enc]
+                                                        ids = list(map(lambda comp: comp.ID, comps))
+                                                        [total_cost, total_volume] = sum_components(comps)
+                                                        total_cost += total_fixed_costs
 
-                                                    current_permutation = Components.Permutations('PER_' + format(ID, '05d'),
-                                                                                                  ids,
-                                                                                                  total_cost,
-                                                                                                  total_volume)
+                                                        current_permutation = Components.Permutations('PER_' + format(ID, '05d'),
+                                                                                                      ids,
+                                                                                                      total_cost,
+                                                                                                      total_volume)
 
-                                                    if (current_permutation.cost <= constraints['cost']): # and (current_permutation.volume <= constraints['volume']):
-                                                        viable.append(current_permutation)
-                                                    else:
-                                                        non_viable.append(current_permutation)
+                                                        if (current_permutation.cost <= constraints['cost']): # and (current_permutation.volume <= constraints['volume']):
+                                                            viable.append(current_permutation)
+                                                        else:
+                                                            non_viable.append(current_permutation)
 
-                                                    ID += 1
+                                                        ID += 1
 
     okay = record_permutations()
     return okay

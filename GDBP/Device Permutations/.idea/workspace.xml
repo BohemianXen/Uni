@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbcb1177-9060-4ee7-b35a-710211c30477" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components.csv" beforeDir="false" afterPath="$PROJECT_DIR$/components.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/components.xlsx" afterDir="false" />
@@ -27,8 +26,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="142" selection-start-line="142" selection-end-line="142" />
+            <state relative-caret-position="102">
+              <caret line="113" selection-start-line="113" selection-end-line="113" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -217,8 +216,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="142" selection-start-line="142" selection-end-line="142" />
+        <state relative-caret-position="102">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
