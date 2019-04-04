@@ -4,6 +4,7 @@
     <list default="true" id="dbcb1177-9060-4ee7-b35a-710211c30477" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Script.py" beforeDir="false" afterPath="$PROJECT_DIR$/Script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components.csv" beforeDir="false" afterPath="$PROJECT_DIR$/components.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/components.xlsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,14 +27,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
+            <state relative-caret-position="257">
+              <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
-                <element signature="e#210#291#0" />
-                <element signature="e#824#4763#0" />
-                <element signature="e#1432#2965#0" />
-                <element signature="e#3107#3234#0" />
               </folding>
             </state>
           </provider>
@@ -185,7 +182,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14795244" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14729194" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -209,7 +206,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Script.py</url>
-          <line>74</line>
+          <line>76</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
@@ -247,14 +244,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
+        <state relative-caret-position="257">
+          <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
-            <element signature="e#210#291#0" />
-            <element signature="e#824#4763#0" />
-            <element signature="e#1432#2965#0" />
-            <element signature="e#3107#3234#0" />
           </folding>
         </state>
       </provider>

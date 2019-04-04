@@ -38,15 +38,17 @@ def read_components(filename):
         components = {}
 
         for line in f_in:
-            if line is not '\n' and line.find('Component Name') == -1:
+            if line is not '\n' and line.find('Component Name') == -1:  # Skip component name column
                 fields = line.split(',')
                 full_id = fields[index['ID']]
-                header = full_id[:full_id.find('_')]
+                header = full_id[:full_id.find('_')]  # Extract component type (header)
 
+                # If header has not already been encountered, log it and make an empty list for its component variations
                 if header not in id_headers:
                     id_headers.append(header)
                     components[header] = []
 
+                # Log full component details to dictionary
                 components[header].append(Components.Component(fields[index['ID']],
                                                                fields[index['cost']],
                                                                fields[index['volume']],
@@ -64,7 +66,7 @@ def create_permutations(components):
     for header, component in components.items():
         component_groupings.append(component)
 
-    # Cartesian product (nested for loop) to determine all possible permutations
+    # Cartesian product to determine all possible permutations
     component_groupings = tuple(component_groupings)
     all_permutations = list(product(*component_groupings))
 
@@ -127,5 +129,6 @@ def record_permutations(permutations_viable, final):
 
 
 if __name__ == '__main__':
+    print('Script Running...')
     success = read_components(components_filename)
     print('Script Completed: ' + str(success))
