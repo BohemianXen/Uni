@@ -27,6 +27,7 @@ constraints = {
 
 
 # Possible Permutations
+id_headers = []
 viable = []
 non_viable = []
 
@@ -34,7 +35,6 @@ non_viable = []
 # Read components
 def read_components(filename):
     with open(filename, 'r') as f_in:
-        id_headers = []
         components = {}
 
         for line in f_in:
@@ -114,14 +114,19 @@ def record_permutations(permutations_viable, final):
     with open(viability + ' ' + permutations_filename + ' ' + datetime.now().strftime("%Y-%m-%d %H_%M_%S") + '.csv',
               'w',  newline='') as f:
         f_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        f_writer.writerow(['ID', 'Total Cost (£)', 'Total Volume (mm3)', 'Components'])
+        columns_headers= ['ID', 'Total Cost (£)', 'Total Volume (mm3)']
+        for header in id_headers:
+            columns_headers.append(header)
+
+        f_writer.writerow(columns_headers)
 
         if len(permutations) != 0:
             for permutation in permutations:
-                components = ''
+                row = [permutation.ID, str(permutation.cost), str(permutation.volume)]
                 for component in permutation.components:
-                    components += component + '; '
-                f_writer.writerow([permutation.ID, str(permutation.cost), str(permutation.volume), components])
+                    row.append(component)
+
+                f_writer.writerow(row)
 
     # Write non-viable permutations
     if not final:
