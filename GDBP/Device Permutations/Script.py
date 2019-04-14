@@ -114,7 +114,7 @@ def record_permutations(permutations_viable, final):
     with open(viability + ' ' + permutations_filename + ' ' + datetime.now().strftime("%Y-%m-%d %H_%M_%S") + '.csv',
               'w',  newline='') as f:
         f_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        columns_headers= ['ID', 'Total Cost (£)', 'Total Volume (mm3)']
+        columns_headers = ['ID', 'Total Cost (£)', 'Total Volume (mm3)']
         for header in id_headers:
             columns_headers.append(header)
 
