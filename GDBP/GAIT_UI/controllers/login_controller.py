@@ -3,7 +3,7 @@ from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
 class LoginController(QObject):
 
-    login_complete = pyqtSignal()
+    login_complete = pyqtSignal(str)
 
     def __init__(self, model):
         super().__init__()
@@ -27,4 +27,4 @@ class LoginController(QObject):
         print("Password \"" + password + "\" entered")
         if password == "password":
             print("Password OK")
-            self.login_complete.emit()
+            self.login_complete.emit('home')

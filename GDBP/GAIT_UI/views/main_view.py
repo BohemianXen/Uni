@@ -15,5 +15,6 @@ class MainView(QMainWindow):
         for view in views:
             self._ui.views.addWidget(view)
 
+    # update view
     def set_view(self, view):
         self._ui.views.setCurrentWidget(view)

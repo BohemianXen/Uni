@@ -17,23 +17,28 @@ from controllers.main_controller import MainController
 from controllers.login_controller import LoginController
 from controllers.home_controller import HomeController
 
+
 class App(QApplication):
     def __init__(self, sys_argv):
         super(App, self).__init__(sys_argv)
 
+        self.instantiate_framework()
+        self.link_controllers_to_views()
+
+        # list of all modules
+        self.module_names = ['login', 'home']
+        self.controllers = [self.login_controller, self.home_controller]
+        self.views = [self.login_view, self.home_view]
+
+        self.establish_hierarchies()
+        self.load_views()
+
+    # create model, view, and controller instances
+    def instantiate_framework(self):
         # instantiate models
         self.main_model = MainModel()
         self.login_model = LoginModel()
         self.home_model = HomeModel()
-        # instantiate controllers and link them to their respective models
-        self.main_controller = None
-        self.login_controller = None
-        self.home_controller = None
-
-        # instantiate views and link them to their respective controllers
-        self.main_view = None
-        self.login_view = None
-        self.home_view = None
 
         # instantiate controllers and link them to their respective models
         self.main_controller = MainController(self.main_model)
@@ -45,26 +50,27 @@ class App(QApplication):
         self.login_view = LoginView(self.login_controller)
         self.home_view = HomeView(self.home_controller)
 
-        # load all views into stacked central widget- sets the log-in view as active
-        views = [self.login_view, self.home_view]
-        self.main_view.load_views(views)
+    # make all controllers children of main
+    def establish_hierarchies(self):
+        count = 0
+        for name in self.module_names:
+            self.main_controller.add_child('controller', name, self.controllers[count])
+            self.main_controller.add_child('view', name, self.views[count])
+            count += 1
 
-        # link controllers to view
+    def link_controllers_to_views(self):
         self.main_controller.link_view(self.main_view)
         self.login_controller.link_view(self.login_view)
         self.home_controller.link_view(self.home_view)
 
-        # show window and move to log in view
+    def load_views(self):
+        # load all views into stacked central widget- sets the log-in view as active
+        self.main_view.load_views(self.views)
+
+        # show window, set up listeners for view change triggers, and move to log in view
         self.main_view.show()
-        self.main_view.set_view(self.login_view)
-
-        # state machine listeners
-        # TODO: Create state machine class that app controls
-        self.login_controller.login_complete.connect(self.go_home)
-
-    @pyqtSlot()
-    def go_home(self):
-        self.main_view.set_view(self.home_view)
+        self.main_controller.set_current_view('login')
+        self.main_controller.establish_listeners()
 
 
 if __name__ == '__main__':
