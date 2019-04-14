@@ -4,10 +4,10 @@ from views.main_view_ui import Ui_MainWindow
 
 
 class MainView(QMainWindow):
-    def __init__(self, main_controller):
+    def __init__(self, controller):
         super().__init__()
 
-        self._main_controller = main_controller
+        self._controller = controller
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
 

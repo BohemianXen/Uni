@@ -1,14 +1,14 @@
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import pyqtSlot
 # from views.main_view import MainView
-from views.login_view_ui import Ui_LoginView
+from views.home_view_ui import Ui_HomeView
 
 
-class LoginView(QWidget):
+class HomeView(QWidget):
     def __init__(self, controller):
         super().__init__()
 
         self._controller = controller
-        self._ui = Ui_LoginView()
+        self._ui = Ui_HomeView()
         self._ui.setupUi(self)
-        self._ui.incorrectLabel.setVisible(False)  # TODO: use slots
+
