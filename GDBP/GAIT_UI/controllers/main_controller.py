@@ -6,3 +6,7 @@ class MainController(QObject):
         super().__init__()
 
         self._model = model
+        self._view = None
+
+    def link_view(self, view):
+        self._view = view

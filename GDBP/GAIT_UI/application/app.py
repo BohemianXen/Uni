@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import pyqtSlot
 
 # import models
 from models.main_model import MainModel
@@ -24,6 +25,15 @@ class App(QApplication):
         self.main_model = MainModel()
         self.login_model = LoginModel()
         self.home_model = HomeModel()
+        # instantiate controllers and link them to their respective models
+        self.main_controller = None
+        self.login_controller = None
+        self.home_controller = None
+
+        # instantiate views and link them to their respective controllers
+        self.main_view = None
+        self.login_view = None
+        self.home_view = None
 
         # instantiate controllers and link them to their respective models
         self.main_controller = MainController(self.main_model)
@@ -37,9 +47,24 @@ class App(QApplication):
 
         # load all views into stacked central widget- sets the log-in view as active
         views = [self.login_view, self.home_view]
-        # views.append(self.login_view)
         self.main_view.load_views(views)
+
+        # link controllers to view
+        self.main_controller.link_view(self.main_view)
+        self.login_controller.link_view(self.login_view)
+        self.home_controller.link_view(self.home_view)
+
+        # show window and move to log in view
         self.main_view.show()
+        self.main_view.set_view(self.login_view)
+
+        # state machine listeners
+        # TODO: Create state machine class that app controls
+        self.login_controller.login_complete.connect(self.go_home)
+
+    @pyqtSlot()
+    def go_home(self):
+        self.main_view.set_view(self.home_view)
 
 
 if __name__ == '__main__':
