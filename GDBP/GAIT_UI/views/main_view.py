@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow
 from views.main_view_ui import Ui_MainWindow
+from views.Views import Views
 
 
 class MainView(QMainWindow):
@@ -9,6 +10,15 @@ class MainView(QMainWindow):
         self._controller = controller
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
+        self._tabs = {
+            '2': self._ui.homeTab,
+            '3': self._ui.connectTab,
+            '4': self._ui.liveTab,
+            '5': self._ui.uploadTab,
+            '6': self._ui.historyTab,
+            '7': self._ui.deviceTab,
+            '8': self._ui.accountTab
+        }
 
     def load_views(self, views):
         tab_layouts = [self._ui.homeGridLayout, self._ui.connectGridLayout, self._ui.liveGridLayout,
@@ -21,7 +31,7 @@ class MainView(QMainWindow):
 
     # update view
     def set_view(self, view):
-        self._ui.viewsTabWidget.setCurrentWidget(view)  # TODO: update to match new tab functionality
+        self._ui.viewsTabWidget.setCurrentWidget(self._tabs[str(Views.get_type(view))])
 
     def update_home_view(self, view):
         # self._ui.homeGridLayout.removeWidget(self._controller._views['login'])

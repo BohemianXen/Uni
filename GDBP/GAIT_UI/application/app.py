@@ -45,6 +45,7 @@ class App(QApplication):
 
         # list of all modules
         self.module_names = ['login', 'home', 'connect', 'live', 'upload', 'history', 'device', 'account']
+
         self.controllers = [self.login_controller, self.home_controller, self.connect_controller, self.live_controller,
                             self.upload_controller, self.history_controller, self.device_controller,
                             self.account_controller]
@@ -82,15 +83,13 @@ class App(QApplication):
         # instantiate views and link them to their respective controllers
         self.main_view = MainView(self.main_controller)
         self.login_view = LoginView(self.login_controller)
-        self.home_view = HomeView(self.login_controller)
+        self.home_view = HomeView(self.home_controller)
         self.connect_view = ConnectView(self.connect_controller)
         self.live_view = LiveView(self.live_controller)
         self.upload_view = UploadView(self.upload_controller)
         self.history_view = HistoryView(self.history_controller)
         self.device_view = DeviceView(self.device_controller)
         self.account_view = AccountView(self.account_controller)
-
-
 
     # make all controllers children of main
     def establish_hierarchies(self):
@@ -111,11 +110,11 @@ class App(QApplication):
         self.account_controller.link_view(self.account_view)
 
     def load_views(self):
-        # load all views into stacked central widget- sets the log-in view as active
-        self.views.remove(self.home_view)
+        # load all views into stacked central widget- leaves the login view as active
+        self.views.remove(self.home_view)  # true home view is deferred until login is complete
         self.main_view.load_views(self.views)
 
-        # show window, set up listeners for view change triggers, and move to log in view
+        # show window and set up listeners for view change triggers
         self.main_view.show()
         self.main_controller.establish_listeners()
 

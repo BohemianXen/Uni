@@ -3,7 +3,8 @@ from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
 class LoginController(QObject):
 
-    login_complete = pyqtSignal(str)
+    # signals for view navigation that are handled by main controller
+    loginComplete = pyqtSignal(str)
 
     def __init__(self, model):
         super().__init__()
@@ -11,11 +12,13 @@ class LoginController(QObject):
         self._model = model
         self._view = None
 
-        self._model.username_exists.connect(self.check_password)
+        # slot connecting for response to model signals
+        self._model.usernameExists.connect(self.check_password)
 
     def link_view(self, view):
         self._view = view
 
+    # slot implementations for model signals
     @pyqtSlot()
     def login_clicked(self):
         print("Login Pressed!")
@@ -27,4 +30,4 @@ class LoginController(QObject):
         print("Password \"" + password + "\" entered")
         if password == "password":
             print("Password OK")
-            self.login_complete.emit('home_first')
+            self.loginComplete.emit('home_first')
