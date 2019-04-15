@@ -1,6 +1,5 @@
 import sys
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import pyqtSlot
 
 # import models
 from models.main_model import MainModel
@@ -69,7 +68,6 @@ class App(QApplication):
 
         # show window, set up listeners for view change triggers, and move to log in view
         self.main_view.show()
-        self.main_controller.set_current_view('login')
         self.main_controller.establish_listeners()
 
 

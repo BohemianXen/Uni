@@ -27,4 +27,4 @@ class LoginController(QObject):
         print("Password \"" + password + "\" entered")
         if password == "password":
             print("Password OK")
-            self.login_complete.emit('home')
+            self.login_complete.emit('home_first')

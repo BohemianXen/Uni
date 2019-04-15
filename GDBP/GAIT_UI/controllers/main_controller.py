@@ -14,8 +14,6 @@ class MainController(QObject):
         }
         self._controllers = self._views.copy()
 
-
-
     def link_view(self, view):
         self._main_view = view
 
@@ -30,4 +28,8 @@ class MainController(QObject):
     # update view on signal trigger
     @pyqtSlot(str)
     def set_current_view(self, view):
-        self._main_view.set_view(self._views[view])
+        if view == 'home_first':
+            self._views['login'].hide()
+            self._main_view.update_home_view(self._views['home'])
+        else:
+            self._main_view.set_view(self._views[view])

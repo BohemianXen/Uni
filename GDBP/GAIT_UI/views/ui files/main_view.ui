@@ -46,26 +46,156 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1591</width>
-      <height>1171</height>
+      <width>1602</width>
+      <height>777</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QStackedWidget" name="views">
+    <layout class="QGridLayout" name="mainGridLayout">
+     <item row="0" column="0">
+      <widget class="QTabWidget" name="viewsTabWidget">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>1600</width>
+         <height>775</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>1600</width>
+         <height>775</height>
+        </size>
+       </property>
        <property name="font">
         <font>
-         <family>Tw Cen MT</family>
+         <pointsize>13</pointsize>
         </font>
        </property>
-       <widget class="QWidget" name="splash_0"/>
-       <widget class="QWidget" name="splash">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="tabBarAutoHide">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="homeTab">
+        <attribute name="title">
+         <string>Home</string>
+        </attribute>
+        <widget class="QWidget" name="gridLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1591</width>
+           <height>751</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="homeGridLayout"/>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="connectTab">
+        <attribute name="title">
+         <string>Connect</string>
+        </attribute>
+        <widget class="QWidget" name="gridLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1591</width>
+           <height>751</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="connectGridLayout"/>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="liveTab">
+        <attribute name="title">
+         <string>Live View</string>
+        </attribute>
+        <widget class="QWidget" name="gridLayoutWidget_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1591</width>
+           <height>751</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="liveGridLayout"/>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="uploadTab">
+        <attribute name="title">
+         <string>Upload</string>
+        </attribute>
+        <widget class="QWidget" name="gridLayoutWidget_4">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1591</width>
+           <height>751</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="uploadGridLayout"/>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="historyTab">
+        <attribute name="title">
+         <string>History</string>
+        </attribute>
+        <widget class="QWidget" name="gridLayoutWidget_5">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1591</width>
+           <height>751</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="historyGridLayout"/>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="deviceTab">
+        <attribute name="title">
+         <string>My Device</string>
+        </attribute>
+        <widget class="QWidget" name="gridLayoutWidget_6">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1591</width>
+           <height>751</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="deviceGridLayout"/>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="accountTab">
+        <attribute name="title">
+         <string>My Account</string>
+        </attribute>
+        <widget class="QWidget" name="gridLayoutWidget_7">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1591</width>
+           <height>751</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="accountGridLayout"/>
+        </widget>
        </widget>
       </widget>
      </item>
