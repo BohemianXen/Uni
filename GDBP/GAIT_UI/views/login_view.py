@@ -13,7 +13,7 @@ class LoginView(QWidget):
         self._ui.setupUi(self)
         self._ui.incorrectLabel.setVisible(False)  # TODO: use slots
 
-        self._ui.loginButton.clicked.connect(lambda: self._controller.login_clicked())
+        self._ui.loginPushButton.clicked.connect(lambda: self._controller.login_clicked())
 
 
     def get_username(self):

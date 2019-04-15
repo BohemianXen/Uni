@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'login_view.ui'
+# Form implementation generated from reading ui file '.\login_view.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -84,19 +84,19 @@ class Ui_LoginView(object):
         self.gridLayout_2.addItem(spacerItem19, 3, 1, 1, 1)
         spacerItem20 = QtWidgets.QSpacerItem(40, 50, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem20, 0, 0, 1, 5)
-        self.loginButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.loginPushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.loginButton.sizePolicy().hasHeightForWidth())
-        self.loginButton.setSizePolicy(sizePolicy)
-        self.loginButton.setMinimumSize(QtCore.QSize(200, 0))
-        self.loginButton.setMaximumSize(QtCore.QSize(300, 300))
+        sizePolicy.setHeightForWidth(self.loginPushButton.sizePolicy().hasHeightForWidth())
+        self.loginPushButton.setSizePolicy(sizePolicy)
+        self.loginPushButton.setMinimumSize(QtCore.QSize(200, 0))
+        self.loginPushButton.setMaximumSize(QtCore.QSize(300, 300))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.loginButton.setFont(font)
-        self.loginButton.setObjectName("loginButton")
-        self.gridLayout_2.addWidget(self.loginButton, 6, 2, 1, 1, QtCore.Qt.AlignHCenter)
+        self.loginPushButton.setFont(font)
+        self.loginPushButton.setObjectName("loginPushButton")
+        self.gridLayout_2.addWidget(self.loginPushButton, 6, 2, 1, 1, QtCore.Qt.AlignHCenter)
         spacerItem21 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Maximum)
         self.gridLayout_2.addItem(spacerItem21, 7, 4, 1, 1)
         self.logoLabel = QtWidgets.QLabel(self.verticalLayoutWidget)
@@ -161,7 +161,7 @@ class Ui_LoginView(object):
         LoginView.setWindowTitle(_translate("LoginView", "Form"))
         self.registerLabel.setText(_translate("LoginView", "Don\'t have a GAIT Account? Create one now."))
         self.forgotLabel.setText(_translate("LoginView", "Forgotten your username or password?"))
-        self.loginButton.setText(_translate("LoginView", "Sign In"))
+        self.loginPushButton.setText(_translate("LoginView", "Sign In"))
         self.logoLabel.setText(_translate("LoginView", "Logo"))
         self.passwordLabel.setText(_translate("LoginView", "Account Log In"))
         self.usernameLineEdit.setPlaceholderText(_translate("LoginView", "Username"))
