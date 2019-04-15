@@ -5,16 +5,35 @@ from PyQt5.QtWidgets import QApplication
 from models.main_model import MainModel
 from models.login_model import LoginModel
 from models.home_model import HomeModel
+from models.connect_model import ConnectModel
+from models.live_model import LiveModel
+from models.upload_model import UploadModel
+from models.history_model import HistoryModel
+from models.device_model import DeviceModel
+from models.account_model import AccountModel
 
 # import views
 from views.main_view import MainView
 from views.login_view import LoginView
 from views.home_view import HomeView
+from views.connect_view import ConnectView
+from views.live_view import LiveView
+from views.upload_view import UploadView
+from views.history_view import HistoryView
+from views.device_view import DeviceView
+from views.account_view import AccountView
+
 
 # import controllers
 from controllers.main_controller import MainController
 from controllers.login_controller import LoginController
 from controllers.home_controller import HomeController
+from controllers.connect_controller import ConnectController
+from controllers.live_controller import LiveController
+from controllers.upload_controller import UploadController
+from controllers.history_controller import HistoryController
+from controllers.device_controller import DeviceController
+from controllers.account_controller import AccountController
 
 
 class App(QApplication):
@@ -25,9 +44,13 @@ class App(QApplication):
         self.link_controllers_to_views()
 
         # list of all modules
-        self.module_names = ['login', 'home']
-        self.controllers = [self.login_controller, self.home_controller]
-        self.views = [self.login_view, self.home_view]
+        self.module_names = ['login', 'home', 'connect', 'live', 'upload', 'history', 'device', 'account']
+        self.controllers = [self.login_controller, self.home_controller, self.connect_controller, self.live_controller,
+                            self.upload_controller, self.history_controller, self.device_controller,
+                            self.account_controller]
+
+        self.views = [self.login_view, self.home_view, self.connect_view, self.live_view, self.upload_view,
+                      self.history_view, self.device_view, self.account_view]
 
         self.establish_hierarchies()
         self.load_views()
@@ -38,16 +61,36 @@ class App(QApplication):
         self.main_model = MainModel()
         self.login_model = LoginModel()
         self.home_model = HomeModel()
+        self.connect_model = ConnectModel()
+        self.live_model = LiveModel()
+        self.upload_model = UploadModel()
+        self.history_model = HistoryModel()
+        self.device_model = DeviceModel()
+        self.account_model = AccountModel()
 
         # instantiate controllers and link them to their respective models
         self.main_controller = MainController(self.main_model)
         self.login_controller = LoginController(self.login_model)
         self.home_controller = HomeController(self.home_model)
+        self.connect_controller = ConnectController(self.connect_model)
+        self.live_controller = LiveController(self.live_model)
+        self.upload_controller = UploadController(self.upload_model)
+        self.history_controller = HistoryController(self.history_model)
+        self.device_controller = DeviceController(self.device_model)
+        self.account_controller = AccountController(self.account_model)
 
         # instantiate views and link them to their respective controllers
         self.main_view = MainView(self.main_controller)
         self.login_view = LoginView(self.login_controller)
-        self.home_view = HomeView(self.home_controller)
+        self.home_view = HomeView(self.login_controller)
+        self.connect_view = ConnectView(self.connect_controller)
+        self.live_view = LiveView(self.live_controller)
+        self.upload_view = UploadView(self.upload_controller)
+        self.history_view = HistoryView(self.history_controller)
+        self.device_view = DeviceView(self.device_controller)
+        self.account_view = AccountView(self.account_controller)
+
+
 
     # make all controllers children of main
     def establish_hierarchies(self):
@@ -60,10 +103,16 @@ class App(QApplication):
     def link_controllers_to_views(self):
         self.main_controller.link_view(self.main_view)
         self.login_controller.link_view(self.login_view)
-        self.home_controller.link_view(self.home_view)
+        self.connect_controller.link_view(self.connect_view)
+        self.live_controller.link_view(self.live_view)
+        self.upload_controller.link_view(self.upload_view)
+        self.history_controller.link_view(self.history_view)
+        self.device_controller.link_view(self.device_view)
+        self.account_controller.link_view(self.account_view)
 
     def load_views(self):
         # load all views into stacked central widget- sets the log-in view as active
+        self.views.remove(self.home_view)
         self.main_view.load_views(self.views)
 
         # show window, set up listeners for view change triggers, and move to log in view

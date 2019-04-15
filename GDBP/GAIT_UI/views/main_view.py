@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtCore import pyqtSlot
 from views.main_view_ui import Ui_MainWindow
 
 
@@ -13,7 +12,8 @@ class MainView(QMainWindow):
 
     def load_views(self, views):
         tab_layouts = [self._ui.homeGridLayout, self._ui.connectGridLayout, self._ui.liveGridLayout,
-                       self._ui.uploadGridLayout, self._ui.deviceGridLayout, self._ui.accountGridLayout]
+                       self._ui.uploadGridLayout,self._ui.historyGridLayout,
+                       self._ui.deviceGridLayout, self._ui.accountGridLayout]
         count = 0
         for view in views:
             tab_layouts[count].addWidget(view)
