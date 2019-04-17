@@ -40,13 +40,28 @@
    <iconset>
     <normaloff>../../resources/icons/logo.png</normaloff>../../resources/icons/logo.png</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow { background-color: rgb(29, 29, 42); }
+</string>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="font">
+    <font>
+     <family>Tw Cen MT</family>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget &gt; QWidget { background-color: rgb(29, 29, 42); }</string>
+   </property>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1602</width>
+      <width>1612</width>
       <height>777</height>
      </rect>
     </property>
@@ -64,13 +79,13 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>1600</width>
+         <width>1610</width>
          <height>775</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>1600</width>
+         <width>1610</width>
          <height>775</height>
         </size>
        </property>
@@ -79,22 +94,33 @@
          <pointsize>13</pointsize>
         </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QTabWidget QWidget { 
+	background-color: rgb(39, 39, 52); 
+	border-color: rgb(39, 39, 52); 
+}
+
+QTabBar::tab { color: white; }</string>
+       </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <property name="tabBarAutoHide">
         <bool>true</bool>
        </property>
        <widget class="QWidget" name="homeTab">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <attribute name="title">
          <string>Home</string>
         </attribute>
         <widget class="QWidget" name="gridLayoutWidget">
          <property name="geometry">
           <rect>
-           <x>0</x>
+           <x>-40</x>
            <y>0</y>
-           <width>1591</width>
+           <width>1641</width>
            <height>751</height>
           </rect>
          </property>
@@ -110,7 +136,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1591</width>
+           <width>1601</width>
            <height>751</height>
           </rect>
          </property>
@@ -129,7 +155,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1591</width>
+           <width>1601</width>
            <height>751</height>
           </rect>
          </property>
@@ -148,7 +174,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1591</width>
+           <width>1601</width>
            <height>751</height>
           </rect>
          </property>
@@ -164,7 +190,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1591</width>
+           <width>1601</width>
            <height>751</height>
           </rect>
          </property>
@@ -180,7 +206,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1591</width>
+           <width>1601</width>
            <height>751</height>
           </rect>
          </property>
@@ -196,7 +222,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1591</width>
+           <width>1601</width>
            <height>751</height>
           </rect>
          </property>
