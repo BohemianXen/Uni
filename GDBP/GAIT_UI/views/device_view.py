@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from views.device_view_ui import Ui_DeviceView
+from views.ui_files.device_view_ui import Ui_DeviceView
 
 
 class DeviceView(QWidget):

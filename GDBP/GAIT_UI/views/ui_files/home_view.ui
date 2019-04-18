@@ -36,6 +36,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
@@ -50,7 +53,7 @@
      <pointsize>10</pointsize>
     </font>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="homeGridLayout">
     <item row="1" column="2">
      <spacer name="horizontalSpacer">
       <property name="orientation">
@@ -147,7 +150,7 @@
     <item row="1" column="5">
      <widget class="QPushButton" name="uploadPushButton">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -596,7 +599,7 @@
     <item row="1" column="3">
      <widget class="QPushButton" name="livePushButton">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -814,6 +817,14 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>connectPushButton</tabstop>
+  <tabstop>livePushButton</tabstop>
+  <tabstop>uploadPushButton</tabstop>
+  <tabstop>historyPushButton</tabstop>
+  <tabstop>devicePushButton</tabstop>
+  <tabstop>accountPushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from views.history_view_ui import Ui_HistoryView
+from views.ui_files.history_view_ui import Ui_HistoryView
 
 
 class HistoryView(QWidget):

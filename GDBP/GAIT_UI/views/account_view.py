@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from views.account_view_ui import Ui_AccountView
+from views.ui_files.account_view_ui import Ui_AccountView
 
 
 class AccountView(QWidget):

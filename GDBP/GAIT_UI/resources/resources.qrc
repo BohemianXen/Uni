@@ -1,0 +1,8 @@
+<RCC>
+  <qresource>
+    <file>icons/logo.png</file>
+    <file>icons/logo (with slogan).png</file>
+	<file>icons/logo (with slogan) - big.png</file>
+	<file>icons/small logo.png</file>
+  </qresource>
+</RCC>

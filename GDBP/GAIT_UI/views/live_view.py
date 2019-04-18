@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from views.live_view_ui import Ui_LiveView
+from views.ui_files.live_view_ui import Ui_LiveView
 
 
 class LiveView(QWidget):

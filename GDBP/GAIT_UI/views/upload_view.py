@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from views.upload_view_ui import Ui_UploadView
+from views.ui_files.upload_view_ui import Ui_UploadView
 
 
 class UploadView(QWidget):

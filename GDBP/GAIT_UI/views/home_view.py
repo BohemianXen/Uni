@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from views.home_view_ui import Ui_HomeView
+from views.ui_files.home_view_ui import Ui_HomeView
 
 
 class HomeView(QWidget):
@@ -10,11 +10,10 @@ class HomeView(QWidget):
         self._ui = Ui_HomeView()
         self._ui.setupUi(self)
 
+        # connect button click events to their respective slots
         self._ui.connectPushButton.clicked.connect(lambda: self._controller.connect_clicked())
         self._ui.livePushButton.clicked.connect(lambda: self._controller.live_clicked())
         self._ui.uploadPushButton.clicked.connect(lambda: self._controller.upload_clicked())
         self._ui.historyPushButton.clicked.connect(lambda: self._controller.history_clicked())
         self._ui.devicePushButton.clicked.connect(lambda: self._controller.device_clicked())
         self._ui.accountPushButton.clicked.connect(lambda: self._controller.account_clicked())
-
-

@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget
-from views.connect_view_ui import Ui_ConnectView
+from views.ui_files.connect_view_ui import Ui_ConnectView
 
 
 class ConnectView(QWidget):
