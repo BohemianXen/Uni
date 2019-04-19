@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget
 from views.ui_files.home_view_ui import Ui_HomeView
+from application.Logger import Logger
 
 
 class HomeView(QWidget):
@@ -9,6 +10,8 @@ class HomeView(QWidget):
         self._controller = controller
         self._ui = Ui_HomeView()
         self._ui.setupUi(self)
+        self.name = self.__class__.__name__
+        self._logger = Logger(self.name)
 
         # connect button click events to their respective slots
         self._ui.connectPushButton.clicked.connect(lambda: self._controller.connect_clicked())

@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
 from views.ui_files.main_view_ui import Ui_MainWindow
 from views.Views import Views
+from application.Logger import Logger
 
 
 class MainView(QMainWindow):
@@ -10,6 +11,8 @@ class MainView(QMainWindow):
         self._controller = controller
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
+        self.name = self.__class__.__name__
+        self._logger = Logger(self.name)
 
         # tab indexes
         self._tabs = {
@@ -34,10 +37,17 @@ class MainView(QMainWindow):
 
     # update current tab
     def set_view(self, view):
-        self._ui.viewsTabWidget.setCurrentWidget(self._tabs[str(Views.get_type(view))])
+        self._logger.log('Changing from {} to {}'.format(
+            self._ui.viewsTabWidget.currentWidget().objectName(), view.objectName()),
+            self._logger.INFO)
+        try:
+            self._ui.viewsTabWidget.setCurrentWidget(self._tabs[str(Views.get_type(view))])
+        except:
+            self._logger.log('Error changing to {} view'.format(view), self._logger.ERROR)
 
     # update home view when first logging in
     def update_home_view(self, view):
+        self._logger.log('Changing login view to normal home view', self._logger.INFO)
         # self._ui.homeGridLayout.removeWidget(self._controller._views['login'])
         # self._ui.homeGridLayout.update()
         self._ui.homeGridLayout.addWidget(view)

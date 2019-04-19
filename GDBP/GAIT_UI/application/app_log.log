@@ -1,0 +1,131 @@
+17:40:42 19/04/2019  -  App  -   INFO:  App started 
+17:40:42 19/04/2019  -  App  -   INFO:  Instantiating models 
+17:40:42 19/04/2019  -  App  -   INFO:  Instantiating controllers 
+17:40:42 19/04/2019  -  App  -   INFO:  Instantiating views 
+17:40:42 19/04/2019  -  App  -   INFO:  Linking controllers to views 
+17:40:42 19/04/2019  -  App  -   INFO:  Configuring main controller 
+17:40:42 19/04/2019  -  App  -   INFO:  Loading views 
+17:40:44 19/04/2019  -  App  -   INFO:  Changing login view to normal home view 
+17:40:46 19/04/2019  -  App  -   INFO:  Changing to connect view 
+17:48:39 19/04/2019  -  App  -   INFO:  App started 
+17:48:39 19/04/2019  -  App  -   INFO:  Instantiating models 
+17:48:39 19/04/2019  -  App  -   INFO:  Instantiating controllers 
+17:48:39 19/04/2019  -  App  -   INFO:  Instantiating views 
+17:48:39 19/04/2019  -  App  -   INFO:  Linking controllers to views 
+17:48:39 19/04/2019  -  App  -   INFO:  Configuring main controller 
+17:48:39 19/04/2019  -  App  -   INFO:  Loading views 
+17:48:41 19/04/2019  -  MainController  -   INFO:  Changing login view to normal home view 
+17:48:42 19/04/2019  -  MainController  -   INFO:  Changing to connect view 
+17:50:37 19/04/2019 -                  App -  INFO:  App started 
+17:50:37 19/04/2019 -                  App -  INFO:  Instantiating models 
+17:50:37 19/04/2019 -                  App -  INFO:  Instantiating controllers 
+17:50:37 19/04/2019 -                  App -  INFO:  Instantiating views 
+17:50:37 19/04/2019 -                  App -  INFO:  Linking controllers to views 
+17:50:37 19/04/2019 -                  App -  INFO:  Configuring main controller 
+17:50:37 19/04/2019 -                  App -  INFO:  Loading views 
+17:50:38 19/04/2019 -       MainController -  INFO:  Changing login view to normal home view 
+17:50:39 19/04/2019 -       MainController -  INFO:  Changing to connect view 
+17:53:14 19/04/2019 - App                  -  INFO:  App started 
+17:53:14 19/04/2019 - App                  -  INFO:  Instantiating models 
+17:53:14 19/04/2019 - App                  -  INFO:  Instantiating controllers 
+17:53:14 19/04/2019 - App                  -  INFO:  Instantiating views 
+17:53:14 19/04/2019 - App                  -  INFO:  Linking controllers to views 
+17:53:14 19/04/2019 - App                  -  INFO:  Configuring main controller 
+17:53:14 19/04/2019 - App                  -  INFO:  Loading views 
+17:53:15 19/04/2019 - MainController       -  INFO:  Changing login view to normal home view 
+17:53:16 19/04/2019 - MainController       -  INFO:  Changing to connect view 
+17:53:43 19/04/2019 - App                  -  INFO    :  App started 
+17:53:43 19/04/2019 - App                  -  INFO    :  Instantiating models 
+17:53:43 19/04/2019 - App                  -  INFO    :  Instantiating controllers 
+17:53:43 19/04/2019 - App                  -  INFO    :  Instantiating views 
+17:53:43 19/04/2019 - App                  -  INFO    :  Linking controllers to views 
+17:53:43 19/04/2019 - App                  -  INFO    :  Configuring main controller 
+17:53:43 19/04/2019 - App                  -  INFO    :  Loading views 
+17:53:44 19/04/2019 - MainController       -  INFO    :  Changing login view to normal home view 
+17:53:45 19/04/2019 - MainController       -  INFO    :  Changing to connect view 
+17:56:05 19/04/2019 - App                  - INFO     - App started 
+17:56:05 19/04/2019 - App                  - INFO     - Instantiating models 
+17:56:05 19/04/2019 - App                  - INFO     - Instantiating controllers 
+17:56:05 19/04/2019 - App                  - INFO     - Instantiating views 
+17:56:05 19/04/2019 - App                  - INFO     - Linking controllers to views 
+17:56:05 19/04/2019 - App                  - INFO     - Configuring main controller 
+17:56:05 19/04/2019 - App                  - INFO     - Loading views 
+17:56:07 19/04/2019 - MainController       - INFO     - Changing login view to normal home view 
+17:56:08 19/04/2019 - MainController       - INFO     - Changing to connect view 
+17:56:55 19/04/2019 | App                  | INFO     | App started 
+17:56:55 19/04/2019 | App                  | INFO     | Instantiating models 
+17:56:55 19/04/2019 | App                  | INFO     | Instantiating controllers 
+17:56:55 19/04/2019 | App                  | INFO     | Instantiating views 
+17:56:55 19/04/2019 | App                  | INFO     | Linking controllers to views 
+17:56:55 19/04/2019 | App                  | INFO     | Configuring main controller 
+17:56:55 19/04/2019 | App                  | INFO     | Loading views 
+17:56:57 19/04/2019 | MainController       | INFO     | Changing login view to normal home view 
+17:56:57 19/04/2019 | MainController       | INFO     | Changing to connect view 
+17:58:41 19/04/2019 | App                  | INFO     | App started 
+17:58:41 19/04/2019 | App                  | INFO     | Instantiating models 
+17:58:41 19/04/2019 | App                  | INFO     | Instantiating controllers 
+17:58:41 19/04/2019 | App                  | INFO     | Instantiating views 
+17:58:41 19/04/2019 | App                  | INFO     | Linking controllers to views 
+17:58:41 19/04/2019 | App                  | INFO     | Configuring main controller 
+17:58:41 19/04/2019 | App                  | INFO     | Loading views 
+17:58:42 19/04/2019 | MainController       | INFO     | Changing login view to normal home view 
+17:58:43 19/04/2019 | MainController       | INFO     | Changing to connect view 
+18:01:37 19/04/2019 | App                  | INFO     | App started 
+18:01:37 19/04/2019 | App                  | INFO     | Instantiating models 
+18:01:37 19/04/2019 | App                  | INFO     | Instantiating controllers 
+18:01:37 19/04/2019 | App                  | INFO     | Instantiating views 
+18:01:37 19/04/2019 | App                  | INFO     | Linking controllers to views 
+18:01:37 19/04/2019 | App                  | INFO     | Configuring main controller 
+18:01:37 19/04/2019 | App                  | INFO     | Loading views 
+18:01:39 19/04/2019 | MainView             | INFO     | Changing login view to normal home view 
+18:01:41 19/04/2019 | MainView             | INFO     | Changing to <views.connect_view.ConnectView object at 0x0000024D6954D9D8> view 
+18:03:21 19/04/2019 | App                  | INFO     | App started 
+18:03:21 19/04/2019 | App                  | INFO     | Instantiating models 
+18:03:21 19/04/2019 | App                  | INFO     | Instantiating controllers 
+18:03:21 19/04/2019 | App                  | INFO     | Instantiating views 
+18:03:21 19/04/2019 | App                  | INFO     | Linking controllers to views 
+18:03:21 19/04/2019 | App                  | INFO     | Configuring main controller 
+18:03:21 19/04/2019 | App                  | INFO     | Loading views 
+18:03:22 19/04/2019 | MainView             | INFO     | Changing login view to normal home view 
+18:07:22 19/04/2019 | App                  | INFO     | App started 
+18:07:22 19/04/2019 | App                  | INFO     | Instantiating models 
+18:07:22 19/04/2019 | App                  | INFO     | Instantiating controllers 
+18:07:22 19/04/2019 | App                  | INFO     | Instantiating views 
+18:07:22 19/04/2019 | App                  | INFO     | Linking controllers to views 
+18:07:22 19/04/2019 | App                  | INFO     | Configuring main controller 
+18:07:22 19/04/2019 | App                  | INFO     | Loading views 
+18:07:24 19/04/2019 | MainView             | INFO     | Changing login view to normal home view 
+18:07:38 19/04/2019 | App                  | INFO     | App started 
+18:07:38 19/04/2019 | App                  | INFO     | Instantiating models 
+18:07:38 19/04/2019 | App                  | INFO     | Instantiating controllers 
+18:07:38 19/04/2019 | App                  | INFO     | Instantiating views 
+18:07:38 19/04/2019 | App                  | INFO     | Linking controllers to views 
+18:07:38 19/04/2019 | App                  | INFO     | Configuring main controller 
+18:07:38 19/04/2019 | App                  | INFO     | Loading views 
+18:07:40 19/04/2019 | MainView             | INFO     | Changing login view to normal home view 
+18:09:16 19/04/2019 | App                  | INFO     | App started 
+18:09:16 19/04/2019 | App                  | INFO     | Instantiating models 
+18:09:16 19/04/2019 | App                  | INFO     | Instantiating controllers 
+18:09:16 19/04/2019 | App                  | INFO     | Instantiating views 
+18:09:16 19/04/2019 | App                  | INFO     | Linking controllers to views 
+18:09:16 19/04/2019 | App                  | INFO     | Configuring main controller 
+18:09:16 19/04/2019 | App                  | INFO     | Loading views 
+18:09:18 19/04/2019 | MainView             | INFO     | Changing login view to normal home view 
+18:09:31 19/04/2019 | App                  | INFO     | App started 
+18:09:31 19/04/2019 | App                  | INFO     | Instantiating models 
+18:09:31 19/04/2019 | App                  | INFO     | Instantiating controllers 
+18:09:31 19/04/2019 | App                  | INFO     | Instantiating views 
+18:09:31 19/04/2019 | App                  | INFO     | Linking controllers to views 
+18:09:31 19/04/2019 | App                  | INFO     | Configuring main controller 
+18:09:31 19/04/2019 | App                  | INFO     | Loading views 
+18:09:32 19/04/2019 | MainView             | INFO     | Changing login view to normal home view 
+18:09:33 19/04/2019 | MainView             | INFO     | Changing from homeTab to ConnectView view 
+18:11:01 19/04/2019 | App                  | INFO     | App started 
+18:11:01 19/04/2019 | App                  | INFO     | Instantiating models 
+18:11:01 19/04/2019 | App                  | INFO     | Instantiating controllers 
+18:11:01 19/04/2019 | App                  | INFO     | Instantiating views 
+18:11:01 19/04/2019 | App                  | INFO     | Linking controllers to views 
+18:11:01 19/04/2019 | App                  | INFO     | Configuring main controller 
+18:11:01 19/04/2019 | App                  | INFO     | Loading views 
+18:11:02 19/04/2019 | MainView             | INFO     | Changing login view to normal home view 
+18:11:03 19/04/2019 | MainView             | INFO     | Changing from homeTab to ConnectView 

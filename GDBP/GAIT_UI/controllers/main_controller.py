@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QObject, pyqtSlot
+from application.Logger import Logger
 
 
 class MainController(QObject):
@@ -7,6 +8,7 @@ class MainController(QObject):
 
         self._model = model
         self._main_view = None
+        self._logger = Logger(self.__class__.__name__)
 
         self._views = {
             'login': None,

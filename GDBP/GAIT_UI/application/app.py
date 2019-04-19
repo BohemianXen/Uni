@@ -1,4 +1,5 @@
 import sys
+from application.Logger import Logger
 from PyQt5.QtWidgets import QApplication
 
 # import models
@@ -39,6 +40,10 @@ from controllers.account_controller import AccountController
 class App(QApplication):
     def __init__(self, sys_argv):
         super(App, self).__init__(sys_argv)
+        self.setStyle('Fusion')
+        self.name = self.__class__.__name__
+        self.logger = Logger(self.name)
+        self.logger.log('App started', self.logger.INFO)
 
         self.instantiate_framework()
         self.link_controllers_to_views()
@@ -59,6 +64,7 @@ class App(QApplication):
     # create model, view, and controller instances
     def instantiate_framework(self):
         # instantiate models
+        self.logger.log('Instantiating models', self.logger.INFO)
         self.main_model = MainModel()
         self.login_model = LoginModel()
         self.home_model = HomeModel()
@@ -70,6 +76,7 @@ class App(QApplication):
         self.account_model = AccountModel()
 
         # instantiate controllers and link them to their respective models
+        self.logger.log('Instantiating controllers', self.logger.INFO)
         self.main_controller = MainController(self.main_model)
         self.login_controller = LoginController(self.login_model)
         self.home_controller = HomeController(self.home_model)
@@ -81,6 +88,7 @@ class App(QApplication):
         self.account_controller = AccountController(self.account_model)
 
         # instantiate views and link them to their respective controllers
+        self.logger.log('Instantiating views', self.logger.INFO)
         self.main_view = MainView(self.main_controller)
         self.login_view = LoginView(self.login_controller)
         self.home_view = HomeView(self.home_controller)
@@ -91,15 +99,8 @@ class App(QApplication):
         self.device_view = DeviceView(self.device_controller)
         self.account_view = AccountView(self.account_controller)
 
-    # make all controllers children of main
-    def establish_hierarchies(self):
-        count = 0
-        for name in self.module_names:
-            self.main_controller.add_child('controller', name, self.controllers[count])
-            self.main_controller.add_child('view', name, self.views[count])
-            count += 1
-
     def link_controllers_to_views(self):
+        self.logger.log('Linking controllers to views', self.logger.INFO)
         self.main_controller.link_view(self.main_view)
         self.login_controller.link_view(self.login_view)
         self.connect_controller.link_view(self.connect_view)
@@ -109,17 +110,26 @@ class App(QApplication):
         self.device_controller.link_view(self.device_view)
         self.account_controller.link_view(self.account_view)
 
+    # make all controllers children of main
+    def establish_hierarchies(self):
+        self.logger.log('Configuring main controller', self.logger.INFO)
+        count = 0
+        for name in self.module_names:
+            self.main_controller.add_child('controller', name, self.controllers[count])
+            self.main_controller.add_child('view', name, self.views[count])
+            count += 1
+
     def load_views(self):
+        self.logger.log('Loading views', self.logger.INFO)
         # load all views into stacked central widget- leaves the login view as active
         self.views.remove(self.home_view)  # true home view is deferred until login is complete
         self.main_view.load_views(self.views)
+        self.main_controller.establish_listeners()
 
         # show window and set up listeners for view change triggers
         self.main_view.show()
-        self.main_controller.establish_listeners()
 
 
 if __name__ == '__main__':
     app = App(sys.argv)
-    app.setStyle("Fusion")
     sys.exit(app.exec_())
