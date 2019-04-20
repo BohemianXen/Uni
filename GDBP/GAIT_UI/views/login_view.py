@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QStyle
 from PyQt5.QtCore import Qt
 from views.ui_files.login_view_ui import Ui_LoginView
 
@@ -6,7 +6,6 @@ from views.ui_files.login_view_ui import Ui_LoginView
 class LoginView(QWidget):
     def __init__(self, controller):
         super().__init__()
-
         self._controller = controller
         self._ui = Ui_LoginView()
         self._ui.setupUi(self)

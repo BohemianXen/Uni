@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QStyleFactory
 from views.ui_files.main_view_ui import Ui_MainWindow
 from views.Views import Views
 from application.Logger import Logger
@@ -46,7 +46,11 @@ class MainView(QMainWindow):
         except:
             self._logger.log('Error changing to {} view'.format(new_view), self._logger.ERROR)
 
-    # update home view when first logging in
-    def update_home_view(self, view):
+    def add_login_view(self, view):
+        self._ui.mainStackedWidget.addWidget(view)
+        self._ui.mainStackedWidget.setCurrentWidget(view)
+
+    # update main view when first logging in
+    def update_main_view(self):
         self._logger.log('Changing loginView to homeView on mainTab', self._logger.INFO)
-        self._ui.homeGridLayout.addWidget(view)
+        self._ui.mainStackedWidget.setCurrentWidget(self._ui.loggedInView)

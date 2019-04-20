@@ -553,3 +553,882 @@
 20:20:34 20/04/2019 | App                  | INFO     | Configuring main controller 
 20:20:34 20/04/2019 | App                  | INFO     | Loading views 
 20:20:36 20/04/2019 | App                  | INFO     | App closing 
+20:36:03 20/04/2019 | App                  | INFO     | App started 
+20:36:03 20/04/2019 | App                  | INFO     | Instantiating models 
+20:36:03 20/04/2019 | App                  | INFO     | Instantiating controllers 
+20:36:03 20/04/2019 | App                  | INFO     | Instantiating views 
+20:36:04 20/04/2019 | App                  | INFO     | Linking controllers to views 
+20:36:04 20/04/2019 | App                  | INFO     | Configuring main controller 
+20:36:04 20/04/2019 | App                  | INFO     | Loading views 
+20:55:50 20/04/2019 | App                  | INFO     | App started 
+20:55:50 20/04/2019 | App                  | INFO     | Instantiating models 
+20:55:50 20/04/2019 | App                  | INFO     | Instantiating controllers 
+20:55:50 20/04/2019 | App                  | INFO     | Instantiating views 
+20:55:50 20/04/2019 | App                  | INFO     | Linking controllers to views 
+20:55:50 20/04/2019 | App                  | INFO     | Configuring main controller 
+20:55:50 20/04/2019 | App                  | INFO     | Loading views 
+20:55:51 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+20:58:08 20/04/2019 | App                  | INFO     | App started 
+20:58:08 20/04/2019 | App                  | INFO     | Instantiating models 
+20:58:08 20/04/2019 | App                  | INFO     | Instantiating controllers 
+20:58:08 20/04/2019 | App                  | INFO     | Instantiating views 
+20:58:08 20/04/2019 | App                  | INFO     | Linking controllers to views 
+20:58:08 20/04/2019 | App                  | INFO     | Configuring main controller 
+20:58:08 20/04/2019 | App                  | INFO     | Loading views 
+20:58:08 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:01:25 20/04/2019 | App                  | INFO     | App started 
+21:01:25 20/04/2019 | App                  | INFO     | Instantiating models 
+21:01:25 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:01:25 20/04/2019 | App                  | INFO     | Instantiating views 
+21:01:25 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:01:25 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:01:25 20/04/2019 | App                  | INFO     | Loading views 
+21:01:26 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:01:36 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:01:36 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:01:36 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:01:36 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:01:36 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:01:36 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:01:36 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:01:36 20/04/2019 | MainController       | INFO     | View change completed 
+21:02:01 20/04/2019 | App                  | INFO     | App started 
+21:02:01 20/04/2019 | App                  | INFO     | Instantiating models 
+21:02:01 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:02:01 20/04/2019 | App                  | INFO     | Instantiating views 
+21:02:01 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:02:01 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:02:01 20/04/2019 | App                  | INFO     | Loading views 
+21:02:02 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:02:03 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:02:03 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:02:03 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:02:03 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:02:03 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:02:03 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:02:03 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:02:03 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:02:03 20/04/2019 | MainController       | INFO     | View change completed 
+21:02:07 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:02:07 20/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+21:02:07 20/04/2019 | MainController       | INFO     | View change completed 
+21:02:24 20/04/2019 | App                  | INFO     | App started 
+21:02:24 20/04/2019 | App                  | INFO     | Instantiating models 
+21:02:24 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:02:24 20/04/2019 | App                  | INFO     | Instantiating views 
+21:02:24 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:02:24 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:02:24 20/04/2019 | App                  | INFO     | Loading views 
+21:02:24 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:04:08 20/04/2019 | App                  | INFO     | App started 
+21:04:08 20/04/2019 | App                  | INFO     | Instantiating models 
+21:04:08 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:04:08 20/04/2019 | App                  | INFO     | Instantiating views 
+21:04:08 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:04:08 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:04:08 20/04/2019 | App                  | INFO     | Loading views 
+21:04:08 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:04:43 20/04/2019 | App                  | INFO     | App started 
+21:04:43 20/04/2019 | App                  | INFO     | Instantiating models 
+21:04:43 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:04:43 20/04/2019 | App                  | INFO     | Instantiating views 
+21:04:43 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:04:43 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:04:43 20/04/2019 | App                  | INFO     | Loading views 
+21:04:44 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:04:45 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:04:45 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:04:45 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:04:45 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:04:45 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:04:45 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:04:45 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:04:45 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:04:45 20/04/2019 | MainController       | INFO     | View change completed 
+21:05:21 20/04/2019 | App                  | INFO     | App started 
+21:05:21 20/04/2019 | App                  | INFO     | Instantiating models 
+21:05:21 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:05:21 20/04/2019 | App                  | INFO     | Instantiating views 
+21:05:21 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:05:21 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:05:21 20/04/2019 | App                  | INFO     | Loading views 
+21:05:21 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:05:22 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:05:22 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:05:22 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:05:22 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:05:22 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:05:22 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:05:22 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:05:22 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:05:22 20/04/2019 | MainController       | INFO     | View change completed 
+21:08:19 20/04/2019 | App                  | INFO     | App started 
+21:08:19 20/04/2019 | App                  | INFO     | Instantiating models 
+21:08:19 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:08:19 20/04/2019 | App                  | INFO     | Instantiating views 
+21:08:19 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:08:19 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:08:19 20/04/2019 | App                  | INFO     | Loading views 
+21:08:53 20/04/2019 | App                  | INFO     | App started 
+21:08:53 20/04/2019 | App                  | INFO     | Instantiating models 
+21:08:53 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:08:53 20/04/2019 | App                  | INFO     | Instantiating views 
+21:08:53 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:08:53 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:08:53 20/04/2019 | App                  | INFO     | Loading views 
+21:08:55 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:08:55 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:08:55 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:08:55 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:08:55 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:08:55 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:08:55 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:08:55 20/04/2019 | MainController       | INFO     | View change completed 
+21:09:18 20/04/2019 | App                  | INFO     | App started 
+21:09:18 20/04/2019 | App                  | INFO     | Instantiating models 
+21:09:18 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:09:18 20/04/2019 | App                  | INFO     | Instantiating views 
+21:09:18 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:09:18 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:09:18 20/04/2019 | App                  | INFO     | Loading views 
+21:09:19 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:09:34 20/04/2019 | App                  | INFO     | App started 
+21:09:34 20/04/2019 | App                  | INFO     | Instantiating models 
+21:09:34 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:09:34 20/04/2019 | App                  | INFO     | Instantiating views 
+21:09:34 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:09:34 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:09:34 20/04/2019 | App                  | INFO     | Loading views 
+21:09:35 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:09:35 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:09:35 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:09:35 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:09:35 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:09:35 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:09:35 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:09:35 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:09:35 20/04/2019 | MainController       | INFO     | View change completed 
+21:10:04 20/04/2019 | App                  | INFO     | App started 
+21:10:04 20/04/2019 | App                  | INFO     | Instantiating models 
+21:10:04 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:10:04 20/04/2019 | App                  | INFO     | Instantiating views 
+21:10:04 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:10:04 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:10:04 20/04/2019 | App                  | INFO     | Loading views 
+21:10:05 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:10:05 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:10:05 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:10:05 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:10:05 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:10:05 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:10:05 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:10:05 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:10:05 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:10:05 20/04/2019 | MainController       | INFO     | View change completed 
+21:11:35 20/04/2019 | App                  | INFO     | App started 
+21:11:35 20/04/2019 | App                  | INFO     | Instantiating models 
+21:11:35 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:11:35 20/04/2019 | App                  | INFO     | Instantiating views 
+21:11:36 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:11:36 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:11:36 20/04/2019 | App                  | INFO     | Loading views 
+21:11:37 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:11:37 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:11:37 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:11:37 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:11:37 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:11:37 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:11:37 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:11:37 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:11:37 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:11:37 20/04/2019 | MainController       | INFO     | View change completed 
+21:11:39 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:11:39 20/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+21:11:39 20/04/2019 | MainController       | INFO     | View change completed 
+21:11:50 20/04/2019 | App                  | INFO     | App started 
+21:11:50 20/04/2019 | App                  | INFO     | Instantiating models 
+21:11:50 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:11:50 20/04/2019 | App                  | INFO     | Instantiating views 
+21:11:50 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:11:50 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:11:50 20/04/2019 | App                  | INFO     | Loading views 
+21:16:50 20/04/2019 | App                  | INFO     | App started 
+21:16:50 20/04/2019 | App                  | INFO     | Instantiating models 
+21:16:50 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:16:50 20/04/2019 | App                  | INFO     | Instantiating views 
+21:16:50 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:16:50 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:16:50 20/04/2019 | App                  | INFO     | Loading views 
+21:18:03 20/04/2019 | App                  | INFO     | App started 
+21:18:03 20/04/2019 | App                  | INFO     | Instantiating models 
+21:18:03 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:18:03 20/04/2019 | App                  | INFO     | Instantiating views 
+21:18:04 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:18:04 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:18:04 20/04/2019 | App                  | INFO     | Loading views 
+21:18:43 20/04/2019 | App                  | INFO     | App started 
+21:18:43 20/04/2019 | App                  | INFO     | Instantiating models 
+21:18:43 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:18:43 20/04/2019 | App                  | INFO     | Instantiating views 
+21:18:43 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:18:43 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:18:43 20/04/2019 | App                  | INFO     | Loading views 
+21:20:22 20/04/2019 | App                  | INFO     | App started 
+21:20:22 20/04/2019 | App                  | INFO     | Instantiating models 
+21:20:22 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:20:22 20/04/2019 | App                  | INFO     | Instantiating views 
+21:20:22 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:20:22 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:20:22 20/04/2019 | App                  | INFO     | Loading views 
+21:20:39 20/04/2019 | App                  | INFO     | App started 
+21:20:39 20/04/2019 | App                  | INFO     | Instantiating models 
+21:20:39 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:20:39 20/04/2019 | App                  | INFO     | Instantiating views 
+21:20:39 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:20:39 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:20:39 20/04/2019 | App                  | INFO     | Loading views 
+21:22:17 20/04/2019 | App                  | INFO     | App started 
+21:22:17 20/04/2019 | App                  | INFO     | Instantiating models 
+21:22:17 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:22:17 20/04/2019 | App                  | INFO     | Instantiating views 
+21:22:17 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:22:17 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:22:17 20/04/2019 | App                  | INFO     | Loading views 
+21:22:32 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:22:32 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:22:32 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:22:32 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:22:32 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:22:32 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:22:32 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:22:32 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:22:32 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:22:32 20/04/2019 | MainController       | INFO     | View change completed 
+21:36:08 20/04/2019 | App                  | INFO     | App started 
+21:36:08 20/04/2019 | App                  | INFO     | Instantiating models 
+21:36:08 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:36:08 20/04/2019 | App                  | INFO     | Instantiating views 
+21:36:08 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:36:08 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:36:08 20/04/2019 | App                  | INFO     | Loading views 
+21:36:23 20/04/2019 | App                  | INFO     | App started 
+21:36:23 20/04/2019 | App                  | INFO     | Instantiating models 
+21:36:23 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:36:23 20/04/2019 | App                  | INFO     | Instantiating views 
+21:36:23 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:36:23 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:36:23 20/04/2019 | App                  | INFO     | Loading views 
+21:36:27 20/04/2019 | App                  | INFO     | App closing 
+21:38:19 20/04/2019 | App                  | INFO     | App started 
+21:38:19 20/04/2019 | App                  | INFO     | Instantiating models 
+21:38:19 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:38:19 20/04/2019 | App                  | INFO     | Instantiating views 
+21:38:19 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:38:19 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:38:19 20/04/2019 | App                  | INFO     | Loading views 
+21:38:23 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:38:23 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:38:23 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:38:23 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:38:23 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:38:23 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:38:23 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:38:23 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:38:23 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:38:23 20/04/2019 | MainController       | INFO     | View change completed 
+21:43:51 20/04/2019 | App                  | INFO     | App started 
+21:43:51 20/04/2019 | App                  | INFO     | Instantiating models 
+21:43:51 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:43:51 20/04/2019 | App                  | INFO     | Instantiating views 
+21:43:51 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:43:51 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:43:51 20/04/2019 | App                  | INFO     | Loading views 
+21:45:01 20/04/2019 | App                  | INFO     | App started 
+21:45:01 20/04/2019 | App                  | INFO     | Instantiating models 
+21:45:01 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:45:01 20/04/2019 | App                  | INFO     | Instantiating views 
+21:45:01 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:45:01 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:45:01 20/04/2019 | App                  | INFO     | Loading views 
+21:46:44 20/04/2019 | App                  | INFO     | App started 
+21:46:44 20/04/2019 | App                  | INFO     | Instantiating models 
+21:46:44 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:46:44 20/04/2019 | App                  | INFO     | Instantiating views 
+21:46:45 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:46:45 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:46:45 20/04/2019 | App                  | INFO     | Loading views 
+21:46:48 20/04/2019 | App                  | INFO     | App closing 
+21:48:52 20/04/2019 | App                  | INFO     | App started 
+21:48:52 20/04/2019 | App                  | INFO     | Instantiating models 
+21:48:52 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:48:52 20/04/2019 | App                  | INFO     | Instantiating views 
+21:48:52 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:48:52 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:48:52 20/04/2019 | App                  | INFO     | Loading views 
+21:48:57 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:48:57 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:48:57 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:48:57 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:48:57 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:48:57 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:48:57 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:48:57 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:48:57 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:48:57 20/04/2019 | MainController       | INFO     | View change completed 
+21:50:23 20/04/2019 | App                  | INFO     | App started 
+21:50:23 20/04/2019 | App                  | INFO     | Instantiating models 
+21:50:23 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:50:23 20/04/2019 | App                  | INFO     | Instantiating views 
+21:50:23 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:50:23 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:50:23 20/04/2019 | App                  | INFO     | Loading views 
+21:50:36 20/04/2019 | App                  | INFO     | App started 
+21:50:36 20/04/2019 | App                  | INFO     | Instantiating models 
+21:50:36 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:50:36 20/04/2019 | App                  | INFO     | Instantiating views 
+21:50:36 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:50:36 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:50:36 20/04/2019 | App                  | INFO     | Loading views 
+21:53:03 20/04/2019 | App                  | INFO     | App started 
+21:53:03 20/04/2019 | App                  | INFO     | Instantiating models 
+21:53:03 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:53:03 20/04/2019 | App                  | INFO     | Instantiating views 
+21:53:04 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:53:04 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:53:04 20/04/2019 | App                  | INFO     | Loading views 
+21:55:10 20/04/2019 | App                  | INFO     | App started 
+21:55:10 20/04/2019 | App                  | INFO     | Instantiating models 
+21:55:10 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:55:10 20/04/2019 | App                  | INFO     | Instantiating views 
+21:55:11 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:55:11 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:55:11 20/04/2019 | App                  | INFO     | Loading views 
+21:57:28 20/04/2019 | App                  | INFO     | App started 
+21:57:28 20/04/2019 | App                  | INFO     | Instantiating models 
+21:57:28 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:57:28 20/04/2019 | App                  | INFO     | Instantiating views 
+21:57:28 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:57:28 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:57:28 20/04/2019 | App                  | INFO     | Loading views 
+21:58:04 20/04/2019 | App                  | INFO     | App started 
+21:58:04 20/04/2019 | App                  | INFO     | Instantiating models 
+21:58:04 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:58:04 20/04/2019 | App                  | INFO     | Instantiating views 
+21:58:04 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:58:04 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:58:04 20/04/2019 | App                  | INFO     | Loading views 
+21:58:47 20/04/2019 | App                  | INFO     | App started 
+21:58:47 20/04/2019 | App                  | INFO     | Instantiating models 
+21:58:47 20/04/2019 | App                  | INFO     | Instantiating controllers 
+21:58:47 20/04/2019 | App                  | INFO     | Instantiating views 
+21:58:47 20/04/2019 | App                  | INFO     | Linking controllers to views 
+21:58:47 20/04/2019 | App                  | INFO     | Configuring main controller 
+21:58:47 20/04/2019 | App                  | INFO     | Loading views 
+21:58:53 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:58:53 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+21:58:53 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+21:58:53 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+21:58:53 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+21:58:53 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+21:58:53 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+21:58:53 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+21:58:53 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:58:53 20/04/2019 | MainController       | INFO     | View change completed 
+21:58:56 20/04/2019 | MainController       | INFO     | Requesting view change 
+21:58:56 20/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+21:58:56 20/04/2019 | MainController       | INFO     | View change completed 
+21:59:37 20/04/2019 | App                  | INFO     | App closing 
+22:00:49 20/04/2019 | App                  | INFO     | App started 
+22:00:49 20/04/2019 | App                  | INFO     | Instantiating models 
+22:00:49 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:00:49 20/04/2019 | App                  | INFO     | Instantiating views 
+22:00:49 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:00:49 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:00:49 20/04/2019 | App                  | INFO     | Loading views 
+22:01:32 20/04/2019 | App                  | INFO     | App started 
+22:01:32 20/04/2019 | App                  | INFO     | Instantiating models 
+22:01:32 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:01:32 20/04/2019 | App                  | INFO     | Instantiating views 
+22:01:32 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:01:32 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:01:32 20/04/2019 | App                  | INFO     | Loading views 
+22:01:37 20/04/2019 | App                  | INFO     | App closing 
+22:02:22 20/04/2019 | App                  | INFO     | App started 
+22:02:22 20/04/2019 | App                  | INFO     | Instantiating models 
+22:02:22 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:02:22 20/04/2019 | App                  | INFO     | Instantiating views 
+22:02:22 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:02:22 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:02:22 20/04/2019 | App                  | INFO     | Loading views 
+22:02:32 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:02:32 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:02:32 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:02:32 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:02:32 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:02:32 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:02:32 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:02:32 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:02:32 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:02:32 20/04/2019 | MainController       | INFO     | View change completed 
+22:02:42 20/04/2019 | App                  | INFO     | App started 
+22:02:42 20/04/2019 | App                  | INFO     | Instantiating models 
+22:02:42 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:02:42 20/04/2019 | App                  | INFO     | Instantiating views 
+22:02:42 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:02:42 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:02:42 20/04/2019 | App                  | INFO     | Loading views 
+22:02:53 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:02:53 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:02:53 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:02:53 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:02:53 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:02:53 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:02:53 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:02:53 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:02:53 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:02:53 20/04/2019 | MainController       | INFO     | View change completed 
+22:03:00 20/04/2019 | App                  | INFO     | App started 
+22:03:00 20/04/2019 | App                  | INFO     | Instantiating models 
+22:03:00 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:03:00 20/04/2019 | App                  | INFO     | Instantiating views 
+22:03:00 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:03:00 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:03:00 20/04/2019 | App                  | INFO     | Loading views 
+22:03:08 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:03:08 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:03:08 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:03:08 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:03:08 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:03:08 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:03:08 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:03:08 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:03:08 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:03:08 20/04/2019 | MainController       | INFO     | View change completed 
+22:03:13 20/04/2019 | App                  | INFO     | App started 
+22:03:13 20/04/2019 | App                  | INFO     | Instantiating models 
+22:03:13 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:03:13 20/04/2019 | App                  | INFO     | Instantiating views 
+22:03:13 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:03:13 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:03:13 20/04/2019 | App                  | INFO     | Loading views 
+22:03:24 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:03:24 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:03:24 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:03:24 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:03:24 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:03:24 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:03:24 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:03:24 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:03:24 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:03:24 20/04/2019 | MainController       | INFO     | View change completed 
+22:03:34 20/04/2019 | App                  | INFO     | App started 
+22:03:34 20/04/2019 | App                  | INFO     | Instantiating models 
+22:03:34 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:03:34 20/04/2019 | App                  | INFO     | Instantiating views 
+22:03:34 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:03:34 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:03:34 20/04/2019 | App                  | INFO     | Loading views 
+22:09:42 20/04/2019 | App                  | INFO     | App started 
+22:09:42 20/04/2019 | App                  | INFO     | Instantiating models 
+22:09:42 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:09:42 20/04/2019 | App                  | INFO     | Instantiating views 
+22:09:42 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:09:42 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:09:42 20/04/2019 | App                  | INFO     | Loading views 
+22:09:44 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:09:44 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:09:45 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:09:45 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:09:45 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:09:45 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:09:45 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:09:45 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:09:45 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:09:45 20/04/2019 | MainController       | INFO     | View change completed 
+22:10:15 20/04/2019 | App                  | INFO     | App started 
+22:10:15 20/04/2019 | App                  | INFO     | Instantiating models 
+22:10:15 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:10:15 20/04/2019 | App                  | INFO     | Instantiating views 
+22:10:16 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:10:16 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:10:16 20/04/2019 | App                  | INFO     | Loading views 
+22:10:19 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:10:19 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:10:19 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:10:19 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:10:19 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:10:19 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:10:19 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:10:19 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:10:19 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:10:19 20/04/2019 | MainController       | INFO     | View change completed 
+22:10:45 20/04/2019 | App                  | INFO     | App started 
+22:10:45 20/04/2019 | App                  | INFO     | Instantiating models 
+22:10:45 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:10:45 20/04/2019 | App                  | INFO     | Instantiating views 
+22:10:45 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:10:45 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:10:45 20/04/2019 | App                  | INFO     | Loading views 
+22:11:54 20/04/2019 | App                  | INFO     | App started 
+22:11:54 20/04/2019 | App                  | INFO     | Instantiating models 
+22:11:54 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:11:54 20/04/2019 | App                  | INFO     | Instantiating views 
+22:11:55 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:11:55 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:11:55 20/04/2019 | App                  | INFO     | Loading views 
+22:12:52 20/04/2019 | App                  | INFO     | App started 
+22:12:52 20/04/2019 | App                  | INFO     | Instantiating models 
+22:12:52 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:12:52 20/04/2019 | App                  | INFO     | Instantiating views 
+22:12:52 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:12:52 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:12:52 20/04/2019 | App                  | INFO     | Loading views 
+22:12:57 20/04/2019 | App                  | INFO     | App started 
+22:12:57 20/04/2019 | App                  | INFO     | Instantiating models 
+22:12:57 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:12:57 20/04/2019 | App                  | INFO     | Instantiating views 
+22:12:57 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:12:57 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:12:57 20/04/2019 | App                  | INFO     | Loading views 
+22:13:37 20/04/2019 | App                  | INFO     | App started 
+22:13:37 20/04/2019 | App                  | INFO     | Instantiating models 
+22:13:37 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:13:37 20/04/2019 | App                  | INFO     | Instantiating views 
+22:13:37 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:13:37 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:13:37 20/04/2019 | App                  | INFO     | Loading views 
+22:15:09 20/04/2019 | App                  | INFO     | App started 
+22:15:09 20/04/2019 | App                  | INFO     | Instantiating models 
+22:15:09 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:15:09 20/04/2019 | App                  | INFO     | Instantiating views 
+22:15:09 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:15:09 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:15:09 20/04/2019 | App                  | INFO     | Loading views 
+22:27:21 20/04/2019 | App                  | INFO     | App started 
+22:27:21 20/04/2019 | App                  | INFO     | Instantiating models 
+22:27:21 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:27:21 20/04/2019 | App                  | INFO     | Instantiating views 
+22:27:21 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:27:21 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:27:21 20/04/2019 | App                  | INFO     | Loading views 
+22:27:26 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:27:26 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:27:26 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:27:26 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:27:26 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:27:26 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:27:26 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:27:26 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:27:26 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:27:26 20/04/2019 | MainController       | INFO     | View change completed 
+22:28:37 20/04/2019 | App                  | INFO     | App started 
+22:28:37 20/04/2019 | App                  | INFO     | Instantiating models 
+22:28:37 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:28:37 20/04/2019 | App                  | INFO     | Instantiating views 
+22:28:37 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:28:37 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:28:37 20/04/2019 | App                  | INFO     | Loading views 
+22:28:39 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:28:39 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:28:39 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:28:39 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:28:39 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:28:39 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:28:39 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:28:39 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:28:39 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:28:39 20/04/2019 | MainController       | INFO     | View change completed 
+22:29:50 20/04/2019 | App                  | INFO     | App started 
+22:29:50 20/04/2019 | App                  | INFO     | Instantiating models 
+22:29:50 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:29:50 20/04/2019 | App                  | INFO     | Instantiating views 
+22:29:50 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:29:50 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:29:50 20/04/2019 | App                  | INFO     | Loading views 
+22:29:53 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:29:53 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:29:53 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:29:53 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:29:53 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:29:53 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:29:53 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:29:53 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:29:53 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:29:53 20/04/2019 | MainController       | INFO     | View change completed 
+22:31:15 20/04/2019 | App                  | INFO     | App started 
+22:31:15 20/04/2019 | App                  | INFO     | Instantiating models 
+22:31:15 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:31:15 20/04/2019 | App                  | INFO     | Instantiating views 
+22:31:15 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:31:15 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:31:15 20/04/2019 | App                  | INFO     | Loading views 
+22:31:17 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:31:17 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:31:17 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:31:17 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:31:17 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:31:17 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:31:17 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:31:17 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:31:17 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:31:17 20/04/2019 | MainController       | INFO     | View change completed 
+22:33:05 20/04/2019 | App                  | INFO     | App started 
+22:33:05 20/04/2019 | App                  | INFO     | Instantiating models 
+22:33:05 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:33:05 20/04/2019 | App                  | INFO     | Instantiating views 
+22:33:05 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:33:05 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:33:05 20/04/2019 | App                  | INFO     | Loading views 
+22:33:09 20/04/2019 | App                  | INFO     | App closing 
+22:33:21 20/04/2019 | App                  | INFO     | App started 
+22:33:21 20/04/2019 | App                  | INFO     | Instantiating models 
+22:33:21 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:33:21 20/04/2019 | App                  | INFO     | Instantiating views 
+22:33:21 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:33:21 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:33:21 20/04/2019 | App                  | INFO     | Loading views 
+22:33:26 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:33:26 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:33:26 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:33:26 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:33:26 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:33:26 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:33:26 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:33:26 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:33:26 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:33:26 20/04/2019 | MainController       | INFO     | View change completed 
+22:33:35 20/04/2019 | App                  | INFO     | App started 
+22:33:35 20/04/2019 | App                  | INFO     | Instantiating models 
+22:33:35 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:33:35 20/04/2019 | App                  | INFO     | Instantiating views 
+22:33:35 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:33:35 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:33:35 20/04/2019 | App                  | INFO     | Loading views 
+22:33:45 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:33:45 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:33:45 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:33:45 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:33:45 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:33:45 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:33:45 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:33:45 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:33:45 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:33:45 20/04/2019 | MainController       | INFO     | View change completed 
+22:37:12 20/04/2019 | App                  | INFO     | App closing 
+22:37:15 20/04/2019 | App                  | INFO     | App started 
+22:37:15 20/04/2019 | App                  | INFO     | Instantiating models 
+22:37:15 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:37:15 20/04/2019 | App                  | INFO     | Instantiating views 
+22:37:15 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:37:15 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:37:15 20/04/2019 | App                  | INFO     | Loading views 
+22:37:17 20/04/2019 | App                  | INFO     | App closing 
+22:37:23 20/04/2019 | App                  | INFO     | App started 
+22:37:23 20/04/2019 | App                  | INFO     | Instantiating models 
+22:37:23 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:37:23 20/04/2019 | App                  | INFO     | Instantiating views 
+22:37:23 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:37:23 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:37:23 20/04/2019 | App                  | INFO     | Loading views 
+22:37:34 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:37:34 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:37:34 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:37:34 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:37:34 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:37:34 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:37:34 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:37:34 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:37:34 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:37:34 20/04/2019 | MainController       | INFO     | View change completed 
+22:37:45 20/04/2019 | App                  | INFO     | App started 
+22:37:45 20/04/2019 | App                  | INFO     | Instantiating models 
+22:37:45 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:37:45 20/04/2019 | App                  | INFO     | Instantiating views 
+22:37:45 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:37:45 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:37:45 20/04/2019 | App                  | INFO     | Loading views 
+22:39:29 20/04/2019 | App                  | INFO     | App started 
+22:39:29 20/04/2019 | App                  | INFO     | Instantiating models 
+22:39:29 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:39:29 20/04/2019 | App                  | INFO     | Instantiating views 
+22:39:29 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:39:29 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:39:29 20/04/2019 | App                  | INFO     | Loading views 
+22:39:34 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:39:34 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:39:34 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:39:34 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:39:34 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:39:34 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:39:34 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:39:34 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:39:34 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:39:34 20/04/2019 | MainController       | INFO     | View change completed 
+22:39:50 20/04/2019 | App                  | INFO     | App started 
+22:39:50 20/04/2019 | App                  | INFO     | Instantiating models 
+22:39:50 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:39:50 20/04/2019 | App                  | INFO     | Instantiating views 
+22:39:50 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:39:50 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:39:50 20/04/2019 | App                  | INFO     | Loading views 
+22:39:55 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:39:55 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:39:55 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:39:55 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:39:55 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:39:55 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:39:55 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:39:55 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:39:55 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:39:55 20/04/2019 | MainController       | INFO     | View change completed 
+22:40:00 20/04/2019 | App                  | INFO     | App started 
+22:40:00 20/04/2019 | App                  | INFO     | Instantiating models 
+22:40:00 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:40:00 20/04/2019 | App                  | INFO     | Instantiating views 
+22:40:00 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:40:00 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:40:00 20/04/2019 | App                  | INFO     | Loading views 
+22:40:04 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:40:04 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:40:04 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:40:04 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:40:04 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:40:04 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:40:04 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:40:04 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:40:04 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:40:04 20/04/2019 | MainController       | INFO     | View change completed 
+22:40:06 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:40:06 20/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+22:40:06 20/04/2019 | MainController       | INFO     | View change completed 
+22:40:09 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:40:09 20/04/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:40:09 20/04/2019 | MainController       | INFO     | View change completed 
+22:40:37 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:40:37 20/04/2019 | MainView             | INFO     | Changing from homeTab to historyTab 
+22:40:37 20/04/2019 | MainController       | INFO     | View change completed 
+22:40:43 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:40:43 20/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+22:40:43 20/04/2019 | MainController       | INFO     | View change completed 
+22:41:43 20/04/2019 | App                  | INFO     | App started 
+22:41:43 20/04/2019 | App                  | INFO     | Instantiating models 
+22:41:43 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:41:43 20/04/2019 | App                  | INFO     | Instantiating views 
+22:41:43 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:41:43 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:41:43 20/04/2019 | App                  | INFO     | Loading views 
+22:42:21 20/04/2019 | App                  | INFO     | App started 
+22:42:21 20/04/2019 | App                  | INFO     | Instantiating models 
+22:42:21 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:42:21 20/04/2019 | App                  | INFO     | Instantiating views 
+22:42:21 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:42:21 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:42:21 20/04/2019 | App                  | INFO     | Loading views 
+22:42:23 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:42:23 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:42:23 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:42:23 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:42:23 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:42:23 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:42:23 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:42:23 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:42:23 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:42:23 20/04/2019 | MainController       | INFO     | View change completed 
+22:46:08 20/04/2019 | App                  | INFO     | App started 
+22:46:08 20/04/2019 | App                  | INFO     | Instantiating models 
+22:46:08 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:46:08 20/04/2019 | App                  | INFO     | Instantiating views 
+22:46:08 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:46:08 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:46:08 20/04/2019 | App                  | INFO     | Loading views 
+22:46:11 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:46:11 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:46:11 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:46:11 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:46:11 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:46:11 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:46:11 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:46:11 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:46:11 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:46:11 20/04/2019 | MainController       | INFO     | View change completed 
+22:46:32 20/04/2019 | App                  | INFO     | App started 
+22:46:32 20/04/2019 | App                  | INFO     | Instantiating models 
+22:46:32 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:46:32 20/04/2019 | App                  | INFO     | Instantiating views 
+22:46:32 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:46:32 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:46:32 20/04/2019 | App                  | INFO     | Loading views 
+22:46:38 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:46:38 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:46:38 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:46:38 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:46:38 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:46:38 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:46:38 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:46:38 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:46:38 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:46:38 20/04/2019 | MainController       | INFO     | View change completed 
+22:47:50 20/04/2019 | App                  | INFO     | App started 
+22:47:50 20/04/2019 | App                  | INFO     | Instantiating models 
+22:47:50 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:47:50 20/04/2019 | App                  | INFO     | Instantiating views 
+22:47:50 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:47:50 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:47:50 20/04/2019 | App                  | INFO     | Loading views 
+22:47:51 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:47:51 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:47:51 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:47:51 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:47:51 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:47:51 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:47:51 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:47:51 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:47:51 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:47:51 20/04/2019 | MainController       | INFO     | View change completed 
+22:49:10 20/04/2019 | App                  | INFO     | App started 
+22:49:10 20/04/2019 | App                  | INFO     | Instantiating models 
+22:49:10 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:49:10 20/04/2019 | App                  | INFO     | Instantiating views 
+22:49:10 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:49:10 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:49:10 20/04/2019 | App                  | INFO     | Loading views 
+22:49:11 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:49:11 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:49:11 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:49:11 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:49:11 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:49:11 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:49:11 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:49:11 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:49:11 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:49:11 20/04/2019 | MainController       | INFO     | View change completed 
+22:49:30 20/04/2019 | App                  | INFO     | App closing 
+22:49:41 20/04/2019 | App                  | INFO     | App started 
+22:49:41 20/04/2019 | App                  | INFO     | Instantiating models 
+22:49:41 20/04/2019 | App                  | INFO     | Instantiating controllers 
+22:49:41 20/04/2019 | App                  | INFO     | Instantiating views 
+22:49:41 20/04/2019 | App                  | INFO     | Linking controllers to views 
+22:49:41 20/04/2019 | App                  | INFO     | Configuring main controller 
+22:49:41 20/04/2019 | App                  | INFO     | Loading views 
+22:49:43 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:49:43 20/04/2019 | MainView             | INFO     | Changing loginView to homeView on mainTab 
+22:49:43 20/04/2019 | ConnectView          | INFO     | Unlocking ConnectView 
+22:49:43 20/04/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:49:43 20/04/2019 | UploadView           | INFO     | Unlocking UploadView 
+22:49:43 20/04/2019 | HistoryView          | INFO     | Unlocking HistoryView 
+22:49:43 20/04/2019 | DeviceView           | INFO     | Unlocking DeviceView 
+22:49:43 20/04/2019 | AccountView          | INFO     | Unlocking AccountView 
+22:49:43 20/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:49:43 20/04/2019 | MainController       | INFO     | View change completed 
+22:49:44 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:49:44 20/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+22:49:44 20/04/2019 | MainController       | INFO     | View change completed 
+22:49:46 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:49:46 20/04/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:49:46 20/04/2019 | MainController       | INFO     | View change completed 
+22:49:48 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:49:48 20/04/2019 | MainView             | INFO     | Changing from homeTab to deviceTab 
+22:49:48 20/04/2019 | MainController       | INFO     | View change completed 
+22:49:49 20/04/2019 | MainController       | INFO     | Requesting view change 
+22:49:49 20/04/2019 | MainView             | INFO     | Changing from homeTab to accountTab 
+22:49:49 20/04/2019 | MainController       | INFO     | View change completed 

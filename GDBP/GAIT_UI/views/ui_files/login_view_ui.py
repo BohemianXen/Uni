@@ -22,7 +22,22 @@ class Ui_LoginView(object):
         font = QtGui.QFont()
         font.setFamily("Tw Cen MT")
         LoginView.setFont(font)
-        LoginView.setStyleSheet("QLineEdit { \n"
+        LoginView.setStyleSheet("QWidget#LoginView {background: qlineargradient(x1: 0, y1: 0, x2: 0.9, y2: 0.8,\n"
+"                                stop: 0 rgb(39, 39, 52), stop: 1 rgb(90, 90, 121));\n"
+"}\n"
+"\n"
+"QPushButton { \n"
+"    color: white;\n"
+"    background-color: rgba(90, 90, 121, 240);\n"
+"    border-radius: 2px; \n"
+"    border: 1px double rgba(188, 188, 188, 100);\n"
+"}\n"
+"\n"
+"QPushButton::hover{ background-color: rgb(100, 100, 131); }\n"
+"\n"
+"QLabel { color: rgb(188, 188, 188); }\n"
+"\n"
+"QLineEdit { \n"
 "    border-width: 3px; \n"
 "    border-style: solid;\n"
 "    border-color: rgb(29, 29, 42);\n"

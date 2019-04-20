@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\main_view.ui'
+# Form implementation generated from reading ui file 'main_view.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -25,9 +25,10 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/small logo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet("QMainWindow { background-color: rgb(29, 29, 42); }\n"
+        MainWindow.setStyleSheet("QMainWindow { background-color: qlineargradient(x1: 0, y1: 0, x2: 0.9, y2: 0.8,\n"
+"                                stop: 0 rgb(39, 39, 52), stop: 1 rgb(90, 90, 121)); }\n"
 "\n"
-"QMainWindow > QWidget { background-color: rgb(29, 29, 42); }\n"
+"QStatusBar { background-color: rgb(29, 29, 42); }\n"
 "")
         MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -36,14 +37,25 @@ class Ui_MainWindow(object):
         self.centralwidget.setFont(font)
         self.centralwidget.setStyleSheet("")
         self.centralwidget.setObjectName("centralwidget")
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 1612, 781))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.mainGridLayout = QtWidgets.QGridLayout(self.verticalLayoutWidget)
-        self.mainGridLayout.setContentsMargins(0, 0, 0, 0)
-        self.mainGridLayout.setObjectName("mainGridLayout")
-        self.viewsTabWidget = QtWidgets.QTabWidget(self.verticalLayoutWidget)
+        self.mainStackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
+        self.mainStackedWidget.setGeometry(QtCore.QRect(0, 0, 1601, 771))
+        self.mainStackedWidget.setStyleSheet("QStackedWidget > QWidget { \n"
+"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0.9, y2: 0.8,\n"
+"                                stop: 0 rgb(39, 39, 52), stop: 1 rgb(90, 90, 121));\n"
+"}\n"
+"\n"
+"QPushButton { color: white; background-color: rgb(90, 90, 121) }\n"
+"\n"
+"QLabel { color: rgb(188, 188, 188); }")
+        self.mainStackedWidget.setObjectName("mainStackedWidget")
+        self.splashPage = QtWidgets.QWidget()
+        self.splashPage.setObjectName("splashPage")
+        self.mainStackedWidget.addWidget(self.splashPage)
+        self.loggedInView = QtWidgets.QWidget()
+        self.loggedInView.setObjectName("loggedInView")
+        self.viewsTabWidget = QtWidgets.QTabWidget(self.loggedInView)
         self.viewsTabWidget.setEnabled(True)
+        self.viewsTabWidget.setGeometry(QtCore.QRect(0, 0, 1610, 775))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -56,17 +68,7 @@ class Ui_MainWindow(object):
         self.viewsTabWidget.setFont(font)
         self.viewsTabWidget.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.viewsTabWidget.setAutoFillBackground(False)
-        self.viewsTabWidget.setStyleSheet("QWidget > QWidget { \n"
-"    /*background: qlineargradient(x1: 0, y1: 0, x2: 0.9, y2: 0.8,\n"
-"                                stop: 0 rgb(39, 39, 52), stop: 1 rgb(90, 90, 121));*/\n"
-"    background-color: rgb(75, 75, 90);\n"
-"}\n"
-"\n"
-"QPushButton { color: white; }\n"
-"\n"
-"QLabel { color: rgb(188, 188, 188); }\n"
-"\n"
-"QTabBar::tab { color: white; padding: 12px; border-right: 1px solid gray; \n"
+        self.viewsTabWidget.setStyleSheet("QTabBar::tab { color: white; padding: 12px; border-right: 1px solid gray; \n"
 "min-width: 100px;} \n"
 "\n"
 "QTabBar::tab:!selected { background-color: rgb(112, 112, 112); margin-top: 2px}\n"
@@ -75,9 +77,9 @@ class Ui_MainWindow(object):
 "\n"
 "\n"
 "QTabWidget::pane { \n"
-"    border-top: 3px solid white;\n"
+"    border-top: 0px; /*3px solid rgb(29, 29, 42);*/\n"
 "    border-left: 0px;\n"
-"    border-right: 0px;\n"
+"    border-right: 0px;    \n"
 " }")
         self.viewsTabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.viewsTabWidget.setTabBarAutoHide(True)
@@ -149,7 +151,7 @@ class Ui_MainWindow(object):
         self.accountGridLayout.setContentsMargins(0, 0, 0, 0)
         self.accountGridLayout.setObjectName("accountGridLayout")
         self.viewsTabWidget.addTab(self.accountTab, "")
-        self.mainGridLayout.addWidget(self.viewsTabWidget, 0, 0, 1, 1)
+        self.mainStackedWidget.addWidget(self.loggedInView)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")

@@ -120,8 +120,9 @@ class App(QApplication):
     def load_views(self):
         self.logger.log('Loading views', self.logger.INFO)
         # load all views into stacked central widget- leaves the login view as active
-        self.views.remove(self.home_view)  # true home view is deferred until login is complete
+        self.views.remove(self.login_view)  # true home view is deferred until login is complete
         self.main_view.load_views(self.views)
+        self.main_view.add_login_view(self.login_view)
         self.main_controller.establish_listeners()
 
         # show window and set up listeners for view change triggers
