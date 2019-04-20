@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
 
+# TODO: Field checks
 class LoginController(QObject):
 
     # signals for view navigation that are handled by main controller

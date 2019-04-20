@@ -8,7 +8,8 @@ class MainController(QObject):
 
         self._model = model
         self._main_view = None
-        self._logger = Logger(self.__class__.__name__)
+        self.name = __class__.__name__
+        self._logger = Logger(self.name)
 
         self._views = {
             'login': None,
@@ -43,9 +44,23 @@ class MainController(QObject):
     # update view on navigation triggers
     @pyqtSlot(str)
     def set_current_view(self, view):
+        self._logger.log('Requesting view change', self._logger.INFO)
+
         # first navigation from login to home is unique, else switch to selected tab
         if view == 'home_first':
             self._views['login'].hide()
             self._main_view.update_home_view(self._views['home'])
+            self.unlock_views(level=1)
         else:
             self._main_view.set_view(self._views[view])
+
+        self._logger.log('View change completed', self._logger.INFO)
+
+    def unlock_views(self, level):
+        for name, controller in self._controllers.items():
+            if level == 1:
+                if name != 'login' and name != 'home':
+                    controller.unlock_view()
+            elif level == 2:
+                if name == 'live' and name != 'upload':
+                    controller.unlock_view()

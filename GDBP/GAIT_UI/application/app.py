@@ -45,19 +45,10 @@ class App(QApplication):
         self.logger = Logger(self.name)
         self.logger.log('App started', self.logger.INFO)
 
-        self.instantiate_framework()
-        self.link_controllers_to_views()
-
         # list of all modules
         self.module_names = ['login', 'home', 'connect', 'live', 'upload', 'history', 'device', 'account']
-
-        self.controllers = [self.login_controller, self.home_controller, self.connect_controller, self.live_controller,
-                            self.upload_controller, self.history_controller, self.device_controller,
-                            self.account_controller]
-
-        self.views = [self.login_view, self.home_view, self.connect_view, self.live_view, self.upload_view,
-                      self.history_view, self.device_view, self.account_view]
-
+        self.instantiate_framework()
+        self.link_controllers_to_views()
         self.establish_hierarchies()
         self.load_views()
 
@@ -112,6 +103,13 @@ class App(QApplication):
 
     # make all controllers children of main
     def establish_hierarchies(self):
+        self.controllers = [self.login_controller, self.home_controller, self.connect_controller, self.live_controller,
+                            self.upload_controller, self.history_controller, self.device_controller,
+                            self.account_controller]
+
+        self.views = [self.login_view, self.home_view, self.connect_view, self.live_view, self.upload_view,
+                      self.history_view, self.device_view, self.account_view]
+
         self.logger.log('Configuring main controller', self.logger.INFO)
         count = 0
         for name in self.module_names:
@@ -129,7 +127,11 @@ class App(QApplication):
         # show window and set up listeners for view change triggers
         self.main_view.show()
 
+    def on_close(self):
+        self.exec_()
+        self.logger.log('App closing', self.logger.INFO)
+
 
 if __name__ == '__main__':
     app = App(sys.argv)
-    sys.exit(app.exec_())
+    sys.exit(app.on_close())

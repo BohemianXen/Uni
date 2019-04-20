@@ -37,17 +37,16 @@ class MainView(QMainWindow):
 
     # update current tab
     def set_view(self, view):
-        self._logger.log('Changing from {} to {}'.format(
-            self._ui.viewsTabWidget.currentWidget().objectName(), view.objectName()),
-            self._logger.INFO)
+        new_view = self._tabs[str(Views.get_type(view))]
+        current_view_name = self._ui.viewsTabWidget.currentWidget().objectName()
+        self._logger.log('Changing from {} to {}'.format(current_view_name, new_view.objectName()), self._logger.INFO)
+
         try:
-            self._ui.viewsTabWidget.setCurrentWidget(self._tabs[str(Views.get_type(view))])
+            self._ui.viewsTabWidget.setCurrentWidget(new_view)
         except:
-            self._logger.log('Error changing to {} view'.format(view), self._logger.ERROR)
+            self._logger.log('Error changing to {} view'.format(new_view), self._logger.ERROR)
 
     # update home view when first logging in
     def update_home_view(self, view):
-        self._logger.log('Changing login view to normal home view', self._logger.INFO)
-        # self._ui.homeGridLayout.removeWidget(self._controller._views['login'])
-        # self._ui.homeGridLayout.update()
+        self._logger.log('Changing loginView to homeView on mainTab', self._logger.INFO)
         self._ui.homeGridLayout.addWidget(view)

@@ -52,8 +52,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1610</width>
-     <height>941</height>
+     <width>1617</width>
+     <height>945</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="loginGridLayout">
@@ -173,6 +173,8 @@
      <widget class="QLabel" name="forgotLabel">
       <property name="font">
        <font>
+        <family>Tw Cen MT</family>
+        <pointsize>10</pointsize>
         <underline>true</underline>
        </font>
       </property>
@@ -201,6 +203,7 @@
      <widget class="QLineEdit" name="passwordLineEdit">
       <property name="font">
        <font>
+        <family>Tw Cen MT</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -318,6 +321,7 @@
      <widget class="QLineEdit" name="usernameLineEdit">
       <property name="font">
        <font>
+        <family>Tw Cen MT</family>
         <pointsize>10</pointsize>
        </font>
       </property>
@@ -355,6 +359,8 @@
      <widget class="QLabel" name="registerLabel">
       <property name="font">
        <font>
+        <family>Tw Cen MT</family>
+        <pointsize>10</pointsize>
         <underline>true</underline>
        </font>
       </property>
@@ -405,6 +411,8 @@
       </property>
       <property name="font">
        <font>
+        <family>Tw Cen MT</family>
+        <pointsize>10</pointsize>
         <italic>false</italic>
         <underline>false</underline>
        </font>
@@ -501,6 +509,7 @@
      <widget class="QLabel" name="loginLabel">
       <property name="font">
        <font>
+        <family>Tw Cen MT</family>
         <pointsize>16</pointsize>
         <weight>75</weight>
         <bold>true</bold>
@@ -555,6 +564,7 @@
       </property>
       <property name="font">
        <font>
+        <family>Tw Cen MT</family>
         <pointsize>12</pointsize>
        </font>
       </property>
