@@ -17,5 +17,5 @@ class LiveView(QWidget):
     # move to logged in view since log in complete
     def unlock_view(self):
         self._logger.log('Unlocking {}'.format(self.name), self._logger.INFO)
-        self._ui.liveStackedWidget.setCurrentWidget(self._ui.loggedInView)
+        self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)
 

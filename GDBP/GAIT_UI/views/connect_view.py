@@ -13,8 +13,3 @@ class ConnectView(QWidget):
 
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
-
-    # move to logged in view since log in complete
-    def unlock_view(self):
-        self._logger.log('Unlocking {}'.format(self.name), self._logger.INFO)
-        self._ui.connectStackedWidget.setCurrentWidget(self._ui.loggedInView)

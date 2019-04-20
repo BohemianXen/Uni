@@ -48,20 +48,14 @@ class MainController(QObject):
 
         # first navigation from login to home is unique, else switch to selected tab
         if view == 'home_first':
-            # self._views['login'].hide()
             self._main_view.update_main_view()
-            self.unlock_views(level=1)
             view = 'home'
 
         self._main_view.set_view(self._views[view])
 
         self._logger.log('View change completed', self._logger.INFO)
 
-    def unlock_views(self, level):
+    def unlock_views(self):
         for name, controller in self._controllers.items():
-            if level == 1:
-                if name != 'login' and name != 'home':
-                    controller.unlock_view()
-            elif level == 2:
-                if name == 'live' and name != 'upload':
-                    controller.unlock_view()
+            if name == 'live' and name == 'upload':
+                controller.unlock_view()

@@ -64,7 +64,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Please Log In and connect to a GAIT device to view live data</string>
+         <string>Please connect to a GAIT device to view live data</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -74,7 +74,7 @@
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="loggedInView">
+   <widget class="QWidget" name="connectedView">
     <widget class="QWidget" name="gridLayoutWidget_2">
      <property name="geometry">
       <rect>

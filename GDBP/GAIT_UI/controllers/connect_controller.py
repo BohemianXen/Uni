@@ -14,7 +14,3 @@ class ConnectController(QObject):
 
     def link_view(self, view):
         self._view = view
-
-    # update view following log in event
-    def unlock_view(self):
-        self._view.unlock_view()

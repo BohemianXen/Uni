@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\live_view.ui'
+# Form implementation generated from reading ui file 'live_view.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -41,9 +41,9 @@ class Ui_LiveView(object):
         self.defaultLabel.setObjectName("defaultLabel")
         self.gridLayout.addWidget(self.defaultLabel, 0, 0, 1, 1)
         self.liveStackedWidget.addWidget(self.defaultView)
-        self.loggedInView = QtWidgets.QWidget()
-        self.loggedInView.setObjectName("loggedInView")
-        self.gridLayoutWidget_2 = QtWidgets.QWidget(self.loggedInView)
+        self.connectedView = QtWidgets.QWidget()
+        self.connectedView.setObjectName("connectedView")
+        self.gridLayoutWidget_2 = QtWidgets.QWidget(self.connectedView)
         self.gridLayoutWidget_2.setGeometry(QtCore.QRect(0, 0, 1618, 771))
         self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
@@ -153,7 +153,7 @@ class Ui_LiveView(object):
         spacerItem16 = QtWidgets.QSpacerItem(400, 120, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.connectGridLayout.addItem(spacerItem16, 7, 3, 1, 1)
         self.gridLayout_2.addLayout(self.connectGridLayout, 0, 0, 1, 1)
-        self.liveStackedWidget.addWidget(self.loggedInView)
+        self.liveStackedWidget.addWidget(self.connectedView)
 
         self.retranslateUi(LiveView)
         QtCore.QMetaObject.connectSlotsByName(LiveView)
@@ -161,7 +161,7 @@ class Ui_LiveView(object):
     def retranslateUi(self, LiveView):
         _translate = QtCore.QCoreApplication.translate
         LiveView.setWindowTitle(_translate("LiveView", "Form"))
-        self.defaultLabel.setText(_translate("LiveView", "Please Log In and connect to a GAIT device to view live data"))
+        self.defaultLabel.setText(_translate("LiveView", "Please connect to a GAIT device to view live data"))
         self.pushButton.setText(_translate("LiveView", "Connect"))
         self.searchButton.setText(_translate("LiveView", "Search"))
         __sortingEnabled = self.devicesListWidget.isSortingEnabled()
