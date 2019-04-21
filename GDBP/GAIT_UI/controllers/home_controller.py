@@ -23,7 +23,7 @@ class HomeController(QObject):
     # slot implementations for model signals
     @pyqtSlot(str)
     def connect_clicked(self):
-        print("Connect Clicked!")
+        # print("Connect Clicked!")
         self.connectClicked.emit('connect')
 
     @pyqtSlot(str)

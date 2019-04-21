@@ -22,13 +22,13 @@ class LoginController(QObject):
     # slot implementations for view and model signals
     @pyqtSlot()
     def login_button_clicked(self):
-        print("Login Pressed!")
+        # print("Login Pressed!")
         self._model.find_username(self._view.get_username())
 
     @pyqtSlot()
     def check_password(self):
         password = self._model.get_password(self._view.get_username())
-        print("Password \"" + password + "\" entered")
+        # print("Password \"" + password + "\" entered")
         if password == "password":
-            print("Password OK")
+            # print("Password OK")
             self.loginComplete.emit('home_first')

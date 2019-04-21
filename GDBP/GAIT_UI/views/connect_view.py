@@ -23,20 +23,24 @@ class ConnectView(QWidget):
         self._ui.devicesListWidget.clicked.connect(
             lambda: self._controller.selection_changed(self._ui.devicesListWidget.selectedIndexes()))
 
+    def toggle_search_button(self, value):
+        self._ui.searchButton.setEnabled(value)
+
     def toggle_connect_button(self, value):
         self._ui.connectButton.setEnabled(value)
 
     def update_devices(self, device):
-        #  use map or list comprehension
         self.update_no_device()
-        self._logger.log('Adding {} to found devices list'.format(device), self._logger.DEBUG)
+        self._logger.log('Adding {} to found devices list'.format(device), Logger.DEBUG)
+        self._ui.devicesListWidget.addItem(self.create_new_item(device))
 
-        new_item = QListWidgetItem(device)
+    def create_new_item(self, text):
+        new_item = QListWidgetItem(text)
         new_item.setTextAlignment(Qt.AlignCenter)
-        self._ui.devicesListWidget.addItem(new_item)
+        return new_item
 
     def update_no_device(self):
-        self._logger.log('Updating no devices text', self._logger.DEBUG)
+        self._logger.log('Updating no devices text', Logger.DEBUG)
 
         if self.get_text(0) == self.no_device.text():
             self._ui.devicesListWidget.takeItem(0)

@@ -9,11 +9,11 @@ class LoginModel(QObject):
         super().__init__()
 
     def find_username(self, username):
-        print("Username OK")
+        # print("Username OK")
         self.usernameExists.emit()
 
     def get_password(self, username):
-        print("Getting Password")
+        # print("Getting Password")
         return "password"
 
 

@@ -38,12 +38,13 @@ from controllers.account_controller import AccountController
 
 
 class App(QApplication):
+    DEBUG_MODE = False
     def __init__(self, sys_argv):
         super(App, self).__init__(sys_argv)
         self.setStyle('Fusion')
         self.name = self.__class__.__name__
         self.logger = Logger(self.name)
-        self.logger.log('App started', self.logger.INFO)
+        self.logger.log('App started', Logger.INFO)
 
         # list of all modules
         self.module_names = ['login', 'home', 'connect', 'live', 'upload', 'history', 'device', 'account']
@@ -55,7 +56,7 @@ class App(QApplication):
     # create model, view, and controller instances
     def instantiate_framework(self):
         # instantiate models
-        self.logger.log('Instantiating models', self.logger.INFO)
+        self.logger.log('Instantiating models', Logger.INFO)
         self.main_model = MainModel()
         self.login_model = LoginModel()
         self.home_model = HomeModel()
@@ -67,7 +68,7 @@ class App(QApplication):
         self.account_model = AccountModel()
 
         # instantiate controllers and link them to their respective models
-        self.logger.log('Instantiating controllers', self.logger.INFO)
+        self.logger.log('Instantiating controllers', Logger.INFO)
         self.main_controller = MainController(self.main_model)
         self.login_controller = LoginController(self.login_model)
         self.home_controller = HomeController(self.home_model)
@@ -79,7 +80,7 @@ class App(QApplication):
         self.account_controller = AccountController(self.account_model)
 
         # instantiate views and link them to their respective controllers
-        self.logger.log('Instantiating views', self.logger.INFO)
+        self.logger.log('Instantiating views', Logger.INFO)
         self.main_view = MainView(self.main_controller)
         self.login_view = LoginView(self.login_controller)
         self.home_view = HomeView(self.home_controller)
@@ -91,7 +92,7 @@ class App(QApplication):
         self.account_view = AccountView(self.account_controller)
 
     def link_controllers_to_views(self):
-        self.logger.log('Linking controllers to views', self.logger.INFO)
+        self.logger.log('Linking controllers to views', Logger.INFO)
         self.main_controller.link_view(self.main_view)
         self.login_controller.link_view(self.login_view)
         self.connect_controller.link_view(self.connect_view)
@@ -110,7 +111,7 @@ class App(QApplication):
         self.views = [self.login_view, self.home_view, self.connect_view, self.live_view, self.upload_view,
                       self.history_view, self.device_view, self.account_view]
 
-        self.logger.log('Configuring main controller', self.logger.INFO)
+        self.logger.log('Configuring main controller', Logger.INFO)
         count = 0
         for name in self.module_names:
             self.main_controller.add_child('controller', name, self.controllers[count])
@@ -118,7 +119,7 @@ class App(QApplication):
             count += 1
 
     def load_views(self):
-        self.logger.log('Loading views', self.logger.INFO)
+        self.logger.log('Loading views', Logger.INFO)
         # load all views into stacked central widget- leaves the login view as active
         self.views.remove(self.login_view)  # true home view is deferred until login is complete
         self.main_view.load_views(self.views)
@@ -130,9 +131,11 @@ class App(QApplication):
 
     def on_close(self):
         self.exec_()
-        self.logger.log('App closing', self.logger.INFO)
+        self.logger.log('App closing', Logger.INFO)
 
 
 if __name__ == '__main__':
     app = App(sys.argv)
+    if app.arguments()[1] == '-d':
+        app.DEBUG_MODE = True
     sys.exit(app.on_close())
