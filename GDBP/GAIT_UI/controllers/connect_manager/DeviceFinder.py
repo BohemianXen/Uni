@@ -26,7 +26,7 @@ class DeviceFinder(QRunnable):
         try:
             discovered_devices = bluetooth.discover_devices(lookup_names=True)
             for (address, name) in discovered_devices:
-                devices_found[name] = address
+                devices_found[address] = name
                 self._logger.log("Found bluetooth device with name: {} and address: {}".format(name, address),
                                  Logger.DEBUG)
         except bluetooth.BluetoothError as error:

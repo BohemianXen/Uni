@@ -34,18 +34,14 @@ class ConnectController(QObject):
 
     @pyqtSlot(dict)
     def search_complete(self, devices):
-
-        # self._devices_found = devices.copy()
-        unique_devices = {}
         if len(devices) != 0:
-            unique_devices = {name: address for name, address in devices.items() if name not in self._devices_found}
-
-            self._view.update_devices(unique_devices.keys())
+            self._devices_found = devices.copy()
+            self._view.update_devices(self._devices_found.values())
         else:
             self._logger.log("No bluetooth devices found", Logger.DEBUG)
+            self._devices_found = {}
             self._view.update_no_devices(searching=False)
 
-        self._devices_found = unique_devices.copy()
         self._view.toggle_search_button(True)  # Suspect this will be useless once threading
 
     @pyqtSlot()

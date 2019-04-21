@@ -33,19 +33,14 @@ class ConnectView(QWidget):
         self._ui.connectButton.setEnabled(value)
 
     def update_devices(self, devices):
-        for index in range(self._ui.devicesListWidget.count()):
-            self._ui.devicesListWidget.takeItem(index)
-
+        self.remove_all_items()
         for device in devices:
             self._logger.log('Adding {} to found devices list'.format(device), Logger.DEBUG)
             self._ui.devicesListWidget.addItem(self.create_new_item(device))
 
     def update_no_device(self, searching):
         self._logger.log('Updating status text', Logger.DEBUG)
-
-        for index in range(self._ui.devicesListWidget.count()):
-            self._ui.devicesListWidget.takeItem(index)
-
+        self.remove_all_items()
         new_message = self.searching_status if searching else self.no_device
         self._ui.devicesListWidget.addItem(new_message)
 
@@ -54,6 +49,10 @@ class ConnectView(QWidget):
         new_item = QListWidgetItem(text)
         new_item.setTextAlignment(Qt.AlignCenter)
         return new_item
+
+    def remove_all_items(self):
+        for index in range(self._ui.devicesListWidget.count()):
+            self._ui.devicesListWidget.takeItem(0)
 
     def get_text(self, index):
         if type(index) is int:
