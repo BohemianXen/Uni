@@ -119,6 +119,10 @@ class Ui_ConnectView(object):
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         item.setFlags(QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled)
         self.devicesListWidget.addItem(item)
+        item = QtWidgets.QListWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        item.setFlags(QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled)
+        self.devicesListWidget.addItem(item)
         self.connectGridLayout.addWidget(self.devicesListWidget, 4, 1, 1, 3)
 
         self.retranslateUi(ConnectView)
@@ -136,5 +140,7 @@ class Ui_ConnectView(object):
         self.devicesListWidget.setSortingEnabled(False)
         item = self.devicesListWidget.item(0)
         item.setText(_translate("ConnectView", "No devices found"))
+        item = self.devicesListWidget.item(1)
+        item.setText(_translate("ConnectView", "Searching for nearby devices..."))
         self.devicesListWidget.setSortingEnabled(__sortingEnabled)
 

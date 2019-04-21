@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
+from application.Logger import Logger
 
 
 class HomeController(QObject):
@@ -16,6 +17,8 @@ class HomeController(QObject):
 
         self._model = model
         self._view = None
+        self.name = __class__.__name__
+        self._logger = Logger(self.name)
 
     def link_view(self, view):
         self._view = view
@@ -23,7 +26,7 @@ class HomeController(QObject):
     # slot implementations for model signals
     @pyqtSlot(str)
     def connect_clicked(self):
-        # print("Connect Clicked!")
+        self._logger.log("Connect button clicked", Logger.DEBUG)
         self.connectClicked.emit('connect')
 
     @pyqtSlot(str)

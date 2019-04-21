@@ -34,6 +34,11 @@ class MainController(QObject):
     # listeners for view navigation signals
     def establish_listeners(self):
         self._controllers['login'].loginComplete.connect(self.set_current_view)
+
+        # search for devices in background on completion of log in
+        self._controllers['login'].loginComplete.connect(self._controllers['connect'].search_button_clicked)
+
+        # home page navigation change slots
         self._controllers['home'].connectClicked.connect(self.set_current_view)
         self._controllers['home'].liveClicked.connect(self.set_current_view)
         self._controllers['home'].uploadClicked.connect(self.set_current_view)
@@ -49,6 +54,7 @@ class MainController(QObject):
         # first navigation from login to home is unique, else switch to selected tab
         if view == 'home_first':
             self._main_view.update_main_view()
+
             view = 'home'
 
         self._main_view.set_view(self._views[view])

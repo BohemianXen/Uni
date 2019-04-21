@@ -565,3 +565,450 @@
 17:38:56 21/04/2019 | MainController       | INFO     | Requesting view change 
 17:38:56 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
 17:38:56 21/04/2019 | MainController       | INFO     | View change completed 
+17:44:37 21/04/2019 | App                  | INFO     | App started 
+17:44:37 21/04/2019 | App                  | INFO     | Instantiating models 
+17:44:37 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:44:37 21/04/2019 | App                  | INFO     | Instantiating views 
+17:44:37 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:44:37 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:44:37 21/04/2019 | App                  | INFO     | Loading views 
+17:44:38 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:44:39 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:44:39 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:44:39 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:44:39 21/04/2019 | MainController       | INFO     | View change completed 
+17:44:39 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:44:39 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:44:39 21/04/2019 | MainController       | INFO     | View change completed 
+17:44:46 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:44:46 21/04/2019 | MainView             | INFO     | Changing from homeTab to historyTab 
+17:44:46 21/04/2019 | MainController       | INFO     | View change completed 
+17:49:49 21/04/2019 | App                  | INFO     | App started 
+17:49:49 21/04/2019 | App                  | INFO     | Instantiating models 
+17:49:49 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:49:49 21/04/2019 | App                  | INFO     | Instantiating views 
+17:49:49 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:49:49 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:49:49 21/04/2019 | App                  | INFO     | Loading views 
+17:49:50 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:49:50 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:49:50 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:49:50 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:49:50 21/04/2019 | MainController       | INFO     | View change completed 
+17:49:51 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:49:51 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:49:51 21/04/2019 | MainController       | INFO     | View change completed 
+17:50:38 21/04/2019 | App                  | INFO     | App started 
+17:50:38 21/04/2019 | App                  | INFO     | Instantiating models 
+17:50:38 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:50:38 21/04/2019 | App                  | INFO     | Instantiating views 
+17:50:38 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:50:38 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:50:38 21/04/2019 | App                  | INFO     | Loading views 
+17:50:39 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:50:40 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:50:40 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:50:40 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:50:40 21/04/2019 | MainController       | INFO     | View change completed 
+17:50:40 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:50:40 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:50:40 21/04/2019 | MainController       | INFO     | View change completed 
+17:51:50 21/04/2019 | App                  | INFO     | App started 
+17:51:50 21/04/2019 | App                  | INFO     | Instantiating models 
+17:51:50 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:51:50 21/04/2019 | App                  | INFO     | Instantiating views 
+17:51:50 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:51:50 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:51:50 21/04/2019 | App                  | INFO     | Loading views 
+17:51:51 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:51:52 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:51:52 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:51:52 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:51:52 21/04/2019 | MainController       | INFO     | View change completed 
+17:51:52 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:51:52 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:51:52 21/04/2019 | MainController       | INFO     | View change completed 
+17:52:21 21/04/2019 | App                  | INFO     | App started 
+17:52:21 21/04/2019 | App                  | INFO     | Instantiating models 
+17:52:21 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:52:23 21/04/2019 | App                  | INFO     | Instantiating views 
+17:52:24 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:52:24 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:52:24 21/04/2019 | App                  | INFO     | Loading views 
+17:52:24 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:53:03 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:53:03 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:53:03 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:53:03 21/04/2019 | MainController       | INFO     | View change completed 
+17:53:04 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:53:04 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:53:04 21/04/2019 | MainController       | INFO     | View change completed 
+17:53:48 21/04/2019 | App                  | INFO     | App started 
+17:53:48 21/04/2019 | App                  | INFO     | Instantiating models 
+17:53:48 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:53:48 21/04/2019 | App                  | INFO     | Instantiating views 
+17:53:48 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:53:48 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:53:48 21/04/2019 | App                  | INFO     | Loading views 
+17:53:49 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:53:50 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:53:50 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:53:50 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:53:50 21/04/2019 | MainController       | INFO     | View change completed 
+17:53:51 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:53:51 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:53:51 21/04/2019 | MainController       | INFO     | View change completed 
+17:54:36 21/04/2019 | App                  | INFO     | App started 
+17:54:36 21/04/2019 | App                  | INFO     | Instantiating models 
+17:54:36 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:54:36 21/04/2019 | App                  | INFO     | Instantiating views 
+17:54:36 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:54:36 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:54:36 21/04/2019 | App                  | INFO     | Loading views 
+17:54:37 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:54:38 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:54:38 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:54:38 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:54:38 21/04/2019 | MainController       | INFO     | View change completed 
+17:54:38 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:54:38 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:54:38 21/04/2019 | MainController       | INFO     | View change completed 
+17:56:14 21/04/2019 | App                  | INFO     | App started 
+17:56:14 21/04/2019 | App                  | INFO     | Instantiating models 
+17:56:14 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:56:14 21/04/2019 | App                  | INFO     | Instantiating views 
+17:56:14 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:56:14 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:56:14 21/04/2019 | App                  | INFO     | Loading views 
+17:56:14 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:56:15 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:56:15 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:56:15 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:56:15 21/04/2019 | MainController       | INFO     | View change completed 
+17:56:15 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:56:15 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:56:15 21/04/2019 | MainController       | INFO     | View change completed 
+17:56:28 21/04/2019 | App                  | INFO     | App started 
+17:56:28 21/04/2019 | App                  | INFO     | Instantiating models 
+17:56:28 21/04/2019 | App                  | INFO     | Instantiating controllers 
+17:56:28 21/04/2019 | App                  | INFO     | Instantiating views 
+17:56:28 21/04/2019 | App                  | INFO     | Linking controllers to views 
+17:56:28 21/04/2019 | App                  | INFO     | Configuring main controller 
+17:56:28 21/04/2019 | App                  | INFO     | Loading views 
+17:56:29 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+17:56:30 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:56:30 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+17:56:30 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+17:56:30 21/04/2019 | MainController       | INFO     | View change completed 
+17:56:31 21/04/2019 | MainController       | INFO     | Requesting view change 
+17:56:31 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+17:56:31 21/04/2019 | MainController       | INFO     | View change completed 
+18:04:32 21/04/2019 | App                  | INFO     | App started 
+18:04:32 21/04/2019 | App                  | INFO     | Instantiating models 
+18:04:32 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:04:32 21/04/2019 | App                  | INFO     | Instantiating views 
+18:04:32 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:04:32 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:04:32 21/04/2019 | App                  | INFO     | Loading views 
+18:04:32 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:04:34 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:04:34 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:04:34 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:04:34 21/04/2019 | MainController       | INFO     | View change completed 
+18:04:34 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:04:34 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:04:34 21/04/2019 | MainController       | INFO     | View change completed 
+18:07:54 21/04/2019 | App                  | INFO     | App started 
+18:07:54 21/04/2019 | App                  | INFO     | Instantiating models 
+18:07:54 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:07:54 21/04/2019 | App                  | INFO     | Instantiating views 
+18:07:54 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:07:54 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:07:54 21/04/2019 | App                  | INFO     | Loading views 
+18:07:55 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:07:56 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:07:56 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:07:56 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:07:56 21/04/2019 | MainController       | INFO     | View change completed 
+18:07:56 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:07:56 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:07:56 21/04/2019 | MainController       | INFO     | View change completed 
+18:09:45 21/04/2019 | App                  | INFO     | App started 
+18:09:45 21/04/2019 | App                  | INFO     | Instantiating models 
+18:09:45 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:09:45 21/04/2019 | App                  | INFO     | Instantiating views 
+18:09:45 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:09:45 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:09:45 21/04/2019 | App                  | INFO     | Loading views 
+18:09:45 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:09:46 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:09:46 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:09:46 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:09:46 21/04/2019 | MainController       | INFO     | View change completed 
+18:09:47 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:09:47 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:09:47 21/04/2019 | MainController       | INFO     | View change completed 
+18:10:34 21/04/2019 | App                  | INFO     | App started 
+18:10:34 21/04/2019 | App                  | INFO     | Instantiating models 
+18:10:34 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:10:34 21/04/2019 | App                  | INFO     | Instantiating views 
+18:10:34 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:10:34 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:10:34 21/04/2019 | App                  | INFO     | Loading views 
+18:10:35 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:10:38 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:10:38 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:10:38 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:10:38 21/04/2019 | MainController       | INFO     | View change completed 
+18:10:39 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:10:39 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:10:39 21/04/2019 | MainController       | INFO     | View change completed 
+18:10:44 21/04/2019 | App                  | INFO     | App started 
+18:10:44 21/04/2019 | App                  | INFO     | Instantiating models 
+18:10:44 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:10:44 21/04/2019 | App                  | INFO     | Instantiating views 
+18:10:44 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:10:44 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:10:44 21/04/2019 | App                  | INFO     | Loading views 
+18:10:44 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:10:45 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:10:45 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:10:45 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:10:45 21/04/2019 | MainController       | INFO     | View change completed 
+18:10:45 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:10:45 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:10:45 21/04/2019 | MainController       | INFO     | View change completed 
+18:13:27 21/04/2019 | App                  | INFO     | App started 
+18:13:27 21/04/2019 | App                  | INFO     | Instantiating models 
+18:13:27 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:13:27 21/04/2019 | App                  | INFO     | Instantiating views 
+18:13:27 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:13:27 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:13:27 21/04/2019 | App                  | INFO     | Loading views 
+18:13:27 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:13:30 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:13:30 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:13:30 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:13:30 21/04/2019 | MainController       | INFO     | View change completed 
+18:13:31 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:13:31 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:13:31 21/04/2019 | MainController       | INFO     | View change completed 
+18:14:41 21/04/2019 | App                  | INFO     | App started 
+18:14:41 21/04/2019 | App                  | INFO     | Instantiating models 
+18:14:41 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:14:41 21/04/2019 | App                  | INFO     | Instantiating views 
+18:14:41 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:14:41 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:14:41 21/04/2019 | App                  | INFO     | Loading views 
+18:14:41 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:14:42 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:14:42 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:14:42 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:14:42 21/04/2019 | MainController       | INFO     | View change completed 
+18:14:44 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:14:44 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:14:44 21/04/2019 | MainController       | INFO     | View change completed 
+18:19:33 21/04/2019 | App                  | INFO     | App started 
+18:19:33 21/04/2019 | App                  | INFO     | Instantiating models 
+18:19:33 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:19:33 21/04/2019 | App                  | INFO     | Instantiating views 
+18:19:33 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:19:33 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:19:33 21/04/2019 | App                  | INFO     | Loading views 
+18:19:33 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:19:34 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:19:34 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:19:34 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:19:34 21/04/2019 | MainController       | INFO     | View change completed 
+18:19:34 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:19:34 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:19:34 21/04/2019 | MainController       | INFO     | View change completed 
+18:20:08 21/04/2019 | App                  | INFO     | App started 
+18:20:08 21/04/2019 | App                  | INFO     | Instantiating models 
+18:20:08 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:20:08 21/04/2019 | App                  | INFO     | Instantiating views 
+18:20:08 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:20:08 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:20:08 21/04/2019 | App                  | INFO     | Loading views 
+18:20:08 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:20:09 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:20:09 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:20:10 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:20:10 21/04/2019 | MainController       | INFO     | View change completed 
+18:20:10 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:20:10 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:20:10 21/04/2019 | MainController       | INFO     | View change completed 
+18:21:27 21/04/2019 | App                  | INFO     | App started 
+18:21:27 21/04/2019 | App                  | INFO     | Instantiating models 
+18:21:27 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:21:27 21/04/2019 | App                  | INFO     | Instantiating views 
+18:21:27 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:21:27 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:21:27 21/04/2019 | App                  | INFO     | Loading views 
+18:21:28 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:21:32 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:21:32 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:21:32 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:21:32 21/04/2019 | MainController       | INFO     | View change completed 
+18:21:33 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:21:33 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:21:33 21/04/2019 | MainController       | INFO     | View change completed 
+18:36:05 21/04/2019 | App                  | INFO     | App started 
+18:36:05 21/04/2019 | App                  | INFO     | Instantiating models 
+18:36:05 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:36:05 21/04/2019 | App                  | INFO     | Instantiating views 
+18:36:05 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:36:05 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:36:05 21/04/2019 | App                  | INFO     | Loading views 
+18:36:06 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:36:07 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:36:07 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:36:07 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:36:07 21/04/2019 | MainController       | INFO     | View change completed 
+18:36:08 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:36:08 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:36:08 21/04/2019 | MainController       | INFO     | View change completed 
+18:36:23 21/04/2019 | App                  | INFO     | App started 
+18:36:23 21/04/2019 | App                  | INFO     | Instantiating models 
+18:36:23 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:36:23 21/04/2019 | App                  | INFO     | Instantiating views 
+18:36:23 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:36:23 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:36:23 21/04/2019 | App                  | INFO     | Loading views 
+18:36:24 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:36:25 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:36:25 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:36:25 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:36:25 21/04/2019 | MainController       | INFO     | View change completed 
+18:36:25 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:36:25 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:36:25 21/04/2019 | MainController       | INFO     | View change completed 
+18:38:02 21/04/2019 | App                  | INFO     | App started 
+18:38:02 21/04/2019 | App                  | INFO     | Instantiating models 
+18:38:02 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:38:02 21/04/2019 | App                  | INFO     | Instantiating views 
+18:38:02 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:38:02 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:38:02 21/04/2019 | App                  | INFO     | Loading views 
+18:38:02 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:38:03 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:38:03 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:38:03 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:38:03 21/04/2019 | MainController       | INFO     | View change completed 
+18:38:04 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:38:04 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:38:04 21/04/2019 | MainController       | INFO     | View change completed 
+18:47:03 21/04/2019 | App                  | INFO     | App started 
+18:47:03 21/04/2019 | App                  | INFO     | Instantiating models 
+18:47:03 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:47:03 21/04/2019 | App                  | INFO     | Instantiating views 
+18:47:03 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:47:03 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:47:03 21/04/2019 | App                  | INFO     | Loading views 
+18:47:04 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:47:05 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:47:05 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:47:05 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:47:05 21/04/2019 | MainController       | INFO     | View change completed 
+18:47:05 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:47:05 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:47:05 21/04/2019 | MainController       | INFO     | View change completed 
+18:47:35 21/04/2019 | App                  | INFO     | App started 
+18:47:35 21/04/2019 | App                  | INFO     | Instantiating models 
+18:47:35 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:47:35 21/04/2019 | App                  | INFO     | Instantiating views 
+18:47:35 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:47:35 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:47:35 21/04/2019 | App                  | INFO     | Loading views 
+18:47:36 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:47:37 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:47:37 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:47:37 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:47:37 21/04/2019 | MainController       | INFO     | View change completed 
+18:47:37 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:47:37 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:47:37 21/04/2019 | MainController       | INFO     | View change completed 
+18:49:50 21/04/2019 | App                  | INFO     | App started 
+18:49:50 21/04/2019 | App                  | INFO     | Instantiating models 
+18:49:50 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:49:50 21/04/2019 | App                  | INFO     | Instantiating views 
+18:49:50 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:49:50 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:49:50 21/04/2019 | App                  | INFO     | Loading views 
+18:49:50 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:49:51 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:49:51 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:49:51 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:49:51 21/04/2019 | MainController       | INFO     | View change completed 
+18:49:51 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:49:51 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:49:51 21/04/2019 | MainController       | INFO     | View change completed 
+18:55:26 21/04/2019 | App                  | INFO     | App started 
+18:55:26 21/04/2019 | App                  | INFO     | Instantiating models 
+18:55:26 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:55:26 21/04/2019 | App                  | INFO     | Instantiating views 
+18:55:26 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:55:26 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:55:26 21/04/2019 | App                  | INFO     | Loading views 
+18:55:27 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:55:28 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:55:28 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:55:28 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:55:28 21/04/2019 | MainController       | INFO     | View change completed 
+18:55:28 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:55:28 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:55:28 21/04/2019 | MainController       | INFO     | View change completed 
+18:59:13 21/04/2019 | App                  | INFO     | App started 
+18:59:13 21/04/2019 | App                  | INFO     | Instantiating models 
+18:59:13 21/04/2019 | App                  | INFO     | Instantiating controllers 
+18:59:13 21/04/2019 | App                  | INFO     | Instantiating views 
+18:59:13 21/04/2019 | App                  | INFO     | Linking controllers to views 
+18:59:13 21/04/2019 | App                  | INFO     | Configuring main controller 
+18:59:13 21/04/2019 | App                  | INFO     | Loading views 
+18:59:14 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:59:15 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:59:15 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:59:15 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:59:15 21/04/2019 | MainController       | INFO     | View change completed 
+18:59:16 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:59:16 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:59:16 21/04/2019 | MainController       | INFO     | View change completed 
+18:59:19 21/04/2019 | MainController       | INFO     | Requesting view change 
+18:59:19 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:59:19 21/04/2019 | MainController       | INFO     | View change completed 
+19:00:41 21/04/2019 | App                  | INFO     | App started 
+19:00:41 21/04/2019 | App                  | INFO     | Instantiating models 
+19:00:41 21/04/2019 | App                  | INFO     | Instantiating controllers 
+19:00:41 21/04/2019 | App                  | INFO     | Instantiating views 
+19:00:41 21/04/2019 | App                  | INFO     | Linking controllers to views 
+19:00:41 21/04/2019 | App                  | INFO     | Configuring main controller 
+19:00:41 21/04/2019 | App                  | INFO     | Loading views 
+19:00:41 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:00:42 21/04/2019 | MainController       | INFO     | Requesting view change 
+19:00:42 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+19:00:42 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+19:00:42 21/04/2019 | MainController       | INFO     | View change completed 
+19:00:42 21/04/2019 | MainController       | INFO     | Requesting view change 
+19:00:42 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:00:42 21/04/2019 | MainController       | INFO     | View change completed 
+19:00:45 21/04/2019 | MainController       | INFO     | Requesting view change 
+19:00:45 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:00:45 21/04/2019 | MainController       | INFO     | View change completed 
+19:00:51 21/04/2019 | MainController       | INFO     | Requesting view change 
+19:00:51 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:00:51 21/04/2019 | MainController       | INFO     | View change completed 
+19:08:51 21/04/2019 | App                  | INFO     | App started 
+19:08:51 21/04/2019 | App                  | INFO     | Instantiating models 
+19:08:51 21/04/2019 | App                  | INFO     | Instantiating controllers 
+19:08:51 21/04/2019 | App                  | INFO     | Instantiating views 
+19:08:51 21/04/2019 | App                  | INFO     | Linking controllers to views 
+19:08:51 21/04/2019 | App                  | INFO     | Configuring main controller 
+19:08:51 21/04/2019 | App                  | INFO     | Loading views 
+19:08:51 21/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:08:52 21/04/2019 | MainController       | INFO     | Requesting view change 
+19:08:52 21/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+19:08:52 21/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+19:08:52 21/04/2019 | MainController       | INFO     | View change completed 
+19:09:01 21/04/2019 | MainController       | INFO     | Requesting view change 
+19:09:01 21/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:09:01 21/04/2019 | MainController       | INFO     | View change completed 
