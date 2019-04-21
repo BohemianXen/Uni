@@ -19,9 +19,9 @@ class LoginController(QObject):
     def link_view(self, view):
         self._view = view
 
-    # slot implementations for model signals
+    # slot implementations for view and model signals
     @pyqtSlot()
-    def login_clicked(self):
+    def login_button_clicked(self):
         print("Login Pressed!")
         self._model.find_username(self._view.get_username())
 

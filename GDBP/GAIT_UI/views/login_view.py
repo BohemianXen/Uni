@@ -12,7 +12,7 @@ class LoginView(QWidget):
         self._ui.incorrectLabel.setVisible(False)  # TODO: use signals and slots
 
         # connect login button click event to its slot
-        self._ui.loginPushButton.clicked.connect(lambda: self._controller.login_clicked())
+        self._ui.loginPushButton.clicked.connect(lambda: self._controller.login_button_clicked())
 
     # link enter/return key events to login_clicked handler; overrides QtWidget event handler
     def keyPressEvent(self, e):
