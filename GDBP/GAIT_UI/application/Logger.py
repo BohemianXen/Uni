@@ -14,7 +14,7 @@ class Logger:
         self.source = source
         self.keys = {'source': self.source}
         logging.basicConfig(filename='app_log.log',
-                            level=logging.INFO,
+                            level=logging.NOTSET,
                             format='%(asctime)s | %(source)-20s | %(levelname)-8s | %(message)s ',
                             datefmt='%H:%M:%S %d/%m/%Y')
 
@@ -26,8 +26,10 @@ class Logger:
             print(self.source + ': ' + message)
         elif severity == logging.WARNING:
             logging.warning(message, extra=self.keys)
+            print(self.source + ': ' + message)
         elif severity == logging.ERROR:
             logging.error(message, extra=self.keys)
+            print(self.source + ': ' + message)
         elif severity == logging.CRITICAL:
             logging.critical(message, extra=self.keys)
         else:

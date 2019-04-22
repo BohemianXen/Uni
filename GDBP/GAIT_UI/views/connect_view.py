@@ -14,7 +14,7 @@ class ConnectView(QWidget):
 
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
-        self._selected_device = self._ui.devicesListWidget.selectedIndexes()
+
         self.no_device = QListWidgetItem(self._ui.devicesListWidget.item(0))
         self.searching_status = QListWidgetItem(self._ui.devicesListWidget.item(1))
         self._ui.devicesListWidget.takeItem(1)

@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSlot, QThreadPool
 from application.Logger import Logger
 from controllers.connect_manager.DeviceFinder import DeviceFinder
+from controllers.connect_manager.DeviceConnector import DeviceConnector
 
 
 class ConnectController(QObject):
@@ -14,6 +15,8 @@ class ConnectController(QObject):
         self._logger = Logger(self.name)
 
         self._devices_found = {}
+        self.target_device = ()
+
 
         self.pool = QThreadPool.globalInstance()
 
@@ -40,13 +43,9 @@ class ConnectController(QObject):
         else:
             self._logger.log("No bluetooth devices found", Logger.DEBUG)
             self._devices_found = {}
-            self._view.update_no_devices(searching=False)
+            self._view.update_no_device(searching=False)
 
         self._view.toggle_search_button(True)  # Suspect this will be useless once threading
-
-    @pyqtSlot()
-    def connect_button_clicked(self, selected):
-        self._logger.log("Attempting to connect to {} device".format(self._view.get_text(selected)), Logger.DEBUG)
 
     # TODO: multi-selection if pairing to multiple devices?
     @pyqtSlot()
@@ -56,3 +55,16 @@ class ConnectController(QObject):
             self._view.toggle_connect_button(value=True)
         else:
             self._view.toggle_connect_button(value=False)
+
+    @pyqtSlot()
+    def connect_button_clicked(self, selected):
+        self._logger.log("Attempting to connect to {} device".format(self._view.get_text(selected)), Logger.DEBUG)
+        devices = tuple(self._devices_found.items())
+        self.target_device = devices[selected[0].row()]
+        device_finder = DeviceConnector(self.target_device[0], self.target_device[1])
+        device_finder.signals.connectionComplete.connect(self.connect_complete)
+        self.pool.start(device_finder)
+
+    @pyqtSlot(bool)
+    def connect_complete(self, complete):
+        self._logger.log("{} re-found {}".format(self.target_device[1], str(complete)), Logger.DEBUG)
