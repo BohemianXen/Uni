@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSlot, QThreadPool
 from application.Logger import Logger
-from controllers.connect_manager.DeviceFinder import DeviceFinder
+from controllers.connect_manager.DeviceFinderLinux import DeviceFinder
 from controllers.connect_manager.DeviceConnector import DeviceConnector
 
 
@@ -16,7 +16,6 @@ class ConnectController(QObject):
 
         self._devices_found = {}
         self.target_device = ()
-
 
         self.pool = QThreadPool.globalInstance()
 

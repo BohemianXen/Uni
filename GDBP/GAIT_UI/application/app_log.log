@@ -125,3 +125,967 @@
 02:29:41 22/04/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
 02:29:41 22/04/2019 | ConnectController    | DEBUG    | rolph re-found True 
 02:29:41 22/04/2019 | ConnectController    | DEBUG    | rolph re-found False 
+20:58:55 23/04/2019 | App                  | INFO     | App started 
+20:58:55 23/04/2019 | App                  | INFO     | Instantiating models 
+20:58:55 23/04/2019 | App                  | INFO     | Instantiating controllers 
+20:58:55 23/04/2019 | App                  | INFO     | Instantiating views 
+20:58:55 23/04/2019 | App                  | INFO     | Linking controllers to views 
+20:58:55 23/04/2019 | App                  | INFO     | Configuring main controller 
+20:58:55 23/04/2019 | App                  | INFO     | Loading views 
+20:58:55 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:58:56 23/04/2019 | MainController       | INFO     | Requesting view change 
+20:58:56 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+20:58:56 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+20:58:56 23/04/2019 | MainController       | INFO     | View change completed 
+20:58:56 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+20:58:56 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+20:58:57 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+20:58:57 23/04/2019 | MainController       | INFO     | Requesting view change 
+20:58:57 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+20:58:57 23/04/2019 | MainController       | INFO     | View change completed 
+20:59:06 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+20:59:06 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+20:59:06 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+20:59:30 23/04/2019 | App                  | INFO     | App started 
+20:59:30 23/04/2019 | App                  | INFO     | Instantiating models 
+20:59:30 23/04/2019 | App                  | INFO     | Instantiating controllers 
+20:59:30 23/04/2019 | App                  | INFO     | Instantiating views 
+20:59:30 23/04/2019 | App                  | INFO     | Linking controllers to views 
+20:59:30 23/04/2019 | App                  | INFO     | Configuring main controller 
+20:59:30 23/04/2019 | App                  | INFO     | Loading views 
+20:59:30 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:59:32 23/04/2019 | MainController       | INFO     | Requesting view change 
+20:59:32 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+20:59:32 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+20:59:32 23/04/2019 | MainController       | INFO     | View change completed 
+20:59:32 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+20:59:32 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+20:59:42 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+20:59:42 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+20:59:42 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+21:00:25 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+21:00:25 23/04/2019 | MainController       | INFO     | Requesting view change 
+21:00:25 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+21:00:25 23/04/2019 | MainController       | INFO     | View change completed 
+21:00:27 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+21:00:27 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:00:40 23/04/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:00:40 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:00:40 23/04/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:00:44 23/04/2019 | ConnectController    | DEBUG    | Device ['IBTLI14'] selected 
+21:00:45 23/04/2019 | ConnectController    | DEBUG    | Attempting to connect to ['IBTLI14'] device 
+21:00:45 23/04/2019 | DeviceConnector      | DEBUG    | Starting new thread; connecting with IBTLI14 
+21:00:45 23/04/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
+21:00:45 23/04/2019 | ConnectController    | DEBUG    | IBTLI14 re-found False 
+21:58:51 23/04/2019 | App                  | INFO     | App started 
+21:58:51 23/04/2019 | App                  | INFO     | Instantiating models 
+21:58:51 23/04/2019 | App                  | INFO     | Instantiating controllers 
+21:58:51 23/04/2019 | App                  | INFO     | Instantiating views 
+21:58:51 23/04/2019 | App                  | INFO     | Linking controllers to views 
+21:58:51 23/04/2019 | App                  | INFO     | Configuring main controller 
+21:58:51 23/04/2019 | App                  | INFO     | Loading views 
+21:58:51 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:58:58 23/04/2019 | MainController       | INFO     | Requesting view change 
+21:58:58 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:58:58 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:58:58 23/04/2019 | MainController       | INFO     | View change completed 
+21:58:58 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+21:58:58 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:59:01 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+21:59:01 23/04/2019 | MainController       | INFO     | Requesting view change 
+21:59:01 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+21:59:01 23/04/2019 | MainController       | INFO     | View change completed 
+21:59:09 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:59:09 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+21:59:09 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:00:09 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:00:09 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:00:19 23/04/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:00:19 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:00:19 23/04/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:00:28 23/04/2019 | ConnectController    | DEBUG    | Device ['rolph'] selected 
+22:00:29 23/04/2019 | ConnectController    | DEBUG    | Attempting to connect to ['rolph'] device 
+22:00:29 23/04/2019 | DeviceConnector      | DEBUG    | Starting new thread; connecting with rolph 
+22:00:30 23/04/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
+22:00:30 23/04/2019 | ConnectController    | DEBUG    | rolph re-found True 
+22:04:55 23/04/2019 | App                  | INFO     | App started 
+22:04:55 23/04/2019 | App                  | INFO     | Instantiating models 
+22:04:55 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:04:55 23/04/2019 | App                  | INFO     | Instantiating views 
+22:04:55 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:04:55 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:04:55 23/04/2019 | App                  | INFO     | Loading views 
+22:04:55 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:04:56 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:04:56 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:04:56 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:04:56 23/04/2019 | MainController       | INFO     | View change completed 
+22:04:56 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:04:56 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:04:56 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:04:56 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:04:56 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:15:06 23/04/2019 | App                  | INFO     | App started 
+22:15:06 23/04/2019 | App                  | INFO     | Instantiating models 
+22:15:06 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:15:06 23/04/2019 | App                  | INFO     | Instantiating views 
+22:15:06 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:15:06 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:15:06 23/04/2019 | App                  | INFO     | Loading views 
+22:15:06 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:15:08 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:15:08 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:15:08 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:15:08 23/04/2019 | MainController       | INFO     | View change completed 
+22:15:08 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:15:08 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:15:18 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:15:18 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:15:18 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:16:10 23/04/2019 | App                  | INFO     | App started 
+22:16:10 23/04/2019 | App                  | INFO     | Instantiating models 
+22:16:10 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:16:10 23/04/2019 | App                  | INFO     | Instantiating views 
+22:16:10 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:16:10 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:16:10 23/04/2019 | App                  | INFO     | Loading views 
+22:16:10 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:16:12 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:16:12 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:16:12 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:16:12 23/04/2019 | MainController       | INFO     | View change completed 
+22:16:12 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:16:12 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:16:13 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+22:16:13 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:16:13 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+22:16:13 23/04/2019 | MainController       | INFO     | View change completed 
+22:16:22 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:16:22 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:16:22 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:17:49 23/04/2019 | App                  | INFO     | App started 
+22:17:49 23/04/2019 | App                  | INFO     | Instantiating models 
+22:17:49 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:17:49 23/04/2019 | App                  | INFO     | Instantiating views 
+22:17:49 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:17:49 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:17:49 23/04/2019 | App                  | INFO     | Loading views 
+22:17:49 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:17:51 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:17:51 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:17:51 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:17:51 23/04/2019 | MainController       | INFO     | View change completed 
+22:17:51 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:17:51 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:17:52 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+22:17:52 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:17:52 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+22:17:52 23/04/2019 | MainController       | INFO     | View change completed 
+22:18:01 23/04/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:18:01 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:18:01 23/04/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:18:52 23/04/2019 | App                  | INFO     | App started 
+22:18:52 23/04/2019 | App                  | INFO     | Instantiating models 
+22:18:52 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:18:52 23/04/2019 | App                  | INFO     | Instantiating views 
+22:18:52 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:18:52 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:18:52 23/04/2019 | App                  | INFO     | Loading views 
+22:18:52 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:18:53 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:18:53 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:18:53 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:18:53 23/04/2019 | MainController       | INFO     | View change completed 
+22:18:53 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:18:53 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:19:20 23/04/2019 | App                  | INFO     | App started 
+22:19:20 23/04/2019 | App                  | INFO     | Instantiating models 
+22:19:20 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:19:20 23/04/2019 | App                  | INFO     | Instantiating views 
+22:19:20 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:19:20 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:19:20 23/04/2019 | App                  | INFO     | Loading views 
+22:19:20 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:19:20 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:19:20 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:19:20 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:19:20 23/04/2019 | MainController       | INFO     | View change completed 
+22:19:20 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:19:20 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:21:20 23/04/2019 | App                  | INFO     | App started 
+22:21:20 23/04/2019 | App                  | INFO     | Instantiating models 
+22:21:20 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:21:20 23/04/2019 | App                  | INFO     | Instantiating views 
+22:21:20 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:21:20 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:21:20 23/04/2019 | App                  | INFO     | Loading views 
+22:21:20 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:21:21 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:21:21 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:21:21 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:21:21 23/04/2019 | MainController       | INFO     | View change completed 
+22:21:21 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:21:21 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:27:30 23/04/2019 | App                  | INFO     | App started 
+22:27:30 23/04/2019 | App                  | INFO     | Instantiating models 
+22:27:30 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:27:30 23/04/2019 | App                  | INFO     | Instantiating views 
+22:27:30 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:27:30 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:27:30 23/04/2019 | App                  | INFO     | Loading views 
+22:27:30 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:27:37 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:27:37 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:27:37 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:27:37 23/04/2019 | MainController       | INFO     | View change completed 
+22:27:37 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:27:37 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:32:01 23/04/2019 | App                  | INFO     | App started 
+22:32:01 23/04/2019 | App                  | INFO     | Instantiating models 
+22:32:01 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:32:01 23/04/2019 | App                  | INFO     | Instantiating views 
+22:32:01 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:32:01 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:32:01 23/04/2019 | App                  | INFO     | Loading views 
+22:32:01 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:32:02 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:32:02 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:32:02 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:32:02 23/04/2019 | MainController       | INFO     | View change completed 
+22:32:02 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:32:02 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:32:02 23/04/2019 | DeviceFinder         | ERROR    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+22:32:02 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:32:02 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:32:02 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:32:16 23/04/2019 | App                  | INFO     | App started 
+22:32:16 23/04/2019 | App                  | INFO     | Instantiating models 
+22:32:16 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:32:16 23/04/2019 | App                  | INFO     | Instantiating views 
+22:32:16 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:32:16 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:32:16 23/04/2019 | App                  | INFO     | Loading views 
+22:32:16 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:32:18 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:32:18 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:32:18 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:32:18 23/04/2019 | MainController       | INFO     | View change completed 
+22:32:18 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:32:18 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:32:18 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+22:32:18 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:32:18 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:32:18 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:32:18 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+22:32:18 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:32:18 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+22:32:18 23/04/2019 | MainController       | INFO     | View change completed 
+22:55:20 23/04/2019 | App                  | INFO     | App started 
+22:55:20 23/04/2019 | App                  | INFO     | Instantiating models 
+22:55:20 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:55:20 23/04/2019 | App                  | INFO     | Instantiating views 
+22:55:20 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:55:20 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:55:20 23/04/2019 | App                  | INFO     | Loading views 
+22:55:20 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:55:22 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:55:22 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:55:22 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:55:22 23/04/2019 | MainController       | INFO     | View change completed 
+22:55:22 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:55:22 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:55:22 23/04/2019 | DeviceFinder         | DEBUG    | native Qt signal is not callable 
+22:55:22 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:55:22 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:55:22 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:55:23 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+22:55:23 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:55:23 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+22:55:23 23/04/2019 | MainController       | INFO     | View change completed 
+22:56:29 23/04/2019 | App                  | INFO     | App started 
+22:56:29 23/04/2019 | App                  | INFO     | Instantiating models 
+22:56:29 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:56:29 23/04/2019 | App                  | INFO     | Instantiating views 
+22:56:29 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:56:29 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:56:29 23/04/2019 | App                  | INFO     | Loading views 
+22:56:29 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:56:32 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:56:32 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:56:32 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:56:32 23/04/2019 | MainController       | INFO     | View change completed 
+22:56:32 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:56:32 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:56:32 23/04/2019 | DeviceFinder         | DEBUG    | decorated slot has no signature compatible with finished() 
+22:56:32 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:56:32 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:56:32 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:58:00 23/04/2019 | App                  | INFO     | App started 
+22:58:00 23/04/2019 | App                  | INFO     | Instantiating models 
+22:58:00 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:58:00 23/04/2019 | App                  | INFO     | Instantiating views 
+22:58:00 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:58:00 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:58:00 23/04/2019 | App                  | INFO     | Loading views 
+22:58:00 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:58:09 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:58:09 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:58:09 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:58:09 23/04/2019 | MainController       | INFO     | View change completed 
+22:58:09 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:58:09 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:58:09 23/04/2019 | DeviceFinder         | DEBUG    | native Qt signal is not callable 
+22:58:09 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:58:09 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:58:09 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:58:23 23/04/2019 | App                  | INFO     | App started 
+22:58:23 23/04/2019 | App                  | INFO     | Instantiating models 
+22:58:23 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:58:23 23/04/2019 | App                  | INFO     | Instantiating views 
+22:58:23 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:58:23 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:58:23 23/04/2019 | App                  | INFO     | Loading views 
+22:58:23 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:58:25 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:58:25 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:58:25 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:58:25 23/04/2019 | MainController       | INFO     | View change completed 
+22:58:25 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:58:25 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:58:25 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+22:58:25 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:58:25 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:58:25 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:59:02 23/04/2019 | App                  | INFO     | App started 
+22:59:02 23/04/2019 | App                  | INFO     | Instantiating models 
+22:59:02 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:59:02 23/04/2019 | App                  | INFO     | Instantiating views 
+22:59:02 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:59:02 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:59:02 23/04/2019 | App                  | INFO     | Loading views 
+22:59:02 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:59:03 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:59:03 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:59:03 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:59:03 23/04/2019 | MainController       | INFO     | View change completed 
+22:59:03 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:59:03 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:59:15 23/04/2019 | DeviceFinder         | DEBUG    | address(self): first argument of unbound method must have type 'QBluetoothDeviceInfo' 
+22:59:15 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:59:15 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+22:59:15 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:59:33 23/04/2019 | App                  | INFO     | App started 
+22:59:33 23/04/2019 | App                  | INFO     | Instantiating models 
+22:59:33 23/04/2019 | App                  | INFO     | Instantiating controllers 
+22:59:33 23/04/2019 | App                  | INFO     | Instantiating views 
+22:59:33 23/04/2019 | App                  | INFO     | Linking controllers to views 
+22:59:33 23/04/2019 | App                  | INFO     | Configuring main controller 
+22:59:33 23/04/2019 | App                  | INFO     | Loading views 
+22:59:33 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:59:34 23/04/2019 | MainController       | INFO     | Requesting view change 
+22:59:34 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:59:34 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:59:34 23/04/2019 | MainController       | INFO     | View change completed 
+22:59:34 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+22:59:34 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:00:22 23/04/2019 | App                  | INFO     | App started 
+23:00:22 23/04/2019 | App                  | INFO     | Instantiating models 
+23:00:22 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:00:22 23/04/2019 | App                  | INFO     | Instantiating views 
+23:00:22 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:00:22 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:00:22 23/04/2019 | App                  | INFO     | Loading views 
+23:00:22 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:00:23 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:00:23 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:00:23 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:00:23 23/04/2019 | MainController       | INFO     | View change completed 
+23:00:23 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:00:23 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:00:23 23/04/2019 | DeviceFinder         | DEBUG    | device_found() missing 1 required positional argument: 'device' 
+23:00:23 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:00:23 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:00:23 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:02:16 23/04/2019 | App                  | INFO     | App started 
+23:02:16 23/04/2019 | App                  | INFO     | Instantiating models 
+23:02:16 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:02:16 23/04/2019 | App                  | INFO     | Instantiating views 
+23:02:16 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:02:16 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:02:16 23/04/2019 | App                  | INFO     | Loading views 
+23:02:17 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:02:17 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:02:17 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:02:17 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:02:17 23/04/2019 | MainController       | INFO     | View change completed 
+23:02:17 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:02:17 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:04:24 23/04/2019 | App                  | INFO     | App started 
+23:04:24 23/04/2019 | App                  | INFO     | Instantiating models 
+23:04:24 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:04:24 23/04/2019 | App                  | INFO     | Instantiating views 
+23:04:24 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:04:24 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:04:24 23/04/2019 | App                  | INFO     | Loading views 
+23:04:24 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:04:25 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:04:25 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:04:25 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:04:25 23/04/2019 | MainController       | INFO     | View change completed 
+23:04:25 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:04:25 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:04:25 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+23:04:25 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:04:26 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:04:26 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:07:05 23/04/2019 | App                  | INFO     | App started 
+23:07:05 23/04/2019 | App                  | INFO     | Instantiating models 
+23:07:05 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:07:05 23/04/2019 | App                  | INFO     | Instantiating views 
+23:07:05 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:07:05 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:07:05 23/04/2019 | App                  | INFO     | Loading views 
+23:07:05 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:07:07 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:07:07 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:07:07 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:07:07 23/04/2019 | MainController       | INFO     | View change completed 
+23:07:07 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:07:07 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:07:07 23/04/2019 | DeviceFinder         | DEBUG    | device_found() missing 1 required positional argument: 'device' 
+23:07:07 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:07:07 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:07:07 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:07:40 23/04/2019 | App                  | INFO     | App started 
+23:07:40 23/04/2019 | App                  | INFO     | Instantiating models 
+23:07:40 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:07:40 23/04/2019 | App                  | INFO     | Instantiating views 
+23:07:40 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:07:40 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:07:40 23/04/2019 | App                  | INFO     | Loading views 
+23:07:40 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:07:41 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:07:41 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:07:41 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:07:41 23/04/2019 | MainController       | INFO     | View change completed 
+23:07:41 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:07:41 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:07:41 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+23:07:41 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:07:41 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:07:41 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:08:33 23/04/2019 | App                  | INFO     | App started 
+23:08:33 23/04/2019 | App                  | INFO     | Instantiating models 
+23:08:33 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:08:33 23/04/2019 | App                  | INFO     | Instantiating views 
+23:08:33 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:08:33 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:08:33 23/04/2019 | App                  | INFO     | Loading views 
+23:08:33 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:08:43 23/04/2019 | App                  | INFO     | App started 
+23:08:43 23/04/2019 | App                  | INFO     | Instantiating models 
+23:08:43 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:08:43 23/04/2019 | App                  | INFO     | Instantiating views 
+23:08:43 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:08:43 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:08:43 23/04/2019 | App                  | INFO     | Loading views 
+23:08:43 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:08:44 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:08:44 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:08:44 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:08:44 23/04/2019 | MainController       | INFO     | View change completed 
+23:08:44 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:08:44 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:08:54 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:08:54 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:08:54 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:10:07 23/04/2019 | App                  | INFO     | App started 
+23:10:07 23/04/2019 | App                  | INFO     | Instantiating models 
+23:10:07 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:10:07 23/04/2019 | App                  | INFO     | Instantiating views 
+23:10:07 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:10:07 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:10:07 23/04/2019 | App                  | INFO     | Loading views 
+23:10:07 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:10:08 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:10:08 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:10:08 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:10:08 23/04/2019 | MainController       | INFO     | View change completed 
+23:10:08 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:10:08 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:10:37 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:10:37 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:10:37 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:15:55 23/04/2019 | App                  | INFO     | App started 
+23:15:55 23/04/2019 | App                  | INFO     | Instantiating models 
+23:15:55 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:15:55 23/04/2019 | App                  | INFO     | Instantiating views 
+23:15:55 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:15:55 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:15:55 23/04/2019 | App                  | INFO     | Loading views 
+23:15:55 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:15:56 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:15:56 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:15:56 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:15:56 23/04/2019 | MainController       | INFO     | View change completed 
+23:15:56 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:15:56 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:16:06 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:16:06 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:16:06 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:16:20 23/04/2019 | App                  | INFO     | App started 
+23:16:20 23/04/2019 | App                  | INFO     | Instantiating models 
+23:16:20 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:16:20 23/04/2019 | App                  | INFO     | Instantiating views 
+23:16:20 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:16:20 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:16:20 23/04/2019 | App                  | INFO     | Loading views 
+23:16:20 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:16:21 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:16:21 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:16:21 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:16:21 23/04/2019 | MainController       | INFO     | View change completed 
+23:16:21 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:16:21 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:16:52 23/04/2019 | App                  | INFO     | App started 
+23:16:52 23/04/2019 | App                  | INFO     | Instantiating models 
+23:16:52 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:16:52 23/04/2019 | App                  | INFO     | Instantiating views 
+23:16:52 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:16:52 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:16:52 23/04/2019 | App                  | INFO     | Loading views 
+23:16:52 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:16:55 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:16:55 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:16:55 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:16:55 23/04/2019 | MainController       | INFO     | View change completed 
+23:16:55 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:16:55 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:16:55 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+23:16:55 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:16:55 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:16:55 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:18:23 23/04/2019 | App                  | INFO     | App started 
+23:18:23 23/04/2019 | App                  | INFO     | Instantiating models 
+23:18:23 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:18:23 23/04/2019 | App                  | INFO     | Instantiating views 
+23:18:23 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:18:23 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:18:23 23/04/2019 | App                  | INFO     | Loading views 
+23:18:23 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:18:24 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:18:24 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:18:24 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:18:24 23/04/2019 | MainController       | INFO     | View change completed 
+23:18:24 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:26:49 23/04/2019 | App                  | INFO     | App started 
+23:26:49 23/04/2019 | App                  | INFO     | Instantiating models 
+23:26:49 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:26:49 23/04/2019 | App                  | INFO     | Instantiating views 
+23:26:49 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:26:49 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:26:49 23/04/2019 | App                  | INFO     | Loading views 
+23:26:49 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:26:50 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:26:50 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:26:50 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:26:50 23/04/2019 | MainController       | INFO     | View change completed 
+23:26:50 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:33:21 23/04/2019 | App                  | INFO     | App started 
+23:33:21 23/04/2019 | App                  | INFO     | Instantiating models 
+23:33:21 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:33:21 23/04/2019 | App                  | INFO     | Instantiating views 
+23:33:21 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:33:21 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:33:21 23/04/2019 | App                  | INFO     | Loading views 
+23:33:21 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:33:22 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:33:22 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:33:22 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:33:22 23/04/2019 | MainController       | INFO     | View change completed 
+23:33:22 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:42:57 23/04/2019 | App                  | INFO     | App started 
+23:42:57 23/04/2019 | App                  | INFO     | Instantiating models 
+23:42:57 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:42:57 23/04/2019 | App                  | INFO     | Instantiating views 
+23:42:57 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:42:57 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:42:57 23/04/2019 | App                  | INFO     | Loading views 
+23:42:57 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:42:58 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:42:58 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:42:58 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:42:58 23/04/2019 | MainController       | INFO     | View change completed 
+23:42:58 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:43:24 23/04/2019 | App                  | INFO     | App started 
+23:43:24 23/04/2019 | App                  | INFO     | Instantiating models 
+23:43:24 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:43:24 23/04/2019 | App                  | INFO     | Instantiating views 
+23:43:24 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:43:24 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:43:24 23/04/2019 | App                  | INFO     | Loading views 
+23:43:24 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:43:25 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:43:25 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:43:25 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:43:25 23/04/2019 | MainController       | INFO     | View change completed 
+23:43:25 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:43:25 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:43:25 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+23:43:25 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:43:50 23/04/2019 | App                  | INFO     | App started 
+23:43:50 23/04/2019 | App                  | INFO     | Instantiating models 
+23:43:50 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:43:50 23/04/2019 | App                  | INFO     | Instantiating views 
+23:43:50 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:43:50 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:43:50 23/04/2019 | App                  | INFO     | Loading views 
+23:43:50 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:43:51 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:43:51 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:43:51 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:43:51 23/04/2019 | MainController       | INFO     | View change completed 
+23:43:51 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:43:51 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:43:51 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+23:43:51 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:43:51 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:43:51 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:43:54 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+23:43:54 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:43:54 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+23:43:54 23/04/2019 | MainController       | INFO     | View change completed 
+23:44:28 23/04/2019 | App                  | INFO     | App started 
+23:44:28 23/04/2019 | App                  | INFO     | Instantiating models 
+23:44:28 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:44:28 23/04/2019 | App                  | INFO     | Instantiating views 
+23:44:29 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:44:29 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:44:29 23/04/2019 | App                  | INFO     | Loading views 
+23:44:29 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:44:29 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:44:29 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:44:29 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:44:29 23/04/2019 | MainController       | INFO     | View change completed 
+23:44:29 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:44:29 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:44:29 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+23:44:29 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:44:29 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:44:29 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:47:12 23/04/2019 | App                  | INFO     | App started 
+23:47:12 23/04/2019 | App                  | INFO     | Instantiating models 
+23:47:12 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:47:12 23/04/2019 | App                  | INFO     | Instantiating views 
+23:47:12 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:47:12 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:47:12 23/04/2019 | App                  | INFO     | Loading views 
+23:47:12 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:47:13 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:47:13 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:47:13 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:47:13 23/04/2019 | MainController       | INFO     | View change completed 
+23:47:13 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:47:13 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:47:13 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+23:47:13 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:47:13 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:47:13 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:51:11 23/04/2019 | App                  | INFO     | App started 
+23:51:11 23/04/2019 | App                  | INFO     | Instantiating models 
+23:51:11 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:51:11 23/04/2019 | App                  | INFO     | Instantiating views 
+23:51:12 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:51:12 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:51:12 23/04/2019 | App                  | INFO     | Loading views 
+23:51:12 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:51:12 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:51:12 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:51:12 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:51:12 23/04/2019 | MainController       | INFO     | View change completed 
+23:51:13 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+23:51:13 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:51:13 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+23:51:13 23/04/2019 | MainController       | INFO     | View change completed 
+23:51:15 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:51:15 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:51:15 23/04/2019 | DeviceFinder         | DEBUG    | connect() failed between deviceDiscovered(QBluetoothDeviceInfo) and device_found() 
+23:51:15 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:51:15 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:51:15 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:52:45 23/04/2019 | App                  | INFO     | App started 
+23:52:45 23/04/2019 | App                  | INFO     | Instantiating models 
+23:52:45 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:52:45 23/04/2019 | App                  | INFO     | Instantiating views 
+23:52:45 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:52:45 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:52:45 23/04/2019 | App                  | INFO     | Loading views 
+23:52:45 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:52:46 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:52:46 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:52:46 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:52:46 23/04/2019 | MainController       | INFO     | View change completed 
+23:52:47 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+23:52:47 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:52:47 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+23:52:47 23/04/2019 | MainController       | INFO     | View change completed 
+23:52:48 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:52:48 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:52:58 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:52:58 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:52:58 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:54:36 23/04/2019 | App                  | INFO     | App started 
+23:54:36 23/04/2019 | App                  | INFO     | Instantiating models 
+23:54:36 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:54:36 23/04/2019 | App                  | INFO     | Instantiating views 
+23:54:36 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:54:36 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:54:36 23/04/2019 | App                  | INFO     | Loading views 
+23:54:36 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:54:37 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:54:37 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:54:37 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:54:37 23/04/2019 | MainController       | INFO     | View change completed 
+23:54:46 23/04/2019 | App                  | INFO     | App started 
+23:54:46 23/04/2019 | App                  | INFO     | Instantiating models 
+23:54:46 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:54:46 23/04/2019 | App                  | INFO     | Instantiating views 
+23:54:46 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:54:46 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:54:46 23/04/2019 | App                  | INFO     | Loading views 
+23:54:46 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:54:46 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:54:46 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:54:46 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:54:46 23/04/2019 | MainController       | INFO     | View change completed 
+23:54:46 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:54:46 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:54:56 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:54:56 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:54:56 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:55:04 23/04/2019 | App                  | INFO     | App started 
+23:55:04 23/04/2019 | App                  | INFO     | Instantiating models 
+23:55:04 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:55:04 23/04/2019 | App                  | INFO     | Instantiating views 
+23:55:04 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:55:04 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:55:04 23/04/2019 | App                  | INFO     | Loading views 
+23:55:04 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:55:05 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:55:05 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:55:05 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:55:05 23/04/2019 | MainController       | INFO     | View change completed 
+23:55:05 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:55:05 23/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:55:08 23/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+23:55:08 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:55:08 23/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+23:55:08 23/04/2019 | MainController       | INFO     | View change completed 
+23:55:15 23/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:55:15 23/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+23:55:15 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:57:41 23/04/2019 | App                  | INFO     | App started 
+23:57:41 23/04/2019 | App                  | INFO     | Instantiating models 
+23:57:41 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:57:41 23/04/2019 | App                  | INFO     | Instantiating views 
+23:57:41 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:57:41 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:57:41 23/04/2019 | App                  | INFO     | Loading views 
+23:57:41 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:57:42 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:57:42 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:57:42 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:57:42 23/04/2019 | MainController       | INFO     | View change completed 
+23:57:42 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+23:58:47 23/04/2019 | App                  | INFO     | App started 
+23:58:47 23/04/2019 | App                  | INFO     | Instantiating models 
+23:58:47 23/04/2019 | App                  | INFO     | Instantiating controllers 
+23:58:47 23/04/2019 | App                  | INFO     | Instantiating views 
+23:58:47 23/04/2019 | App                  | INFO     | Linking controllers to views 
+23:58:47 23/04/2019 | App                  | INFO     | Configuring main controller 
+23:58:47 23/04/2019 | App                  | INFO     | Loading views 
+23:58:47 23/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:58:48 23/04/2019 | MainController       | INFO     | Requesting view change 
+23:58:48 23/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:58:48 23/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:58:48 23/04/2019 | MainController       | INFO     | View change completed 
+23:58:48 23/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:06:01 24/04/2019 | App                  | INFO     | App started 
+00:06:01 24/04/2019 | App                  | INFO     | Instantiating models 
+00:06:01 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:06:01 24/04/2019 | App                  | INFO     | Instantiating views 
+00:06:01 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:06:01 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:06:01 24/04/2019 | App                  | INFO     | Loading views 
+00:06:01 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:06:02 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:06:02 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:06:02 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:06:02 24/04/2019 | MainController       | INFO     | View change completed 
+00:06:02 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:06:41 24/04/2019 | App                  | INFO     | App started 
+00:06:41 24/04/2019 | App                  | INFO     | Instantiating models 
+00:06:41 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:06:41 24/04/2019 | App                  | INFO     | Instantiating views 
+00:06:41 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:06:41 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:06:41 24/04/2019 | App                  | INFO     | Loading views 
+00:06:41 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:06:42 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:06:42 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:06:42 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:06:42 24/04/2019 | MainController       | INFO     | View change completed 
+00:06:42 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:06:42 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:13:23 24/04/2019 | App                  | INFO     | App started 
+00:13:23 24/04/2019 | App                  | INFO     | Instantiating models 
+00:13:23 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:13:23 24/04/2019 | App                  | INFO     | Instantiating views 
+00:13:23 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:13:23 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:13:23 24/04/2019 | App                  | INFO     | Loading views 
+00:13:23 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:13:52 24/04/2019 | App                  | INFO     | App started 
+00:13:52 24/04/2019 | App                  | INFO     | Instantiating models 
+00:13:52 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:13:52 24/04/2019 | App                  | INFO     | Instantiating views 
+00:13:52 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:13:52 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:13:52 24/04/2019 | App                  | INFO     | Loading views 
+00:13:52 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:13:53 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:13:53 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:13:53 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:13:53 24/04/2019 | MainController       | INFO     | View change completed 
+00:13:53 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:13:53 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:14:03 24/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:14:03 24/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+00:14:03 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:18:45 24/04/2019 | App                  | INFO     | App started 
+00:18:45 24/04/2019 | App                  | INFO     | Instantiating models 
+00:18:45 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:18:45 24/04/2019 | App                  | INFO     | Instantiating views 
+00:18:45 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:18:45 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:18:45 24/04/2019 | App                  | INFO     | Loading views 
+00:18:45 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:18:46 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:18:46 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:18:46 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:18:46 24/04/2019 | MainController       | INFO     | View change completed 
+00:18:46 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:18:46 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:18:56 24/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:18:56 24/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+00:18:56 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:19:18 24/04/2019 | App                  | INFO     | App started 
+00:19:18 24/04/2019 | App                  | INFO     | Instantiating models 
+00:19:18 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:19:18 24/04/2019 | App                  | INFO     | Instantiating views 
+00:19:18 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:19:18 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:19:18 24/04/2019 | App                  | INFO     | Loading views 
+00:19:18 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:19:19 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:19:19 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:19:19 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:19:19 24/04/2019 | MainController       | INFO     | View change completed 
+00:19:19 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:19:19 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:19:29 24/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:19:29 24/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+00:19:29 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:20:13 24/04/2019 | App                  | INFO     | App started 
+00:20:13 24/04/2019 | App                  | INFO     | Instantiating models 
+00:20:13 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:20:13 24/04/2019 | App                  | INFO     | Instantiating views 
+00:20:13 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:20:13 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:20:13 24/04/2019 | App                  | INFO     | Loading views 
+00:20:13 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:20:14 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:20:14 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:20:14 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:20:14 24/04/2019 | MainController       | INFO     | View change completed 
+00:20:14 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:20:14 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:20:24 24/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:20:24 24/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+00:20:24 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:21:48 24/04/2019 | App                  | INFO     | App started 
+00:21:48 24/04/2019 | App                  | INFO     | Instantiating models 
+00:21:48 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:21:48 24/04/2019 | App                  | INFO     | Instantiating views 
+00:21:48 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:21:48 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:21:48 24/04/2019 | App                  | INFO     | Loading views 
+00:21:48 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:21:49 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:21:49 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:21:49 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:21:49 24/04/2019 | MainController       | INFO     | View change completed 
+00:21:49 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:21:49 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:21:59 24/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:22:49 24/04/2019 | App                  | INFO     | App started 
+00:22:49 24/04/2019 | App                  | INFO     | Instantiating models 
+00:22:49 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:22:49 24/04/2019 | App                  | INFO     | Instantiating views 
+00:22:49 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:22:49 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:22:49 24/04/2019 | App                  | INFO     | Loading views 
+00:22:49 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:22:50 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:22:50 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:22:50 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:22:50 24/04/2019 | MainController       | INFO     | View change completed 
+00:22:50 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:22:50 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:22:50 24/04/2019 | DeviceFinder         | DEBUG    | connect() failed between finished() and finished_search() 
+00:22:50 24/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:22:50 24/04/2019 | ConnectController    | DEBUG    | No bluetooth devices found 
+00:22:50 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:24:35 24/04/2019 | App                  | INFO     | App started 
+00:24:35 24/04/2019 | App                  | INFO     | Instantiating models 
+00:24:35 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:24:35 24/04/2019 | App                  | INFO     | Instantiating views 
+00:24:35 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:24:35 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:24:35 24/04/2019 | App                  | INFO     | Loading views 
+00:24:35 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:24:35 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:24:35 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:24:35 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:24:35 24/04/2019 | MainController       | INFO     | View change completed 
+00:24:35 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:24:35 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:24:45 24/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:24:45 24/04/2019 | ConnectView          | DEBUG    | Adding [AV] Samsung Soundbar N850 to found devices list 
+00:24:45 24/04/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+00:24:45 24/04/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+00:27:29 24/04/2019 | App                  | INFO     | App started 
+00:27:29 24/04/2019 | App                  | INFO     | Instantiating models 
+00:27:29 24/04/2019 | App                  | INFO     | Instantiating controllers 
+00:27:29 24/04/2019 | App                  | INFO     | Instantiating views 
+00:27:30 24/04/2019 | App                  | INFO     | Linking controllers to views 
+00:27:30 24/04/2019 | App                  | INFO     | Configuring main controller 
+00:27:30 24/04/2019 | App                  | INFO     | Loading views 
+00:27:30 24/04/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:27:31 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:27:31 24/04/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:27:31 24/04/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:27:31 24/04/2019 | MainController       | INFO     | View change completed 
+00:27:31 24/04/2019 | ConnectView          | DEBUG    | Updating status text 
+00:27:31 24/04/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:27:33 24/04/2019 | HomeController       | DEBUG    | Connect button clicked 
+00:27:33 24/04/2019 | MainController       | INFO     | Requesting view change 
+00:27:33 24/04/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+00:27:33 24/04/2019 | MainController       | INFO     | View change completed 
+00:27:41 24/04/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: [AV] Samsung Soundbar N850 and address: 70:2A:D5:52:47:CB 
+00:27:41 24/04/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+00:27:41 24/04/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+00:27:41 24/04/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:27:41 24/04/2019 | ConnectView          | DEBUG    | Adding [AV] Samsung Soundbar N850 to found devices list 
+00:27:41 24/04/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+00:27:41 24/04/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
