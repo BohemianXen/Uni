@@ -1,7 +1,12 @@
+import sys
 from PyQt5.QtCore import QObject, pyqtSlot, QThreadPool
 from application.Logger import Logger
-from controllers.connect_manager.DeviceFinderLinux import DeviceFinder
-from controllers.connect_manager.DeviceConnector import DeviceConnector
+if sys.platform.startswith('linux'):
+    from controllers.connect_manager.DeviceFinderLinux import DeviceFinder
+    from controllers.connect_manager.DeviceConnectorLinux import DeviceConnector
+else:
+    from controllers.connect_manager.DeviceFinder import DeviceFinder
+    from controllers.connect_manager.DeviceConnector import DeviceConnector
 
 
 class ConnectController(QObject):
@@ -13,11 +18,14 @@ class ConnectController(QObject):
 
         self.name = __class__.__name__
         self._logger = Logger(self.name)
+        self.pool = QThreadPool.globalInstance()
 
         self._devices_found = {}
         self.target_device = ()
 
-        self.pool = QThreadPool.globalInstance()
+        self.device_connector = DeviceConnector()
+        self.device_connector.signals.connectionComplete.connect(self.connect_complete)
+        self.device_connector.setAutoDelete(False)
 
     def link_view(self, view):
         self._view = view
@@ -50,20 +58,24 @@ class ConnectController(QObject):
     @pyqtSlot()
     def selection_changed(self, selected):
         if len(selected) != 0:
-            self._logger.log("Device {} selected".format(self._view.get_text(selected)), Logger.DEBUG)
+            self._logger.log("Device {} selected".format(self._view.get_text(selected[0].row())), Logger.DEBUG)
             self._view.toggle_connect_button(value=True)
         else:
             self._view.toggle_connect_button(value=False)
 
     @pyqtSlot()
     def connect_button_clicked(self, selected):
-        self._logger.log("Attempting to connect to {} device".format(self._view.get_text(selected)), Logger.DEBUG)
+        self._view.toggle_connect_button(value=False)  # TODO: unlock this properly
+        self._view.toggle_search_button(value=False)
         devices = tuple(self._devices_found.items())
         self.target_device = devices[selected[0].row()]
-        device_finder = DeviceConnector(self.target_device[0], self.target_device[1])
-        device_finder.signals.connectionComplete.connect(self.connect_complete)
-        self.pool.start(device_finder)
+        self._logger.log("Attempting to connect to {}".format(self.target_device[1]), Logger.DEBUG)
+        self.device_connector.target_address = self.target_device[0]
+        self.device_connector.target_name = self.target_device[1]
+        self.pool.start(self.device_connector)
 
     @pyqtSlot(bool)
     def connect_complete(self, complete):
-        self._logger.log("{} re-found {}".format(self.target_device[1], str(complete)), Logger.DEBUG)
+        self._logger.log("{} re-found: {}".format(self.target_device[1], str(complete)), Logger.DEBUG)
+        self._view.toggle_connect_button(value=True)
+        self._view.toggle_search_button(value=True)

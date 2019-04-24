@@ -1,8 +1,8 @@
-from PyQt5.QtCore import pyqtSignal, QRunnable, QObject, pyqtSlot
+from PyQt5.QtCore import pyqtSignal, QRunnable, QObject
 from application.Logger import Logger
-from PyQt5.QtBluetooth import QBluetoothDeviceDiscoveryAgent, QBluetoothDeviceInfo
-import traceback
-import time
+from PyQt5.QtBluetooth import QBluetoothDeviceDiscoveryAgent
+# import traceback
+from PyQt5.QtTest import QSignalSpy
 
 
 class DeviceFinderSignals(QObject):
@@ -29,8 +29,9 @@ class DeviceFinder(QRunnable):
         try:
             agent = QBluetoothDeviceDiscoveryAgent()
             agent.setLowEnergyDiscoveryTimeout(1000)
+            spy = QSignalSpy(agent.finished)
             agent.start()
-            time.sleep(self.timeout)
+            spy.wait(self.timeout * 1000)
             self.finished_search(agent.discoveredDevices())
         except Exception as error:
             self._logger.log('Exception encountered while searching for devices', Logger.ERROR)

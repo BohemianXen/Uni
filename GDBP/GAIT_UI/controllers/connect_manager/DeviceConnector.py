@@ -13,19 +13,19 @@ class DeviceConnectorSignals(QObject):
 
 # TODO: Add checks for own bluetooth chip
 class DeviceConnector(QRunnable):
-    def __init__(self, target_address, target_name):
+    def __init__(self):
         super(DeviceConnector, self).__init__()
         self.name = __class__.__name__
         self._logger = Logger(self.name)
         self.signals = DeviceConnectorSignals()
-        self._target_address = target_address
-        self._target_name = target_name
+        self.target_address = ''
+        self.target_name = ''
 
     def run(self):
-        self._logger.log('Starting new thread; connecting with {}'.format(self._target_name), Logger.DEBUG)
+        self._logger.log('Starting new thread; connecting with {}'.format(self.target_name), Logger.DEBUG)
         connection_complete = False
         try:
-            device_found = bluetooth.lookup_name(self._target_address)
+            device_found = bluetooth.lookup_name(self.target_address)
             if device_found is None:
                 print('Uh oh')
             else:
