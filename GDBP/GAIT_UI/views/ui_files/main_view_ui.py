@@ -46,7 +46,9 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton { color: white; background-color: rgb(90, 90, 121) }\n"
 "\n"
-"QLabel { color: rgb(188, 188, 188); }")
+"QLabel { color: rgb(188, 188, 188); }\n"
+"\n"
+"QComboBox {background-color: rgb(49, 49, 62); color: rgb(188, 188, 188)}")
         self.mainStackedWidget.setObjectName("mainStackedWidget")
         self.splashPage = QtWidgets.QWidget()
         self.splashPage.setObjectName("splashPage")

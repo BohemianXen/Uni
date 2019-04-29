@@ -39,19 +39,20 @@ class MainView(QMainWindow):
     def set_view(self, view):
         new_view = self._tabs[str(Views.get_type(view))]
         current_view_name = self._ui.viewsTabWidget.currentWidget().objectName()
-        self._logger.log('Changing from {} to {}'.format(current_view_name, new_view.objectName()), self._logger.INFO)
+        self._logger.log('Changing from {} to {}'.format(current_view_name, new_view.objectName()), Logger.INFO)
 
         try:
             self._ui.viewsTabWidget.setCurrentWidget(new_view)
-        except:
-            self._logger.log('Error changing to {} view'.format(new_view.objectName()), self._logger.ERROR)
+        except Exception as error:
+            self._logger.log('Error changing to {} view'.format(new_view.objectName()), Logger.ERROR)
+            self._logger.log(error, Logger.DEBUG)
 
     def add_login_view(self, view):
-        self._logger.log('Adding LoginView to main widget stack', self._logger.INFO)
+        self._logger.log('Adding LoginView to main widget stack', Logger.INFO)
         self._ui.mainStackedWidget.addWidget(view)
         self._ui.mainStackedWidget.setCurrentWidget(view)
 
     # update main view when first logging in
     def update_main_view(self):
-        self._logger.log('Changing to tabWidget mode', self._logger.INFO)
+        self._logger.log('Changing to tabWidget mode', Logger.INFO)
         self._ui.mainStackedWidget.setCurrentWidget(self._ui.loggedInView)

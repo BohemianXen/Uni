@@ -14,3 +14,7 @@ class HistoryController(QObject):
 
     def link_view(self, view):
         self._view = view
+
+    @pyqtSlot()
+    def expand_button_clicked(self):
+        self._view.toggle_calendar_view()

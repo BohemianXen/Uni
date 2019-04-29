@@ -54,7 +54,6 @@ class MainController(QObject):
         # first navigation from login to home is unique, else switch to selected tab
         if view == 'home_first':
             self._main_view.update_main_view()
-
             view = 'home'
 
         self._main_view.set_view(self._views[view])

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QStyle
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt
 from views.ui_files.login_view_ui import Ui_LoginView
 
@@ -17,7 +17,7 @@ class LoginView(QWidget):
     # link enter/return key events to login_clicked handler; overrides QtWidget event handler
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_Enter or e.key() == Qt.Key_Return:
-            self._controller.login_clicked()
+            self._controller.login_button_clicked()
 
     # returns the username entered by the user
     def get_username(self):

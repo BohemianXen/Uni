@@ -76,7 +76,9 @@ QStatusBar { background-color: rgb(29, 29, 42); }
 
 QPushButton { color: white; background-color: rgb(90, 90, 121) }
 
-QLabel { color: rgb(188, 188, 188); }</string>
+QLabel { color: rgb(188, 188, 188); }
+
+QComboBox {background-color: rgb(49, 49, 62); color: rgb(188, 188, 188)}</string>
     </property>
     <widget class="QWidget" name="splashPage"/>
     <widget class="QWidget" name="loggedInView">
