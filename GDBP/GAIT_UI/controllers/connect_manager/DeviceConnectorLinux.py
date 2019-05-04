@@ -5,7 +5,6 @@ import traceback
 from PyQt5.QtTest import QSignalSpy
 
 
-
 class DeviceConnectorSignals(QObject):
     connectionComplete = pyqtSignal(bool)
 

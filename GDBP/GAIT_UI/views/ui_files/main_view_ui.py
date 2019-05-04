@@ -66,23 +66,18 @@ class Ui_MainWindow(object):
         self.viewsTabWidget.setMinimumSize(QtCore.QSize(1610, 775))
         self.viewsTabWidget.setMaximumSize(QtCore.QSize(1610, 775))
         font = QtGui.QFont()
-        font.setPointSize(13)
+        font.setPointSize(16)
         self.viewsTabWidget.setFont(font)
         self.viewsTabWidget.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.viewsTabWidget.setAutoFillBackground(False)
         self.viewsTabWidget.setStyleSheet("QTabBar::tab { color: white; padding: 12px; border-right: 1px solid gray; \n"
-"min-width: 100px;} \n"
+"min-width: 120px;} \n"
 "\n"
 "QTabBar::tab:!selected { background-color: rgb(112, 112, 112); margin-top: 2px}\n"
 "\n"
 "QTabBar::tab:selected,  QTabBar::tab:hover { background-color: rgb(90, 90, 121); }\n"
 "\n"
-"\n"
-"QTabWidget::pane { \n"
-"    border-top: 0px; /*3px solid rgb(29, 29, 42);*/\n"
-"    border-left: 0px;\n"
-"    border-right: 0px;    \n"
-" }")
+"QTabWidget::pane { border: 0px}")
         self.viewsTabWidget.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.viewsTabWidget.setTabBarAutoHide(True)
         self.viewsTabWidget.setObjectName("viewsTabWidget")
@@ -107,7 +102,7 @@ class Ui_MainWindow(object):
         self.connectGridLayout.setObjectName("connectGridLayout")
         self.viewsTabWidget.addTab(self.connectTab, "")
         self.liveTab = QtWidgets.QWidget()
-        self.liveTab.setEnabled(False)
+        self.liveTab.setEnabled(True)
         self.liveTab.setObjectName("liveTab")
         self.gridLayoutWidget_3 = QtWidgets.QWidget(self.liveTab)
         self.gridLayoutWidget_3.setGeometry(QtCore.QRect(0, 0, 1611, 751))
@@ -117,7 +112,7 @@ class Ui_MainWindow(object):
         self.liveGridLayout.setObjectName("liveGridLayout")
         self.viewsTabWidget.addTab(self.liveTab, "")
         self.uploadTab = QtWidgets.QWidget()
-        self.uploadTab.setEnabled(False)
+        self.uploadTab.setEnabled(True)
         self.uploadTab.setObjectName("uploadTab")
         self.gridLayoutWidget_4 = QtWidgets.QWidget(self.uploadTab)
         self.gridLayoutWidget_4.setGeometry(QtCore.QRect(0, 0, 1611, 751))
@@ -138,7 +133,7 @@ class Ui_MainWindow(object):
         self.deviceTab = QtWidgets.QWidget()
         self.deviceTab.setObjectName("deviceTab")
         self.gridLayoutWidget_6 = QtWidgets.QWidget(self.deviceTab)
-        self.gridLayoutWidget_6.setGeometry(QtCore.QRect(0, 0, 1611, 751))
+        self.gridLayoutWidget_6.setGeometry(QtCore.QRect(-20, 0, 1631, 751))
         self.gridLayoutWidget_6.setObjectName("gridLayoutWidget_6")
         self.deviceGridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget_6)
         self.deviceGridLayout.setContentsMargins(0, 0, 0, 0)
@@ -147,7 +142,7 @@ class Ui_MainWindow(object):
         self.accountTab = QtWidgets.QWidget()
         self.accountTab.setObjectName("accountTab")
         self.gridLayoutWidget_7 = QtWidgets.QWidget(self.accountTab)
-        self.gridLayoutWidget_7.setGeometry(QtCore.QRect(0, 0, 1611, 751))
+        self.gridLayoutWidget_7.setGeometry(QtCore.QRect(-20, 0, 1631, 751))
         self.gridLayoutWidget_7.setObjectName("gridLayoutWidget_7")
         self.accountGridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget_7)
         self.accountGridLayout.setContentsMargins(0, 0, 0, 0)

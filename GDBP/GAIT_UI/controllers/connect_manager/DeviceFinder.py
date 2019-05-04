@@ -30,10 +30,10 @@ class DeviceFinder(QRunnable):
                 self._logger.log('Found bluetooth device with name: {} and address: {}'.format(name, address),
                                  Logger.DEBUG)
         except BluetoothError as error:
-            self._logger.log(str(error), Logger.ERROR)
+            self._logger.log(str(error), Logger.DEBUG)
         except OSError:
-            self._logger.log('Exception encountered while searching for devices', Logger.ERROR)
-            self._logger.log(traceback.format_exc(), Logger.ERROR)
+            self._logger.log('Exception encountered while searching for devices', Logger.DEBUG)
+            self._logger.log(traceback.format_exc(), Logger.DEBUG)
 
         self._logger.log('Search complete, deleting thread', Logger.DEBUG)
         self.signals.searchComplete.emit(devices_found)

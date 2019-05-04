@@ -1,10 +1,23 @@
-from PyQt5.QtWidgets import QMainWindow, QStyleFactory
+from PyQt5.QtWidgets import QMainWindow
 from views.ui_files.main_view_ui import Ui_MainWindow
 from views.Views import Views
 from application.Logger import Logger
 
 
 class MainView(QMainWindow):
+    """ View class. Instantiates all UI QWidgets associated with this view and links signals to controller slots.
+
+      Args:
+          controller (QWidget): The view's corresponding controller; that which manipulates this view
+
+      Parameters:
+          _controller (QWidget): A reference to the passed controller
+          _ui (Ui_LiveView): Holds all the generated UI elements for an added layer of abstraction
+          name (str): The name of this class
+          _logger (Logger): Logging instance for this class
+          _tabs (dict): Maps the tab indexes to their corresponding view objects
+    """
+
     def __init__(self, controller):
         super().__init__()
 
@@ -45,7 +58,7 @@ class MainView(QMainWindow):
             self._ui.viewsTabWidget.setCurrentWidget(new_view)
         except Exception as error:
             self._logger.log('Error changing to {} view'.format(new_view.objectName()), Logger.ERROR)
-            self._logger.log(error, Logger.DEBUG)
+            self._logger.log(str(error), Logger.DEBUG)
 
     def add_login_view(self, view):
         self._logger.log('Adding LoginView to main widget stack', Logger.INFO)

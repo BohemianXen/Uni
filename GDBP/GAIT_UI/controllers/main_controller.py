@@ -45,6 +45,7 @@ class MainController(QObject):
         self._controllers['home'].historyClicked.connect(self.set_current_view)
         self._controllers['home'].deviceClicked.connect(self.set_current_view)
         self._controllers['home'].accountClicked.connect(self.set_current_view)
+        self._controllers['connect'].connectionComplete.connect(self.unlock_views)
 
     # update view on navigation triggers
     @pyqtSlot(str)
@@ -60,7 +61,8 @@ class MainController(QObject):
 
         self._logger.log('View change completed', Logger.INFO)
 
-    def unlock_views(self):
+    @pyqtSlot(bool)
+    def unlock_views(self, complete):
         for name, controller in self._controllers.items():
-            if name == 'live' and name == 'upload':
+            if complete and name == 'live':  # and name == 'upload':
                 controller.unlock_view()

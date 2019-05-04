@@ -1,6 +1,7 @@
 import sys
 from application.Logger import Logger
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import QThreadPool
 
 # import models
 from models.main_model import MainModel
@@ -38,7 +39,20 @@ from controllers.account_controller import AccountController
 
 
 class App(QApplication):
+    """ Application class. Instantiates all UI models, views, and controllers.
+
+    Args:
+        sys_argv (list): Command line arguments for debug purposes
+
+    Parameters:
+        DEBUG_MODE (bool): Class attribute depicting run mode
+        name (str): The name of this class name
+        logger (Logger): Logging instance for this class
+        module_names (list): List of all the modules present in the app
+    """
+
     DEBUG_MODE = False
+
     def __init__(self, sys_argv):
         super(App, self).__init__(sys_argv)
         self.setStyle('Fusion')
@@ -53,8 +67,8 @@ class App(QApplication):
         self.establish_hierarchies()
         self.load_views()
 
-    # create model, view, and controller instances
     def instantiate_framework(self):
+        """ Creates model, view, and controller instances """
         # instantiate models
         self.logger.log('Instantiating models', Logger.INFO)
         self.main_model = MainModel()
@@ -92,6 +106,7 @@ class App(QApplication):
         self.account_view = AccountView(self.account_controller)
 
     def link_controllers_to_views(self):
+        """ Allows each controller to access their respective view methods."""
         self.logger.log('Linking controllers to views', Logger.INFO)
         self.main_controller.link_view(self.main_view)
         self.login_controller.link_view(self.login_view)
@@ -102,8 +117,8 @@ class App(QApplication):
         self.device_controller.link_view(self.device_view)
         self.account_controller.link_view(self.account_view)
 
-    # make all controllers children of main
     def establish_hierarchies(self):
+        """ Essentially makes all modules children of the main one"""
         self.controllers = [self.login_controller, self.home_controller, self.connect_controller, self.live_controller,
                             self.upload_controller, self.history_controller, self.device_controller,
                             self.account_controller]
@@ -119,6 +134,7 @@ class App(QApplication):
             count += 1
 
     def load_views(self):
+        """ Calls function which links the tabs to their views and then shows the login view."""
         self.logger.log('Loading views', Logger.INFO)
         # load all views into stacked central widget- leaves the login view as active
         self.views.remove(self.login_view)  # true home view is deferred until login is complete
@@ -130,6 +146,13 @@ class App(QApplication):
         self.main_view.show()
 
     def on_close(self):
+        """ Called on app close. Attempts to ensure all threads are closed before closing."""
+        pools = QThreadPool.globalInstance()
+        if pools.activeThreadCount() > 0:
+            self.logger.log("{} thread(s) were running on termination".format(pools.activeThreadCount()), Logger.DEBUG)
+            threads_done = pools.waitForDone(5000)
+            self.logger.log("All threads now closed: {}".format(threads_done), Logger.DEBUG)
+
         self.exec_()
         self.logger.log('App closing', Logger.INFO)
 

@@ -1,6 +1,7 @@
 import sys
-from PyQt5.QtCore import QObject, pyqtSlot, QThreadPool
+from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QThreadPool
 from application.Logger import Logger
+
 if sys.platform.startswith('linux'):
     from controllers.connect_manager.DeviceFinderLinux import DeviceFinder
     from controllers.connect_manager.DeviceConnectorLinux import DeviceConnector
@@ -10,6 +11,8 @@ else:
 
 
 class ConnectController(QObject):
+    connectionComplete = pyqtSignal(bool)  # TODO: Connection workflow needs to be decided
+
     def __init__(self, model):
         super().__init__()
 
@@ -79,3 +82,4 @@ class ConnectController(QObject):
         self._logger.log("{} re-found: {}".format(self.target_device[1], str(complete)), Logger.DEBUG)
         self._view.toggle_connect_button(value=True)
         self._view.toggle_search_button(value=True)
+        self.connectionComplete.emit(complete)
