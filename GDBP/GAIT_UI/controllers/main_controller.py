@@ -11,41 +11,29 @@ class MainController(QObject):
         self.name = __class__.__name__
         self._logger = Logger(self.name)
 
-        self._views = {
-            'login': None,
-            'home': None,
-            'connect': None,
-            'live': None,
-            'upload': None,
-            'history': None,
-            'device': None,
-            'account': None
-        }
-        self._controllers = self._views.copy()
-
     def link_view(self, view):
         self._main_view = view
 
     # populate linked views and controllers into respective dictionaries for easy central manipulation here in main
     def add_child(self, _type, child, instance):
-        _dictionary = self._controllers if _type == 'controller' else self._views
+        _dictionary = self._model.controllers if _type == 'controller' else self._model.views
         _dictionary[child] = instance
 
     # listeners for view navigation signals
     def establish_listeners(self):
-        self._controllers['login'].loginComplete.connect(self.set_current_view)
+        self._model.controllers['login'].loginComplete.connect(self.set_current_view)
 
         # search for devices in background on completion of log in
-        self._controllers['login'].loginComplete.connect(self._controllers['connect'].search_button_clicked)
+        self._model.controllers['login'].loginComplete.connect(self._model.controllers['connect'].search_button_clicked)
 
         # home page navigation change slots
-        self._controllers['home'].connectClicked.connect(self.set_current_view)
-        self._controllers['home'].liveClicked.connect(self.set_current_view)
-        self._controllers['home'].uploadClicked.connect(self.set_current_view)
-        self._controllers['home'].historyClicked.connect(self.set_current_view)
-        self._controllers['home'].deviceClicked.connect(self.set_current_view)
-        self._controllers['home'].accountClicked.connect(self.set_current_view)
-        self._controllers['connect'].connectionComplete.connect(self.unlock_views)
+        self._model.controllers['home'].connectClicked.connect(self.set_current_view)
+        self._model.controllers['home'].liveClicked.connect(self.set_current_view)
+        self._model.controllers['home'].uploadClicked.connect(self.set_current_view)
+        self._model.controllers['home'].historyClicked.connect(self.set_current_view)
+        self._model.controllers['home'].deviceClicked.connect(self.set_current_view)
+        self._model.controllers['home'].accountClicked.connect(self.set_current_view)
+        self._model.controllers['connect'].connectionComplete.connect(self.unlock_views)
 
     # update view on navigation triggers
     @pyqtSlot(str)
@@ -57,12 +45,12 @@ class MainController(QObject):
             self._main_view.update_main_view()
             view = 'home'
 
-        self._main_view.set_view(self._views[view])
+        self._main_view.set_view(self._model.views[view])
 
         self._logger.log('View change completed', Logger.INFO)
 
     @pyqtSlot(bool)
     def unlock_views(self, complete):
-        for name, controller in self._controllers.items():
+        for name, controller in self._model.controllers.items():
             if complete and name == 'live':  # and name == 'upload':
                 controller.unlock_view()

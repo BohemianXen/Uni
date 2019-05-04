@@ -3851,3 +3851,446 @@
 02:49:20 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
 02:49:20 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
 02:49:20 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+18:59:23 04/05/2019 | App                  | INFO     | App started 
+18:59:23 04/05/2019 | App                  | INFO     | Instantiating models 
+18:59:23 04/05/2019 | App                  | INFO     | Instantiating controllers 
+18:59:23 04/05/2019 | App                  | INFO     | Instantiating views 
+18:59:24 04/05/2019 | App                  | INFO     | Linking controllers to views 
+18:59:24 04/05/2019 | App                  | INFO     | Configuring main controller 
+18:59:24 04/05/2019 | App                  | INFO     | Loading views 
+18:59:24 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+18:59:25 04/05/2019 | MainController       | INFO     | Requesting view change 
+18:59:25 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+18:59:25 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+18:59:25 04/05/2019 | MainController       | INFO     | View change completed 
+18:59:25 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+18:59:25 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+18:59:26 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+18:59:26 04/05/2019 | MainController       | INFO     | Requesting view change 
+18:59:26 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+18:59:26 04/05/2019 | MainController       | INFO     | View change completed 
+18:59:35 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+18:59:35 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+18:59:35 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+18:59:35 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+18:59:35 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+18:59:39 04/05/2019 | ConnectController    | DEBUG    | Device rolph selected 
+19:01:26 04/05/2019 | App                  | INFO     | App started 
+19:01:26 04/05/2019 | App                  | INFO     | Instantiating models 
+19:01:26 04/05/2019 | App                  | INFO     | Instantiating controllers 
+19:01:26 04/05/2019 | App                  | INFO     | Instantiating views 
+19:01:27 04/05/2019 | App                  | INFO     | Linking controllers to views 
+19:01:27 04/05/2019 | App                  | INFO     | Configuring main controller 
+19:01:27 04/05/2019 | App                  | INFO     | Loading views 
+19:01:27 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:01:28 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:01:28 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+19:01:28 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+19:01:28 04/05/2019 | MainController       | INFO     | View change completed 
+19:01:28 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+19:01:28 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+19:01:28 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+19:01:28 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:01:28 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:01:28 04/05/2019 | MainController       | INFO     | View change completed 
+19:01:38 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+19:01:38 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+19:01:38 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+19:01:38 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+19:01:38 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+19:01:39 04/05/2019 | ConnectController    | DEBUG    | Device rolph selected 
+19:02:27 04/05/2019 | App                  | INFO     | App started 
+19:02:27 04/05/2019 | App                  | INFO     | Instantiating models 
+19:02:27 04/05/2019 | App                  | INFO     | Instantiating controllers 
+19:02:27 04/05/2019 | App                  | INFO     | Instantiating views 
+19:02:28 04/05/2019 | App                  | INFO     | Linking controllers to views 
+19:02:28 04/05/2019 | App                  | INFO     | Configuring main controller 
+19:02:28 04/05/2019 | App                  | INFO     | Loading views 
+19:02:28 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:04:48 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:04:48 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+19:04:48 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+19:04:48 04/05/2019 | MainController       | INFO     | View change completed 
+19:04:48 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+19:04:48 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+19:04:50 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+19:04:50 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:04:50 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:04:50 04/05/2019 | MainController       | INFO     | View change completed 
+19:04:58 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+19:04:58 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+19:04:58 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+19:04:58 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+19:04:58 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+19:05:02 04/05/2019 | ConnectController    | DEBUG    | Device rolph selected 
+19:05:04 04/05/2019 | ConnectController    | DEBUG    | Attempting to connect to rolph 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Starting new thread; connecting with rolph 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovering devices to locate target 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovered target 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Found 10 services on rolph 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'MAP MAS-iOS' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 2 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1132'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1134', 256)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'PAN Network Access Profile' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Network Access Point 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 15 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1116'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1116', 256)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Wireless iAP v2' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 1 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: ['02030302-1D19-415F-86F2-22A2106A0A77'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1101', 256)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Wireless iAP' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 1 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: ['00000000-DECA-FADE-DECA-DEAFDECACAFE'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1101', 256)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'AVRCP Device' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Remote Control Device 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 23 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110e', b'110f'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110e', 260)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'AVRCP Device' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Remote Control Device 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 23 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110c'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110e', 260)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Audio Source' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 25 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110a'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110d', 259)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Phonebook' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 13 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'112f'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1130', 256)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Handsfree Gateway' 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 8 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'111f', b'1203'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'111e', 262)] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Description: PnP Information 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    UNKNOWN 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: None 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1200'] 
+19:05:04 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [] 
+19:05:05 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:05:05 04/05/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
+19:05:05 04/05/2019 | ConnectController    | DEBUG    | rolph re-found: True 
+19:05:05 04/05/2019 | LiveView             | INFO     | Unlocking LiveView 
+19:34:01 04/05/2019 | App                  | INFO     | App started 
+19:34:01 04/05/2019 | App                  | INFO     | Instantiating models 
+19:34:01 04/05/2019 | App                  | INFO     | Instantiating controllers 
+19:34:01 04/05/2019 | App                  | INFO     | Instantiating views 
+19:34:01 04/05/2019 | App                  | INFO     | Linking controllers to views 
+19:34:01 04/05/2019 | App                  | INFO     | Configuring main controller 
+19:34:01 04/05/2019 | App                  | INFO     | Loading views 
+19:34:01 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:34:02 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:34:02 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+19:34:02 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+19:34:02 04/05/2019 | MainController       | INFO     | View change completed 
+19:34:02 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+19:34:02 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+19:34:05 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+19:34:05 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:34:05 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:34:05 04/05/2019 | MainController       | INFO     | View change completed 
+19:34:13 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+19:34:13 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+19:34:13 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+19:34:13 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+19:34:13 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+19:34:14 04/05/2019 | ConnectController    | DEBUG    | Device IBTLI14 selected 
+19:34:15 04/05/2019 | ConnectController    | DEBUG    | Device rolph selected 
+19:34:16 04/05/2019 | ConnectController    | DEBUG    | Attempting to connect to rolph 
+19:34:16 04/05/2019 | DeviceConnector      | DEBUG    | Starting new thread; connecting with rolph 
+19:34:16 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovering devices to locate target 
+19:34:16 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovered target 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Found 10 services on rolph 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'MAP MAS-iOS' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 2 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1132'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1134', 256)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'PAN Network Access Profile' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Network Access Point 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 15 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1116'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1116', 256)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Wireless iAP v2' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 1 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: ['02030302-1D19-415F-86F2-22A2106A0A77'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1101', 256)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Wireless iAP' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 1 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: ['00000000-DECA-FADE-DECA-DEAFDECACAFE'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1101', 256)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'AVRCP Device' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Remote Control Device 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 23 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110e', b'110f'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110e', 260)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'AVRCP Device' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Remote Control Device 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 23 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110c'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110e', 260)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Audio Source' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 25 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110a'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110d', 259)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Phonebook' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 13 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'112f'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1130', 256)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Handsfree Gateway' 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 8 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'111f', b'1203'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'111e', 262)] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Description: PnP Information 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    UNKNOWN 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1200'] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [] 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:34:17 04/05/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
+19:34:17 04/05/2019 | ConnectController    | DEBUG    | rolph re-found: True 
+19:34:17 04/05/2019 | LiveView             | INFO     | Unlocking LiveView 
+19:37:22 04/05/2019 | App                  | INFO     | App started 
+19:37:22 04/05/2019 | App                  | INFO     | Instantiating models 
+19:37:22 04/05/2019 | App                  | INFO     | Instantiating controllers 
+19:37:22 04/05/2019 | App                  | INFO     | Instantiating views 
+19:37:23 04/05/2019 | App                  | INFO     | Linking controllers to views 
+19:37:23 04/05/2019 | App                  | INFO     | Configuring main controller 
+19:37:23 04/05/2019 | App                  | INFO     | Loading views 
+19:37:23 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:37:24 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:37:24 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+19:37:24 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+19:37:24 04/05/2019 | MainController       | INFO     | View change completed 
+19:37:24 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+19:37:24 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+19:37:25 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+19:37:25 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:37:25 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:37:25 04/05/2019 | MainController       | INFO     | View change completed 
+19:37:34 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+19:37:34 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+19:37:34 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+19:37:34 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+19:37:34 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+19:49:55 04/05/2019 | App                  | INFO     | App started 
+19:49:55 04/05/2019 | App                  | INFO     | Instantiating models 
+19:49:55 04/05/2019 | App                  | INFO     | Instantiating controllers 
+19:49:55 04/05/2019 | App                  | INFO     | Instantiating views 
+19:49:56 04/05/2019 | App                  | INFO     | Linking controllers to views 
+19:49:56 04/05/2019 | App                  | INFO     | Configuring main controller 
+19:49:56 04/05/2019 | App                  | INFO     | Loading views 
+19:49:56 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:49:57 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:49:57 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+19:49:57 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+19:49:57 04/05/2019 | MainController       | INFO     | View change completed 
+19:49:57 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+19:49:57 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+19:49:58 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+19:49:58 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:49:58 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:49:58 04/05/2019 | MainController       | INFO     | View change completed 
+19:50:07 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+19:50:07 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+19:50:07 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+19:50:07 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+19:50:07 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+19:50:12 04/05/2019 | ConnectController    | DEBUG    | Device rolph selected 
+19:50:12 04/05/2019 | ConnectController    | DEBUG    | Attempting to connect to rolph 
+19:50:12 04/05/2019 | DeviceConnector      | DEBUG    | Starting new thread; connecting with rolph 
+19:50:12 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovering devices to locate target 
+19:50:12 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovered target 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Found 10 services on rolph 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'MAP MAS-iOS' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 2 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1132'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1134', 256)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'PAN Network Access Profile' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Network Access Point 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 15 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1116'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1116', 256)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Wireless iAP v2' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 1 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: ['02030302-1D19-415F-86F2-22A2106A0A77'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1101', 256)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Wireless iAP' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 1 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: ['00000000-DECA-FADE-DECA-DEAFDECACAFE'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1101', 256)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'AVRCP Device' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Remote Control Device 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 23 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110e', b'110f'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110e', 260)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'AVRCP Device' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Remote Control Device 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 23 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110c'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110e', 260)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Audio Source' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 25 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110a'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110d', 259)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Phonebook' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 13 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'112f'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1130', 256)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Handsfree Gateway' 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 8 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'111f', b'1203'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'111e', 262)] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Description: PnP Information 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    UNKNOWN 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1200'] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [] 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+19:50:13 04/05/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
+19:50:13 04/05/2019 | ConnectController    | DEBUG    | rolph re-found: True 
+19:50:13 04/05/2019 | LiveView             | INFO     | Unlocking LiveView 
+19:50:19 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+19:50:19 04/05/2019 | MainController       | INFO     | Requesting view change 
+19:50:19 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+19:50:19 04/05/2019 | MainController       | INFO     | View change completed 
+19:50:27 04/05/2019 | App                  | INFO     | App closing 

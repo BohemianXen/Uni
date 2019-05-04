@@ -13,6 +13,15 @@
       <change beforePath="$PROJECT_DIR$/controllers/connect_manager/DeviceFinder.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/connect_manager/DeviceFinder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/live_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/live_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/main_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/account_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/account_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/connect_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/connect_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/device_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/device_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/history_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/history_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/home_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/home_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/live_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/live_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/login_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/login_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/main_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/main_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/upload_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/upload_model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/account_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/account_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/connect_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/connect_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/device_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/device_view.py" afterDir="false" />
@@ -40,36 +49,84 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/main_controller.py">
+        <entry file="file://$PROJECT_DIR$/models/connect_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
+            <state relative-caret-position="187">
+              <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="18" selection-end-column="40" />
               <folding>
-                <element signature="e#0#42#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/upload_view.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="31" column="77" selection-start-line="31" selection-start-column="77" selection-end-line="31" selection-end-column="77" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#0#44#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/live_view.py">
+        <entry file="file://$PROJECT_DIR$/models/account_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="54" column="8" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="72" />
+            <state relative-caret-position="255">
+              <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
               <folding>
-                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#0#44#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/device_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/history_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/home_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/live_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/upload_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,13 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lined</find>
-      <find>login_clicked</find>
-      <find>QtBluetooth</find>
-      <find>no_device_msg</find>
-      <find>align</find>
-      <find>DEBUG</find>
-      <find>self._lo</find>
       <find>&quot;</find>
       <find>address</find>
       <find>self.logger</find>
@@ -116,12 +166,15 @@
       <find>connect(</find>
       <find>adding</find>
       <find>enabled</find>
+      <find>_tabs</find>
+      <find>_devices_found</find>
+      <find>get</find>
+      <find>target_device</find>
+      <find>_views</find>
+      <find>views</find>
+      <find>_controllers</find>
     </findStrings>
     <replaceStrings>
-      <replace>Home</replace>
-      <replace>Connect</replace>
-      <replace>Live</replace>
-      <replace>Upload</replace>
       <replace>History</replace>
       <replace>Device</replace>
       <replace>Account</replace>
@@ -148,6 +201,10 @@
       <replace>service</replace>
       <replace>PortTest</replace>
       <replace>connec(lambda:</replace>
+      <replace>_model.devices_found</replace>
+      <replace>_model.target_device</replace>
+      <replace>_model._views</replace>
+      <replace>controllers</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -156,15 +213,7 @@
         <option value="$PROJECT_DIR$/view/main_window.py" />
         <option value="$PROJECT_DIR$/view/main_view.py" />
         <option value="$PROJECT_DIR$/controllers/main_model.py" />
-        <option value="$PROJECT_DIR$/models/main_model.py" />
         <option value="$PROJECT_DIR$/application/gait_ui" />
-        <option value="$PROJECT_DIR$/models/home_model.py" />
-        <option value="$PROJECT_DIR$/models/account_model.py" />
-        <option value="$PROJECT_DIR$/models/connect_model.py" />
-        <option value="$PROJECT_DIR$/models/device_model.py" />
-        <option value="$PROJECT_DIR$/models/history_model.py" />
-        <option value="$PROJECT_DIR$/models/live_model.py" />
-        <option value="$PROJECT_DIR$/models/upload_model.py" />
         <option value="$PROJECT_DIR$/views/Views.py" />
         <option value="$PROJECT_DIR$/views/ui_files/login_view_ui.py" />
         <option value="$PROJECT_DIR$/controllers/upload_controller.py" />
@@ -172,29 +221,37 @@
         <option value="$PROJECT_DIR$/controllers/device_controller.py" />
         <option value="$PROJECT_DIR$/views/ui_files/connect_view_ui.py" />
         <option value="$PROJECT_DIR$/controllers/login_controller.py" />
-        <option value="$PROJECT_DIR$/models/login_model.py" />
         <option value="$PROJECT_DIR$/controllers/home_controller.py" />
         <option value="$PROJECT_DIR$/application/Logger.py" />
         <option value="$PROJECT_DIR$/controllers/history_controller.py" />
         <option value="$PROJECT_DIR$/views/ui_files/history_view_ui.py" />
         <option value="$PROJECT_DIR$/controllers/connect_manager/DeviceFinder.py" />
         <option value="$PROJECT_DIR$/controllers/connect_manager/DeviceConnectorLinux.py" />
-        <option value="$PROJECT_DIR$/controllers/connect_controller.py" />
         <option value="$PROJECT_DIR$/controllers/live_manager/TestPort.py" />
         <option value="$PROJECT_DIR$/controllers/connect_manager/DeviceConnector.py" />
         <option value="$PROJECT_DIR$/controllers/live_manager/PortTest.py" />
         <option value="$PROJECT_DIR$/controllers/live_controller.py" />
-        <option value="$PROJECT_DIR$/application/app.py" />
-        <option value="$PROJECT_DIR$/controllers/main_controller.py" />
-        <option value="$PROJECT_DIR$/views/live_view.py" />
-        <option value="$PROJECT_DIR$/views/history_view.py" />
-        <option value="$PROJECT_DIR$/views/main_view.py" />
-        <option value="$PROJECT_DIR$/views/home_view.py" />
-        <option value="$PROJECT_DIR$/views/login_view.py" />
         <option value="$PROJECT_DIR$/views/connect_view.py" />
+        <option value="$PROJECT_DIR$/controllers/connect_controller.py" />
+        <option value="$PROJECT_DIR$/controllers/main_controller.py" />
+        <option value="$PROJECT_DIR$/models/login_model.py" />
+        <option value="$PROJECT_DIR$/application/app.py" />
+        <option value="$PROJECT_DIR$/models/connect_model.py" />
+        <option value="$PROJECT_DIR$/models/main_model.py" />
         <option value="$PROJECT_DIR$/views/account_view.py" />
         <option value="$PROJECT_DIR$/views/device_view.py" />
+        <option value="$PROJECT_DIR$/views/history_view.py" />
+        <option value="$PROJECT_DIR$/views/live_view.py" />
+        <option value="$PROJECT_DIR$/views/login_view.py" />
+        <option value="$PROJECT_DIR$/views/main_view.py" />
         <option value="$PROJECT_DIR$/views/upload_view.py" />
+        <option value="$PROJECT_DIR$/views/home_view.py" />
+        <option value="$PROJECT_DIR$/models/account_model.py" />
+        <option value="$PROJECT_DIR$/models/device_model.py" />
+        <option value="$PROJECT_DIR$/models/history_model.py" />
+        <option value="$PROJECT_DIR$/models/home_model.py" />
+        <option value="$PROJECT_DIR$/models/live_model.py" />
+        <option value="$PROJECT_DIR$/models/upload_model.py" />
       </list>
     </option>
   </component>
@@ -232,6 +289,11 @@
               <item name="GAIT_UI" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
               <item name="connect_manager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GAIT_UI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GAIT_UI" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GAIT_UI" type="b2602c69:ProjectViewProjectNode" />
@@ -374,7 +436,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19550858" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19550858" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.32956153" />
@@ -384,7 +446,7 @@
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32956153" />
       <window_info anchor="bottom" id="Run" order="6" weight="0.23479491" />
-      <window_info anchor="bottom" id="Debug" order="7" visible="true" weight="0.39886847" />
+      <window_info active="true" anchor="bottom" id="Debug" order="7" visible="true" weight="0.39886847" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32956153" />
@@ -394,36 +456,10 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/home_view_ui.py" />
-    <entry file="file://$PROJECT_DIR$/views/main_view_ui.py" />
-    <entry file="file://$PROJECT_DIR$/views/login_view_ui.py" />
-    <entry file="file://$PROJECT_DIR$/views/ui_files/resources.py" />
-    <entry file="file://$PROJECT_DIR$/views/ui_files/resources_rc.py" />
-    <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/-639831511/PyQt5/QtWidgets/QWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="403" column="8" selection-start-line="403" selection-start-column="8" selection-end-line="403" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/-639831511/PyQt5/QtWidgets/QApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
           <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/main_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
@@ -495,23 +531,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/login_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="10" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/home_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="28" column="63" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/-639831511/bluetooth/_msbt.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
@@ -526,13 +545,6 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/login_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -623,16 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/connect_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="47" column="19" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/live_manager/PortTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -671,19 +673,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="50" column="71" lean-forward="true" selection-start-line="50" selection-start-column="71" selection-end-line="50" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/live_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
+        <state relative-caret-position="77">
           <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
           <folding>
             <element signature="e#0#42#0" expanded="true" />
@@ -691,60 +683,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/home_view.py">
+    <entry file="file://$PROJECT_DIR$/controllers/main_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="265">
+          <caret line="53" column="64" lean-forward="true" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="64" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#42#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/login_view.py">
+    <entry file="file://$PROJECT_DIR$/controllers/home_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="476">
+          <caret line="28" column="63" selection-start-line="28" selection-start-column="63" selection-end-line="28" selection-end-column="63" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#54#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/main_view.py">
+    <entry file="file://$PROJECT_DIR$/controllers/login_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="544">
+          <caret line="32" column="14" selection-start-line="32" selection-start-column="14" selection-end-line="32" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/connect_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="48" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/history_view.py">
+    <entry file="file://$PROJECT_DIR$/models/login_model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="19" />
+          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/connect_view.py">
+    <entry file="file://$PROJECT_DIR$/application/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+        <state relative-caret-position="1363">
+          <caret line="120" column="66" selection-start-line="120" selection-start-column="66" selection-end-line="120" selection-end-column="66" />
           <folding>
-            <element signature="e#0#52#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/main_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-323">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/account_view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="255">
+          <caret line="15" column="58" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
@@ -753,40 +762,150 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/device_view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="221">
+          <caret line="15" column="58" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/main_controller.py">
+    <entry file="file://$PROJECT_DIR$/views/connect_view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="20" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/history_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/live_view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="54" column="8" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="72" />
+        <state relative-caret-position="258">
+          <caret line="16" column="58" lean-forward="true" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/upload_view.py">
+    <entry file="file://$PROJECT_DIR$/views/login_view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="31" column="77" selection-start-line="31" selection-start-column="77" selection-end-line="31" selection-end-column="77" />
+        <state relative-caret-position="170">
+          <caret line="10" column="100" selection-start-line="10" selection-start-column="100" selection-end-line="10" selection-end-column="100" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/main_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" column="79" selection-start-line="17" selection-start-column="79" selection-end-line="17" selection-end-column="79" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/upload_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="11" lean-forward="true" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/home_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="100" selection-start-line="9" selection-start-column="100" selection-end-line="9" selection-end-column="100" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/connect_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="18" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/history_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/device_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/account_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/home_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/upload_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/live_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>

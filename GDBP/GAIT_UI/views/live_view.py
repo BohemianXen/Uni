@@ -7,14 +7,14 @@ import pyqtgraph as pg
 class LiveView(QWidget):
     """ View class. Instantiates all UI QWidgets associated with this view and links signals to controller slots.
 
-      Args:
-          controller (QWidget): The view's corresponding controller; that which manipulates this view
+    Args:
+        controller (QWidget): The view's corresponding controller; that which manipulates this view.
 
-      Parameters:
-          _controller (QWidget): A reference to the passed controller
-          _ui (Ui_LiveView): Holds all the generated UI elements for an added layer of abstraction
-          name (str): The name of this class
-          _logger (Logger): Logging instance for this class
+    Parameters:
+        _controller (QWidget): A reference to the passed controller.
+        _ui (Ui_LiveView): Holds all the generated UI elements for an added layer of abstraction.
+        name (str): The name of this class.
+        _logger (Logger): Logging instance for this class.
     """
 
     def __init__(self, controller):
@@ -39,10 +39,10 @@ class LiveView(QWidget):
         self._ui.locationRadioButton.toggled.connect(lambda: self._controller.button_toggled('map'))
 
     def change_stacked_widget(self, view_type):  # Need checked check?
-        """ Updates the stacked widget to match the chosen data view mode.
+        """Updates the stacked widget to match the chosen data view mode.
 
         Args:
-            view_type (str): The name of the view type required; either console, graph, or map
+            view_type (str): The name of the view type required; either console, graph, or map.
         """
         if view_type == 'console':
             self._ui.stackedWidget.setCurrentWidget(self._ui.consoleWidget)
@@ -52,14 +52,14 @@ class LiveView(QWidget):
             self._ui.stackedWidget.setCurrentWidget(self._ui.mapWidget)
 
     def unlock_view(self):
-        """ Moves to connected view since device connection complete."""
+        """Moves to connected view since device connection complete."""
         self._logger.log('Unlocking {}'.format(self.name), self._logger.INFO)
         self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)
 
     def update_test_console(self, message):
-        """ Writes a line to the console text widget during a port test.
+        """Writes a line to the console text widget during a port test.
 
         Args:
-            message (str): The message to be written to the in-app console
+            message (str): The message to be written to the in-app console.
         """
         self._ui.consoleTextEdit.append(message)
