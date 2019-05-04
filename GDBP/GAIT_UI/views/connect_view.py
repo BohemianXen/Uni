@@ -74,4 +74,3 @@ class ConnectView(QWidget):
         else:
             text = [self._ui.devicesListWidget.item(i).text() for i in range(self._ui.devicesListWidget.count())]
             return text
-

@@ -15,3 +15,15 @@ class LiveModel(QObject):
 
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
+
+        self._motion_data = []
+
+    @property
+    def motion_data(self):
+        return self._motion_data
+
+    def add_motion_data(self, new_data):
+        self._motion_data.append(new_data)
+
+    def reset_data(self):
+        self._motion_data = []

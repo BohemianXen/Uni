@@ -35,7 +35,7 @@ class HistoryView(QWidget):
 
         x = np.random.normal(size=1000)
         y = np.random.normal(size=1000)
-        self._ui.graphicsView.plot(x, y, pen=None, symbol='o')
+        self._ui.graphicsView.getPlotItem().plot(x, y, pen=None, symbol='o')
 
     def toggle_calendar_view(self):
         if self._ui.calendarWidget.isVisible():

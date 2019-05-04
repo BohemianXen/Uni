@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import pyqtSignal
 from views.ui_files.live_view_ui import Ui_LiveView
 from application.Logger import Logger
 import pyqtgraph as pg
@@ -11,11 +12,15 @@ class LiveView(QWidget):
         controller (QWidget): The view's corresponding controller; that which manipulates this view.
 
     Parameters:
+        newPlotReady (pyqtSignal): Signal indicating a live plot can commence.
         _controller (QWidget): A reference to the passed controller.
         _ui (Ui_LiveView): Holds all the generated UI elements for an added layer of abstraction.
         name (str): The name of this class.
         _logger (Logger): Logging instance for this class.
+        _plot (PlotItem): reference to the main pyqtgraph PlotItem (to reduce line char count when plotting).
     """
+
+    newPlotReady = pyqtSignal(str)
 
     def __init__(self, controller):
         super().__init__()
@@ -30,26 +35,34 @@ class LiveView(QWidget):
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
 
+        self._plot = self._ui.graphicsView.getPlotItem()
+
         # self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)  # Debug only
 
-        # radio button listeners
-        self._ui.testRadioButton.toggled.connect(lambda: self._controller.button_toggled('console'))
-        self._ui.motionRadioButton.toggled.connect(lambda: self._controller.button_toggled('graph'))
-        self._ui.uvRadioButton.toggled.connect(lambda: self._controller.button_toggled('graph'))
-        self._ui.locationRadioButton.toggled.connect(lambda: self._controller.button_toggled('map'))
+        # listeners
+        self.newPlotReady.connect(self._controller.start_plot)
+        self._ui.testRadioButton.toggled.connect(lambda: self._controller.button_toggled('test'))
+        self._ui.motionRadioButton.toggled.connect(lambda: self._controller.button_toggled('motion'))
+        self._ui.uvRadioButton.toggled.connect(lambda: self._controller.button_toggled('uv'))
+        self._ui.locationRadioButton.toggled.connect(lambda: self._controller.button_toggled('location'))
 
     def change_stacked_widget(self, view_type):  # Need checked check?
         """Updates the stacked widget to match the chosen data view mode.
 
         Args:
-            view_type (str): The name of the view type required; either console, graph, or map.
+            view_type (str): The name of the live view type required.
         """
-        if view_type == 'console':
+        self._plot.clear()
+
+        if self._ui.testRadioButton.isChecked() and view_type == 'test':
             self._ui.stackedWidget.setCurrentWidget(self._ui.consoleWidget)
-        elif view_type == 'graph':
-            self._ui.stackedWidget.setCurrentWidget(self._ui.graphicsWidget)
-        else:
+        elif self._ui.locationRadioButton.isChecked() and view_type == 'location':
             self._ui.stackedWidget.setCurrentWidget(self._ui.mapWidget)
+        else:
+            if self._ui.motionRadioButton.isChecked() and view_type == 'motion':
+                self.newPlotReady.emit(view_type)
+
+            self._ui.stackedWidget.setCurrentWidget(self._ui.graphicsWidget)
 
     def unlock_view(self):
         """Moves to connected view since device connection complete."""
@@ -63,3 +76,11 @@ class LiveView(QWidget):
             message (str): The message to be written to the in-app console.
         """
         self._ui.consoleTextEdit.append(message)
+
+    def clear_graph(self):
+        """Clears the plot ahead of updates."""
+        self._plot.plot().clear()
+
+    def update_motion_plot(self, data):
+        """Updates the motion graph with new data."""
+        self._plot.plot().setData(data)

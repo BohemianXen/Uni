@@ -4294,3 +4294,1058 @@
 19:50:19 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
 19:50:19 04/05/2019 | MainController       | INFO     | View change completed 
 19:50:27 04/05/2019 | App                  | INFO     | App closing 
+20:24:08 04/05/2019 | App                  | INFO     | App started 
+20:24:08 04/05/2019 | App                  | INFO     | Instantiating models 
+20:24:08 04/05/2019 | App                  | INFO     | Instantiating controllers 
+20:24:08 04/05/2019 | App                  | INFO     | Instantiating views 
+20:24:09 04/05/2019 | App                  | INFO     | Linking controllers to views 
+20:24:09 04/05/2019 | App                  | INFO     | Configuring main controller 
+20:24:09 04/05/2019 | App                  | INFO     | Loading views 
+20:24:09 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:24:11 04/05/2019 | MainController       | INFO     | Requesting view change 
+20:24:11 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+20:24:11 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+20:24:11 04/05/2019 | MainController       | INFO     | View change completed 
+20:24:11 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+20:24:11 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+20:33:34 04/05/2019 | App                  | INFO     | App started 
+20:33:34 04/05/2019 | App                  | INFO     | Instantiating models 
+20:33:34 04/05/2019 | App                  | INFO     | Instantiating controllers 
+20:33:34 04/05/2019 | App                  | INFO     | Instantiating views 
+20:33:34 04/05/2019 | App                  | INFO     | Linking controllers to views 
+20:33:34 04/05/2019 | App                  | INFO     | Configuring main controller 
+20:33:34 04/05/2019 | App                  | INFO     | Loading views 
+20:33:34 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:02:45 04/05/2019 | App                  | INFO     | App started 
+21:02:45 04/05/2019 | App                  | INFO     | Instantiating models 
+21:02:45 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:02:45 04/05/2019 | App                  | INFO     | Instantiating views 
+21:02:46 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:02:46 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:02:46 04/05/2019 | App                  | INFO     | Loading views 
+21:02:46 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:02:58 04/05/2019 | App                  | INFO     | App started 
+21:02:58 04/05/2019 | App                  | INFO     | Instantiating models 
+21:02:58 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:02:58 04/05/2019 | App                  | INFO     | Instantiating views 
+21:02:58 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:02:58 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:02:58 04/05/2019 | App                  | INFO     | Loading views 
+21:02:58 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:02:59 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:02:59 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:02:59 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:02:59 04/05/2019 | MainController       | INFO     | View change completed 
+21:02:59 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:02:59 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:03:10 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:03:10 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:03:10 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:03:33 04/05/2019 | App                  | INFO     | App started 
+21:03:33 04/05/2019 | App                  | INFO     | Instantiating models 
+21:03:33 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:03:33 04/05/2019 | App                  | INFO     | Instantiating views 
+21:03:34 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:03:34 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:03:34 04/05/2019 | App                  | INFO     | Loading views 
+21:03:34 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:03:35 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:03:35 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:03:35 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:03:35 04/05/2019 | MainController       | INFO     | View change completed 
+21:03:35 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:03:35 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:03:45 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:03:45 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:03:45 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:03:45 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:03:45 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:08:35 04/05/2019 | App                  | INFO     | App started 
+21:08:35 04/05/2019 | App                  | INFO     | Instantiating models 
+21:08:35 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:09:12 04/05/2019 | App                  | INFO     | App started 
+21:09:12 04/05/2019 | App                  | INFO     | Instantiating models 
+21:09:12 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:09:12 04/05/2019 | App                  | INFO     | Instantiating views 
+21:09:13 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:09:13 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:09:13 04/05/2019 | App                  | INFO     | Loading views 
+21:09:13 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:09:14 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:09:14 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:09:14 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:09:14 04/05/2019 | MainController       | INFO     | View change completed 
+21:09:14 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:09:14 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:09:15 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:09:15 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:09:45 04/05/2019 | App                  | INFO     | App started 
+21:09:45 04/05/2019 | App                  | INFO     | Instantiating models 
+21:09:45 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:09:45 04/05/2019 | App                  | INFO     | Instantiating views 
+21:09:46 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:09:46 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:09:46 04/05/2019 | App                  | INFO     | Loading views 
+21:09:46 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:09:47 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:09:47 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:09:47 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:09:47 04/05/2019 | MainController       | INFO     | View change completed 
+21:09:47 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:09:47 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:09:49 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:09:49 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:09:49 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:09:57 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:09:57 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:09:57 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:09:57 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:09:57 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:32:56 04/05/2019 | App                  | INFO     | App started 
+21:32:56 04/05/2019 | App                  | INFO     | Instantiating models 
+21:32:56 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:32:56 04/05/2019 | App                  | INFO     | Instantiating views 
+21:32:56 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:32:56 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:32:56 04/05/2019 | App                  | INFO     | Loading views 
+21:32:56 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:32:57 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:32:57 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:32:57 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:32:57 04/05/2019 | MainController       | INFO     | View change completed 
+21:32:57 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:32:57 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:32:59 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:32:59 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:33:08 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:33:08 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:33:08 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:33:08 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:33:08 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:35:03 04/05/2019 | App                  | INFO     | App started 
+21:35:03 04/05/2019 | App                  | INFO     | Instantiating models 
+21:35:03 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:35:03 04/05/2019 | App                  | INFO     | Instantiating views 
+21:35:03 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:35:03 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:35:03 04/05/2019 | App                  | INFO     | Loading views 
+21:35:03 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:35:05 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:35:05 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:35:05 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:35:05 04/05/2019 | MainController       | INFO     | View change completed 
+21:35:05 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:35:05 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:35:07 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:35:07 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:35:15 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:35:15 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:35:15 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:35:15 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:35:15 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:35:22 04/05/2019 | App                  | INFO     | App started 
+21:35:22 04/05/2019 | App                  | INFO     | Instantiating models 
+21:35:22 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:35:22 04/05/2019 | App                  | INFO     | Instantiating views 
+21:35:23 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:35:23 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:35:23 04/05/2019 | App                  | INFO     | Loading views 
+21:35:23 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:35:24 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:35:24 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:35:24 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:35:24 04/05/2019 | MainController       | INFO     | View change completed 
+21:35:24 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:35:24 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:35:25 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:35:25 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+21:35:25 04/05/2019 | MainController       | INFO     | View change completed 
+21:35:26 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:35:26 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:35:26 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:35:34 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:35:34 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:35:34 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:35:34 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:35:34 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:36:19 04/05/2019 | App                  | INFO     | App started 
+21:36:19 04/05/2019 | App                  | INFO     | Instantiating models 
+21:36:19 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:36:19 04/05/2019 | App                  | INFO     | Instantiating views 
+21:36:19 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:36:19 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:36:19 04/05/2019 | App                  | INFO     | Loading views 
+21:36:19 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:36:20 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:36:20 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:36:20 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:36:20 04/05/2019 | MainController       | INFO     | View change completed 
+21:36:20 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:36:20 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:36:21 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:36:21 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+21:36:21 04/05/2019 | MainController       | INFO     | View change completed 
+21:36:22 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:36:22 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:36:22 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:36:31 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:36:31 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:36:31 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:36:31 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:36:31 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:38:48 04/05/2019 | App                  | INFO     | App started 
+21:38:48 04/05/2019 | App                  | INFO     | Instantiating models 
+21:38:48 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:38:48 04/05/2019 | App                  | INFO     | Instantiating views 
+21:38:49 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:38:49 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:38:49 04/05/2019 | App                  | INFO     | Loading views 
+21:38:49 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:38:50 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:38:50 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:38:50 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:38:50 04/05/2019 | MainController       | INFO     | View change completed 
+21:38:50 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:38:50 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:38:50 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:38:50 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+21:38:50 04/05/2019 | MainController       | INFO     | View change completed 
+21:38:51 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:38:51 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:38:51 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:39:00 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:39:00 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:39:00 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:43:32 04/05/2019 | App                  | INFO     | App started 
+21:43:32 04/05/2019 | App                  | INFO     | Instantiating models 
+21:43:32 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:43:32 04/05/2019 | App                  | INFO     | Instantiating views 
+21:43:32 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:43:32 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:43:32 04/05/2019 | App                  | INFO     | Loading views 
+21:43:32 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:43:33 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:43:33 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:43:33 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:43:33 04/05/2019 | MainController       | INFO     | View change completed 
+21:43:33 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:43:33 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:43:34 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:43:34 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+21:43:34 04/05/2019 | MainController       | INFO     | View change completed 
+21:43:35 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:43:35 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:43:35 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:43:44 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:43:44 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:43:44 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:51:26 04/05/2019 | App                  | INFO     | App started 
+21:51:26 04/05/2019 | App                  | INFO     | Instantiating models 
+21:51:26 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:51:26 04/05/2019 | App                  | INFO     | Instantiating views 
+21:51:27 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:51:27 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:51:27 04/05/2019 | App                  | INFO     | Loading views 
+21:51:27 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:51:28 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:51:28 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:51:28 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:51:28 04/05/2019 | MainController       | INFO     | View change completed 
+21:51:28 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:51:28 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:51:28 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:51:28 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+21:51:28 04/05/2019 | MainController       | INFO     | View change completed 
+21:51:29 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:51:29 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:51:29 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:51:38 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:51:38 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:51:38 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:52:48 04/05/2019 | App                  | INFO     | App started 
+21:52:48 04/05/2019 | App                  | INFO     | Instantiating models 
+21:52:48 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:52:48 04/05/2019 | App                  | INFO     | Instantiating views 
+21:52:49 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:52:49 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:52:49 04/05/2019 | App                  | INFO     | Loading views 
+21:52:49 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:52:50 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:52:50 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:52:50 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:52:50 04/05/2019 | MainController       | INFO     | View change completed 
+21:52:50 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:52:50 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:52:51 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:52:51 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+21:52:51 04/05/2019 | MainController       | INFO     | View change completed 
+21:52:52 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:52:52 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:52:52 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:53:00 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:53:00 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:53:00 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:53:05 04/05/2019 | App                  | INFO     | App started 
+21:53:05 04/05/2019 | App                  | INFO     | Instantiating models 
+21:53:05 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:53:05 04/05/2019 | App                  | INFO     | Instantiating views 
+21:53:05 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:53:05 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:53:05 04/05/2019 | App                  | INFO     | Loading views 
+21:53:05 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:53:06 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:53:06 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:53:06 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:53:06 04/05/2019 | MainController       | INFO     | View change completed 
+21:53:06 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:53:06 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:53:17 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:53:17 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:53:17 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:53:17 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:53:17 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:53:29 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:53:29 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+21:53:29 04/05/2019 | MainController       | INFO     | View change completed 
+21:53:29 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:53:29 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:53:29 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:54:11 04/05/2019 | App                  | INFO     | App started 
+21:54:11 04/05/2019 | App                  | INFO     | Instantiating models 
+21:54:11 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:54:11 04/05/2019 | App                  | INFO     | Instantiating views 
+21:54:11 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:54:11 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:54:11 04/05/2019 | App                  | INFO     | Loading views 
+21:54:11 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:54:12 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:54:12 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:54:12 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:54:12 04/05/2019 | MainController       | INFO     | View change completed 
+21:54:12 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:54:12 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:54:16 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:54:16 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:54:16 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:54:22 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:54:22 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:54:22 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:54:22 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:54:22 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:56:25 04/05/2019 | App                  | INFO     | App started 
+21:56:25 04/05/2019 | App                  | INFO     | Instantiating models 
+21:56:25 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:56:25 04/05/2019 | App                  | INFO     | Instantiating views 
+21:56:26 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:56:26 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:56:26 04/05/2019 | App                  | INFO     | Loading views 
+21:56:26 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:59:33 04/05/2019 | App                  | INFO     | App started 
+21:59:33 04/05/2019 | App                  | INFO     | Instantiating models 
+21:59:33 04/05/2019 | App                  | INFO     | Instantiating controllers 
+21:59:33 04/05/2019 | App                  | INFO     | Instantiating views 
+21:59:33 04/05/2019 | App                  | INFO     | Linking controllers to views 
+21:59:33 04/05/2019 | App                  | INFO     | Configuring main controller 
+21:59:33 04/05/2019 | App                  | INFO     | Loading views 
+21:59:33 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:59:34 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:59:34 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:59:34 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:59:34 04/05/2019 | MainController       | INFO     | View change completed 
+21:59:34 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:59:34 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:59:35 04/05/2019 | MainController       | INFO     | Requesting view change 
+21:59:35 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+21:59:35 04/05/2019 | MainController       | INFO     | View change completed 
+21:59:36 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:59:36 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:59:36 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:59:44 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+21:59:44 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:59:44 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:59:44 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+21:59:44 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+21:59:45 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:59:45 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:59:45 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:59:45 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:59:45 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:59:57 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+21:59:57 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+21:59:57 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:00:02 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:00:02 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:00:02 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:00:02 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:00:02 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:05:58 04/05/2019 | App                  | INFO     | App started 
+22:05:58 04/05/2019 | App                  | INFO     | Instantiating models 
+22:05:58 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:05:58 04/05/2019 | App                  | INFO     | Instantiating views 
+22:05:59 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:05:59 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:05:59 04/05/2019 | App                  | INFO     | Loading views 
+22:05:59 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:06:04 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:06:04 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:06:04 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:06:04 04/05/2019 | MainController       | INFO     | View change completed 
+22:06:04 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:06:04 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:06:06 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:06:06 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:06:06 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:06:14 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:06:14 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:06:14 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:06:14 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:06:14 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:06:17 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:06:17 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:06:51 04/05/2019 | App                  | INFO     | App started 
+22:06:51 04/05/2019 | App                  | INFO     | Instantiating models 
+22:06:51 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:06:51 04/05/2019 | App                  | INFO     | Instantiating views 
+22:06:52 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:06:52 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:06:52 04/05/2019 | App                  | INFO     | Loading views 
+22:06:52 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:07:00 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:07:00 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:07:00 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:07:00 04/05/2019 | MainController       | INFO     | View change completed 
+22:07:00 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:07:00 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:07:00 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:07:00 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:07:00 04/05/2019 | MainController       | INFO     | View change completed 
+22:07:01 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:07:01 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:07:01 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:07:03 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:07:03 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:07:03 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:07:03 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:07:10 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:07:10 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:07:10 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:07:10 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:07:10 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:07:57 04/05/2019 | App                  | INFO     | App started 
+22:07:57 04/05/2019 | App                  | INFO     | Instantiating models 
+22:07:57 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:07:57 04/05/2019 | App                  | INFO     | Instantiating views 
+22:07:58 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:07:58 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:07:58 04/05/2019 | App                  | INFO     | Loading views 
+22:07:58 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:07:58 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:07:58 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:07:58 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:07:58 04/05/2019 | MainController       | INFO     | View change completed 
+22:07:58 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:07:58 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:08:07 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:08:07 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:08:07 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:08:09 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:08:09 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:08:09 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:08:09 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:08:09 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:08:41 04/05/2019 | App                  | INFO     | App started 
+22:08:41 04/05/2019 | App                  | INFO     | Instantiating models 
+22:08:41 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:08:41 04/05/2019 | App                  | INFO     | Instantiating views 
+22:08:41 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:08:41 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:08:41 04/05/2019 | App                  | INFO     | Loading views 
+22:08:41 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:08:45 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:08:45 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:08:45 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:08:45 04/05/2019 | MainController       | INFO     | View change completed 
+22:08:45 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:08:45 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:08:46 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:08:46 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:08:46 04/05/2019 | MainController       | INFO     | View change completed 
+22:08:47 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:08:47 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:09:24 04/05/2019 | App                  | INFO     | App started 
+22:09:24 04/05/2019 | App                  | INFO     | Instantiating models 
+22:09:24 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:09:24 04/05/2019 | App                  | INFO     | Instantiating views 
+22:09:34 04/05/2019 | App                  | INFO     | App started 
+22:09:34 04/05/2019 | App                  | INFO     | Instantiating models 
+22:09:34 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:09:34 04/05/2019 | App                  | INFO     | Instantiating views 
+22:09:35 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:09:35 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:09:35 04/05/2019 | App                  | INFO     | Loading views 
+22:09:35 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:09:35 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:09:35 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:09:35 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:09:35 04/05/2019 | MainController       | INFO     | View change completed 
+22:09:35 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:09:35 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:09:39 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:09:39 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:09:46 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:09:46 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:09:46 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:10:13 04/05/2019 | App                  | INFO     | App started 
+22:10:13 04/05/2019 | App                  | INFO     | Instantiating models 
+22:10:13 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:10:13 04/05/2019 | App                  | INFO     | Instantiating views 
+22:10:13 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:10:13 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:10:13 04/05/2019 | App                  | INFO     | Loading views 
+22:10:13 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:10:14 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:10:14 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:10:14 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:10:14 04/05/2019 | MainController       | INFO     | View change completed 
+22:10:14 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:10:14 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:10:16 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:10:16 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:10:16 04/05/2019 | MainController       | INFO     | View change completed 
+22:10:17 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:10:17 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:10:25 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:10:25 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:10:25 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:10:25 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:10:25 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:10:27 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:10:27 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:10:27 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:10:27 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:10:55 04/05/2019 | ConnectController    | DEBUG    | Device rolph selected 
+22:10:56 04/05/2019 | ConnectController    | DEBUG    | Attempting to connect to rolph 
+22:10:56 04/05/2019 | DeviceConnector      | DEBUG    | Starting new thread; connecting with rolph 
+22:10:56 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovering devices to locate target 
+22:10:56 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovered target 
+22:11:01 04/05/2019 | DeviceConnector      | DEBUG    | No services found 
+22:11:01 04/05/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
+22:11:01 04/05/2019 | ConnectController    | DEBUG    | rolph re-found: True 
+22:11:01 04/05/2019 | LiveView             | INFO     | Unlocking LiveView 
+22:11:25 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:11:26 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:11:26 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:13:00 04/05/2019 | App                  | INFO     | App started 
+22:13:00 04/05/2019 | App                  | INFO     | Instantiating models 
+22:13:00 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:13:00 04/05/2019 | App                  | INFO     | Instantiating views 
+22:13:00 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:13:00 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:13:00 04/05/2019 | App                  | INFO     | Loading views 
+22:13:00 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:13:01 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:13:01 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:13:01 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:13:01 04/05/2019 | MainController       | INFO     | View change completed 
+22:13:01 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:13:01 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:13:02 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:13:02 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:13:02 04/05/2019 | MainController       | INFO     | View change completed 
+22:13:12 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:13:12 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:13:12 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:13:12 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:13:12 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:13:12 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:13:12 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:13:21 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:13:21 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:13:21 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:13:21 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:31:42 04/05/2019 | App                  | INFO     | App started 
+22:31:42 04/05/2019 | App                  | INFO     | Instantiating models 
+22:31:42 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:31:42 04/05/2019 | App                  | INFO     | Instantiating views 
+22:31:43 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:31:43 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:31:43 04/05/2019 | App                  | INFO     | Loading views 
+22:31:43 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:31:44 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:31:44 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:31:44 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:31:44 04/05/2019 | MainController       | INFO     | View change completed 
+22:31:44 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:31:44 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:31:45 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:31:45 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:31:45 04/05/2019 | MainController       | INFO     | View change completed 
+22:31:45 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:31:45 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:31:54 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:31:54 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:31:54 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:31:54 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:31:54 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:32:11 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:32:11 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:32:11 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:32:11 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:32:45 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:32:45 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:32:46 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:33:06 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:33:31 04/05/2019 | App                  | INFO     | App started 
+22:33:31 04/05/2019 | App                  | INFO     | Instantiating models 
+22:33:31 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:33:31 04/05/2019 | App                  | INFO     | Instantiating views 
+22:33:31 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:33:31 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:33:31 04/05/2019 | App                  | INFO     | Loading views 
+22:33:31 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:33:38 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:33:38 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:33:38 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:33:38 04/05/2019 | MainController       | INFO     | View change completed 
+22:33:38 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:33:38 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:33:39 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:33:39 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:33:39 04/05/2019 | MainController       | INFO     | View change completed 
+22:33:41 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:33:41 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:33:44 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:33:44 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:33:48 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:33:48 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:33:48 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:34:39 04/05/2019 | App                  | INFO     | App started 
+22:34:39 04/05/2019 | App                  | INFO     | Instantiating models 
+22:34:39 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:34:39 04/05/2019 | App                  | INFO     | Instantiating views 
+22:34:40 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:34:40 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:34:40 04/05/2019 | App                  | INFO     | Loading views 
+22:34:40 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:34:43 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:34:43 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:34:43 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:34:43 04/05/2019 | MainController       | INFO     | View change completed 
+22:34:43 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:34:43 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:34:44 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:34:44 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:34:44 04/05/2019 | MainController       | INFO     | View change completed 
+22:34:46 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:34:46 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:34:49 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:34:50 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:34:54 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:34:54 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:34:54 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:36:33 04/05/2019 | App                  | INFO     | App started 
+22:36:33 04/05/2019 | App                  | INFO     | Instantiating models 
+22:36:33 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:36:33 04/05/2019 | App                  | INFO     | Instantiating views 
+22:36:34 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:36:34 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:36:34 04/05/2019 | App                  | INFO     | Loading views 
+22:36:34 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:36:36 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:36:36 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:36:36 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:36:36 04/05/2019 | MainController       | INFO     | View change completed 
+22:36:36 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:36:36 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:36:37 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:36:37 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:36:37 04/05/2019 | MainController       | INFO     | View change completed 
+22:36:38 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:36:38 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+22:36:43 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+22:36:43 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+22:36:46 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:36:46 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:36:46 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:36:46 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:36:46 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:48:30 04/05/2019 | App                  | INFO     | App started 
+22:48:30 04/05/2019 | App                  | INFO     | Instantiating models 
+22:48:30 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:48:30 04/05/2019 | App                  | INFO     | Instantiating views 
+22:48:31 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:48:31 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:48:31 04/05/2019 | App                  | INFO     | Loading views 
+22:48:31 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:48:32 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:48:32 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:48:32 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:48:32 04/05/2019 | MainController       | INFO     | View change completed 
+22:48:32 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:48:32 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:48:33 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:48:33 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:48:33 04/05/2019 | MainController       | INFO     | View change completed 
+22:48:34 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:48:43 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:48:43 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:48:43 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:48:47 04/05/2019 | App                  | INFO     | App started 
+22:48:47 04/05/2019 | App                  | INFO     | Instantiating models 
+22:48:47 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:48:47 04/05/2019 | App                  | INFO     | Instantiating views 
+22:48:47 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:48:47 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:48:47 04/05/2019 | App                  | INFO     | Loading views 
+22:48:47 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:48:48 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:48:48 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:48:48 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:48:48 04/05/2019 | MainController       | INFO     | View change completed 
+22:48:48 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:48:48 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:48:48 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:48:48 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:48:48 04/05/2019 | MainController       | INFO     | View change completed 
+22:48:49 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:48:58 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:48:58 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:48:58 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:49:38 04/05/2019 | App                  | INFO     | App started 
+22:49:38 04/05/2019 | App                  | INFO     | Instantiating models 
+22:49:38 04/05/2019 | App                  | INFO     | Instantiating controllers 
+22:49:38 04/05/2019 | App                  | INFO     | Instantiating views 
+22:49:38 04/05/2019 | App                  | INFO     | Linking controllers to views 
+22:49:38 04/05/2019 | App                  | INFO     | Configuring main controller 
+22:49:38 04/05/2019 | App                  | INFO     | Loading views 
+22:49:38 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:49:43 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:49:43 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:49:43 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:49:43 04/05/2019 | MainController       | INFO     | View change completed 
+22:49:43 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:49:43 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:49:43 04/05/2019 | MainController       | INFO     | Requesting view change 
+22:49:43 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+22:49:43 04/05/2019 | MainController       | INFO     | View change completed 
+22:49:44 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+22:49:53 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:49:53 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:49:53 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:07:46 04/05/2019 | App                  | INFO     | App started 
+23:07:46 04/05/2019 | App                  | INFO     | Instantiating models 
+23:07:46 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:07:46 04/05/2019 | App                  | INFO     | Instantiating views 
+23:07:46 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:07:46 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:07:46 04/05/2019 | App                  | INFO     | Loading views 
+23:07:46 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:07:47 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:07:47 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:07:47 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:07:47 04/05/2019 | MainController       | INFO     | View change completed 
+23:07:47 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:07:47 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:07:48 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:07:48 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+23:07:48 04/05/2019 | MainController       | INFO     | View change completed 
+23:07:49 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:07:49 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:07:49 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+23:07:57 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:07:57 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:07:57 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:07:57 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+23:07:57 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:08:20 04/05/2019 | App                  | INFO     | App started 
+23:08:20 04/05/2019 | App                  | INFO     | Instantiating models 
+23:08:20 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:08:20 04/05/2019 | App                  | INFO     | Instantiating views 
+23:08:20 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:08:20 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:08:20 04/05/2019 | App                  | INFO     | Loading views 
+23:08:20 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:08:21 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:08:21 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:08:21 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:08:21 04/05/2019 | MainController       | INFO     | View change completed 
+23:08:21 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:08:21 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:08:22 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:08:22 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+23:08:22 04/05/2019 | MainController       | INFO     | View change completed 
+23:08:23 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:08:23 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:08:23 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+23:08:27 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+23:08:32 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:08:32 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:08:32 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:08:32 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+23:08:32 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:08:42 04/05/2019 | App                  | INFO     | App started 
+23:08:42 04/05/2019 | App                  | INFO     | Instantiating models 
+23:08:42 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:08:42 04/05/2019 | App                  | INFO     | Instantiating views 
+23:08:43 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:08:43 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:08:43 04/05/2019 | App                  | INFO     | Loading views 
+23:08:43 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:08:44 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:08:44 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:08:44 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:08:44 04/05/2019 | MainController       | INFO     | View change completed 
+23:08:44 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:08:44 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:08:48 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:08:48 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:08:54 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:08:54 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:08:54 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:08:54 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+23:08:54 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:09:41 04/05/2019 | App                  | INFO     | App started 
+23:09:41 04/05/2019 | App                  | INFO     | Instantiating models 
+23:09:41 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:09:41 04/05/2019 | App                  | INFO     | Instantiating views 
+23:09:41 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:09:41 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:09:41 04/05/2019 | App                  | INFO     | Loading views 
+23:09:41 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:09:42 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:09:42 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:09:42 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:09:42 04/05/2019 | MainController       | INFO     | View change completed 
+23:09:42 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:09:42 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:09:52 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:09:52 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:09:52 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:09:52 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+23:09:52 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:09:53 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:09:53 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+23:09:53 04/05/2019 | MainController       | INFO     | View change completed 
+23:09:54 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:09:54 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:10:07 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+23:11:41 04/05/2019 | App                  | INFO     | App started 
+23:11:41 04/05/2019 | App                  | INFO     | Instantiating models 
+23:11:41 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:11:41 04/05/2019 | App                  | INFO     | Instantiating views 
+23:11:42 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:11:42 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:11:42 04/05/2019 | App                  | INFO     | Loading views 
+23:11:42 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:11:43 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:11:43 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:11:43 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:11:43 04/05/2019 | MainController       | INFO     | View change completed 
+23:11:43 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:11:43 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:11:46 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:11:46 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:11:53 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:11:53 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:11:53 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:11:53 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+23:11:53 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:14:31 04/05/2019 | App                  | INFO     | App started 
+23:14:31 04/05/2019 | App                  | INFO     | Instantiating models 
+23:14:31 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:14:31 04/05/2019 | App                  | INFO     | Instantiating views 
+23:14:32 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:14:32 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:14:32 04/05/2019 | App                  | INFO     | Loading views 
+23:14:32 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:14:33 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:14:33 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:14:33 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:14:33 04/05/2019 | MainController       | INFO     | View change completed 
+23:14:33 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:14:33 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:14:33 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+23:14:33 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:14:33 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+23:14:33 04/05/2019 | MainController       | INFO     | View change completed 
+23:14:51 04/05/2019 | App                  | INFO     | App started 
+23:14:51 04/05/2019 | App                  | INFO     | Instantiating models 
+23:14:51 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:14:51 04/05/2019 | App                  | INFO     | Instantiating views 
+23:14:51 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:14:51 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:14:51 04/05/2019 | App                  | INFO     | Loading views 
+23:14:51 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:14:52 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:14:52 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:14:52 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:14:52 04/05/2019 | MainController       | INFO     | View change completed 
+23:14:52 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:14:52 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:14:53 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:14:53 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+23:14:53 04/05/2019 | MainController       | INFO     | View change completed 
+23:14:54 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:14:54 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:14:57 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+23:14:57 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+23:15:02 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:15:02 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:15:02 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:15:02 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+23:15:02 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:17:49 04/05/2019 | App                  | INFO     | App started 
+23:17:49 04/05/2019 | App                  | INFO     | Instantiating models 
+23:17:49 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:17:49 04/05/2019 | App                  | INFO     | Instantiating views 
+23:17:50 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:17:50 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:17:50 04/05/2019 | App                  | INFO     | Loading views 
+23:17:50 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:17:51 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:17:51 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:17:51 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:17:51 04/05/2019 | MainController       | INFO     | View change completed 
+23:17:51 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:17:51 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:17:51 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:17:51 04/05/2019 | MainView             | INFO     | Changing from homeTab to liveTab 
+23:17:51 04/05/2019 | MainController       | INFO     | View change completed 
+23:17:52 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:17:52 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:18:00 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+23:18:00 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+23:18:01 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:18:01 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:18:01 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:18:01 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+23:18:01 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:18:03 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:18:03 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:21:13 04/05/2019 | App                  | INFO     | App started 
+23:21:13 04/05/2019 | App                  | INFO     | Instantiating models 
+23:21:13 04/05/2019 | App                  | INFO     | Instantiating controllers 
+23:21:13 04/05/2019 | App                  | INFO     | Instantiating views 
+23:21:14 04/05/2019 | App                  | INFO     | Linking controllers to views 
+23:21:14 04/05/2019 | App                  | INFO     | Configuring main controller 
+23:21:14 04/05/2019 | App                  | INFO     | Loading views 
+23:21:14 04/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:21:21 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:21:21 04/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:21:21 04/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:21:21 04/05/2019 | MainController       | INFO     | View change completed 
+23:21:21 04/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:21:21 04/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:21:31 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:21:31 04/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:21:31 04/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:21:31 04/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+23:21:31 04/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:21:48 04/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+23:21:48 04/05/2019 | MainController       | INFO     | Requesting view change 
+23:21:48 04/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+23:21:48 04/05/2019 | MainController       | INFO     | View change completed 
+23:21:49 04/05/2019 | ConnectController    | DEBUG    | Device rolph selected 
+23:21:49 04/05/2019 | ConnectController    | DEBUG    | Attempting to connect to rolph 
+23:21:49 04/05/2019 | DeviceConnector      | DEBUG    | Starting new thread; connecting with rolph 
+23:21:49 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovering devices to locate target 
+23:21:49 04/05/2019 | DeviceConnector      | DEBUG    | Re-discovered target 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Found 10 services on rolph 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'MAP MAS-iOS' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 2 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1132'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1134', 256)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'PAN Network Access Profile' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Network Access Point 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 15 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1116'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1116', 256)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Wireless iAP v2' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 1 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: ['02030302-1D19-415F-86F2-22A2106A0A77'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1101', 256)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Wireless iAP' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 1 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: ['00000000-DECA-FADE-DECA-DEAFDECACAFE'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1101', 256)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'AVRCP Device' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Remote Control Device 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 23 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110e', b'110f'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110e', 260)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'AVRCP Device' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description: Remote Control Device 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 23 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110c'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110e', 260)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Audio Source' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    L2CAP 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 25 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'110a'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'110d', 259)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Phonebook' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 13 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'112f'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'1130', 256)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: b'Handsfree Gateway' 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description:  
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    RFCOMM 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: 8 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'111f', b'1203'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [(b'111e', 262)] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Service Name: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Host:        74:9E:AF:43:7A:89 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Description: PnP Information 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Provided By: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Protocol:    UNKNOWN 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Channel/PSM: None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service Classes: [b'1200'] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Profiles:    [] 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    |     Service ID:  None 
+23:21:51 04/05/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
+23:21:51 04/05/2019 | ConnectController    | DEBUG    | rolph re-found: True 
+23:21:51 04/05/2019 | LiveView             | INFO     | Unlocking LiveView 
+23:21:56 04/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
+23:21:56 04/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+23:22:12 04/05/2019 | LiveController       | DEBUG    | Stopping plot 
+23:22:12 04/05/2019 | LiveMotion           | DEBUG    | Deleting live motion thread 
+23:22:17 04/05/2019 | App                  | INFO     | App closing 

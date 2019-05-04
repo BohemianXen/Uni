@@ -1,6 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 from application.Logger import Logger
 
+
 class AccountModel(QObject):
     """ Model class. Holds program data and the interfaces that allow for the values to be obtained/updated.
 
