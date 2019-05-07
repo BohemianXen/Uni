@@ -3,6 +3,7 @@ from PyQt5.QtCore import pyqtSignal
 from views.ui_files.live_view_ui import Ui_LiveView
 from application.Logger import Logger
 import pyqtgraph as pg
+import numpy as np
 
 
 class LiveView(QWidget):
@@ -36,6 +37,7 @@ class LiveView(QWidget):
         self._logger = Logger(self.name)
 
         self._plot = self._ui.graphicsView.getPlotItem()
+        self._plot.setContentsMargins(10, 10, 10, 10)
 
         # self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)  # Debug only
 
@@ -60,6 +62,9 @@ class LiveView(QWidget):
             self._ui.stackedWidget.setCurrentWidget(self._ui.mapWidget)
         else:
             if self._ui.motionRadioButton.isChecked() and view_type == 'motion':
+                self._plot.setTitle('Motion Data')
+                self._plot.setLabels(left='Value', bottom='Sample No.')
+                # self._plot.addLegend(size=[100, 300])
                 self.newPlotReady.emit(view_type)
 
             self._ui.stackedWidget.setCurrentWidget(self._ui.graphicsWidget)
@@ -83,4 +88,8 @@ class LiveView(QWidget):
 
     def update_motion_plot(self, data):
         """Updates the motion graph with new data."""
-        self._plot.plot().setData(data)
+        sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
+        samples = np.arange(len(data))
+        for sensor in range(6):
+            series = [packet[sensor] for packet in data]
+            self._plot.plot().setData(x=samples, y=series, pen=(sensor, 6), name=sensor_names[sensor])

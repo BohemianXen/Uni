@@ -56,11 +56,12 @@ class LiveController(QObject):
             self.pool.start(live_motion)
             self.live_motion = live_motion
 
-    @pyqtSlot(str, float)
+    @pyqtSlot(str, list)
     def update_plot(self, data_type, data):
         if data_type == 'motion':
             self._model.add_motion_data(data)
-            self._view.update_motion_plot(self._model.motion_data)
+            if len(self._model.motion_data) % 4 == 0:  # TODO: Use timer
+                self._view.update_motion_plot(self._model.motion_data)
 
     def stop_plotting(self):
         self._logger.log('Stopping plot', Logger.DEBUG)

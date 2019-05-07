@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot, QThreadPool
 from application.Logger import Logger
 
-if sys.platform.startswith('linux'):
+if sys.platform.startswith('linux'):  # TODO: Revert this
     from controllers.connect_manager.DeviceFinderLinux import DeviceFinder
     from controllers.connect_manager.DeviceConnectorLinux import DeviceConnector
 else:
@@ -26,6 +26,7 @@ class ConnectController(QObject):
         self.device_connector = DeviceConnector()
         self.device_connector.signals.connectionComplete.connect(self.connect_complete)
         self.device_connector.setAutoDelete(False)
+        self.attempts = self._model.max_attempts
 
     def link_view(self, view):
         self._view = view
@@ -74,7 +75,18 @@ class ConnectController(QObject):
 
     @pyqtSlot(bool)
     def connect_complete(self, complete):
-        self._logger.log("{} re-found: {}".format(self._model.target_device[1], str(complete)), Logger.DEBUG)
-        self._view.toggle_connect_button(value=True)
-        self._view.toggle_search_button(value=True)
-        self.connectionComplete.emit(complete)
+        self.attempts -= 1
+        if not complete:
+            if self.attempts > 0:
+                self._logger.log("Failed to connect; {} attempts remaining".format(self.attempts), Logger.DEBUG)
+                self.pool.start(self.device_connector)
+                # print(self.pool.activeThreadCount())
+            else:
+                self._logger.log("Out of attempts, could not connect to {}".format(self._model.target_device[1]),
+                                 Logger.DEBUG)
+        else:
+            self._logger.log("Successfully connected to {}".format(self._model.target_device[1]), Logger.DEBUG)
+            self._view.toggle_connect_button(value=True)
+            self._view.toggle_search_button(value=True)
+            self.attempts = self._model.max_attempts
+            self.connectionComplete.emit(complete)

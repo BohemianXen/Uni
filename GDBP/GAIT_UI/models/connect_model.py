@@ -20,6 +20,7 @@ class ConnectModel(QObject):
 
         self._devices_found = {}
         self._target_device = ()
+        self._max_attempts = 3
 
     @property
     def devices_found(self):
@@ -38,3 +39,8 @@ class ConnectModel(QObject):
     @target_device.setter
     def target_device(self, device):
         self._target_device = device
+
+    @property
+    def max_attempts(self):
+        """Gets the max connection attempts allowed."""
+        return self._max_attempts
