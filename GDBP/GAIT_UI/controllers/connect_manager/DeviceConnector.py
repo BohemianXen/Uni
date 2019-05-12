@@ -35,6 +35,7 @@ class DeviceConnector(QRunnable):
 
                 if len(services) > 0:
                     self._logger.log("Found {} services on {}".format(len(services), self.target_name), Logger.DEBUG)
+                    connection_complete = True
                 else:
                     self._logger.log("No services found", Logger.DEBUG)
 
@@ -49,7 +50,6 @@ class DeviceConnector(QRunnable):
                     self._logger.log("    Profiles:    {}".format(service["profiles"]), Logger.DEBUG)
                     self._logger.log("    Service ID:  {}".format(service["service-id"]), Logger.DEBUG)
 
-                connection_complete = True
         except bluetooth.BluetoothError as error:
             self._logger.log(str(error), Logger.ERROR)
         except OSError:

@@ -35,9 +35,13 @@ class MainController(QObject):
         self._model.controllers['home'].accountClicked.connect(self.set_current_view)
         self._model.controllers['connect'].connectionComplete.connect(self.unlock_views)
 
-    # update view on navigation triggers
     @pyqtSlot(str)
     def set_current_view(self, view):
+        """Changes the currently active view.
+
+        Args:
+            view (str): The name of the view that needs to be switch to.
+       """
         self._logger.log('Requesting view change', Logger.INFO)
 
         # first navigation from login to home is unique, else switch to selected tab
@@ -46,7 +50,6 @@ class MainController(QObject):
             view = 'home'
 
         self._main_view.set_view(self._model.views[view])
-
         self._logger.log('View change completed', Logger.INFO)
 
     @pyqtSlot(bool)

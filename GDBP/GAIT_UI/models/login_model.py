@@ -20,9 +20,9 @@ class LoginModel(QObject):
         self._logger = Logger(self.name)
 
     def find_username(self, username):
-        # print("Username OK")
+        # TODO: Implement database query for passed username.
         self.usernameExists.emit()
 
     def get_password(self, username):
-        # print("Getting Password")
+        # TODO: Implement hashed password retrieval.
         return "password"

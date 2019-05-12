@@ -34,6 +34,8 @@ class ConnectController(QObject):
     # slot implementations for view signals
     @pyqtSlot()
     def search_button_clicked(self):
+        """Slot implementation for when the search button is clicked or login is completed."""
+        # disable the buttons while searching to prevent unknown behaviour
         self._view.toggle_search_button(value=False)
         self._view.toggle_connect_button(value=False)
         self._view.update_no_device(searching=True)
@@ -64,6 +66,7 @@ class ConnectController(QObject):
 
     @pyqtSlot()
     def connect_button_clicked(self, selected):
+        # disable the buttons while connecting to prevent unknown behaviour
         self._view.toggle_connect_button(value=False)  # TODO: unlock this properly
         self._view.toggle_search_button(value=False)
         devices = tuple(self._model.devices_found.items())

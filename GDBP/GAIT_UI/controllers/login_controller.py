@@ -3,15 +3,24 @@ from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
 # TODO: Field checks
 class LoginController(QObject):
+    """ Controller class. Handles the core program logic and data transfer between its view and model counterparts.
 
-    # signals for view navigation that are handled by main controller
-    loginComplete = pyqtSignal(str)
+        Args:
+            model (QWidget): The controller's corresponding model.
+
+        Parameters:
+            loginComplete (pyqtSignal): Signal emitted when login has been completed.
+            _model (QWidget): A reference to the passed model.
+            _view (QWidget): A reference to this controller's corresponding view.
+        """
+
+    loginComplete = pyqtSignal(str)  # the signal passes the name of the next view when emitted
 
     def __init__(self, model):
         super().__init__()
 
         self._model = model
-        self._view = None
+        self._view = None  # set later through the "link_view" method
 
         # slot connecting for response to model signals
         self._model.usernameExists.connect(self.check_password)

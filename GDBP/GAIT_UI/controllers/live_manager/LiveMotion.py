@@ -20,7 +20,7 @@ class LiveMotion(QRunnable):
         self._logger = Logger(self.name)
         self.signals = LiveMotionSignals()
         self.dummy_file = getcwd()[:getcwd().rfind('\\') + 1]
-        self.dummy_file += r'resources\dummy files\motion.txt'
+        self.dummy_file += r'resources\dummy_files\motion.txt'
         self.sample_rate = 100  # Hz
         self.plotting = False
         self.data = []

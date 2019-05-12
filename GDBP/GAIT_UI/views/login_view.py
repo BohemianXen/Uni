@@ -31,15 +31,19 @@ class LoginView(QWidget):
         # connect login button click event to its slot
         self._ui.loginPushButton.clicked.connect(lambda: self._controller.login_button_clicked())
 
-    # link enter/return key events to login_clicked handler; overrides QtWidget event handler
     def keyPressEvent(self, e):
+        """Link enter/return key events to login_clicked handler; overrides QtWidget event handler.
+
+        Args:
+            e (QKeyEvent): The keydown event that triggered this call.
+        """
         if e.key() == Qt.Key_Enter or e.key() == Qt.Key_Return:
             self._controller.login_button_clicked()
 
-    # returns the username entered by the user
     def get_username(self):
+        """Gets the plaintext in the username entry field."""
         return self._ui.usernameLineEdit.text()
 
-    # returns the plaintext password entered by the user
     def get_password(self):
+        """Gets the plaintext in the password entry field."""
         return self._ui.passwordLineEdit.text()

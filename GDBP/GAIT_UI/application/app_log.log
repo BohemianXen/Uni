@@ -9101,3 +9101,54 @@
 03:05:16 07/05/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
 03:05:16 07/05/2019 | ConnectController    | DEBUG    | Failed to connect; 0 attempts remaining 
 03:05:16 07/05/2019 | ConnectController    | DEBUG    | Out of attempts, could not connect to IBTLI14 
+03:12:10 09/05/2019 | App                  | INFO     | App started 
+03:12:10 09/05/2019 | App                  | INFO     | Instantiating models 
+03:12:10 09/05/2019 | App                  | INFO     | Instantiating controllers 
+03:12:10 09/05/2019 | App                  | INFO     | Instantiating views 
+03:12:11 09/05/2019 | App                  | INFO     | Linking controllers to views 
+03:12:11 09/05/2019 | App                  | INFO     | Configuring main controller 
+03:12:11 09/05/2019 | App                  | INFO     | Loading views 
+03:12:11 09/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+03:12:12 09/05/2019 | MainController       | INFO     | Requesting view change 
+03:12:12 09/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+03:12:12 09/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+03:12:12 09/05/2019 | MainController       | INFO     | View change completed 
+03:12:12 09/05/2019 | ConnectView          | DEBUG    | Updating status text 
+03:12:12 09/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+03:12:23 09/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+03:12:23 09/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+03:12:23 09/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+03:12:23 09/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+03:12:23 09/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+03:18:13 09/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+03:18:13 09/05/2019 | MainController       | INFO     | Requesting view change 
+03:18:13 09/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+03:18:13 09/05/2019 | MainController       | INFO     | View change completed 
+03:42:34 09/05/2019 | App                  | INFO     | App closing 
+21:47:24 12/05/2019 | App                  | INFO     | App started 
+21:47:24 12/05/2019 | App                  | INFO     | Instantiating models 
+21:47:24 12/05/2019 | App                  | INFO     | Instantiating controllers 
+21:47:24 12/05/2019 | App                  | INFO     | Instantiating views 
+21:47:26 12/05/2019 | App                  | INFO     | Linking controllers to views 
+21:47:26 12/05/2019 | App                  | INFO     | Configuring main controller 
+21:47:26 12/05/2019 | App                  | INFO     | Loading views 
+21:47:26 12/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:29:05 12/05/2019 | App                  | INFO     | App started 
+23:29:05 12/05/2019 | App                  | INFO     | Instantiating models 
+23:29:05 12/05/2019 | App                  | INFO     | Instantiating controllers 
+23:29:05 12/05/2019 | App                  | INFO     | Instantiating views 
+23:29:06 12/05/2019 | App                  | INFO     | Linking controllers to views 
+23:29:06 12/05/2019 | App                  | INFO     | Configuring main controller 
+23:29:06 12/05/2019 | App                  | INFO     | Loading views 
+23:29:06 12/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:29:08 12/05/2019 | MainController       | INFO     | Requesting view change 
+23:29:08 12/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:29:08 12/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:29:08 12/05/2019 | MainController       | INFO     | View change completed 
+23:29:08 12/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:29:08 12/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+23:29:18 12/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+23:29:18 12/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+23:29:18 12/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+23:29:18 12/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+23:29:18 12/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
