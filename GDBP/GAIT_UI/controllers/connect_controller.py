@@ -89,7 +89,8 @@ class ConnectController(QObject):
                                  Logger.DEBUG)
         else:
             self._logger.log("Successfully connected to {}".format(self._model.target_device[1]), Logger.DEBUG)
-            self._view.toggle_connect_button(value=True)
-            self._view.toggle_search_button(value=True)
-            self.attempts = self._model.max_attempts
             self.connectionComplete.emit(complete)
+
+        self.attempts = self._model.max_attempts
+        self._view.toggle_connect_button(value=True)
+        self._view.toggle_search_button(value=True)

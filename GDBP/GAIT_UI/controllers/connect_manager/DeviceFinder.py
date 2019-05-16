@@ -20,11 +20,14 @@ class DeviceFinder(QRunnable):
         self.signals = DeviceFinderSignals()
 
     def run(self):
+        """Overrides the QRunnable implementation to start a device search thread."""
         self._logger.log('Starting new thread; searching for devices', Logger.DEBUG)
         devices_found = {}
 
         try:
-            discovered_devices = discover_devices(lookup_names=True)
+            discovered_devices = discover_devices(lookup_names=True)  # discover nearby/paired devices
+
+            # places discovered devices into a dictionary in address: name format
             for (address, name) in discovered_devices:
                 devices_found[address] = name
                 self._logger.log('Found bluetooth device with name: {} and address: {}'.format(name, address),

@@ -23,13 +23,14 @@ class LiveModel(QObject):
         return self._motion_data
 
     def add_motion_data(self, new_data):
+        """Converts new raw uint samples into signed int values and stores them."""
         int_data = []
         for val in new_data:
-            uint_val = int(val, 2).to_bytes(1, byteorder='big')
+            uint_val = int(val, 2).to_bytes(1, byteorder='big')  # raw data was stored in big endian order
             int_val = struct.unpack('b', uint_val)[0]
             int_data.append(int_val)
 
-        self._motion_data.append(int_data)
+        self._motion_data.append(int_data)  # add latest sample to the older ones
 
     def reset_data(self):
         self._motion_data = []

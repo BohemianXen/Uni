@@ -39,7 +39,7 @@ class LiveView(QWidget):
         self._plot = self._ui.graphicsView.getPlotItem()
         self._plot.setContentsMargins(10, 10, 10, 10)
 
-        # self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)  # Debug only
+        self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)  # Debug only
 
         # listeners
         self.newPlotReady.connect(self._controller.start_plot)

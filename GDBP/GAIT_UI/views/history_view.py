@@ -32,6 +32,7 @@ class HistoryView(QWidget):
         self._logger = Logger(self.name)
 
         self._ui.expandPushButton.clicked.connect(lambda: self._controller.expand_button_clicked())
+        # self._ui.expandPushButton.hide()
 
         x = np.random.normal(size=1000)
         y = np.random.normal(size=1000)
