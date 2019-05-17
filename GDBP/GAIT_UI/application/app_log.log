@@ -9847,3 +9847,1125 @@
 23:36:06 15/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
 23:36:07 15/05/2019 | LiveController       | DEBUG    | Starting live motion plot 
 23:36:07 15/05/2019 | LiveMotion           | DEBUG    | Starting new thread; live plotting motion data 
+19:39:04 16/05/2019 | App                  | INFO     | App started 
+19:39:04 16/05/2019 | App                  | INFO     | Instantiating models 
+19:39:42 16/05/2019 | App                  | INFO     | App started 
+19:39:42 16/05/2019 | App                  | INFO     | Instantiating models 
+19:39:42 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+19:39:43 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel done: False 
+19:39:43 16/05/2019 | App                  | INFO     | Instantiating controllers 
+19:39:43 16/05/2019 | App                  | INFO     | Instantiating views 
+19:39:46 16/05/2019 | App                  | INFO     | Linking controllers to views 
+19:39:46 16/05/2019 | App                  | INFO     | Configuring main controller 
+19:39:46 16/05/2019 | App                  | INFO     | Loading views 
+19:39:46 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:40:32 16/05/2019 | App                  | INFO     | App started 
+19:40:32 16/05/2019 | App                  | INFO     | Instantiating models 
+19:40:32 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+19:40:32 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel done: False 
+19:40:32 16/05/2019 | App                  | INFO     | Instantiating controllers 
+19:40:32 16/05/2019 | App                  | INFO     | Instantiating views 
+19:40:32 16/05/2019 | App                  | INFO     | Linking controllers to views 
+19:40:32 16/05/2019 | App                  | INFO     | Configuring main controller 
+19:40:32 16/05/2019 | App                  | INFO     | Loading views 
+19:40:32 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:41:52 16/05/2019 | App                  | INFO     | App started 
+19:41:52 16/05/2019 | App                  | INFO     | Instantiating models 
+19:41:52 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+19:41:52 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: False 
+19:41:52 16/05/2019 | App                  | INFO     | Instantiating controllers 
+19:41:52 16/05/2019 | App                  | INFO     | Instantiating views 
+19:41:52 16/05/2019 | App                  | INFO     | Linking controllers to views 
+19:41:52 16/05/2019 | App                  | INFO     | Configuring main controller 
+19:41:52 16/05/2019 | App                  | INFO     | Loading views 
+19:41:52 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:44:44 16/05/2019 | App                  | INFO     | App started 
+19:44:44 16/05/2019 | App                  | INFO     | Instantiating models 
+19:44:44 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+19:44:44 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: False 
+19:44:44 16/05/2019 | App                  | INFO     | Instantiating controllers 
+19:44:44 16/05/2019 | App                  | INFO     | Instantiating views 
+19:44:44 16/05/2019 | App                  | INFO     | Linking controllers to views 
+19:44:44 16/05/2019 | App                  | INFO     | Configuring main controller 
+19:44:44 16/05/2019 | App                  | INFO     | Loading views 
+19:44:44 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:48:47 16/05/2019 | App                  | INFO     | App started 
+19:48:47 16/05/2019 | App                  | INFO     | Instantiating models 
+19:48:47 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+19:48:47 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: False 
+19:48:47 16/05/2019 | App                  | INFO     | Instantiating controllers 
+19:48:47 16/05/2019 | App                  | INFO     | Instantiating views 
+19:48:48 16/05/2019 | App                  | INFO     | Linking controllers to views 
+19:48:48 16/05/2019 | App                  | INFO     | Configuring main controller 
+19:48:48 16/05/2019 | App                  | INFO     | Loading views 
+19:48:48 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:50:25 16/05/2019 | App                  | INFO     | App started 
+19:50:25 16/05/2019 | App                  | INFO     | Instantiating models 
+19:50:25 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+19:50:25 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: False 
+19:50:25 16/05/2019 | App                  | INFO     | Instantiating controllers 
+19:50:25 16/05/2019 | App                  | INFO     | Instantiating views 
+19:50:26 16/05/2019 | App                  | INFO     | Linking controllers to views 
+19:50:26 16/05/2019 | App                  | INFO     | Configuring main controller 
+19:50:26 16/05/2019 | App                  | INFO     | Loading views 
+19:50:26 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:58:54 16/05/2019 | App                  | INFO     | App started 
+19:58:54 16/05/2019 | App                  | INFO     | Instantiating models 
+19:58:54 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+19:58:54 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: False 
+19:58:54 16/05/2019 | App                  | INFO     | Instantiating controllers 
+19:58:54 16/05/2019 | App                  | INFO     | Instantiating views 
+19:58:55 16/05/2019 | App                  | INFO     | Linking controllers to views 
+19:58:55 16/05/2019 | App                  | INFO     | Configuring main controller 
+19:58:55 16/05/2019 | App                  | INFO     | Loading views 
+19:58:55 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+19:59:21 16/05/2019 | App                  | INFO     | App started 
+19:59:21 16/05/2019 | App                  | INFO     | Instantiating models 
+19:59:21 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+19:59:21 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: False 
+19:59:21 16/05/2019 | App                  | INFO     | Instantiating controllers 
+19:59:21 16/05/2019 | App                  | INFO     | Instantiating views 
+19:59:21 16/05/2019 | App                  | INFO     | Linking controllers to views 
+19:59:21 16/05/2019 | App                  | INFO     | Configuring main controller 
+19:59:21 16/05/2019 | App                  | INFO     | Loading views 
+19:59:21 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:04:26 16/05/2019 | App                  | INFO     | App started 
+20:04:26 16/05/2019 | App                  | INFO     | Instantiating models 
+20:04:26 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+20:04:26 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: False 
+20:04:26 16/05/2019 | App                  | INFO     | Instantiating controllers 
+20:04:26 16/05/2019 | App                  | INFO     | Instantiating views 
+20:04:27 16/05/2019 | App                  | INFO     | Linking controllers to views 
+20:04:27 16/05/2019 | App                  | INFO     | Configuring main controller 
+20:04:27 16/05/2019 | App                  | INFO     | Loading views 
+20:04:27 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:07:39 16/05/2019 | App                  | INFO     | App started 
+20:07:39 16/05/2019 | App                  | INFO     | Instantiating models 
+20:07:39 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+20:07:39 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: False 
+20:07:39 16/05/2019 | App                  | INFO     | Instantiating controllers 
+20:07:39 16/05/2019 | App                  | INFO     | Instantiating views 
+20:07:40 16/05/2019 | App                  | INFO     | Linking controllers to views 
+20:07:40 16/05/2019 | App                  | INFO     | Configuring main controller 
+20:07:40 16/05/2019 | App                  | INFO     | Loading views 
+20:07:40 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:37:22 16/05/2019 | App                  | INFO     | App started 
+20:37:22 16/05/2019 | App                  | INFO     | Instantiating models 
+20:37:22 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+20:37:35 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: True 
+20:37:35 16/05/2019 | App                  | INFO     | Instantiating controllers 
+20:37:35 16/05/2019 | App                  | INFO     | Instantiating views 
+20:37:43 16/05/2019 | App                  | INFO     | Linking controllers to views 
+20:37:43 16/05/2019 | App                  | INFO     | Configuring main controller 
+20:37:43 16/05/2019 | App                  | INFO     | Loading views 
+20:37:43 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:38:35 16/05/2019 | App                  | INFO     | App started 
+20:38:35 16/05/2019 | App                  | INFO     | Instantiating models 
+20:38:35 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+20:38:36 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful?: True 
+20:38:36 16/05/2019 | App                  | INFO     | Instantiating controllers 
+20:38:36 16/05/2019 | App                  | INFO     | Instantiating views 
+20:38:36 16/05/2019 | App                  | INFO     | Linking controllers to views 
+20:38:36 16/05/2019 | App                  | INFO     | Configuring main controller 
+20:38:36 16/05/2019 | App                  | INFO     | Loading views 
+20:38:36 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:38:37 16/05/2019 | MainController       | INFO     | Requesting view change 
+20:38:37 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+20:38:37 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+20:38:37 16/05/2019 | MainController       | INFO     | View change completed 
+20:38:37 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+20:38:37 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+20:38:47 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+20:38:47 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+20:38:47 16/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+20:38:47 16/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+20:38:47 16/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+20:42:09 16/05/2019 | App                  | INFO     | App started 
+20:42:09 16/05/2019 | App                  | INFO     | Instantiating models 
+20:42:09 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+20:42:10 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful: True 
+20:42:10 16/05/2019 | App                  | INFO     | Instantiating controllers 
+20:42:10 16/05/2019 | App                  | INFO     | Instantiating views 
+20:42:11 16/05/2019 | App                  | INFO     | Linking controllers to views 
+20:42:11 16/05/2019 | App                  | INFO     | Configuring main controller 
+20:42:11 16/05/2019 | App                  | INFO     | Loading views 
+20:42:11 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:42:12 16/05/2019 | MainController       | INFO     | Requesting view change 
+20:42:12 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+20:42:12 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+20:42:12 16/05/2019 | MainController       | INFO     | View change completed 
+20:42:12 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+20:42:12 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+20:42:22 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+20:42:22 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+20:42:22 16/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+20:42:22 16/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+20:42:22 16/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+20:49:05 16/05/2019 | App                  | INFO     | App started 
+20:49:05 16/05/2019 | App                  | INFO     | Instantiating models 
+20:49:05 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+20:49:06 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful: True 
+20:49:06 16/05/2019 | App                  | INFO     | Instantiating controllers 
+20:49:06 16/05/2019 | App                  | INFO     | Instantiating views 
+20:49:07 16/05/2019 | App                  | INFO     | Linking controllers to views 
+20:49:07 16/05/2019 | App                  | INFO     | Configuring main controller 
+20:49:07 16/05/2019 | App                  | INFO     | Loading views 
+20:49:07 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+20:49:08 16/05/2019 | MainController       | INFO     | Requesting view change 
+20:49:08 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+20:49:08 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+20:49:08 16/05/2019 | MainController       | INFO     | View change completed 
+20:49:08 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+20:49:08 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:01:25 16/05/2019 | App                  | INFO     | App started 
+21:01:25 16/05/2019 | App                  | INFO     | Instantiating models 
+21:01:25 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:01:26 16/05/2019 | Database             | DEBUG    | Connection creation for LoginModel succesful: True 
+21:01:26 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:01:26 16/05/2019 | App                  | INFO     | Instantiating views 
+21:01:26 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:01:26 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:01:26 16/05/2019 | App                  | INFO     | Loading views 
+21:01:26 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:19:28 16/05/2019 | App                  | INFO     | App started 
+21:19:28 16/05/2019 | App                  | INFO     | Instantiating models 
+21:19:28 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:19:46 16/05/2019 | App                  | INFO     | App started 
+21:19:46 16/05/2019 | App                  | INFO     | Instantiating models 
+21:19:46 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:19:47 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:19:47 16/05/2019 | App                  | INFO     | Instantiating views 
+21:19:47 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:19:47 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:19:47 16/05/2019 | App                  | INFO     | Loading views 
+21:19:47 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:19:49 16/05/2019 | MainController       | INFO     | Requesting view change 
+21:19:49 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:19:49 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:19:49 16/05/2019 | MainController       | INFO     | View change completed 
+21:19:49 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:19:49 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:20:00 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:20:00 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:20:00 16/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:20:00 16/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:20:00 16/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:23:17 16/05/2019 | App                  | INFO     | App started 
+21:23:17 16/05/2019 | App                  | INFO     | Instantiating models 
+21:23:17 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:23:17 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:23:17 16/05/2019 | App                  | INFO     | Instantiating views 
+21:23:18 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:23:18 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:23:18 16/05/2019 | App                  | INFO     | Loading views 
+21:23:18 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:23:19 16/05/2019 | MainController       | INFO     | Requesting view change 
+21:23:19 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:23:19 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:23:19 16/05/2019 | MainController       | INFO     | View change completed 
+21:23:19 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:23:19 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:23:29 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:23:29 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:23:29 16/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:23:29 16/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:23:29 16/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:23:59 16/05/2019 | App                  | INFO     | App started 
+21:23:59 16/05/2019 | App                  | INFO     | Instantiating models 
+21:23:59 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:24:00 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:24:00 16/05/2019 | App                  | INFO     | Instantiating views 
+21:24:00 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:24:00 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:24:00 16/05/2019 | App                  | INFO     | Loading views 
+21:24:00 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:24:16 16/05/2019 | App                  | INFO     | App started 
+21:24:16 16/05/2019 | App                  | INFO     | Instantiating models 
+21:24:16 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:24:17 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:24:17 16/05/2019 | App                  | INFO     | Instantiating views 
+21:24:17 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:24:17 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:24:17 16/05/2019 | App                  | INFO     | Loading views 
+21:24:17 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:24:30 16/05/2019 | MainController       | INFO     | Requesting view change 
+21:24:30 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:24:30 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:24:30 16/05/2019 | MainController       | INFO     | View change completed 
+21:24:30 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:24:30 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:24:40 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:24:40 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:24:40 16/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:24:40 16/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:24:40 16/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:28:35 16/05/2019 | App                  | INFO     | App started 
+21:28:35 16/05/2019 | App                  | INFO     | Instantiating models 
+21:28:35 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:28:35 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:28:35 16/05/2019 | App                  | INFO     | Instantiating views 
+21:28:36 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:28:36 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:28:36 16/05/2019 | App                  | INFO     | Loading views 
+21:28:36 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:28:37 16/05/2019 | MainController       | INFO     | Requesting view change 
+21:28:37 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+21:28:37 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+21:28:37 16/05/2019 | MainController       | INFO     | View change completed 
+21:28:37 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+21:28:37 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+21:28:47 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+21:28:47 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+21:28:47 16/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+21:28:47 16/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+21:28:47 16/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+21:29:24 16/05/2019 | App                  | INFO     | App started 
+21:29:24 16/05/2019 | App                  | INFO     | Instantiating models 
+21:29:24 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:29:25 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:29:25 16/05/2019 | App                  | INFO     | Instantiating views 
+21:29:25 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:29:25 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:29:25 16/05/2019 | App                  | INFO     | Loading views 
+21:29:25 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:29:57 16/05/2019 | App                  | INFO     | App started 
+21:29:57 16/05/2019 | App                  | INFO     | Instantiating models 
+21:29:57 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:29:58 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:29:58 16/05/2019 | App                  | INFO     | Instantiating views 
+21:29:59 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:29:59 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:29:59 16/05/2019 | App                  | INFO     | Loading views 
+21:29:59 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:31:52 16/05/2019 | App                  | INFO     | App started 
+21:31:52 16/05/2019 | App                  | INFO     | Instantiating models 
+21:31:52 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:31:53 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:31:53 16/05/2019 | App                  | INFO     | Instantiating views 
+21:31:54 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:31:54 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:31:54 16/05/2019 | App                  | INFO     | Loading views 
+21:31:54 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:33:02 16/05/2019 | App                  | INFO     | App started 
+21:33:02 16/05/2019 | App                  | INFO     | Instantiating models 
+21:33:02 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:33:03 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:33:03 16/05/2019 | App                  | INFO     | Instantiating views 
+21:33:04 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:33:04 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:33:04 16/05/2019 | App                  | INFO     | Loading views 
+21:33:04 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:33:28 16/05/2019 | App                  | INFO     | App started 
+21:33:28 16/05/2019 | App                  | INFO     | Instantiating models 
+21:33:28 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:33:29 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:33:29 16/05/2019 | App                  | INFO     | Instantiating views 
+21:33:30 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:33:30 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:33:30 16/05/2019 | App                  | INFO     | Loading views 
+21:33:30 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+21:34:54 16/05/2019 | App                  | INFO     | App started 
+21:34:54 16/05/2019 | App                  | INFO     | Instantiating models 
+21:34:54 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+21:34:55 16/05/2019 | App                  | INFO     | Instantiating controllers 
+21:34:55 16/05/2019 | App                  | INFO     | Instantiating views 
+21:34:55 16/05/2019 | App                  | INFO     | Linking controllers to views 
+21:34:55 16/05/2019 | App                  | INFO     | Configuring main controller 
+21:34:55 16/05/2019 | App                  | INFO     | Loading views 
+21:34:55 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:06:29 16/05/2019 | App                  | INFO     | App started 
+22:06:29 16/05/2019 | App                  | INFO     | Instantiating models 
+22:06:29 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:06:30 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:06:30 16/05/2019 | App                  | INFO     | Instantiating views 
+22:06:31 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:06:31 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:06:31 16/05/2019 | App                  | INFO     | Loading views 
+22:06:31 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:10:46 16/05/2019 | App                  | INFO     | App started 
+22:10:46 16/05/2019 | App                  | INFO     | Instantiating models 
+22:10:46 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:10:47 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:10:47 16/05/2019 | App                  | INFO     | Instantiating views 
+22:10:48 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:10:48 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:10:48 16/05/2019 | App                  | INFO     | Loading views 
+22:10:48 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:10:48 16/05/2019 | MainController       | INFO     | Requesting view change 
+22:10:48 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+22:10:48 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+22:10:48 16/05/2019 | MainController       | INFO     | View change completed 
+22:10:48 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+22:10:48 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+22:10:59 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+22:10:59 16/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+22:10:59 16/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+22:10:59 16/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+22:10:59 16/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+22:26:30 16/05/2019 | App                  | INFO     | App started 
+22:26:30 16/05/2019 | App                  | INFO     | Instantiating models 
+22:26:30 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:26:31 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:26:31 16/05/2019 | App                  | INFO     | Instantiating views 
+22:26:32 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:26:32 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:26:32 16/05/2019 | App                  | INFO     | Loading views 
+22:26:32 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:30:20 16/05/2019 | App                  | INFO     | App started 
+22:30:20 16/05/2019 | App                  | INFO     | Instantiating models 
+22:30:20 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:30:21 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:30:21 16/05/2019 | App                  | INFO     | Instantiating views 
+22:30:21 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:30:21 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:30:21 16/05/2019 | App                  | INFO     | Loading views 
+22:30:21 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:30:22 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:30:22 16/05/2019 | LoginModel           | DEBUG    | Username:  found - True 
+22:30:22 16/05/2019 | LoginModel           | DEBUG    | Searching db for password 
+22:30:22 16/05/2019 | LoginModel           | DEBUG    | Password found 
+22:34:27 16/05/2019 | App                  | INFO     | App started 
+22:34:27 16/05/2019 | App                  | INFO     | Instantiating models 
+22:34:27 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:34:27 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:34:27 16/05/2019 | App                  | INFO     | Instantiating views 
+22:34:28 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:34:28 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:34:28 16/05/2019 | App                  | INFO     | Loading views 
+22:34:28 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:34:29 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:34:29 16/05/2019 | LoginModel           | DEBUG    | Username:  found - True 
+22:34:29 16/05/2019 | LoginModel           | DEBUG    | Searching db for password 
+22:34:29 16/05/2019 | LoginModel           | DEBUG    | Password found 
+22:34:38 16/05/2019 | App                  | INFO     | App started 
+22:34:38 16/05/2019 | App                  | INFO     | Instantiating models 
+22:34:38 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:34:39 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:34:39 16/05/2019 | App                  | INFO     | Instantiating views 
+22:34:40 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:34:40 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:34:40 16/05/2019 | App                  | INFO     | Loading views 
+22:34:40 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:34:42 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: tes 
+22:34:42 16/05/2019 | LoginModel           | DEBUG    | Username: tes found - True 
+22:34:42 16/05/2019 | LoginModel           | DEBUG    | Searching db for password 
+22:34:42 16/05/2019 | LoginModel           | DEBUG    | Password found 
+22:34:55 16/05/2019 | App                  | INFO     | App started 
+22:34:55 16/05/2019 | App                  | INFO     | Instantiating models 
+22:34:55 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:34:56 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:34:56 16/05/2019 | App                  | INFO     | Instantiating views 
+22:34:56 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:34:56 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:34:56 16/05/2019 | App                  | INFO     | Loading views 
+22:34:56 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:34:57 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:34:57 16/05/2019 | LoginModel           | DEBUG    | Username:  found - True 
+22:41:23 16/05/2019 | App                  | INFO     | App started 
+22:41:23 16/05/2019 | App                  | INFO     | Instantiating models 
+22:41:23 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:41:23 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:41:23 16/05/2019 | App                  | INFO     | Instantiating views 
+22:41:24 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:41:24 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:41:24 16/05/2019 | App                  | INFO     | Loading views 
+22:41:24 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:41:25 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:41:25 16/05/2019 | LoginModel           | ERROR    | Error querying database: arguments did not match any overloaded call:
+  isNull(self, int): not enough arguments
+  isNull(self, str): not enough arguments 
+22:41:41 16/05/2019 | App                  | INFO     | App started 
+22:41:41 16/05/2019 | App                  | INFO     | Instantiating models 
+22:41:41 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:41:42 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:41:42 16/05/2019 | App                  | INFO     | Instantiating views 
+22:41:43 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:41:43 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:41:43 16/05/2019 | App                  | INFO     | Loading views 
+22:41:43 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:41:44 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:41:44 16/05/2019 | LoginModel           | ERROR    | Error querying database: arguments did not match any overloaded call:
+  isNull(self, int): not enough arguments
+  isNull(self, str): not enough arguments 
+22:41:44 16/05/2019 | LoginModel           | DEBUG    |   
+22:41:44 16/05/2019 | LoginModel           | DEBUG    | Username:  not found 
+22:41:44 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:42:20 16/05/2019 | App                  | INFO     | App started 
+22:42:20 16/05/2019 | App                  | INFO     | Instantiating models 
+22:42:20 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:42:21 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:42:21 16/05/2019 | App                  | INFO     | Instantiating views 
+22:42:21 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:42:21 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:42:21 16/05/2019 | App                  | INFO     | Loading views 
+22:42:21 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:42:22 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:42:22 16/05/2019 | LoginModel           | DEBUG    | Username:  not found 
+22:42:22 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:42:31 16/05/2019 | App                  | INFO     | App started 
+22:42:31 16/05/2019 | App                  | INFO     | Instantiating models 
+22:42:31 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:42:31 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:42:31 16/05/2019 | App                  | INFO     | Instantiating views 
+22:42:32 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:42:32 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:42:32 16/05/2019 | App                  | INFO     | Loading views 
+22:42:32 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:42:38 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+22:42:38 16/05/2019 | LoginModel           | DEBUG    | Username: demo_user1 not found 
+22:42:38 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:44:32 16/05/2019 | App                  | INFO     | App started 
+22:44:32 16/05/2019 | App                  | INFO     | Instantiating models 
+22:44:32 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:44:32 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:44:32 16/05/2019 | App                  | INFO     | Instantiating views 
+22:44:33 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:44:33 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:44:33 16/05/2019 | App                  | INFO     | Loading views 
+22:44:33 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:44:34 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:44:34 16/05/2019 | LoginModel           | DEBUG    | Username:  not found 
+22:44:34 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:44:35 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:44:35 16/05/2019 | LoginModel           | DEBUG    | Username:  not found 
+22:44:35 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:45:09 16/05/2019 | App                  | INFO     | App started 
+22:45:09 16/05/2019 | App                  | INFO     | Instantiating models 
+22:45:09 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:45:10 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:45:10 16/05/2019 | App                  | INFO     | Instantiating views 
+22:45:11 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:45:11 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:45:11 16/05/2019 | App                  | INFO     | Loading views 
+22:45:11 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:45:13 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: d 
+22:45:13 16/05/2019 | LoginModel           | DEBUG    | Username: d not found 
+22:45:13 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:45:14 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: d 
+22:45:14 16/05/2019 | LoginModel           | DEBUG    | Username: d not found 
+22:45:14 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:46:01 16/05/2019 | App                  | INFO     | App started 
+22:46:01 16/05/2019 | App                  | INFO     | Instantiating models 
+22:46:01 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:46:02 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:46:02 16/05/2019 | App                  | INFO     | Instantiating views 
+22:46:02 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:46:02 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:46:02 16/05/2019 | App                  | INFO     | Loading views 
+22:46:02 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:46:03 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:46:03 16/05/2019 | LoginModel           | DEBUG    | Username:  not found 
+22:46:03 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:46:12 16/05/2019 | App                  | INFO     | App started 
+22:46:12 16/05/2019 | App                  | INFO     | Instantiating models 
+22:46:12 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:46:13 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:46:13 16/05/2019 | App                  | INFO     | Instantiating views 
+22:46:13 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:46:13 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:46:13 16/05/2019 | App                  | INFO     | Loading views 
+22:46:13 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:46:17 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+22:46:17 16/05/2019 | LoginModel           | DEBUG    | Username: demo_user1 not found 
+22:46:17 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:47:15 16/05/2019 | App                  | INFO     | App started 
+22:47:15 16/05/2019 | App                  | INFO     | Instantiating models 
+22:47:15 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:47:16 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:47:16 16/05/2019 | App                  | INFO     | Instantiating views 
+22:47:17 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:47:17 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:47:17 16/05/2019 | App                  | INFO     | Loading views 
+22:47:17 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:47:23 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+22:47:23 16/05/2019 | LoginModel           | DEBUG    | Username: demo_user1 not found 
+22:47:23 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:55:28 16/05/2019 | App                  | INFO     | App started 
+22:55:28 16/05/2019 | App                  | INFO     | Instantiating models 
+22:55:28 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:55:29 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:55:29 16/05/2019 | App                  | INFO     | Instantiating views 
+22:55:30 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:55:30 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:55:30 16/05/2019 | App                  | INFO     | Loading views 
+22:55:30 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:55:30 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+22:55:30 16/05/2019 | LoginModel           | DEBUG    | Username:  not found 
+22:55:30 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:55:40 16/05/2019 | App                  | INFO     | App started 
+22:55:40 16/05/2019 | App                  | INFO     | Instantiating models 
+22:55:40 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:55:40 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:55:40 16/05/2019 | App                  | INFO     | Instantiating views 
+22:55:41 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:55:41 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:55:41 16/05/2019 | App                  | INFO     | Loading views 
+22:55:41 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:55:46 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+22:55:46 16/05/2019 | LoginModel           | DEBUG    | Username: demo_user1 not found 
+22:55:46 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+22:57:09 16/05/2019 | App                  | INFO     | App started 
+22:57:09 16/05/2019 | App                  | INFO     | Instantiating models 
+22:57:09 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+22:57:10 16/05/2019 | App                  | INFO     | Instantiating controllers 
+22:57:10 16/05/2019 | App                  | INFO     | Instantiating views 
+22:57:10 16/05/2019 | App                  | INFO     | Linking controllers to views 
+22:57:10 16/05/2019 | App                  | INFO     | Configuring main controller 
+22:57:10 16/05/2019 | App                  | INFO     | Loading views 
+22:57:10 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+22:57:13 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: dd 
+22:57:13 16/05/2019 | LoginModel           | DEBUG    | Username: dd not found 
+22:57:13 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+23:01:10 16/05/2019 | App                  | INFO     | App started 
+23:01:10 16/05/2019 | App                  | INFO     | Instantiating models 
+23:01:10 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:01:11 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:01:11 16/05/2019 | App                  | INFO     | Instantiating views 
+23:01:12 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:01:12 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:01:12 16/05/2019 | App                  | INFO     | Loading views 
+23:01:12 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:06:27 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: des 
+23:06:27 16/05/2019 | LoginModel           | DEBUG    | Username: des not found 
+23:06:27 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+23:07:00 16/05/2019 | App                  | INFO     | App started 
+23:07:00 16/05/2019 | App                  | INFO     | Instantiating models 
+23:07:00 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:07:01 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:07:01 16/05/2019 | App                  | INFO     | Instantiating views 
+23:07:01 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:07:01 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:07:01 16/05/2019 | App                  | INFO     | Loading views 
+23:07:01 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:07:04 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: def 
+23:07:04 16/05/2019 | LoginModel           | DEBUG    | Username: def not found 
+23:07:04 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+23:08:28 16/05/2019 | App                  | INFO     | App started 
+23:08:28 16/05/2019 | App                  | INFO     | Instantiating models 
+23:08:28 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:08:28 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:08:28 16/05/2019 | App                  | INFO     | Instantiating views 
+23:08:29 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:08:29 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:08:29 16/05/2019 | App                  | INFO     | Loading views 
+23:08:29 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:08:35 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+23:08:35 16/05/2019 | LoginModel           | DEBUG    | Username: demo_user1 not found 
+23:08:35 16/05/2019 | LoginController      | DEBUG    | No matching username found 
+23:09:52 16/05/2019 | App                  | INFO     | App started 
+23:09:52 16/05/2019 | App                  | INFO     | Instantiating models 
+23:09:52 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:09:53 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:09:53 16/05/2019 | App                  | INFO     | Instantiating views 
+23:09:53 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:09:53 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:09:53 16/05/2019 | App                  | INFO     | Loading views 
+23:09:53 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:09:54 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+23:10:35 16/05/2019 | App                  | INFO     | App started 
+23:10:35 16/05/2019 | App                  | INFO     | Instantiating models 
+23:10:35 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:10:35 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:10:35 16/05/2019 | App                  | INFO     | Instantiating views 
+23:10:36 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:10:36 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:10:36 16/05/2019 | App                  | INFO     | Loading views 
+23:10:36 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:10:44 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+23:11:39 16/05/2019 | App                  | INFO     | App started 
+23:11:39 16/05/2019 | App                  | INFO     | Instantiating models 
+23:11:39 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:11:40 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:11:40 16/05/2019 | App                  | INFO     | Instantiating views 
+23:11:41 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:11:41 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:11:41 16/05/2019 | App                  | INFO     | Loading views 
+23:11:41 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:11:42 16/05/2019 | LoginModel           | DEBUG    | Searching db for username:  
+23:11:46 16/05/2019 | App                  | INFO     | App started 
+23:11:46 16/05/2019 | App                  | INFO     | Instantiating models 
+23:11:46 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:11:47 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:11:47 16/05/2019 | App                  | INFO     | Instantiating views 
+23:11:47 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:11:47 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:11:47 16/05/2019 | App                  | INFO     | Loading views 
+23:11:47 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:11:53 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+23:12:06 16/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+23:12:06 16/05/2019 | LoginModel           | DEBUG    | Searching db for password 
+23:12:06 16/05/2019 | LoginModel           | DEBUG    | Password found 
+23:14:08 16/05/2019 | App                  | INFO     | App started 
+23:14:08 16/05/2019 | App                  | INFO     | Instantiating models 
+23:14:08 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:14:09 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:14:09 16/05/2019 | App                  | INFO     | Instantiating views 
+23:14:09 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:14:09 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:14:09 16/05/2019 | App                  | INFO     | Loading views 
+23:14:09 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:14:11 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+23:14:11 16/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+23:14:11 16/05/2019 | LoginModel           | DEBUG    | Searching db for password 
+23:14:11 16/05/2019 | LoginModel           | DEBUG    | Password found 
+23:18:59 16/05/2019 | App                  | INFO     | App started 
+23:18:59 16/05/2019 | App                  | INFO     | Instantiating models 
+23:18:59 16/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+23:19:00 16/05/2019 | App                  | INFO     | Instantiating controllers 
+23:19:00 16/05/2019 | App                  | INFO     | Instantiating views 
+23:19:01 16/05/2019 | App                  | INFO     | Linking controllers to views 
+23:19:01 16/05/2019 | App                  | INFO     | Configuring main controller 
+23:19:01 16/05/2019 | App                  | INFO     | Loading views 
+23:19:01 16/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+23:19:02 16/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+23:19:02 16/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+23:19:02 16/05/2019 | LoginModel           | DEBUG    | Searching db for password 
+23:19:02 16/05/2019 | MainController       | INFO     | Requesting view change 
+23:19:02 16/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+23:19:02 16/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+23:19:02 16/05/2019 | MainController       | INFO     | View change completed 
+23:19:02 16/05/2019 | ConnectView          | DEBUG    | Updating status text 
+23:19:02 16/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:15:20 17/05/2019 | App                  | INFO     | App started 
+00:15:20 17/05/2019 | App                  | INFO     | Instantiating models 
+00:15:20 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:15:20 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:15:20 17/05/2019 | App                  | INFO     | Instantiating views 
+00:15:21 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:15:21 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:15:21 17/05/2019 | App                  | INFO     | Loading views 
+00:15:21 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:15:22 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:15:22 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+00:15:22 17/05/2019 | MainController       | INFO     | Requesting view change 
+00:15:22 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:15:22 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:15:22 17/05/2019 | MainController       | INFO     | View change completed 
+00:15:22 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+00:15:22 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:15:25 17/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+00:15:25 17/05/2019 | MainController       | INFO     | Requesting view change 
+00:15:25 17/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+00:15:25 17/05/2019 | MainController       | INFO     | View change completed 
+00:15:32 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+00:15:32 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+00:15:32 17/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:15:32 17/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+00:15:32 17/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+00:15:38 17/05/2019 | App                  | INFO     | App closing 
+00:18:34 17/05/2019 | App                  | INFO     | App started 
+00:18:34 17/05/2019 | App                  | INFO     | Instantiating models 
+00:18:34 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:18:34 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:18:34 17/05/2019 | App                  | INFO     | Instantiating views 
+00:18:35 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:18:35 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:18:35 17/05/2019 | App                  | INFO     | Loading views 
+00:18:35 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:18:36 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:18:36 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+00:18:36 17/05/2019 | MainController       | INFO     | Requesting view change 
+00:18:36 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:18:36 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:18:36 17/05/2019 | MainController       | INFO     | View change completed 
+00:18:36 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+00:18:36 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:18:46 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+00:18:46 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+00:18:46 17/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:18:46 17/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+00:18:46 17/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+00:20:23 17/05/2019 | App                  | INFO     | App started 
+00:20:23 17/05/2019 | App                  | INFO     | Instantiating models 
+00:20:23 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:20:23 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:20:23 17/05/2019 | App                  | INFO     | Instantiating views 
+00:20:24 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:20:24 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:20:24 17/05/2019 | App                  | INFO     | Loading views 
+00:20:24 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:20:25 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:20:25 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+00:20:25 17/05/2019 | MainController       | INFO     | Requesting view change 
+00:20:25 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:20:25 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:20:25 17/05/2019 | MainController       | INFO     | View change completed 
+00:20:25 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+00:20:25 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:20:35 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+00:20:35 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+00:20:35 17/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+00:20:35 17/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+00:20:51 17/05/2019 | App                  | INFO     | App closing 
+00:20:51 17/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:20:51 17/05/2019 | Database             | DEBUG    | Closing database connect for LoginModel 
+00:20:51 17/05/2019 | DeviceConnector      | DEBUG    | Deleting connection thread 
+00:23:07 17/05/2019 | App                  | INFO     | App started 
+00:23:07 17/05/2019 | App                  | INFO     | Instantiating models 
+00:23:07 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:23:08 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:23:08 17/05/2019 | App                  | INFO     | Instantiating views 
+00:23:09 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:23:09 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:23:09 17/05/2019 | App                  | INFO     | Loading views 
+00:23:09 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:23:23 17/05/2019 | App                  | INFO     | App started 
+00:23:23 17/05/2019 | App                  | INFO     | Instantiating models 
+00:23:23 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:23:23 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:23:23 17/05/2019 | App                  | INFO     | Instantiating views 
+00:23:24 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:23:24 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:23:24 17/05/2019 | App                  | INFO     | Loading views 
+00:23:24 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:23:24 17/05/2019 | Database             | DEBUG    | Closing database connect for LoginModel 
+00:23:25 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:23:25 17/05/2019 | LoginModel           | DEBUG    | Username: demo_user1 not found 
+00:23:25 17/05/2019 | LoginController      | DEBUG    | No matching username found 
+00:23:49 17/05/2019 | App                  | INFO     | App started 
+00:23:49 17/05/2019 | App                  | INFO     | Instantiating models 
+00:23:49 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:23:49 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:23:49 17/05/2019 | App                  | INFO     | Instantiating views 
+00:23:50 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:23:50 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:23:50 17/05/2019 | App                  | INFO     | Loading views 
+00:23:50 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:23:52 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:23:52 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+00:23:52 17/05/2019 | MainController       | INFO     | Requesting view change 
+00:23:52 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+00:23:52 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+00:23:52 17/05/2019 | MainController       | INFO     | View change completed 
+00:23:52 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+00:23:52 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+00:24:02 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+00:24:02 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+00:24:02 17/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+00:24:02 17/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+00:24:02 17/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+00:24:05 17/05/2019 | App                  | INFO     | App closing 
+00:37:05 17/05/2019 | App                  | INFO     | App started 
+00:37:05 17/05/2019 | App                  | INFO     | Instantiating models 
+00:37:05 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:37:06 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:37:06 17/05/2019 | App                  | INFO     | Instantiating views 
+00:37:07 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:37:07 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:37:07 17/05/2019 | App                  | INFO     | Loading views 
+00:37:07 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:37:07 17/05/2019 | Database             | DEBUG    | Closing database connect for LoginModel 
+00:37:23 17/05/2019 | App                  | INFO     | App started 
+00:37:23 17/05/2019 | App                  | INFO     | Instantiating models 
+00:37:23 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:37:23 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:37:23 17/05/2019 | App                  | INFO     | Instantiating views 
+00:37:24 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:37:24 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:37:24 17/05/2019 | App                  | INFO     | Loading views 
+00:37:24 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:54:28 17/05/2019 | App                  | INFO     | App started 
+00:54:28 17/05/2019 | App                  | INFO     | Instantiating models 
+00:54:28 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:54:29 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:54:29 17/05/2019 | App                  | INFO     | Instantiating views 
+00:54:30 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:54:30 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:54:30 17/05/2019 | App                  | INFO     | Loading views 
+00:54:30 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:54:31 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:54:31 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+00:54:56 17/05/2019 | App                  | INFO     | App started 
+00:54:56 17/05/2019 | App                  | INFO     | Instantiating models 
+00:54:56 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:54:56 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:54:56 17/05/2019 | App                  | INFO     | Instantiating views 
+00:54:57 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:54:57 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:54:57 17/05/2019 | App                  | INFO     | Loading views 
+00:54:57 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:55:03 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:55:03 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+00:56:21 17/05/2019 | App                  | INFO     | App started 
+00:56:21 17/05/2019 | App                  | INFO     | Instantiating models 
+00:56:21 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:56:21 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:56:21 17/05/2019 | App                  | INFO     | Instantiating views 
+00:56:22 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:56:22 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:56:22 17/05/2019 | App                  | INFO     | Loading views 
+00:56:22 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:56:23 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:56:23 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+00:56:50 17/05/2019 | App                  | INFO     | App started 
+00:56:50 17/05/2019 | App                  | INFO     | Instantiating models 
+00:56:50 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+00:56:50 17/05/2019 | App                  | INFO     | Instantiating controllers 
+00:56:50 17/05/2019 | App                  | INFO     | Instantiating views 
+00:56:51 17/05/2019 | App                  | INFO     | Linking controllers to views 
+00:56:51 17/05/2019 | App                  | INFO     | Configuring main controller 
+00:56:51 17/05/2019 | App                  | INFO     | Loading views 
+00:56:51 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+00:56:52 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user1 
+00:56:52 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:01:35 17/05/2019 | App                  | INFO     | App started 
+01:01:35 17/05/2019 | App                  | INFO     | Instantiating models 
+01:01:35 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:01:36 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:01:36 17/05/2019 | App                  | INFO     | Instantiating views 
+01:01:37 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:01:37 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:01:37 17/05/2019 | App                  | INFO     | Loading views 
+01:01:37 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:01:38 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user2 
+01:01:38 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:01:38 17/05/2019 | MainController       | INFO     | Requesting view change 
+01:01:38 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+01:01:38 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+01:01:38 17/05/2019 | MainController       | INFO     | View change completed 
+01:01:38 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+01:01:38 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+01:01:52 17/05/2019 | App                  | INFO     | App started 
+01:01:52 17/05/2019 | App                  | INFO     | Instantiating models 
+01:01:52 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:01:53 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:01:53 17/05/2019 | App                  | INFO     | Instantiating views 
+01:01:53 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:01:53 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:01:53 17/05/2019 | App                  | INFO     | Loading views 
+01:01:54 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:01:55 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user2 
+01:01:55 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:01:55 17/05/2019 | MainController       | INFO     | Requesting view change 
+01:01:55 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+01:01:55 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+01:01:55 17/05/2019 | MainController       | INFO     | View change completed 
+01:01:55 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+01:01:55 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+01:08:06 17/05/2019 | App                  | INFO     | App started 
+01:08:06 17/05/2019 | App                  | INFO     | Instantiating models 
+01:08:06 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:08:07 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:08:07 17/05/2019 | App                  | INFO     | Instantiating views 
+01:08:07 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:08:07 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:08:07 17/05/2019 | App                  | INFO     | Loading views 
+01:08:07 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:08:08 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user2 
+01:08:08 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:10:55 17/05/2019 | App                  | INFO     | App started 
+01:10:55 17/05/2019 | App                  | INFO     | Instantiating models 
+01:10:55 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:10:55 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:10:55 17/05/2019 | App                  | INFO     | Instantiating views 
+01:10:56 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:10:56 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:10:56 17/05/2019 | App                  | INFO     | Loading views 
+01:10:56 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:11:26 17/05/2019 | App                  | INFO     | App started 
+01:11:26 17/05/2019 | App                  | INFO     | Instantiating models 
+01:11:26 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:11:27 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:11:27 17/05/2019 | App                  | INFO     | Instantiating views 
+01:12:18 17/05/2019 | App                  | INFO     | App started 
+01:12:18 17/05/2019 | App                  | INFO     | Instantiating models 
+01:12:18 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:12:19 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:12:19 17/05/2019 | App                  | INFO     | Instantiating views 
+01:12:25 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:12:25 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:12:25 17/05/2019 | App                  | INFO     | Loading views 
+01:12:25 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:15:43 17/05/2019 | App                  | INFO     | App started 
+01:15:43 17/05/2019 | App                  | INFO     | Instantiating models 
+01:15:43 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:15:44 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:15:44 17/05/2019 | App                  | INFO     | Instantiating views 
+01:15:45 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:15:45 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:15:45 17/05/2019 | App                  | INFO     | Loading views 
+01:15:45 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:15:46 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user2 
+01:15:46 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:17:15 17/05/2019 | App                  | INFO     | App started 
+01:17:15 17/05/2019 | App                  | INFO     | Instantiating models 
+01:17:15 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:17:16 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:17:16 17/05/2019 | App                  | INFO     | Instantiating views 
+01:17:17 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:17:17 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:17:17 17/05/2019 | App                  | INFO     | Loading views 
+01:17:17 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:17:18 17/05/2019 | LoginModel           | DEBUG    | Searching db for username: demo_user2 
+01:17:18 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:18:02 17/05/2019 | App                  | INFO     | App started 
+01:18:02 17/05/2019 | App                  | INFO     | Instantiating models 
+01:18:02 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:18:03 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:18:03 17/05/2019 | App                  | INFO     | Instantiating views 
+01:18:03 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:18:03 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:18:03 17/05/2019 | App                  | INFO     | Loading views 
+01:18:03 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:18:04 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user2 
+01:18:04 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:18:42 17/05/2019 | App                  | INFO     | App started 
+01:18:42 17/05/2019 | App                  | INFO     | Instantiating models 
+01:18:42 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:18:43 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:18:43 17/05/2019 | App                  | INFO     | Instantiating views 
+01:18:43 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:18:43 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:18:43 17/05/2019 | App                  | INFO     | Loading views 
+01:18:43 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:18:44 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user2 
+01:18:44 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:19:17 17/05/2019 | App                  | INFO     | App started 
+01:19:17 17/05/2019 | App                  | INFO     | Instantiating models 
+01:19:17 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:19:18 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:19:18 17/05/2019 | App                  | INFO     | Instantiating views 
+01:19:18 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:19:18 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:19:18 17/05/2019 | App                  | INFO     | Loading views 
+01:19:18 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:19:19 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user2 
+01:19:19 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:19:57 17/05/2019 | App                  | INFO     | App started 
+01:19:57 17/05/2019 | App                  | INFO     | Instantiating models 
+01:19:57 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:19:58 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:19:58 17/05/2019 | App                  | INFO     | Instantiating views 
+01:19:59 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:19:59 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:19:59 17/05/2019 | App                  | INFO     | Loading views 
+01:19:59 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:20:00 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user2 
+01:20:00 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:20:00 17/05/2019 | MainController       | INFO     | Requesting view change 
+01:20:00 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+01:20:00 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+01:20:00 17/05/2019 | MainController       | INFO     | View change completed 
+01:20:00 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+01:20:00 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+01:20:10 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+01:20:10 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+01:20:10 17/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+01:20:10 17/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+01:20:10 17/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 
+01:21:15 17/05/2019 | App                  | INFO     | App started 
+01:21:15 17/05/2019 | App                  | INFO     | Instantiating models 
+01:21:15 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:21:15 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:21:15 17/05/2019 | App                  | INFO     | Instantiating views 
+01:21:16 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:21:16 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:21:16 17/05/2019 | App                  | INFO     | Loading views 
+01:21:16 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:21:18 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user2 
+01:21:18 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:21:18 17/05/2019 | MainController       | INFO     | Requesting view change 
+01:21:18 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+01:21:18 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+01:21:18 17/05/2019 | MainController       | INFO     | View change completed 
+01:21:18 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+01:21:18 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+01:21:45 17/05/2019 | App                  | INFO     | App started 
+01:21:45 17/05/2019 | App                  | INFO     | Instantiating models 
+01:21:45 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:21:46 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:21:46 17/05/2019 | App                  | INFO     | Instantiating views 
+01:21:46 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:21:46 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:21:46 17/05/2019 | App                  | INFO     | Loading views 
+01:21:46 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:25:59 17/05/2019 | App                  | INFO     | App started 
+01:25:59 17/05/2019 | App                  | INFO     | Instantiating models 
+01:25:59 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:25:59 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:25:59 17/05/2019 | App                  | INFO     | Instantiating views 
+01:26:00 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:26:00 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:26:00 17/05/2019 | App                  | INFO     | Loading views 
+01:26:00 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:26:29 17/05/2019 | App                  | INFO     | App started 
+01:26:29 17/05/2019 | App                  | INFO     | Instantiating models 
+01:26:29 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:26:29 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:26:29 17/05/2019 | App                  | INFO     | Instantiating views 
+01:26:30 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:26:30 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:26:30 17/05/2019 | App                  | INFO     | Loading views 
+01:26:30 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:26:33 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user1 
+01:26:33 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:26:33 17/05/2019 | LoginController      | DEBUG    | Username found - True, password matched - False 
+01:26:45 17/05/2019 | App                  | INFO     | App started 
+01:26:45 17/05/2019 | App                  | INFO     | Instantiating models 
+01:26:45 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:26:46 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:26:46 17/05/2019 | App                  | INFO     | Instantiating views 
+01:26:47 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:26:47 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:26:47 17/05/2019 | App                  | INFO     | Loading views 
+01:26:47 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:26:49 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user1 
+01:26:49 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:26:49 17/05/2019 | LoginController      | DEBUG    | Username found - True, password matched - False 
+01:26:55 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user2 
+01:26:55 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:26:55 17/05/2019 | MainController       | INFO     | Requesting view change 
+01:26:55 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+01:26:55 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+01:26:55 17/05/2019 | MainController       | INFO     | View change completed 
+01:26:55 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+01:26:55 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+01:27:05 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+01:27:05 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+01:27:05 17/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+01:27:14 17/05/2019 | App                  | INFO     | App started 
+01:27:14 17/05/2019 | App                  | INFO     | Instantiating models 
+01:27:14 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:27:15 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:27:15 17/05/2019 | App                  | INFO     | Instantiating views 
+01:27:15 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:27:15 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:27:15 17/05/2019 | App                  | INFO     | Loading views 
+01:27:15 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:27:18 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user1 
+01:27:18 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:27:18 17/05/2019 | LoginController      | DEBUG    | Username found - True, password matched - False 
+01:27:22 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user2 
+01:27:22 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:27:22 17/05/2019 | MainController       | INFO     | Requesting view change 
+01:27:22 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+01:27:22 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+01:27:22 17/05/2019 | MainController       | INFO     | View change completed 
+01:27:22 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+01:27:22 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+01:54:05 17/05/2019 | App                  | INFO     | App started 
+01:54:05 17/05/2019 | App                  | INFO     | Instantiating models 
+01:54:05 17/05/2019 | Database             | DEBUG    | Creating connection for LoginModel 
+01:54:06 17/05/2019 | App                  | INFO     | Instantiating controllers 
+01:54:06 17/05/2019 | App                  | INFO     | Instantiating views 
+01:54:07 17/05/2019 | App                  | INFO     | Linking controllers to views 
+01:54:07 17/05/2019 | App                  | INFO     | Configuring main controller 
+01:54:07 17/05/2019 | App                  | INFO     | Loading views 
+01:54:07 17/05/2019 | MainView             | INFO     | Adding LoginView to main widget stack 
+01:54:08 17/05/2019 | LoginModel           | DEBUG    | Searching db for user demo_user2 
+01:54:08 17/05/2019 | LoginController      | DEBUG    | Matching username found, checking password 
+01:54:08 17/05/2019 | MainController       | INFO     | Requesting view change 
+01:54:08 17/05/2019 | MainView             | INFO     | Changing to tabWidget mode 
+01:54:08 17/05/2019 | MainView             | INFO     | Changing from homeTab to homeTab 
+01:54:08 17/05/2019 | MainController       | INFO     | View change completed 
+01:54:08 17/05/2019 | ConnectView          | DEBUG    | Updating status text 
+01:54:08 17/05/2019 | DeviceFinder         | DEBUG    | Starting new thread; searching for devices 
+01:54:09 17/05/2019 | HomeController       | DEBUG    | Connect button clicked 
+01:54:09 17/05/2019 | MainController       | INFO     | Requesting view change 
+01:54:09 17/05/2019 | MainView             | INFO     | Changing from homeTab to connectTab 
+01:54:09 17/05/2019 | MainController       | INFO     | View change completed 
+01:54:18 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: rolph and address: 74:9E:AF:43:7A:89 
+01:54:18 17/05/2019 | DeviceFinder         | DEBUG    | Found bluetooth device with name: IBTLI14 and address: FC:58:FA:12:18:26 
+01:54:18 17/05/2019 | DeviceFinder         | DEBUG    | Search complete, deleting thread 
+01:54:18 17/05/2019 | ConnectView          | DEBUG    | Adding rolph to found devices list 
+01:54:18 17/05/2019 | ConnectView          | DEBUG    | Adding IBTLI14 to found devices list 

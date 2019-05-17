@@ -3,7 +3,6 @@ from PyQt5.QtCore import Qt
 from views.ui_files.login_view_ui import Ui_LoginView
 from application.Logger import Logger
 
-
 class LoginView(QWidget):
     """ View class. Instantiates all UI QWidgets associated with this view and links signals to controller slots.
 
@@ -26,10 +25,15 @@ class LoginView(QWidget):
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
 
-        self._ui.incorrectLabel.setVisible(False)  # TODO: use signals and slots
+        # configure and hide the incorrect details label
+        self._ui.incorrectLabel.setStyleSheet("""QLabel {color: red;}""")
+        self.toggle_incorrect_label(value=False)
 
         # connect login button click event to its slot
         self._ui.loginPushButton.clicked.connect(lambda: self._controller.login_button_clicked())
+
+        self._ui.usernameLineEdit.setText('demo_user2')
+        self._ui.passwordLineEdit.setText('password2')
 
     def keyPressEvent(self, e):
         """Link enter/return key events to login_clicked handler; overrides QtWidget event handler.
@@ -47,3 +51,14 @@ class LoginView(QWidget):
     def get_password(self):
         """Gets the plaintext in the password entry field."""
         return self._ui.passwordLineEdit.text()
+
+    def toggle_incorrect_label(self, value):
+        """Shows/hides the incorrect details label.
+
+        Args:
+            value (bool): The desired label visibility status.
+        """
+        if value:
+            self._ui.incorrectLabel.show()
+        else:
+            self._ui.incorrectLabel.hide()

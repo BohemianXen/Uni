@@ -153,6 +153,9 @@ class App(QApplication):
             threads_done = pools.waitForDone(5000)
             self.logger.log("All threads now closed: {}".format(threads_done), Logger.DEBUG)
 
+        #if self.login_model is not None:
+        #    self.login_model.close()
+
         self.exec_()
         self.logger.log('App closing', Logger.INFO)
 
