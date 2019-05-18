@@ -33,7 +33,7 @@ class LoginModel(QObject):
         found = False
 
         try:
-            self._query.prepare('SELECT id, username, password from accounts WHERE accounts.username = ?')
+            self._query.prepare('SELECT id, username, password FROM accounts WHERE accounts.username = ?')
             self._query.addBindValue(username)
             query_successful = self._query.exec()
 

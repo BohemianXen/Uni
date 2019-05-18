@@ -8,17 +8,20 @@ class Database(QObject):
 
     Parameters:
         parent(string): Name of the model that's creating the connection.
+        name (str): The name of this class name.
+        logger (Logger): Logging instance for this class.
     """
 
     def __init__(self, parent):
         super().__init__()
 
-        self.name = self.__class__.__name__
         self.parent = parent
+        self.name = self.__class__.__name__
         self._logger = Logger(self.name)
 
         self._logger.log('Creating connection for {}'.format(self.parent), Logger.DEBUG)
 
+        # create a database instance using the demo account
         self.db = QSqlDatabase('QMYSQL')
         self.db.setHostName('localhost')
         self.db.setPort(3306)
