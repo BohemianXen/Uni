@@ -24,7 +24,7 @@ class MainController(QObject):
         self._model.controllers['login'].loginComplete.connect(self.set_current_view)
 
         # search for devices in background on completion of log in
-        self._model.controllers['login'].loginComplete.connect(self._model.controllers['connect'].search_button_clicked)
+        #self._model.controllers['login'].loginComplete.connect(self._model.controllers['connect'].search_button_clicked)
 
         # home page navigation change slots
         self._model.controllers['home'].connectClicked.connect(self.set_current_view)

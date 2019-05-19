@@ -1,3 +1,4 @@
+from PyQt5.QtCore import QElapsedTimer
 from application.Logger import Logger
 from datetime import datetime
 from itertools import product
@@ -34,7 +35,7 @@ class Converters:
     def bytes_to_int(word, signed):
         """Converts 16-bit words into integers.
         Args:
-            word (bytearray): A big-endian array of of 2 bytes.
+            word (bytearray): A big-endian array of 2 bytes.
             signed (bool): Whether or not the input word is signed.
 
         Returns:
@@ -55,7 +56,6 @@ class Converters:
         # TODO: Checks for valid BCD (i.e. no chars)
         return bytes([bcd])
 
-
     @staticmethod
     def bytes_to_datetime(pairs):
         """Extracts timestamp data from an array of 3 16-bit words.
@@ -73,8 +73,8 @@ class Converters:
             maj, min = hex(maj)[2:], hex(min)[2:]  # convert into hex string and remove 0x prefix
 
             # zero pad if only one digit then append to date string
-            maj_pad = '0' if int(maj) < 10 else ''
-            min_pad = '0' if int(min) < 10 else ''
+            maj_pad = '0' if len(maj) < 2 else ''
+            min_pad = '0' if len(min) < 2 else ''
             date_string += maj_pad + maj + ' ' + min_pad + min + ' '
 
         return datetime.strptime(date_string, '%y %m %d %H %M %S ')
@@ -122,7 +122,7 @@ class Tests:
         """Tests all possible 16-bit int conversions.
 
         Args:
-            signed (bool): Whether the 16-bit value is signed.
+            signed (bool): Whether or not the 16-bit value is signed.
 
         Returns:
             bool: Test result.
@@ -168,9 +168,18 @@ if __name__ == '__main__':
     print(result2)
 
     # test uint conversions
+    unsigned_timer = QElapsedTimer()
+    signed_timer = QElapsedTimer()
+    unsigned_time = []
+    signed_time = []
+
+    unsigned_timer.start()
     result3 = Tests.test_int_conversions(signed=False)
+    unsigned_time.append(unsigned_timer.elapsed())
+
+    signed_timer.start()
     result4 = Tests.test_int_conversions(signed=True)
+    signed_time.append(signed_timer.elapsed())
+
     print(result3, result4)
-
-
-
+    print(unsigned_time, signed_time)

@@ -1,4 +1,4 @@
-from PyQt5.QtCore import pyqtSignal, QRunnable, QObject
+from PyQt5.QtCore import pyqtSignal, QRunnable, QObject, QElapsedTimer
 from application.Logger import Logger
 import bluetooth
 import traceback
@@ -30,8 +30,13 @@ class DeviceConnector(QRunnable):
             if device_found is None:
                 self._logger.log('Could not re-discover target', Logger.DEBUG)
             else:
-                self._logger.log('Re-discovered target', Logger.DEBUG)
+                self._logger.log('Re-discovered target, scanning services', Logger.DEBUG)
+
+                timer = QElapsedTimer()
+                timer.start()
                 services = bluetooth.find_service(address=self.target_address)
+                scan_time = timer.elapsed()
+                self._logger.log('Completed scan in {} ms'.format(scan_time), Logger.DEBUG)
 
                 if len(services) > 0:
                     self._logger.log("Found {} services on {}".format(len(services), self.target_name), Logger.DEBUG)

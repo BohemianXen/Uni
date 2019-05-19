@@ -38,6 +38,8 @@ class LiveView(QWidget):
 
         self._plot = self._ui.graphicsView.getPlotItem()
         self._plot.setContentsMargins(10, 10, 10, 10)
+        self._plot.plot().getViewBox().disableAutoRange()
+        self._ui.graphicsView.setYRange(-126, 127, padding=0)
 
         self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)  # debug only
 
@@ -89,7 +91,8 @@ class LiveView(QWidget):
     def update_motion_plot(self, data):
         """Updates the motion graph with new data."""
         sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
-        samples = np.arange(len(data))
+        self._ui.graphicsView.setXRange(0, len(data), padding=0.02)
+
         for sensor in range(6):
             series = [packet[sensor] for packet in data]
-            self._plot.plot().setData(x=samples, y=series, pen=(sensor, 6), name=sensor_names[sensor])
+            self._plot.plot().setData(y=series, pen=(sensor, 6), name=sensor_names[sensor])

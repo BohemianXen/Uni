@@ -7,6 +7,7 @@ from os import getcwd
 
 class LiveMotionSignals(QObject):
     dataReady = pyqtSignal(str, list)
+    dataFinished = pyqtSignal()
 
     def __init__(self):
         super(LiveMotionSignals, self).__init__()
@@ -37,7 +38,8 @@ class LiveMotion(QRunnable):
         self._logger.log('Starting new thread; live plotting motion data', Logger.DEBUG)
         self.plotting = True
         with open(self.dummy_file) as f:
-            while self.plotting:
+            line = None
+            while self.plotting and line != '':
                 line = f.readline()
                 if line != '\n':
                     self.data.append(line)
@@ -45,8 +47,9 @@ class LiveMotion(QRunnable):
                     data = self.data.copy()
                     self.signals.dataReady.emit('motion', data)
                     self.data = []
-                time.sleep(1/self.sample_rate)
+                time.sleep(1/1000) # self.sample_rate)
 
+        self.signals.dataFinished.emit()
         self._logger.log('Deleting live motion thread', Logger.DEBUG)
 
     @staticmethod
