@@ -1,9 +1,25 @@
 import logging
 
-
 # TODO: logs can have errors too
 # TODO: file reaches max size
+
+
 class Logger:
+    """Text file logging class that all written modules implement for coverage.
+
+    Args:
+        source (str): The name of the parent module.
+
+    Parameters:
+        INFO: Workflow level messages.
+        DEBUG: Debug level messages.
+        WARNING: Warning level messages.
+        ERROR: Non-critical error level messages.
+        CRITICAL: Critical error level messages.
+        source (str): The name of the parent module.
+        keys (dict): Wrapper for logging library to parse source.
+    """
+
     INFO = logging.INFO
     DEBUG = logging.DEBUG
     WARNING = logging.WARNING

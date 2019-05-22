@@ -13,6 +13,16 @@ class DeviceConnectorSignals(QObject):
 
 # TODO: Add checks for own bluetooth chip
 class DeviceConnector(QRunnable):
+    """PyBluez class for connecting to the device. Currently scans services.
+
+    Parameters:
+        name (str): The name of this class.
+        _logger (Logger): Logging instance for this class.
+        signals (DeviceConnectorSignals): The signals associated with this class.
+        target_address (str): MAC Address of selected device.
+        target_name (str): Name of selected device.
+    """
+
     def __init__(self):
         super(DeviceConnector, self).__init__()
         self.name = __class__.__name__
@@ -22,8 +32,10 @@ class DeviceConnector(QRunnable):
         self.target_name = ''
 
     def run(self):
+        """Overrides the QRunnable implementation to start a device connection thread."""
         self._logger.log('Starting new thread; connecting with {}'.format(self.target_name), Logger.DEBUG)
         connection_complete = False
+
         try:
             self._logger.log('Re-discovering devices to locate target', Logger.DEBUG)
             device_found = bluetooth.lookup_name(self.target_address)

@@ -14,6 +14,15 @@ class DeviceFinderSignals(QObject):
 
 # TODO: Add checks for own bluetooth chip
 class DeviceFinder(QRunnable):
+    """Qt Bluetooth class for connecting to the device. Currently scans services.
+
+    Parameters:
+        name (str): The name of this class.
+        _logger (Logger): Logging instance for this class.
+        signals (DeviceConnectorSignals): The signals associated with this class.
+        timeout (int): Max time allowed for a scan (in seconds).
+        devices_found (dict): A list of found devices in address: name format.
+    """
 
     def __init__(self):
         super(DeviceFinder, self).__init__()
@@ -24,6 +33,7 @@ class DeviceFinder(QRunnable):
         self.devices_found = {}
 
     def run(self):
+        """Overrides the QRunnable implementation to start a device search thread."""
         self._logger.log('Starting new thread; searching for devices', Logger.DEBUG)
 
         try:

@@ -13,6 +13,14 @@ class DeviceFinderSignals(QObject):
 
 # TODO: Add checks for own bluetooth chip
 class DeviceFinder(QRunnable):
+    """PyBluez class for connecting to the device. Currently scans services.
+
+    Parameters:
+        name (str): The name of this class.
+        _logger (Logger): Logging instance for this class.
+        signals (DeviceConnectorSignals): The signals associated with this class.
+    """
+
     def __init__(self):
         super(DeviceFinder, self).__init__()
         self.name = __class__.__name__

@@ -3,6 +3,18 @@ from application.Logger import Logger
 
 
 class UploadController(QObject):
+    """ Controller class. Handles the core program logic and data transfer between its view and model counterparts.
+
+    Args:
+        model (QWidget): The controller's corresponding model.
+
+    Parameters:
+        _model (QWidget): A reference to the passed model.
+        _view (QWidget): A reference to this controller's corresponding view.
+        name (str): The name of this class.
+        _logger (Logger): Logging instance for this class.
+    """
+
     def __init__(self, model):
         super().__init__()
 
@@ -15,6 +27,6 @@ class UploadController(QObject):
     def link_view(self, view):
         self._view = view
 
-    # update view following log in event
     def unlock_view(self):
+        """Unlocks view on succesful device connection."""
         self._view.unlock_view()

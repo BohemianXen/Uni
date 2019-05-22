@@ -14,6 +14,17 @@ class DeviceConnectorSignals(QObject):
 
 # TODO: Add checks for own bluetooth chip
 class DeviceConnector(QRunnable):
+    """Qt Bluetooth class for connecting to the device. Currently scans services.
+
+    Parameters:
+        name (str): The name of this class.
+        _logger (Logger): Logging instance for this class.
+        signals (DeviceConnectorSignals): The signals associated with this class.
+        target_address (str): MAC Address of selected device.
+        target_name (str): Name of selected device.
+        le_controller (QLowEnergyController): The low energy connection manager.
+    """
+
     def __init__(self):
         super(DeviceConnector, self).__init__()
         self.name = __class__.__name__
@@ -25,8 +36,10 @@ class DeviceConnector(QRunnable):
         self.le_controller = None
 
     def run(self):
+        """Overrides the QRunnable implementation to start a device connection thread."""
         self._logger.log('Starting new thread; connecting with {}'.format(self.target_name), Logger.DEBUG)
         connection_complete = False
+
         try:
             device = self.discover_devices()
 
@@ -53,6 +66,10 @@ class DeviceConnector(QRunnable):
 
                     if self.le_controller.state() == QLowEnergyController.ConnectedState \
                             or self.le_controller.state() == QLowEnergyController.DiscoveredState:
+                        service = self.le_controller.createServiceObject(self.le_controller.services()[0])
+                        uuid = ''
+                        characteristic = service.characteristic(uuid)
+                        # TODO: Get UUID from Wireless Comms sub-system engineer and characteristic description
                         connection_complete = True
                     else:
                         self._logger.log('Disconnecting from device', Logger.DEBUG)
@@ -94,6 +111,7 @@ class DeviceConnector(QRunnable):
         self.le_controller.connected.connect(connected)
 
 
+# Only observed when running on Windows.
 @pyqtSlot()
 def discovery_done():
     print("Discovery done")

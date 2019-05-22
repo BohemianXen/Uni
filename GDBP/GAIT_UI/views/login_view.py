@@ -3,6 +3,7 @@ from PyQt5.QtCore import Qt
 from views.ui_files.login_view_ui import Ui_LoginView
 from application.Logger import Logger
 
+
 class LoginView(QWidget):
     """ View class. Instantiates all UI QWidgets associated with this view and links signals to controller slots.
 

@@ -39,16 +39,16 @@ class LiveView(QWidget):
         self._plot = self._ui.graphicsView.getPlotItem()
         self._plot.setContentsMargins(10, 10, 10, 10)
         self._plot.plot().getViewBox().disableAutoRange()
-        self._ui.graphicsView.setYRange(-126, 127, padding=0)
+        self._ui.graphicsView.setYRange(-128, 128, padding=0)
 
         self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)  # debug only
 
         # listeners
-        self.newPlotReady.connect(self._controller.start_plot)
+        self.newPlotReady.connect(self._controller.start_stream)
         self._ui.testRadioButton.toggled.connect(lambda: self._controller.button_toggled('test'))
-        self._ui.motionRadioButton.toggled.connect(lambda: self._controller.button_toggled('motion'))
+        self._ui.dummyMotionRadioButton.toggled.connect(lambda: self._controller.button_toggled('dummy motion'))
+        self._ui.liveMotionRadioButton.toggled.connect(lambda: self._controller.button_toggled('live motion'))
         self._ui.uvRadioButton.toggled.connect(lambda: self._controller.button_toggled('uv'))
-        self._ui.locationRadioButton.toggled.connect(lambda: self._controller.button_toggled('location'))
 
     def change_stacked_widget(self, view_type):  # Need checked check?
         """Updates the stacked widget to match the chosen data view mode.
@@ -56,20 +56,29 @@ class LiveView(QWidget):
         Args:
             view_type (str): The name of the live view type required.
         """
-        self._plot.clear()
+        self.clear_graph()
+        self._ui.consoleTextEdit.clear()
 
         if self._ui.testRadioButton.isChecked() and view_type == 'test':
             self._ui.stackedWidget.setCurrentWidget(self._ui.consoleWidget)
-        elif self._ui.locationRadioButton.isChecked() and view_type == 'location':
-            self._ui.stackedWidget.setCurrentWidget(self._ui.mapWidget)
+            self.newPlotReady.emit(view_type)
         else:
-            if self._ui.motionRadioButton.isChecked() and view_type == 'motion':
-                self._plot.setTitle('Motion Data')
-                self._plot.setLabels(left='Value', bottom='Sample No.')
-                # self._plot.addLegend(size=[100, 300])
+            if self._ui.liveMotionRadioButton.isChecked() and view_type == 'live motion':
+                self._plot.setTitle('Live Motion Data')
                 self.newPlotReady.emit(view_type)
+            elif self._ui.dummyMotionRadioButton.isChecked() and view_type == 'dummy motion':
+                self._plot.setTitle('Dummy Motion Data')
+                self.newPlotReady.emit(view_type)
+            elif self._ui.uvRadioButton.isChecked() and view_type == 'uv':
+                self._plot.setTitle('UV Data')
+                self.newPlotReady.emit(view_type)
+            else:
+                None
 
+            self._plot.setLabels(left='Value', bottom='Sample No.')
+            # self._plot.addLegend(size=[100, 300])
             self._ui.stackedWidget.setCurrentWidget(self._ui.graphicsWidget)
+
 
     def unlock_view(self):
         """Moves to connected view since device connection complete."""
@@ -83,10 +92,12 @@ class LiveView(QWidget):
             message (str): The message to be written to the in-app console.
         """
         self._ui.consoleTextEdit.append(message)
+        self._ui.consoleTextEdit.ensureCursorVisible()
 
     def clear_graph(self):
         """Clears the plot ahead of updates."""
-        self._plot.plot().clear()
+        #self._plot.plot().clear()
+        self._plot.clear()
 
     def update_motion_plot(self, data):
         """Updates the motion graph with new data."""
