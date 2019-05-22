@@ -12,6 +12,7 @@ class PortTestSignals(QObject):
 
 
 class PortTest(QRunnable):
+    """Class not used for demo, see SerialPortTest instead. """
     def __init__(self, host, port, uuid):
         super(PortTest, self).__init__()
         self.name = __class__.__name__

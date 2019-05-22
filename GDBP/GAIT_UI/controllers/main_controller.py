@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QObject, pyqtSlot
+from PyQt5.QtCore import QObject, pyqtSlot, QThreadPool, QCoreApplication
 from application.Logger import Logger
 
 
@@ -57,3 +57,14 @@ class MainController(QObject):
         for name, controller in self._model.controllers.items():
             if complete and name == 'live':  # and name == 'upload':
                 controller.unlock_view()
+
+    @staticmethod
+    def on_close():
+        """Called on app close. Attempts to ensure all threads are closed before closing."""
+        pools = QThreadPool.globalInstance()
+        print('{} thread(s) were running on termination'.format(pools.activeThreadCount()))
+        while pools.activeThreadCount() > 0:
+            pools.waitForDone(3000)
+            print('Finishing up...')
+
+        QCoreApplication.exit(0)

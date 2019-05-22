@@ -1,7 +1,6 @@
 import sys
 from application.Logger import Logger
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QThreadPool
 
 # import models
 from models.main_model import MainModel
@@ -145,23 +144,10 @@ class App(QApplication):
         # show window and set up listeners for view change triggers
         self.main_view.show()
 
-    def on_close(self):
-        """Called on app close. Attempts to ensure all threads are closed before closing."""
-        pools = QThreadPool.globalInstance()
-        if pools.activeThreadCount() > 0:
-            self.logger.log("{} thread(s) were running on termination".format(pools.activeThreadCount()), Logger.DEBUG)
-            threads_done = pools.waitForDone(5000)
-            self.logger.log("All threads now closed: {}".format(threads_done), Logger.DEBUG)
-
-        #if self.login_model is not None:
-        #    self.login_model.close()
-
-        self.exec_()
-        self.logger.log('App closing', Logger.INFO)
-
 
 if __name__ == '__main__':
     app = App(sys.argv)
     if app.arguments()[1] == '-d':
         app.DEBUG_MODE = True
-    sys.exit(app.on_close())
+
+        sys.exit(app.exec_())

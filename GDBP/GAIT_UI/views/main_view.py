@@ -69,3 +69,7 @@ class MainView(QMainWindow):
     def update_main_view(self):
         self._logger.log('Changing to tabWidget mode', Logger.INFO)
         self._ui.mainStackedWidget.setCurrentWidget(self._ui.loggedInView)
+
+    def closeEvent(self, *args, **kwargs):
+        self._logger.log('Close button clicked. Shutting down.', Logger.DEBUG)
+        self._controller.on_close()

@@ -1,7 +1,10 @@
 from PyQt5.QtCore import QObject, pyqtSlot, QThreadPool, QTimer, QElapsedTimer
 from application.Logger import Logger
-from controllers.live_manager.PortTest import PortTest
-from controllers.live_manager.LiveMotion import LiveMotion
+from data_processors.Converters import Converters
+from controllers.live_manager.SerialPortTest import SerialPortTest
+from controllers.live_manager.DummyLiveMotion import DummyLiveMotion
+import serial.tools.list_ports
+
 from statistics import mean
 import cProfile
 
@@ -18,13 +21,19 @@ class LiveController(QObject):
 
         self.pool = QThreadPool.globalInstance()
 
-        self.plotting = False
-        self.live_motion = None
+        self.live_types = {
+            'test': None,
+            'dummy motion': None,
+            'live motion': None
+        }
+        self.streaming = False
+        self.dummy_motion = None
+        self.port_test = None
 
-        """self.host = ''
-        self.port = ''
-        self.uuid = 0x1200
 
+        self.port = 3
+        #self.port_test = SerialPortTest(port_no=self.port, msg=None)
+        """self.uuid = 0x1200
         self.timer = QTimer()
         self.timer.timeout.connect(self.plot)
         self.elap = QElapsedTimer()
@@ -36,42 +45,63 @@ class LiveController(QObject):
 
     def link_view(self, view):
         self._view = view
+        self.start_stream('test')
 
     # update view following connect event
     def unlock_view(self):
         self._view.unlock_view()
-        # self.start_test()
 
     def button_toggled(self, view_type):
-        if self.plotting:
-            self.stop_plotting()
+        if self.streaming:
+            self.stop_streaming(view_type)
 
         self._view.change_stacked_widget(view_type)
 
+    # Port Test
+    @pyqtSlot()
     def start_test(self):
-        port_test = PortTest(self.host, self.port, self.uuid)
-        port_test.signals.testComplete.connect(self.test_complete)
-        self.pool.start(port_test)
+        if len(serial.tools.list_ports) > 0:
+            port_test = SerialPortTest(port_no=self.port, msg=None)
+            #port_test.autoDelete(False)
+            port_test.signals.dataReady.connect(self.update_test_console)
+            self.pool.start(port_test)
 
+
+    @pyqtSlot(bytes)
     def update_test_console(self, message):
-        self._view.update_test_console(message)
+        try:
+            message = message.rstrip()
+            self._view.update_test_console(message.decode('utf-8'))
+        except Exception as e:
+            print(str(e))
+            pass
 
     @pyqtSlot(str)
-    def start_plot(self, data_type):
-        self.plotting = True
+    def start_stream(self, data_type):
+        self.streaming = True
 
-        if data_type == 'motion':
-            self._logger.log('Starting live motion plot', Logger.DEBUG)
-            live_motion = LiveMotion()
-            live_motion.signals.dataReady.connect(self.update_plot)
-            live_motion.signals.dataFinished.connect(self.stop_plotting)
+        if data_type == 'test' and len(serial.tools.list_ports.comports()) > 0:
+            self._logger.log('Starting port test', Logger.DEBUG)
+            port_test = SerialPortTest(port_no=self.port, msg=None)
+            port_test.signals.dataReady.connect(self.update_test_console)
+            port_test.signals.done.connect(self.stop_streaming)
 
-            self.pool.start(live_motion)
-            self.live_motion = live_motion
+            self.pool.start(port_test)
+            self.live_types[data_type] = port_test
+        elif data_type == 'dummy motion':
+            self._logger.log('Starting dummy motion plot', Logger.DEBUG)
+            dummy_motion = DummyLiveMotion()
+            dummy_motion.signals.dataReady.connect(self.update_plot)
+            dummy_motion.signals.dataFinished.connect(self.stop_streaming)
+
+            self.pool.start(dummy_motion)
+            self.live_types[data_type] = dummy_motion
+        else:
+            None
 
     @pyqtSlot(str, list)
     def update_plot(self, data_type, data):
-        if data_type == 'motion':
+        if data_type == 'dummy motion':
             self._model.add_motion_data(data)
 
             if len(self._model.motion_data) % 2 == 0:
@@ -84,16 +114,18 @@ class LiveController(QObject):
     def plot(self):
         self._view.update_motion_plot(self._model.motion_data)
 
-    @pyqtSlot()
-    def stop_plotting(self):
-        self._logger.log('Stopping plot', Logger.DEBUG)
+    @pyqtSlot(str)
+    def stop_streaming(self, caller):
+        self._logger.log('Stopping stream for {}'.format(caller), Logger.DEBUG)
+        self._model.reset_data()
+        self.streaming = False
+
         #self.timer.stop()
         #self.profiler.print_stats(sort='time')
         #print('Plotted at {} Hz '.format(1000/mean(self.times)))
         #self.times = []
-        if self.live_motion is not None:
-            self.live_motion.plotting = False
-            self.live_motion = None
 
-        self._model.reset_data()
-        self.plotting = False
+        for live_type, value in self.live_types.items():
+            if value is not None and live_type == caller:
+                value.streaming = self.streaming
+                self.live_types[live_type] = None

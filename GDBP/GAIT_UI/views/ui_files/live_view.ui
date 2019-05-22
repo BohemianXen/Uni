@@ -54,7 +54,7 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="defaultView">
     <widget class="QWidget" name="gridLayoutWidget">
@@ -149,17 +149,29 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="motionRadioButton">
+           <widget class="QRadioButton" name="dummyMotionRadioButton">
             <property name="font">
              <font>
               <pointsize>12</pointsize>
              </font>
             </property>
             <property name="text">
-             <string>Motion</string>
+             <string>Dummy Motion</string>
             </property>
             <property name="checked">
              <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="liveMotionRadioButton">
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Live Motion</string>
             </property>
            </widget>
           </item>
@@ -172,30 +184,6 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}
             </property>
             <property name="text">
              <string>UV Exposure</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="hrRadioButton">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Heart Rate</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="locationRadioButton">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Location</string>
             </property>
            </widget>
           </item>
