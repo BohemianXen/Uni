@@ -9,6 +9,8 @@
       <change beforePath="$PROJECT_DIR$/controllers/live_manager/SerialPortTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/live_manager/SerialPortTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/live_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/live_model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/live_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/live_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/ui_files/live_view.ui" beforeDir="false" afterPath="$PROJECT_DIR$/views/ui_files/live_view.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/ui_files/live_view_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/ui_files/live_view_ui.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,11 +23,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/live_controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="156" column="7" lean-forward="true" selection-start-line="156" selection-start-column="7" selection-end-line="156" selection-end-column="7" />
+            <state relative-caret-position="130">
+              <caret line="97" column="16" selection-start-line="97" selection-start-column="16" selection-end-line="97" selection-end-column="16" />
               <folding>
                 <element signature="e#0#78#0" expanded="true" />
                 <element signature="e#3461#3646#0" />
+                <element signature="e#5386#5398#0" />
               </folding>
             </state>
           </provider>
@@ -34,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/live_model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-502">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="-185">
+              <caret line="33" selection-start-line="33" selection-end-line="33" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -44,37 +47,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/live_manager/DummyLiveMotion1.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="62" column="32" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#73#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/live_manager/DummyLiveMotion.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="57" column="42" lean-forward="true" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
-              <folding>
-                <element signature="e#0#73#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/live_manager/LiveMotion.py">
+        <entry file="file://$PROJECT_DIR$/views/Views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#78#0" expanded="true" />
-              </folding>
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -82,22 +58,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/live_view.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="65" column="53" selection-start-line="65" selection-start-column="53" selection-end-line="65" selection-end-column="53" />
+            <state relative-caret-position="136">
+              <caret line="86" column="57" selection-start-line="86" selection-start-column="57" selection-end-line="86" selection-end-column="57" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Database.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,10 +78,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>addLe</find>
-      <find>hex</find>
-      <find>chr</find>
-      <find>bcd_to_bytes(</find>
       <find>self.dummy_file</find>
       <find>xticks</find>
       <find>stop_plotting</find>
@@ -142,13 +102,14 @@
       <find>LiveMotionTest</find>
       <find>steps</find>
       <find>temp</find>
+      <find>stacked</find>
+      <find>_plot</find>
+      <find>self._plot</find>
       <find>dataFinished</find>
       <find>motion_plot</find>
+      <find>_acc_plot</find>
     </findStrings>
     <replaceStrings>
-      <replace>])</replace>
-      <replace>service</replace>
-      <replace>PortTest</replace>
       <replace>connec(lambda:</replace>
       <replace>_model.devices_found</replace>
       <replace>_model.target_device</replace>
@@ -174,8 +135,11 @@
       <replace>LiveMotion</replace>
       <replace>freefall</replace>
       <replace>sig_motion</replace>
+      <replace>_dummy_plot</replace>
+      <replace>self._acc_plot</replace>
       <replace>done</replace>
       <replace>data</replace>
+      <replace>_gyro_plot</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -228,8 +192,8 @@
         <option value="$PROJECT_DIR$/controllers/main_controller.py" />
         <option value="$PROJECT_DIR$/controllers/live_manager/SerialPortTest.py" />
         <option value="$PROJECT_DIR$/controllers/live_manager/LiveMotion.py" />
-        <option value="$PROJECT_DIR$/models/live_model.py" />
         <option value="$PROJECT_DIR$/controllers/live_manager/DummyLiveMotion1.py" />
+        <option value="$PROJECT_DIR$/models/live_model.py" />
         <option value="$PROJECT_DIR$/controllers/live_controller.py" />
         <option value="$PROJECT_DIR$/views/live_view.py" />
       </list>
@@ -493,7 +457,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19550858" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19550858" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.32956153" />
@@ -503,7 +467,7 @@
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32956153" />
       <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49867898" weight="0.30975956" />
-      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.49603698" visible="true" weight="0.41584158" />
+      <window_info active="true" anchor="bottom" id="Debug" order="7" sideWeight="0.49603698" visible="true" weight="0.41584158" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32956153" />
@@ -518,11 +482,11 @@
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.32956153" />
       <window_info anchor="bottom" id="Python Console" order="1" weight="0.32956153" />
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.32956153" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.5033025" side_tool="true" weight="0.41584158" />
+      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.503963" side_tool="true" weight="0.41584158" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32956153" />
       <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49867898" weight="0.30975956" />
-      <window_info active="true" anchor="bottom" id="Debug" order="7" sideWeight="0.4966975" visible="true" weight="0.41584158" />
+      <window_info active="true" anchor="bottom" id="Debug" order="7" sideWeight="0.49603698" visible="true" weight="0.41584158" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32956153" />
@@ -543,6 +507,11 @@
           <url>file://$PROJECT_DIR$/controllers/live_manager/LiveMotion.py</url>
           <line>80</line>
           <option name="timeStamp" value="97" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/views/live_view.py</url>
+          <line>88</line>
+          <option name="timeStamp" value="117" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -573,13 +542,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="829" selection-start-line="829" selection-end-line="829" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/Views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
@@ -835,13 +797,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/graphicsItems/PlotItem/PlotItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19057">
-          <caret line="1138" column="48" selection-start-line="1138" selection-start-column="48" selection-end-line="1138" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_processors/Converters.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-442">
@@ -948,31 +903,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/graphicsItems/PlotItem/PlotItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="629" selection-start-line="629" selection-end-line="629" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/live_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="97" column="16" selection-start-line="97" selection-start-column="16" selection-end-line="97" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#78#0" expanded="true" />
+            <element signature="e#3461#3646#0" />
+            <element signature="e#5386#5398#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/Views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/live_model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-502">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="-185">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="156" column="7" lean-forward="true" selection-start-line="156" selection-start-column="7" selection-end-line="156" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#78#0" expanded="true" />
-            <element signature="e#3461#3646#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/live_view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="65" column="53" selection-start-line="65" selection-start-column="53" selection-end-line="65" selection-end-column="53" />
+        <state relative-caret-position="136">
+          <caret line="86" column="57" selection-start-line="86" selection-start-column="57" selection-end-line="86" selection-end-column="57" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>

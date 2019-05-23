@@ -83,8 +83,8 @@ class LiveController(QObject):
             dummy_motion.signals.dataFinished.connect(self.stop_streaming)
             self.pool.start(dummy_motion)
             self.live_types[data_type] = dummy_motion
-        elif data_type == 'live motion':
-            self._logger.log('Starting live motion', Logger.DEBUG)
+        elif data_type == 'live motion' or data_type == 'uv':
+            self._logger.log('Starting live plots', Logger.DEBUG)
 
             if not self.dummy_live_mode and len(serial.tools.list_ports.comports()) > 0:
                 live_motion = LiveMotion(port_no=self.port, rate=self.rate, msg=None)
@@ -92,7 +92,6 @@ class LiveController(QObject):
                 live_motion = DummyLiveMotion1()
             live_motion.signals.dataReady.connect(self.live_plot)
             live_motion.signals.done.connect(self.stop_streaming)
-
             self.pool.start(live_motion)
             self.live_types[data_type] = live_motion
         else:
@@ -134,21 +133,28 @@ class LiveController(QObject):
             data = [float(val.rstrip()) for val in data]
         if length >= 13:
             self._model.add_uv_data(data[13])
+            if self._view.uv_on:
+                self._view.update_uv_plot(self._model.uv_data)
 
-        if length >= 25:
+        if length >= 27:
+            steps_updated = self._model.steps == data[27]
             indices = [21, 23, 25, 15, 17, 19]
             self._model.add_motion_data(type=1, new_data=[data[i] for i in indices])
 
-        self._view.update_motion_plot(self._model.motion_data)
+            if not steps_updated:
+                self._model.steps = data[27]
 
-
+            if not self._view.uv_on():
+                if steps_updated:
+                    self._view.update_steps_label(self._model.steps)
+                self._view.update_motion_plot(self._model.motion_data)
 
     @pyqtSlot(str)
     def stop_streaming(self, caller):
         self._logger.log('Stopping stream for {}'.format(caller), Logger.DEBUG)
-        self._model.reset_data()
         self.streaming = False
 
+        # DEBUG ONLY
         #self.timer.stop()
         #self.profiler.print_stats(sort='time')
         #print('Plotted at {} Hz '.format(1000/mean(self.times)))

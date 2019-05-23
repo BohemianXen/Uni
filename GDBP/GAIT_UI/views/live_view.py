@@ -36,11 +36,24 @@ class LiveView(QWidget):
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
 
-        self._plot = self._ui.graphicsView.getPlotItem()
-        self._plot.setContentsMargins(10, 10, 10, 10)
-        self._plot.plot().getViewBox().disableAutoRange()
+        self._dummy_plot = self._ui.dummyView.getPlotItem()
+        self._dummy_plot.setContentsMargins(10, 10, 10, 10)
+        self._dummy_plot.plot().getViewBox().disableAutoRange()
+
+        self._gyro_plot = self._ui.gyroView.getPlotItem()
+        self._gyro_plot.setContentsMargins(10, 10, 10, 10)
+        self._gyro_plot.plot().getViewBox().disableAutoRange()
+
+        self._acc_plot = self._ui.accView.getPlotItem()
+        self._acc_plot.setContentsMargins(10, 10, 10, 10)
+        self._acc_plot.plot().getViewBox().disableAutoRange()
+
+        self._uv_plot = self._ui.uvView.getPlotItem()
+        self._uv_plot.setContentsMargins(10, 10, 10, 10)
+        self._uv_plot.plot().getViewBox().disableAutoRange()
 
         self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)  # debug only
+        #self._ui.stackedWidget.setCurrentWidget(self._ui.consoleWidget)
 
         # listeners
         self.newPlotReady.connect(self._controller.start_stream)
@@ -63,22 +76,35 @@ class LiveView(QWidget):
             self.newPlotReady.emit(view_type)
         else:
             if self._ui.liveMotionRadioButton.isChecked() and view_type == 'live motion':
-                self._ui.graphicsView.setYRange(-5, 5, padding=0)
-                self._plot.setTitle('Live Motion Data')
+                self._ui.gyroView.setYRange(-500, 500, padding=0)
+                self._ui.accView.setYRange(-5, 5, padding=0)
+
+                self._gyro_plot.setTitle('Live Gyro XYZ Data')
+                self._gyro_plot.setLabels(left='dps', bottom='Sample No.')
+
+                self._acc_plot.setTitle('Live Accelerometer XYZ Data')
+                self._acc_plot.setLabels(left='gs', bottom='Sample No.')
+                self._acc_plot.addLegend(size=(100, 100))
+
+                self._ui.stackedWidget.setCurrentWidget(self._ui.liveWidget)
                 self.newPlotReady.emit(view_type)
+
             elif self._ui.dummyMotionRadioButton.isChecked() and view_type == 'dummy motion':
-                self._ui.graphicsView.setYRange(-128, 128, padding=0)
-                self._plot.setTitle('Dummy Motion Data')
+                self._ui.dummyView.setYRange(-128, 128, padding=0)
+                self._dummy_plot.setTitle('Dummy Motion Data')
+                self._dummy_plot.setLabels(left='Value', bottom='Sample No.')
                 self.newPlotReady.emit(view_type)
+                self._ui.stackedWidget.setCurrentWidget(self._ui.dummyWidget)
+
             elif self._ui.uvRadioButton.isChecked() and view_type == 'uv':
-                self._plot.setTitle('UV Data')
+                self._ui.uvView.setYRange(-5, 5, padding=0)  # TODO: Find out range of UV data
+                self._dummy_plot.setTitle('UV Data')
                 self.newPlotReady.emit(view_type)
+                self._ui.stackedWidget.setCurrentWidget(self._ui.uvWidget)
             else:
                 None
 
-            self._plot.setLabels(left='Value', bottom='Sample No.')
             # self._plot.addLegend(size=[100, 300])
-            self._ui.stackedWidget.setCurrentWidget(self._ui.graphicsWidget)
 
 
     def unlock_view(self):
@@ -98,25 +124,45 @@ class LiveView(QWidget):
     def clear_graph(self):
         """Clears the plot ahead of updates."""
         #self._plot.plot().clear()
-        self._plot.clear()
+        self._dummy_plot.clear()
+        self._gyro_plot.clear()
+        self._acc_plot.clear()
+        self._uv_plot.clear()
+
+    def uv_on(self):
+        if self._ui.uvRadioButton.isChecked():
+            return True
+        else:
+            return False
+
+    def update_steps_label(self, val):
+        self._ui.stepsLabel.setText(str(val))
 
     def update_dummy_plot(self, data):
         """Updates the motion graph with new data."""
         sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
-        self._ui.graphicsView.setXRange(0, len(data), padding=0.02)
+        self._ui.dummyView.setXRange(0, len(data), padding=0.02)
 
         for sensor in range(6):
             series = [packet[sensor] for packet in data]
-            self._plot.plot().setData(y=series, pen=(sensor, 6), name=sensor_names[sensor])
+            self._dummy_plot.plot().setData(y=series, pen=(sensor, 6), name=sensor_names[sensor])
 
     def update_motion_plot(self, data):
         """Updates the motion graph with new data."""
         sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
-        self._ui.graphicsView.setXRange(0, len(data), padding=0.02)
+        self._ui.gyroView.setXRange(0, len(data), padding=0.02)
+        self._ui.accView.setXRange(0, len(data), padding=0.02)
 
         # Plot Acc
-        for sensor in range(3, 6):
-            series = [packet[sensor] for packet in data]
-            self._plot.plot().setData(y=series, pen=(sensor, 6), name=sensor_names[sensor])
+        for sensor in range(3):
+            gyro_series = [packet[sensor] for packet in data]
+            acc_series = [packet[sensor+3] for packet in data]
 
+            self._gyro_plot.plot().setData(y=gyro_series, pen=(sensor, 3), name=sensor_names[sensor])
+            self._acc_plot.plot().setData(y=acc_series, pen=(sensor+3, 3), name=sensor_names[sensor+3])
 
+    def update_uv_plot(self, data):
+        """Updates the motion graph with new data."""
+
+        self._ui.uvView.setXRange(0, len(data), padding=0.02)
+        self._uv_plot.plot().setData(y=data, pen=0)

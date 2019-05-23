@@ -52,7 +52,7 @@ class LiveModel(QObject):
 
     @steps.setter
     def steps(self, val):
-        self._steps = val
+        self._steps = int(val)
 
     @property
     def freefall(self):
