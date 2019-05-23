@@ -23,11 +23,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/live_controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="-211">
+              <caret line="64" column="51" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
               <folding>
                 <element signature="e#0#78#0" expanded="true" />
+                <element signature="e#1897#3405#0" />
                 <element signature="e#3461#3646#0" />
+                <element signature="e#4135#4189#0" />
+                <element signature="e#4244#5132#0" />
+                <element signature="e#5314#5863#0" />
                 <element signature="e#5386#5398#0" />
               </folding>
             </state>
@@ -35,69 +39,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/controllers/live_manager/SerialPortTest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#78#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/live_manager/LiveMotion.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#78#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/live_model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-185">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
-              <folding>
-                <element signature="e#0#44#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/Views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/live_view.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+            <state relative-caret-position="204">
+              <caret line="134" column="30" selection-start-line="134" selection-start-column="30" selection-end-line="134" selection-end-column="30" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#6623#6942#0" />
-                <element signature="e#7007#7218#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/widgets/PlotWidget.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="78" selection-start-line="78" selection-end-line="78" />
             </state>
           </provider>
         </entry>
@@ -141,8 +89,8 @@
       <find>_plot</find>
       <find>self._plot</find>
       <find>dataFinished</find>
-      <find>motion_plot</find>
       <find>_acc_plot</find>
+      <find>motion_plot</find>
     </findStrings>
     <replaceStrings>
       <replace>connec(lambda:</replace>
@@ -173,8 +121,8 @@
       <replace>_dummy_plot</replace>
       <replace>self._acc_plot</replace>
       <replace>done</replace>
-      <replace>data</replace>
       <replace>_gyro_plot</replace>
+      <replace>data</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -227,10 +175,10 @@
         <option value="$PROJECT_DIR$/controllers/main_controller.py" />
         <option value="$PROJECT_DIR$/controllers/live_manager/DummyLiveMotion1.py" />
         <option value="$PROJECT_DIR$/models/live_model.py" />
-        <option value="$PROJECT_DIR$/controllers/live_controller.py" />
-        <option value="$PROJECT_DIR$/views/live_view.py" />
         <option value="$PROJECT_DIR$/controllers/live_manager/LiveMotion.py" />
         <option value="$PROJECT_DIR$/controllers/live_manager/SerialPortTest.py" />
+        <option value="$PROJECT_DIR$/controllers/live_controller.py" />
+        <option value="$PROJECT_DIR$/views/live_view.py" />
       </list>
     </option>
   </component>
@@ -492,7 +440,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19550858" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19550858" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.32956153" />
@@ -502,7 +450,7 @@
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.32956153" />
       <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49867898" weight="0.30975956" />
-      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.49603698" visible="true" weight="0.41584158" />
+      <window_info active="true" anchor="bottom" id="Debug" order="7" sideWeight="0.49603698" visible="true" weight="0.41584158" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" weight="0.32956153" />
@@ -937,30 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#0#78#0" expanded="true" />
-            <element signature="e#3461#3646#0" />
-            <element signature="e#5386#5398#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/live_view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#6623#6942#0" />
-            <element signature="e#7007#7218#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/live_manager/LiveMotion.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -973,10 +897,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/live_manager/SerialPortTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+        <state relative-caret-position="314">
+          <caret line="114" column="26" lean-forward="true" selection-start-line="114" selection-start-column="26" selection-end-line="114" selection-end-column="26" />
           <folding>
             <element signature="e#0#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/live_controller.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-211">
+          <caret line="64" column="51" selection-start-line="64" selection-start-column="51" selection-end-line="64" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#78#0" expanded="true" />
+            <element signature="e#1897#3405#0" />
+            <element signature="e#3461#3646#0" />
+            <element signature="e#4135#4189#0" />
+            <element signature="e#4244#5132#0" />
+            <element signature="e#5314#5863#0" />
+            <element signature="e#5386#5398#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/live_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="134" column="30" selection-start-line="134" selection-start-column="30" selection-end-line="134" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>

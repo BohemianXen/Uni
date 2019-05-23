@@ -151,6 +151,8 @@ class LiveController(QObject):
 
     @pyqtSlot(str)
     def stop_streaming(self, caller):
+        # TODO: Fix thread race condition from dummy to live plot
+        
         self._logger.log('Stopping stream for {}'.format(caller), Logger.DEBUG)
         self.streaming = False
 

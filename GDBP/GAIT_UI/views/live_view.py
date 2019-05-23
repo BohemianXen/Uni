@@ -124,11 +124,28 @@ class LiveView(QWidget):
 
     def clear_graph(self):
         """Clears the plot ahead of updates."""
-        #self._plot.plot().clear()
+        # clear legends
+        if self._dummy_plot.legend is not None:
+            try:
+                self._dummy_plot.legend.scene().removeItem(self._dummy_plot.legend)
+            except Exception as e:
+                self._logger.log('Error removing dummy plot legend', Logger.DEBUG)
+                self._logger.log(str(e), Logger.ERROR)
+
+        # TODO proper clearing
+        if self._gyro_plot.legend is not None:
+            try:
+                self._gyro_plot.legend.scene().removeItem(self._gyro_plot.legend)
+                self._acc_plot.legend.scene().removeItem(self._acc_plot.legend)
+            except Exception as e:
+                self._logger.log('Error removing live plot legend', Logger.DEBUG)
+                self._logger.log(str(e), Logger.ERROR)
+
         self._dummy_plot.clear()
         self._gyro_plot.clear()
         self._acc_plot.clear()
         self._uv_plot.clear()
+
 
     def uv_on(self):
         if self._ui.uvRadioButton.isChecked():
