@@ -35,8 +35,8 @@ class LiveController(QObject):
         self.dummy_motion = None
         self.port_test = None
 
-        self.port = 4
-        self.rate = 115200
+        self.port = 3  # 4
+        self.rate = 9800  # 115200
 
         # Debug Only
         """self.port_test = SerialPortTest(port_no=self.port, msg=None)

@@ -81,6 +81,7 @@ class LiveView(QWidget):
 
                 self._gyro_plot.setTitle('Live Gyro XYZ Data')
                 self._gyro_plot.setLabels(left='dps', bottom='Sample No.')
+                self._gyro_plot.addLegend(size=(100, 100))
 
                 self._acc_plot.setTitle('Live Accelerometer XYZ Data')
                 self._acc_plot.setLabels(left='gs', bottom='Sample No.')
@@ -93,19 +94,19 @@ class LiveView(QWidget):
                 self._ui.dummyView.setYRange(-128, 128, padding=0)
                 self._dummy_plot.setTitle('Dummy Motion Data')
                 self._dummy_plot.setLabels(left='Value', bottom='Sample No.')
+                self._dummy_plot.addLegend(size=(100, 200))
+
                 self.newPlotReady.emit(view_type)
                 self._ui.stackedWidget.setCurrentWidget(self._ui.dummyWidget)
 
             elif self._ui.uvRadioButton.isChecked() and view_type == 'uv':
                 self._ui.uvView.setYRange(-5, 5, padding=0)  # TODO: Find out range of UV data
-                self._dummy_plot.setTitle('UV Data')
+                self._uv_plot.setTitle('UV Data')
+                self._uv_plot.setLabels(left='Value', bottom='Sample No.')
                 self.newPlotReady.emit(view_type)
                 self._ui.stackedWidget.setCurrentWidget(self._ui.uvWidget)
             else:
                 None
-
-            # self._plot.addLegend(size=[100, 300])
-
 
     def unlock_view(self):
         """Moves to connected view since device connection complete."""
@@ -139,7 +140,7 @@ class LiveView(QWidget):
         self._ui.stepsLabel.setText(str(val))
 
     def update_dummy_plot(self, data):
-        """Updates the motion graph with new data."""
+        """Updates the dummy motion graph with new data."""
         sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
         self._ui.dummyView.setXRange(0, len(data), padding=0.02)
 
@@ -147,13 +148,16 @@ class LiveView(QWidget):
             series = [packet[sensor] for packet in data]
             self._dummy_plot.plot().setData(y=series, pen=(sensor, 6), name=sensor_names[sensor])
 
+        if len(self._dummy_plot.legend.items) == 0:
+            for sensor in range(6):
+                self._dummy_plot.legend.addItem(self._dummy_plot.items[sensor], name=sensor_names[sensor])
+
     def update_motion_plot(self, data):
         """Updates the motion graph with new data."""
         sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
         self._ui.gyroView.setXRange(0, len(data), padding=0.02)
         self._ui.accView.setXRange(0, len(data), padding=0.02)
 
-        # Plot Acc
         for sensor in range(3):
             gyro_series = [packet[sensor] for packet in data]
             acc_series = [packet[sensor+3] for packet in data]
@@ -161,8 +165,13 @@ class LiveView(QWidget):
             self._gyro_plot.plot().setData(y=gyro_series, pen=(sensor, 3), name=sensor_names[sensor])
             self._acc_plot.plot().setData(y=acc_series, pen=(sensor+3, 3), name=sensor_names[sensor+3])
 
+        if len(self._gyro_plot.legend.items) == 0:
+            for sensor in range(3):
+                self._gyro_plot.legend.addItem(self._gyro_plot.items[sensor], name=sensor_names[sensor])
+                self._acc_plot.legend.addItem(self._acc_plot.items[sensor], name=sensor_names[sensor+3])
+
     def update_uv_plot(self, data):
-        """Updates the motion graph with new data."""
+        """Updates the uv graph with new data."""
 
         self._ui.uvView.setXRange(0, len(data), padding=0.02)
         self._uv_plot.plot().setData(y=data, pen=0)

@@ -29,9 +29,9 @@ class SerialPortTest(QRunnable):
         timeout = 1
         self.msg = msg
         self.write_mode = True if self.msg is not None else False
-        attempts = 3
 
-        while attempts != 0:
+        attempts = 3
+        while attempts != 0 and self.port is None:
             try:
                 self.port = serial.Serial('COM{}'.format(port_no), self.rate, timeout=timeout)
             except Exception as error:
