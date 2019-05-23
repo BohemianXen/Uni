@@ -39,7 +39,6 @@ class LiveView(QWidget):
         self._plot = self._ui.graphicsView.getPlotItem()
         self._plot.setContentsMargins(10, 10, 10, 10)
         self._plot.plot().getViewBox().disableAutoRange()
-        self._ui.graphicsView.setYRange(-128, 128, padding=0)
 
         self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)  # debug only
 
@@ -64,9 +63,11 @@ class LiveView(QWidget):
             self.newPlotReady.emit(view_type)
         else:
             if self._ui.liveMotionRadioButton.isChecked() and view_type == 'live motion':
+                self._ui.graphicsView.setYRange(-5, 5, padding=0)
                 self._plot.setTitle('Live Motion Data')
                 self.newPlotReady.emit(view_type)
             elif self._ui.dummyMotionRadioButton.isChecked() and view_type == 'dummy motion':
+                self._ui.graphicsView.setYRange(-128, 128, padding=0)
                 self._plot.setTitle('Dummy Motion Data')
                 self.newPlotReady.emit(view_type)
             elif self._ui.uvRadioButton.isChecked() and view_type == 'uv':
@@ -99,7 +100,7 @@ class LiveView(QWidget):
         #self._plot.plot().clear()
         self._plot.clear()
 
-    def update_motion_plot(self, data):
+    def update_dummy_plot(self, data):
         """Updates the motion graph with new data."""
         sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
         self._ui.graphicsView.setXRange(0, len(data), padding=0.02)
@@ -107,3 +108,15 @@ class LiveView(QWidget):
         for sensor in range(6):
             series = [packet[sensor] for packet in data]
             self._plot.plot().setData(y=series, pen=(sensor, 6), name=sensor_names[sensor])
+
+    def update_motion_plot(self, data):
+        """Updates the motion graph with new data."""
+        sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
+        self._ui.graphicsView.setXRange(0, len(data), padding=0.02)
+
+        # Plot Acc
+        for sensor in range(3, 6):
+            series = [packet[sensor] for packet in data]
+            self._plot.plot().setData(y=series, pen=(sensor, 6), name=sensor_names[sensor])
+
+
