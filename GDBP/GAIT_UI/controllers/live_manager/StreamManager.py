@@ -6,24 +6,26 @@ import time
 import traceback
 
 
-class LiveMotionSignals(QObject):
+class StreamManagerSignals(QObject):
     writeComplete = pyqtSignal(bool)
     dataReady = pyqtSignal(list)
+    testDataReady = pyqtSignal(bytes)
     done = pyqtSignal(str)
 
     def __init__(self):
-        super(LiveMotionSignals, self).__init__()
+        super(StreamManagerSignals, self).__init__()
 
 
-class LiveMotion(QRunnable):
+class StreamManager(QRunnable):
     """Reads/writes to serial port."""
 
-    def __init__(self, port_no, rate, msg):
-        super(LiveMotion, self).__init__()
+    def __init__(self, port_no, rate, msg, mode):
+        super(StreamManager, self).__init__()
         self.name = __class__.__name__
         self._logger = Logger(self.name)
-        self.signals = LiveMotionSignals()
+        self.signals = StreamManagerSignals()
         self._streaming = False
+        self._mode = mode
         self.port = None
         self.rate = rate
         timeout = 1
@@ -48,47 +50,27 @@ class LiveMotion(QRunnable):
     def streaming(self, value):
         self._streaming = value
 
+    @property
+    def mode(self):
+        return self._mode
+
+    @mode.setter
+    def mode(self, value):
+        self._mode = value
+
     def run(self):
         """Overrides the QRunnable implementation to start a live motion thread."""
         device = self.get_device()
         self._logger.log('Starting new thread; live motion with {}'.format(device), Logger.DEBUG)
-        write_successful = False
 
         self._streaming = True if self.port is not None else False
-        if self.streaming and not self.port.is_open:
+        if self.streaming:
+            if not self.port.is_open:
+                self.port.open()
+
             self.port.flush()
-            self.port.open()
-
-        while self.streaming:
-            data = []
-            if self.write_mode and self.msg is not None:
-                try:
-                    self.port.write(bytes([self.msg]))
-                    write_successful = True
-                    break
-                except Exception as e:
-                    self._logger.log(str(e), Logger.DEBUG)
-
-                self.signals.testSuccessful.emit(write_successful)
-            else:
-                try:
-                    line = self.port.readline()
-                    if line == bytes(b'0\r\n'):
-                        data.append(line)
-                        while data[-1] != bytes(b'\r\n'): # len(data) != 19:
-                            data.append(self.port.readline())
-                        #raw = self.port.read(2)  # TODO: how many bytes need reading
-                        #temp = [float(val.rstrip().decode('utf-8')) for val in data]
-                        self.signals.dataReady.emit(data[:-1])
-
-                        #print(self.port.in_waiting)
-                except Exception as e:
-                    self._logger.log(str(e), Logger.DEBUG)
-                    break
-
-        self.signals.done.emit('live motion')
-        self._logger.log('Deleting live motion thread', Logger.DEBUG)
-        self.close_port()
+            self.get_data()
+        #self.close_port()
 
     @staticmethod
     def get_device():
@@ -104,11 +86,44 @@ class LiveMotion(QRunnable):
         if self.port is not None and self.port.is_open:
             self.port.close()
 
+    def get_data(self):
+        while self.streaming:
+            write_successful = False
+            data = []
+            if self.write_mode and self.msg is not None:
+                try:
+                    self.port.write(bytes([self.msg]))
+                    write_successful = True
+                    break
+                except Exception as e:
+                    self._logger.log(str(e), Logger.DEBUG)
+                self.signals.testSuccessful.emit(write_successful)
+            else:
+                try:
+                    line = self.port.readline()
+                    if self.mode == 'test':
+                        if line != bytes(b''):
+                            self.signals.testDataReady.emit(line)
+                        else:
+                            self.signals.testDataReady.emit(bytes(b'sleeping...'))
+
+                    else:
+                        if line == bytes(b'0\r\n'):
+                            data.append(line)
+                            while data[-1] != bytes(b'\r\n'):  # len(data) != 19:
+                                data.append(self.port.readline())
+                            self.signals.dataReady.emit(data[:-1])
+                except Exception as e:
+                    self._logger.log(str(e), Logger.DEBUG)
+                    break
+
+        #self.signals.done.emit('live motion')
+
 
 class DummyConnector(QObject):
     def __init__(self):
         pool = QThreadPool.globalInstance()
-        test = LiveMotion(port_no=4, rate=115200, msg=None)
+        test = StreamManager(port_no=4, rate=115200, msg=None)
         #test.signals.dataReady.connect(self.data_ready)
         test.setAutoDelete(False)
         pool.start(test)

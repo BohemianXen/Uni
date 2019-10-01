@@ -54,7 +54,7 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="defaultView">
     <widget class="QWidget" name="gridLayoutWidget">

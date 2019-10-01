@@ -169,7 +169,24 @@ QStackedWidget { margin-left: 0px; padding-left: 0px }</string>
           <height>751</height>
          </rect>
         </property>
-        <layout class="QGridLayout" name="gridLayout"/>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <family>Tw Cen MT</family>
+             <pointsize>16</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Page Under Construction</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
       <widget class="QWidget" name="calibrationWidget">

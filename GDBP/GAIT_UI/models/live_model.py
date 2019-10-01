@@ -2,6 +2,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 from application.Logger import Logger
 import struct
 
+
 class LiveModel(QObject):
     """ Model class. Holds program data and the interfaces that allow for the values to be obtained/updated.
 
@@ -45,6 +46,8 @@ class LiveModel(QObject):
             data = new_data
 
         self._motion_data.append(data)  # add latest sample to the older ones
+
+
 
     @property
     def steps(self):

@@ -112,6 +112,7 @@ class LiveView(QWidget):
         """Moves to connected view since device connection complete."""
         self._logger.log('Unlocking {}'.format(self.name), self._logger.INFO)
         self._ui.liveStackedWidget.setCurrentWidget(self._ui.connectedView)
+        self.change_stacked_widget('test')
 
     def update_test_console(self, message):
         """Writes a line to the console text widget during a port test.
@@ -127,7 +128,8 @@ class LiveView(QWidget):
         # clear legends
         if self._dummy_plot.legend is not None:
             try:
-                self._dummy_plot.legend.scene().removeItem(self._dummy_plot.legend)
+                if self._dummy_plot.legend.scene() is not None:
+                    self._dummy_plot.legend.scene().removeItem(self._dummy_plot.legend)
             except Exception as e:
                 self._logger.log('Error removing dummy plot legend', Logger.DEBUG)
                 self._logger.log(str(e), Logger.ERROR)
@@ -135,8 +137,9 @@ class LiveView(QWidget):
         # TODO proper clearing
         if self._gyro_plot.legend is not None:
             try:
-                self._gyro_plot.legend.scene().removeItem(self._gyro_plot.legend)
-                self._acc_plot.legend.scene().removeItem(self._acc_plot.legend)
+                if self._gyro_plot.legend.scene() is not None:
+                    self._gyro_plot.legend.scene().removeItem(self._gyro_plot.legend)
+                    self._acc_plot.legend.scene().removeItem(self._acc_plot.legend)
             except Exception as e:
                 self._logger.log('Error removing live plot legend', Logger.DEBUG)
                 self._logger.log(str(e), Logger.ERROR)
@@ -172,8 +175,8 @@ class LiveView(QWidget):
     def update_motion_plot(self, data):
         """Updates the motion graph with new data."""
         sensor_names = ['Gyro X', 'Gyro Y', 'Gyro Z', 'Acc X', 'Acc Y', 'Acc Z']
-        self._ui.gyroView.setXRange(0, len(data), padding=0.02)
-        self._ui.accView.setXRange(0, len(data), padding=0.02)
+        self._ui.gyroView.setXRange(0, len(data), padding=0.04)
+        self._ui.accView.setXRange(0, len(data), padding=0.04)
 
         for sensor in range(3):
             gyro_series = [packet[sensor] for packet in data]
@@ -190,5 +193,5 @@ class LiveView(QWidget):
     def update_uv_plot(self, data):
         """Updates the uv graph with new data."""
 
-        self._ui.uvView.setXRange(0, len(data), padding=0.02)
+        self._ui.uvView.setXRange(0, len(data), padding=0.04)
         self._uv_plot.plot().setData(y=data, pen=0)

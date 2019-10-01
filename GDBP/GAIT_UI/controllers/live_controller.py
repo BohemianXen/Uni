@@ -5,6 +5,7 @@ from controllers.live_manager.SerialPortTest import SerialPortTest
 from controllers.live_manager.DummyLiveMotion import DummyLiveMotion
 from controllers.live_manager.DummyLiveMotion1 import DummyLiveMotion1
 from controllers.live_manager.LiveMotion import LiveMotion
+from controllers.live_manager.StreamManager import StreamManager
 import serial.tools.list_ports
 
 from statistics import mean
@@ -29,14 +30,15 @@ class LiveController(QObject):
             'live motion': None
         }
 
-        self.dummy_live_mode = True
+        self.dummy_live_mode = False
 
         self.streaming = False
         self.dummy_motion = None
         self.port_test = None
+        self.stream_manager = None
 
-        self.port = 3  # 4
-        self.rate = 9800  # 115200
+        self.port = 4
+        self.rate = 115200
 
         # Debug Only
         """self.port_test = SerialPortTest(port_no=self.port, msg=None)
@@ -67,15 +69,22 @@ class LiveController(QObject):
     @pyqtSlot(str)
     def start_stream(self, data_type):
         self.streaming = True
+        self.ports_available = len(serial.tools.list_ports.comports()) > 0
+        if self.stream_manager is None and self.ports_available:
+            self.stream_manager = StreamManager(port_no=self.port, rate=self.rate, msg=None, mode='test')
+            self.stream_manager.signals.dataReady.connect(self.live_plot)
+            self.stream_manager.signals.testDataReady.connect(self.update_test_console)
+            self.stream_manager.signals.done.connect(self.stop_streaming)
+            self.stream_manager.setAutoDelete(False)
+            self.pool.start(self.stream_manager)
+            self.live_types[data_type] = self.stream_manager
 
-        if data_type == 'test' and len(serial.tools.list_ports.comports()) > 0:
+        if data_type == 'test' and self.ports_available:
             self._logger.log('Starting port test', Logger.DEBUG)
-            port_test = SerialPortTest(port_no=self.port, rate=self.rate, msg=None)
-            port_test.signals.dataReady.connect(self.update_test_console)
-            port_test.signals.done.connect(self.stop_streaming)
+            if self.stream_manager.mode != 'test':
+                self.stream_manager.mode = 'test'
+                self.live_types[data_type] = self.stream_manager
 
-            self.pool.start(port_test)
-            self.live_types[data_type] = port_test
         elif data_type == 'dummy motion':
             self._logger.log('Starting dummy motion plot', Logger.DEBUG)
             dummy_motion = DummyLiveMotion()
@@ -86,14 +95,17 @@ class LiveController(QObject):
         elif data_type == 'live motion' or data_type == 'uv':
             self._logger.log('Starting live plots', Logger.DEBUG)
 
-            if not self.dummy_live_mode and len(serial.tools.list_ports.comports()) > 0:
-                live_motion = LiveMotion(port_no=self.port, rate=self.rate, msg=None)
+            if not self.dummy_live_mode and self.ports_available:
+                if self.stream_manager.mode != 'live motion':
+                    self.stream_manager.mode = 'live motion'
+                    self.live_types[data_type] = self.stream_manager
+                    #self.pool.start(self.stream_manager)
             else:
-                live_motion = DummyLiveMotion1()
-            live_motion.signals.dataReady.connect(self.live_plot)
-            live_motion.signals.done.connect(self.stop_streaming)
-            self.pool.start(live_motion)
-            self.live_types[data_type] = live_motion
+                dummy_motion = DummyLiveMotion1()
+                dummy_motion.signals.dataReady.connect(self.live_plot)
+                dummy_motion.signals.done.connect(self.stop_streaming)
+                self.pool.start(dummy_motion)
+                self.live_types[data_type] = dummy_motion
         else:
             None
 
@@ -127,7 +139,7 @@ class LiveController(QObject):
         # TODO: Test port switch fix with device
         # TODO: Invalid packet length
         length = len(data)
-        if not self.dummy_live_mode:
+        if self.ports_available:
             data = [float(val.rstrip().decode('utf-8')) for val in data]
         else:
             data = [float(val.rstrip()) for val in data]
@@ -135,6 +147,9 @@ class LiveController(QObject):
             self._model.add_uv_data(data[13])
             if self._view.uv_on:
                 self._view.update_uv_plot(self._model.uv_data)
+        else:
+            print('Dropped')
+
 
         if length >= 27:
             steps_updated = self._model.steps == data[27]
@@ -152,11 +167,16 @@ class LiveController(QObject):
     @pyqtSlot(str)
     def stop_streaming(self, caller):
         # TODO: Fix thread race condition from dummy to live plot
-        
-        self._logger.log('Stopping stream for {}'.format(caller), Logger.DEBUG)
-        self.streaming = False
 
-        # DEBUG ONLY
+        self._logger.log('Stopping stream for {}'.format(caller), Logger.DEBUG)
+        if caller == 'main controller':
+            self.streaming = False
+            for live_type, value in self.live_types.items():
+                if value is not None:  #and live_type == caller:
+                    value.streaming = self.streaming
+                    self.live_types[live_type] = None
+
+        """# DEBUG ONLY
         #self.timer.stop()
         #self.profiler.print_stats(sort='time')
         #print('Plotted at {} Hz '.format(1000/mean(self.times)))
@@ -165,6 +185,6 @@ class LiveController(QObject):
         for live_type, value in self.live_types.items():
             if value is not None and live_type == caller:
                 value.streaming = self.streaming
-                self.live_types[live_type] = None
+                self.live_types[live_type] = None"""
 
         self._model.reset_data()

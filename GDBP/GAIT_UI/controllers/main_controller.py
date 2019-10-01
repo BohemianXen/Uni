@@ -58,10 +58,10 @@ class MainController(QObject):
             if complete and name == 'live':  # and name == 'upload':
                 controller.unlock_view()
 
-    @staticmethod
-    def on_close():
+    def on_close(self):
         """Called on app close. Attempts to ensure all threads are closed before closing."""
         pools = QThreadPool.globalInstance()
+        self._model.controllers['live'].stop_streaming('main controller')
         print('{} thread(s) were running on termination'.format(pools.activeThreadCount()))
         while pools.activeThreadCount() > 0:
             pools.waitForDone(3000)

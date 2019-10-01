@@ -208,7 +208,7 @@ class Ui_LiveView(object):
         self.liveStackedWidget.addWidget(self.connectedView)
 
         self.retranslateUi(LiveView)
-        self.liveStackedWidget.setCurrentIndex(1)
+        self.liveStackedWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(LiveView)
 
