@@ -1,7 +1,13 @@
 from Perceptron import Perceptron
 import matplotlib.pyplot as plt
 import numpy as np
-# Our main code starts here
+
+GATES = {
+    'AND': {'weights': [1, 1], 'bias': -1},
+    'OR': {'weights': [1, 1], 'bias': 0},
+    'NAND': {'weights': [-1, -1], 'bias': 2},
+    'NOR': {'weights': [-1, -1], 'bias': 1},
+}
 
 
 def test0():
@@ -37,12 +43,6 @@ def test1():
 
 def test2(name):
     print('Test 2:\n')
-    GATES = {
-        'AND': {'weights': [1, 1], 'bias': -1},
-        'OR': {'weights': [1, 1], 'bias': 0},
-        'NAND': {'weights': [-1, -1], 'bias': 2},
-        'NOR': {'weights': [-1, -1], 'bias': 1},
-    }
 
     perceptron = Perceptron([0, 0], GATES[name]['weights'], GATES[name]['bias'])
 
@@ -54,6 +54,20 @@ def test2(name):
             perceptron.compute()
 
     plot(inputs, GATES[name]['weights'], GATES[name]['bias'], perceptron.results, name)
+
+
+def xor_solution():
+    inputs = [1, 0]
+    p_or = Perceptron(inputs, GATES['OR']['weights'], GATES['OR']['bias'])
+    p_and = Perceptron(inputs, GATES['AND']['weights'], GATES['AND']['bias'])
+    weights, bias = [1, 1], 0
+
+    p_or.compute()
+    p_and.compute()
+
+    p_xor = Perceptron([p_or.results[0], p_and.results[0]*-1], weights, bias)
+    p_xor.compute()
+    p_xor.print_results()
 
 
 def plot(inputs, weights, bias, outputs, title):
@@ -83,4 +97,5 @@ def plot(inputs, weights, bias, outputs, title):
 if __name__ == '__main__':
     #test0()
     #test1()
-    test2('NAND')
+    #test2('NAND')
+    xor_solution()
