@@ -1,15 +1,15 @@
 % fft convolution
 close all
-image = im2double(imread('cameraman.tif'));
+image = im2double(imread('nzjers1.jpg'));
 total_kernels = 3;
 
 for i=1:total_kernels
     if i==1
-        kernel = [-1 0 1];
+        kernel = mean_filter(5, 5);
     elseif i==2
-        kernel = ones(5) / 25;
+        kernel = gaussian_filter(1);
     else
-        kernel = fspecial('gaussian', 25);
+        kernel = fspecial('gaussian', 7, 1);
     end
     
     % filter using Extended Convolution
@@ -24,7 +24,7 @@ for i=1:total_kernels
 
     % reference filter using imfilter andc compare diff w/ FFT method
     tstart = tic;
-    reference = imfilter(image, kernel, 'replicate');
+    reference = image; %imfilter(image, kernel, 'replicate');
     imfilter_time = toc(tstart)*1000;
     difference = 0.5 + 10 * (filtered - reference);
     ssd = sum((filtered_fft(:) - reference(:)) .^ 2);
