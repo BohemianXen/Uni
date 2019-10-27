@@ -1,6 +1,7 @@
 % fft convolution
 close all
-image = im2double(imread('nzjers1.jpg'));
+files = {'nzjers1.jpg', 'foetus.png'};
+image = im2double(imread(char(files(1))));
 total_kernels = 3;
 
 for i=1:total_kernels
@@ -9,7 +10,7 @@ for i=1:total_kernels
     elseif i==2
         kernel = gaussian_filter(1);
     else
-        kernel = fspecial('gaussian', 7, 1);
+        kernel = [0 -1 0; -1 5 -1; 0 -1 0]; %fspecial('gaussian', 7, 1);
     end
     
     % filter using Extended Convolution
@@ -22,7 +23,7 @@ for i=1:total_kernels
     filtered_fft = fft_convolution(image, kernel);
     fft_time = toc(tstart)*1000;
 
-    % reference filter using imfilter andc compare diff w/ FFT method
+    % reference filter using imfilter and compare diff w/ FFT method
     tstart = tic;
     reference = image; %imfilter(image, kernel, 'replicate');
     imfilter_time = toc(tstart)*1000;
