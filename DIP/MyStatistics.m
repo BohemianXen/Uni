@@ -4,8 +4,25 @@ classdef MyStatistics
             val = mean(window); %sum(window(:))/(dimensions(1)*dimensions(2));       
         end
         
-        function [sorted] = sort(vector, pivot_index)
-            pivot = vector(pivot_index);   
+            function sorted = qsort(vector)
+            vector_length = length(vector);
+            if (vector_length > 1)
+                pivot = vector(ceil(vector_length/2));
+                split = 1;
+
+                for i=1:vector_length
+                    if (vector(i) < pivot)
+                        [vector(split), vector(i)] = deal(vector(i), vector(split));
+                        split = split + 1;
+                    end
+                end
+                
+                low = MyStatistics.qsort(vector(vector <= pivot));
+                high = MyStatistics.qsort(vector(vector > pivot));
+                sorted = [low high];
+            else
+                sorted = vector;
+            end
         end
         
         function [kernel] = gaussian_filter(sigma)

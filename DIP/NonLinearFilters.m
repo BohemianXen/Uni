@@ -1,9 +1,9 @@
 classdef NonLinearFilters
     methods(Static)
         
-        function output_val = median(window, center_index)
-            %med = median(window, 'all');
-            output_val = median(window, 'all');
+        function output_val = median(values, center_index)
+            sorted = MyStatistics.qsort(values);
+            output_val = sorted(center_index);         
         end
     end
 end 
