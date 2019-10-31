@@ -30,7 +30,7 @@ def mnist_test(test_data, n):
         inputs = (numpy.asfarray(all_values[1:]) / 255.0 * 0.99) + 0.01
         outputs = n.query(inputs)
         label = numpy.argmax(outputs)
-        print('Target: {}\tNetwork: {}'.format(correct_label, label))
+        #print('Target: {}\tNetwork: {}'.format(correct_label, label))
 
         if label == correct_label:
             scorecard.append(1)
@@ -38,7 +38,7 @@ def mnist_test(test_data, n):
             scorecard.append(0)
 
         scorecard_array = numpy.asarray(scorecard)
-        print('Performance = {}%\n'.format((scorecard_array.sum() / scorecard_array.size) * 100))
+        #print('Performance = {}%\n'.format((scorecard_array.sum() / scorecard_array.size) * 100))
 
     return scorecard
 
@@ -56,11 +56,11 @@ if __name__ == '__main__':
 
     params = {
         'inputs': 784,
-        'hiddens': 100,
+        'hiddens': int(784/3),
         'outputs': 10,
         'lr': 0.3,
-        'reps': 100,
-        'training file': 'MNIST\mnist_train_100.csv',
+        'reps': 1000,
+        'training file': 'MNIST\mnist_train.csv',
         'test file': 'MNIST\mnist_test.csv'
     }
 
