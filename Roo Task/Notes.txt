@@ -1,0 +1,6 @@
+- no ordering 
+- no regex 
+- test cases
+- allows contradictions (i.e. 2,*/15,4-10 0 1,17,15-20/2,3 * 1-5 /usr/bin/find) as 17 will show up
+- always outputs number versions of string possibilities 
+- typo dates accepted if close enough (i.e. sunn)
