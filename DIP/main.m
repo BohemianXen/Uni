@@ -8,7 +8,7 @@ kernel = ones(k_size)/(k_size^2); %MyStatistics.gaussian_filter(2);
 [sar, foetus] = deal(Convolutions('nzjers1.jpg', kernel),...
                     Convolutions('foetus.png', kernel));
                 
-input = sar;
+input = foetus;
 tstart = tic;
 [filtered, filtered_type] = input.adaptive_compute('adaptive linear');
 linear_time = toc(tstart);
@@ -24,5 +24,5 @@ subplot(131); imshow(input.image); title('Original Image');
 subplot(132); imshow(filtered); title(sprintf('Filtered Image (%s)', filtered_type));
 subplot(133); imshow(filtered1); title(sprintf('Filtered Image (%s)', filtered1_type));
 
-figure(2)
-imshow(difference)
+% figure(2)
+% imshow(difference)

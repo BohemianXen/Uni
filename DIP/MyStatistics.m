@@ -4,22 +4,26 @@ classdef MyStatistics
             val = mean(window); %sum(window(:))/(dimensions(1)*dimensions(2));       
         end
         
-            function sorted = qsort(vector)
+        function sorted = qsort(vector)
             vector_length = length(vector);
             if (vector_length > 1)
                 pivot = vector(ceil(vector_length/2));
                 split = 1;
-
+                duplicates = 0;
                 for i=1:vector_length
                     if (vector(i) < pivot)
                         [vector(split), vector(i)] = deal(vector(i), vector(split));
                         split = split + 1;
+                    elseif (vector(i) == pivot)
+                        duplicates = duplicates + 1;
+                    else
+                        continue
                     end
                 end
-                
-                low = MyStatistics.qsort(vector(vector <= pivot));
+
+                low = MyStatistics.qsort(vector(vector < pivot));
                 high = MyStatistics.qsort(vector(vector > pivot));
-                sorted = [low high];
+                sorted = [low repelem(pivot, duplicates) high];
             else
                 sorted = vector;
             end
