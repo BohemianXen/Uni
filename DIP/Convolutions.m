@@ -7,19 +7,46 @@ classdef Convolutions
         krnl_h
         krnl_w
         krnl_c
+        order_weights
     end
+
     methods
         function self = Convolutions(filename, kernel)
             self.image = im2double(imread(filename)); 
             self.kernel = kernel;
-            [self.krnl_h, self.krnl_w] = size(self.kernel);
-            self.krnl_c = [ceil(self.krnl_h/2), ceil(self.krnl_w/2)];
+            self.order_weights = ones(1, self.krnl_h * self.krnl_w);
         end
         
+        % Getters and Setters
         function img = get.image(self)
             img = self.image;
         end
         
+        function krn = get.kernel(self)
+            krn = self.kernel;
+        end
+        
+        function self = set.kernel(self, new_kernel)
+            self.kernel = new_kernel;
+            [self.krnl_h, self.krnl_w] = size(new_kernel);
+            self.krnl_c = [ceil(self.krnl_h/2), ceil(self.krnl_w/2)];
+        end
+        
+        function weights = get.order_weights(self)
+            weights = self.order_weights;   
+        end
+        
+        function self = set.order_weights(self, weights)
+            if ([1, self.krnl_h * self.krnl_w]) == size(weights)
+                self.order_weights = weights;
+            else
+                disp('New weights are of differing size to the kernel')
+            end
+        end
+        
+     
+        
+        % Adaptive Conv.
         function [filtered_image, type] = adaptive_compute(self, type)
            % returns a convolved greyscale self.image
 
@@ -62,11 +89,13 @@ classdef Convolutions
                         case 'adaptive linear'
                             filtered_image_prime(row, col) = LinearFilters.adaptive(window, self.krnl_c, -1); % populate current pixel with new value
                         case 'mean'
-                            filtered_image_prime(row, col) = MyStatistics.avg(window(:));
-                        case 'box'
                             filtered_image_prime(row, col) = sum;
                         case 'median'
                             filtered_image_prime(row, col) = NonLinearFilters.median(window(:), krnl_c_vector);
+                        case 'weighted median'
+                            filtered_image_prime(row, col) = NonLinearFilters.weighted_median(window(:), krnl_c_vector, self.order_weights);
+%                         case 'order statistics'
+%                             filtered_image_prime(row, col) = NonLinearFilters.os(window(:), krnl_c_vector);
                     end
                 end                 
             end
@@ -75,6 +104,8 @@ classdef Convolutions
             filtered_image = filtered_image_prime(1+offset_h:img_h-offset_h, 1+offset_w:img_w-offset_w);
         end
         
+   
+        % FFT Conv.  
         function filtered_image = fft_compute(self)
             % returns a convolved greyscale image
 

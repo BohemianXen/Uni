@@ -8,11 +8,13 @@ kernel = ones(k_size)/(k_size^2); %MyStatistics.gaussian_filter(2);
 [sar, foetus] = deal(Convolutions('nzjers1.jpg', kernel),...
                     Convolutions('foetus.png', kernel));
                 
-input = foetus;
+input = sar;
 tstart = tic;
-[filtered, filtered_type] = input.adaptive_compute('adaptive linear');
+[filtered, filtered_type] = input.adaptive_compute('median');
 linear_time = toc(tstart);
-[filtered1, filtered1_type] = input.adaptive_compute('median');
+
+input.order_weights = [3, 1, 3, 1, 1, 1, 1, 1, 1];
+[filtered1, filtered1_type] = input.adaptive_compute('weighted median');
 nonlinear_time = toc(tstart) - linear_time;
 
 ssd = sum((filtered(:) - filtered1(:)) .^ 2);
