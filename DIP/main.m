@@ -4,17 +4,18 @@ files = {'nzjers1.jpg', 'foetus.png'};
 k_size = 3;
 
 % image = im2double(imread(char(files(1))));
-kernel = ones(k_size)/(k_size^2); %MyStatistics.gaussian_filter(2);
+kernel = ones(k_size)/(k_size^2);
+% kernel = MyStatistics.gaussian_filter(1);
 [sar, foetus] = deal(Convolutions('nzjers1.jpg', kernel),...
                     Convolutions('foetus.png', kernel));
                 
-input = sar;
+input = foetus;
 tstart = tic;
 [filtered, filtered_type] = input.adaptive_compute('median');
 linear_time = toc(tstart);
 
 input.order_weights = [3, 1, 3, 1, 1, 1, 1, 1, 1];
-[filtered1, filtered1_type] = input.adaptive_compute('weighted median');
+[filtered1, filtered1_type] = input.adaptive_compute('adaptive weighted median');
 nonlinear_time = toc(tstart) - linear_time;
 
 ssd = sum((filtered(:) - filtered1(:)) .^ 2);

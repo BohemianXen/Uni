@@ -12,7 +12,11 @@ classdef Convolutions
 
     methods
         function self = Convolutions(filename, kernel)
-            self.image = im2double(imread(filename)); 
+            if (strcmp(filename, 'tickets.jpg'))
+                self.image = im2double(rgb2gray(imread(filename)));
+            else
+                self.image = im2double(imread(filename));
+            end
             self.kernel = kernel;
             self.order_weights = ones(1, self.krnl_h * self.krnl_w);
         end
@@ -44,8 +48,6 @@ classdef Convolutions
             end
         end
         
-     
-        
         % Adaptive Conv.
         function [filtered_image, type] = adaptive_compute(self, type)
            % returns a convolved greyscale self.image
@@ -53,14 +55,20 @@ classdef Convolutions
             % calculate max (+/-) kernal overlap about desired pixel  
             offset_h = floor(self.krnl_h/2);
             offset_w = floor(self.krnl_w/2);
-            krnl_c_vector = prod(self.krnl_c) + 1;
+            if (strcmp(type, 'weighted'))
+                krnl_c_vector = ceil(sum(self.order_weights)/2);
+            else
+                krnl_c_vector = prod(self.krnl_c) + 1;
+            end
+                
 
             % pad input self.image array by replicating borders as per the offsets
             self.image = padarray(self.image,[offset_h, offset_w], 'replicate');
             [img_h, img_w] = size(self.image);
             filtered_image_prime = zeros(img_h, img_w);
             
-            double_loop = strcmp(type, 'box');
+            double_loop = strcmp(type, 'mean') || strcmp(type, 'adaptive weighted median');
+            distances_complete = 0;
             for row=offset_h+1:img_h-offset_h
                 for col=offset_w+1:img_w-offset_w  
                     % find index of first element as per the kernal overlap (accounting
@@ -70,30 +78,37 @@ classdef Convolutions
                     
                     window = self.image(start_row+1:start_row+self.krnl_h,...
                                          start_col+1:start_col+self.krnl_w);
+                    distances = zeros(self.krnl_h, self.krnl_w);
+                    
                     if (double_loop)
-                         sum = 0;
+                         total = 0;
                         for k_row=1:self.krnl_h
                             for k_col=1:self.krnl_w
                                 % find index of current comparison pixel as offset from the
                                 % central pixel then convolve current comparison pixel
                                 compare_index_h = start_row + k_row; 
-                                compare_index_w = start_col + k_col;                        
+                                compare_index_w = start_col + k_col;  
+                                if (~distances_complete)
+                                    distances(k_row, k_col) = sqrt((self.krnl_c(1) - k_row)^2 + (self.krnl_c(2) - k_col)^2);
+                                end
                                 %window(k_row, k_col) = self.image(compare_index_h, compare_index_w);
-                                sum = sum + self.image(compare_index_h, compare_index_w) * self.kernel(k_row, k_col);
-
+                                total = total + self.image(compare_index_h, compare_index_w) * self.kernel(k_row, k_col);
                             end
                         end
+                        distances_complete = 1;
                     end
                     
                     switch(type)
                         case 'adaptive linear'
                             filtered_image_prime(row, col) = LinearFilters.adaptive(window, self.krnl_c, -1); % populate current pixel with new value
                         case 'mean'
-                            filtered_image_prime(row, col) = sum;
+                            filtered_image_prime(row, col) = total;
                         case 'median'
                             filtered_image_prime(row, col) = NonLinearFilters.median(window(:), krnl_c_vector);
                         case 'weighted median'
-                            filtered_image_prime(row, col) = NonLinearFilters.weighted_median(window(:), krnl_c_vector, self.order_weights);
+                            filtered_image_prime(row, col) = NonLinearFilters.weighted(window(:), krnl_c_vector, self.order_weights);
+                        case 'adaptive weighted median'
+                            filtered_image_prime(row, col) = NonLinearFilters.adaptive_weighted(window, distances, 100, 10);
 %                         case 'order statistics'
 %                             filtered_image_prime(row, col) = NonLinearFilters.os(window(:), krnl_c_vector);
                     end
@@ -106,7 +121,7 @@ classdef Convolutions
         
    
         % FFT Conv.  
-        function filtered_image = fft_compute(self)
+        function [filtered_image, type] = fft_compute(self, type)
             % returns a convolved greyscale image
 
             self.kernel = flip(self.kernel); % flip kernel ahead of fft2 convolve

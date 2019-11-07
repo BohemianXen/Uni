@@ -2,7 +2,7 @@ classdef LinearFilters
     methods(Static)
         
         function output_val = adaptive(window, center_index, k)
-            mean = MyStatistics.avg(window(:));
+            mean = mean2(window);
             output_val = mean;
             std_dev = std2(window); %TODO: write own stats methods           
             
