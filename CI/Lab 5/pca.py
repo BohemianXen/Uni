@@ -19,8 +19,8 @@ class PCA:
         self.train_data = self.train[:, 1:]
         self.train_labels = self.train[:, 0]
         self.test_data = self.test[:, 1:]
-
         self.test_labels = self.test[:, 0]
+
         self._pca = sk_pca(n_components=self.components)
         self._pca.fit(self.train_data)
 
@@ -39,4 +39,4 @@ class PCA:
         plt.title('Variance Explained by Extracted Componenents')
         plt.ylabel('Variance')
         plt.xlabel('Principal Components')
-        plt.show()
+        #plt.show()
