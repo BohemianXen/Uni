@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 class Recording:
     def __init__(self, filename):
         self._period = 1 / 25e3
+        self._range = 60
 
         if '.mat' not in filename:
             filename += '.mat'
@@ -17,7 +18,20 @@ class Recording:
             self._morphology = mat['Class']
         except Exception as e:
             print('Error generating .mat file:\n', e)
-            return None
+            exit(-1)
+
+# ----------------------------------------------------- Properties -----------------------------------------------------
+    @property
+    def period(self):
+        return self._period
+
+    @property
+    def range(self):
+        return self._range
+
+    @range.setter
+    def range(self, range_in):
+        self._range = self.range_in
 
     @property
     def d(self):
@@ -39,12 +53,7 @@ class Recording:
     def morphology(self, morphology):
         self._morphology = morphology
 
-    def plot(self):
-        total_samples = len(self.d)
-        time = np.linspace(0, total_samples-1, total_samples) * self.period
-        plt.plot(time, self.d)
-        plt.show()
-
+# ----------------------------------------------------- Methods -- -----------------------------------------------------
     def generate_mat(self, filename):
         if '.mat' not in filename:
             filename += '.mat'
