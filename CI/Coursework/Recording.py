@@ -4,21 +4,29 @@ import matplotlib.pyplot as plt
 
 
 class Recording:
-    def __init__(self, filename):
+    def __init__(self, d=None, index=None, morphology=None, filename=None):
         self._period = 1 / 25e3
         self._range = 60
 
-        if '.mat' not in filename:
-            filename += '.mat'
+        if filename is None:
+            self._d = d
+            self._index = index
+            self._morphology = morphology
+        else:
+            try:
 
-        try:
-            mat = spio.loadmat(filename, squeeze_me=True)
-            self._d = mat['d']
-            self._index = mat['Index']
-            self._morphology = mat['Class']
-        except Exception as e:
-            print('Error generating .mat file:\n', e)
-            exit(-1)
+                if '.mat' not in filename:
+                    filename += '.mat'
+                mat = spio.loadmat(filename, squeeze_me=True)
+                self._d = mat['d']
+                self._index = mat['Index']
+                self._morphology = mat['Class']
+            except Exception as e:
+                print('Error generating .mat file:\n', e)
+                exit(-1)
+
+    def __copy__(self):
+        return Recording(self.d, self.index, self.morphology)
 
 # ----------------------------------------------------- Properties -----------------------------------------------------
     @property
@@ -36,6 +44,10 @@ class Recording:
     @property
     def d(self):
         return self._d
+
+    @d.setter
+    def d(self, d):
+        self._d = d
 
     @property
     def index(self):
