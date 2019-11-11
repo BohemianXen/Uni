@@ -4,14 +4,14 @@ import matplotlib.pyplot as plt
 
 
 class Recording:
-    def __init__(self, d=None, index=None, morphology=None, filename=None):
+    def __init__(self, d=None, index=None, classes=None, filename=None):
         self._period = 1 / 25e3
         self._range = 60
 
         if filename is None:
             self._d = d
             self._index = index
-            self._morphology = morphology
+            self._classes = classes
         else:
             try:
 
@@ -20,13 +20,13 @@ class Recording:
                 mat = spio.loadmat(filename, squeeze_me=True)
                 self._d = mat['d']
                 self._index = mat['Index']
-                self._morphology = mat['Class']
+                self._classes = mat['Class']
             except Exception as e:
                 print('Error generating .mat file:\n', e)
                 exit(-1)
 
     def __copy__(self):
-        return Recording(self.d, self.index, self.morphology)
+        return Recording(self.d, self.index, self.classes)
 
 # ----------------------------------------------------- Properties -----------------------------------------------------
     @property
@@ -58,22 +58,22 @@ class Recording:
         self._index = index
 
     @property
-    def morphology(self):
-        return self._morphology
+    def classes(self):
+        return self._classes
 
-    @morphology.setter
-    def morphology(self, morphology):
-        self._morphology = morphology
+    @classes.setter
+    def classes(self, classes):
+        self._classes = classes
 
 # ----------------------------------------------------- Methods -- -----------------------------------------------------
     def generate_mat(self, filename):
-        if '.mat' not in filename:
-            filename += '.mat'
+        #if '.mat' not in filename:
+         #   filename += '.mat'
 
         mat = {
             'd': self.d,
             'Index': self.index,
-            'Class': self.morphology
+            'Class': self.classes
         }
 
         try:

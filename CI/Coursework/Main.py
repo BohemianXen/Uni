@@ -14,7 +14,7 @@ if __name__ == '__main__':
     filtered_training_set.d = filter1.threshold(filtered_training_set.d)
     filtered_training_set_plotter = Plotter(filtered_training_set)
 
-    training_set_plotter.plot(training_set.index[210], time=True)
+    training_set_plotter.plot(center=training_set.index[210], time=True)
     filtered_training_set_plotter.plot(filtered_training_set.index[210])
 
     print(training_set.d[210])

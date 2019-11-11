@@ -1,29 +1,37 @@
 import matplotlib.pyplot as plt
-from numpy import linspace
+import numpy as np
 
 
 class Plotter:
-
     def __init__(self, recording):
+        self._colourmap = ('black', 'red', 'green', 'blue', 'orange')
         self._recording = recording
         self._period = recording.period
         self._range = recording.range
 
-    def plot_all(self, time=False):
-        total_samples = len(self._recording.d)
-        series = linspace(0, total_samples - 1, total_samples)
+    def plot(self, center=200, time=False, all=False):
+        total_samples = len(self._recording.d) if all else (self._range * 2) + 1
+        start = 0 if all else center - self._range
+        stop = total_samples - 1 if all else center + self._range
+        series = np.linspace(start, stop, total_samples)
+
+        if not all:
+            [indexes, colours] = self.classify_series(series)
+            
         if time:
             series *= self._period
-        plt.plot(series, self._recording.d)
+            indexes *= self._period
+
+        plt.clf()
+        plt.plot(series, self._recording.d[start:stop + 1], color=self._colourmap[0])
+
+        if len(indexes) > 0:
+            plt.scatter(indexes, 0, color=colours)
+
         plt.show()
 
-    def plot(self, index, time=False):
-        total_samples = (self._range * 2) + 1
-        start = index - self._range
-        stop = index + self._range
-        series = linspace(start, stop, total_samples)
-        if time:
-            series *= self._period
-
-        plt.plot(series, self._recording.d[start:stop + 1])
-        plt.show()
+    def classify_series(self, series):
+        indexes_in_series = list(filter(lambda x: x in self._recording.index, series))
+        classes_in_series = [self._recording.classes[np.where(self._recording.index == x)] for x in indexes_in_series]
+        class_colours = [self._colourmap[int(x)] for x in classes_in_series]
+        return [np.array(indexes_in_series), class_colours]
