@@ -1,9 +1,10 @@
 import numpy as np
 from scipy.ndimage.filters import gaussian_filter1d
 
+
 class Filters:
 
-    @staticmethod
+    @staticmethod  # use np.clip
     def threshold(series, threshold_limit):
         length = len(series)
         new_series = np.copy(series)
@@ -20,6 +21,16 @@ class Filters:
         return gaussian_filter1d(series, sigma=std_dev)
 
     @staticmethod
+    def hanning(series):
+        window = np.hanning(len(series))
+        series *= window
+
+    @staticmethod
     def fft(series):
-        test = np.fft.fft(series)
-        return np.fft.rfft(series)
+        fft = np.fft.fft(series)
+        length = len(series)
+        freq = np.fft.fftfreq(length) * 25e3
+        voltages = [np.abs(x)/length for x in fft]
+        #phase = [np.arctan()]
+
+        return [freq[0:int(length/2)], np.array(voltages[0:int(length/2):])]

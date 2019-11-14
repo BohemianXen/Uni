@@ -1,5 +1,4 @@
 from Recording import Recording
-from Plotter import Plotter
 from Filters import Filters
 import numpy as np
 import matplotlib.pyplot as plt
@@ -7,31 +6,27 @@ import matplotlib.pyplot as plt
 
 
 def plot(recording, center=200, time=False, all=False):
-    total_samples = len(recording.d) if all else (recording.range * 2) + 1
-    start = 0 if all else center - recording.range
-    stop = total_samples - 1 if all else center + recording.range
+    plt.figure(1)
+    [x_axis, voltages] = recording.slice(center, all)
 
-    if start < 0:
-        start = 0
-
-    if stop > len(recording.d):
-        stop = len(recording.d) - 1
-
-    x = np.linspace(start, stop, total_samples)
-    voltage = recording.d[start:stop + 1]
-
-    if not all or len(x) < 1000:
-        [indexes, colours] = classify_series(recording, x)
+    if not all or len(x_axis) < 1000:
+        [indexes, colours] = classify_series(recording, x_axis)
 
     if time:
-        x *= recording.period
+        x_axis *= recording.period
         indexes *= recording.period
 
-    plt.plot(x, voltage, color=recording.colourmap[0])
+    plt.plot(x_axis, voltages, color=recording.colourmap[0])
 
     if len(indexes) > 0:
         for i in range(len(indexes)):
             plt.scatter(indexes[i], 0, color=colours[i])
+
+
+def plot_fft(freq, amplitude):
+    plt.figure(2)
+    #plt.ylim(top=np.max(amplitude))
+    plt.bar(freq, amplitude, width=10)
 
 
 def classify_series(recording, x):
@@ -41,20 +36,26 @@ def classify_series(recording, x):
     return [np.array(indexes_in_x), class_colours]
 
 
+def class_test(recording, target):
+    for i in range(len(recording.classes)):
+        if recording.classes[i] == target:
+            test_index = recording.index[i]
+            plot(recording, center=test_index)
+
+            filtered = recording.__copy__()
+            filtered.colourmap = 'pink'
+            index = filtered.slice(test_index, copy=False)[1]
+            Filters.hanning(index)
+            plot(filtered, center=test_index)
+            plt.show()
+
+            [fft_freq, fft_voltages] = Filters.fft(index)
+            plot_fft(fft_freq, fft_voltages)
+            plt.show()
+            
+            
 if __name__ == '__main__':
     training_set = Recording(filename='training')
-    test_index = training_set.index[210]
-
-    training_thresh = training_set.__copy__()
-    training_thresh.colourmap = 'pink'
-    training_thresh.d = Filters.threshold(training_thresh.d, 0.5)
-    training_fft = training_thresh.__copy__()
-    training_fft.d = Filters.fft(training_fft.slice(test_index)[1])
-
-    plot(training_set, center=test_index)
-    plot(training_thresh, test_index)
-    plt.show()
-    plot(training_fft, all=True)
-    plt.show()
-
-    print(training_set.d[test_index])
+    #test_index = training_set.index[210]
+    test_class = 1
+    class_test(training_set, test_class)

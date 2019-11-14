@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 class Recording:
     def __init__(self, d=None, index=None, classes=None, filename=None, colour='black'):
         self._period = 1 / 25e3
-        self._range = 50
+        self._range = 40
         self._colourmap = [colour, 'red', 'green', 'blue', 'orange']
 
         if filename is None:
@@ -75,19 +75,22 @@ class Recording:
         self._classes = classes
 
 # ----------------------------------------------------- Methods -- -----------------------------------------------------
-    def slice(self, center, all=False):
-        total_samples = len(self.d) if all else (self._range * 2) + 1
+    def slice(self, center, all=False, copy=True):
+        total_samples = len(self.d) if all else (self._range * 2)
         start = 0 if all else center - self._range
-        stop = total_samples - 1 if all else center + self._range
-        series = np.linspace(start, stop, total_samples)
+        stop = total_samples if all else center + self._range
+        x_axis = np.arange(start, stop)
 
         if start < 0:
             start = 0
 
         if stop > len(self.d):
-            stop = len(self.d) - 1
+            stop = len(self.d)  # - 1
 
-        return [series, np.copy(self.d[start:stop + 1])]
+        if copy:
+            return [x_axis, np.copy(self.d[start:stop])]
+        else:
+            return [x_axis, self.d[start:stop]]
 
     def generate_mat(self, filename):
         #if '.mat' not in filename:
