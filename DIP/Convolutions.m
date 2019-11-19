@@ -8,20 +8,19 @@ classdef Convolutions
         krnl_w
         krnl_c
         order_weights
+        fast_sort
     end
 
     methods
-        function self = Convolutions(filename, kernel)
-            if (strcmp(filename, 'tickets.jpg'))
-                self.image = im2double(rgb2gray(imread(filename)));
-            else
-                self.image = im2double(imread(filename));
-            end
+%--------------------------------------------------------------------------
+        function self = Convolutions(filename, kernel, fast_sort)
+            self.image = im2double(imread(filename));
             self.kernel = kernel;
             self.order_weights = ones(1, self.krnl_h * self.krnl_w);
+            self.fast_sort = fast_sort;
         end
         
-        % Getters and Setters
+%--------------------------------------------------------------------------
         function img = get.image(self)
             img = self.image;
         end
@@ -41,13 +40,22 @@ classdef Convolutions
         end
         
         function self = set.order_weights(self, weights)
-            if ([1, self.krnl_h * self.krnl_w]) == size(weights)
+            if self.krnl_h * self.krnl_w == size(weights, 2)
                 self.order_weights = weights;
             else
                 disp('New weights are of differing size to the kernel')
             end
         end
         
+        function fast_sort = get.fast_sort(self)
+            fast_sort = self.fast_sort;
+        end
+        
+        function self = set.fast_sort(self, fast_sort)
+            self.fast_sort = fast_sort;
+        end
+        
+%--------------------------------------------------------------------------
         % Adaptive Conv.
         function [filtered_image, type] = adaptive_compute(self, type)
            % returns a convolved greyscale self.image
@@ -55,7 +63,7 @@ classdef Convolutions
             % calculate max (+/-) kernal overlap about desired pixel  
             offset_h = floor(self.krnl_h/2);
             offset_w = floor(self.krnl_w/2);
-            if (strcmp(type, 'weighted'))
+            if (strcmp(type, 'weighted median'))
                 krnl_c_vector = ceil(sum(self.order_weights)/2);
             else
                 krnl_c_vector = prod(self.krnl_c) + 1;
@@ -63,63 +71,69 @@ classdef Convolutions
                 
 
             % pad input self.image array by replicating borders as per the offsets
-            self.image = padarray(self.image,[offset_h, offset_w], 'replicate');
-            [img_h, img_w] = size(self.image);
+            img = padarray(self.image,[offset_h, offset_w], 'replicate');
+            [img_h, img_w] = size(img);
             filtered_image_prime = zeros(img_h, img_w);
             
-            double_loop = strcmp(type, 'mean') || strcmp(type, 'adaptive weighted median');
-            distances_complete = 0;
+            distances_complete = ~strcmp(type, 'adaptive weighted median');
+            old_window = zeros(self.krnl_h, self.krnl_w);
+            new_vals = zeros(1, self.krnl_h);
+            old_vals = new_vals;
+            output_val = 0;
+           
             for row=offset_h+1:img_h-offset_h
+                 fast_sort_on = 0;
+                 sorted_vals = zeros(1, self.krnl_h * self.krnl_w);
                 for col=offset_w+1:img_w-offset_w  
                     % find index of first element as per the kernal overlap (accounting
                     % for non-zero indexing)
                     start_row = row - offset_h - 1; 
                     start_col = col - offset_w - 1;
                     
-                    window = self.image(start_row+1:start_row+self.krnl_h,...
+                    window = img(start_row+1:start_row+self.krnl_h,...
                                          start_col+1:start_col+self.krnl_w);
-                    distances = zeros(self.krnl_h, self.krnl_w);
-                    
-                    if (double_loop)
-                         total = 0;
+                    if (self.fast_sort)
+                        new_vals = window(:, self.krnl_w);
+                        old_vals = old_window(:, 1);
+                        old_window = window;
+                    end
+                           
+                    if (~distances_complete)
+                        distances = zeros(self.krnl_h, self.krnl_w);
                         for k_row=1:self.krnl_h
                             for k_col=1:self.krnl_w
-                                % find index of current comparison pixel as offset from the
-                                % central pixel then convolve current comparison pixel
-                                compare_index_h = start_row + k_row; 
-                                compare_index_w = start_col + k_col;  
-                                if (~distances_complete)
-                                    distances(k_row, k_col) = sqrt((self.krnl_c(1) - k_row)^2 + (self.krnl_c(2) - k_col)^2);
-                                end
-                                %window(k_row, k_col) = self.image(compare_index_h, compare_index_w);
-                                total = total + self.image(compare_index_h, compare_index_w) * self.kernel(k_row, k_col);
+                                distances(k_row, k_col) = sqrt((self.krnl_c(1) - k_row)^2 + (self.krnl_c(2) - k_col)^2);
                             end
                         end
                         distances_complete = 1;
                     end
-                    
+      
                     switch(type)
                         case 'adaptive linear'
-                            filtered_image_prime(row, col) = LinearFilters.adaptive(window, self.krnl_c, -1); % populate current pixel with new value
+                            output_val = LinearFilters.adaptive(window, self.krnl_c, -1); % populate current pixel with new value
                         case 'mean'
-                            filtered_image_prime(row, col) = total;
+                            output_val = sum(window .* self.kernel, 'all');
                         case 'median'
-                            filtered_image_prime(row, col) = NonLinearFilters.median(window(:), krnl_c_vector);
+                            [output_val, sorted_vals] = NonLinearFilters.median(window(:), krnl_c_vector, fast_sort_on, new_vals, old_vals, output_val, sorted_vals);
                         case 'weighted median'
-                            filtered_image_prime(row, col) = NonLinearFilters.weighted(window(:), krnl_c_vector, self.order_weights);
+                            [output_val, sorted_vals] = NonLinearFilters.weighted(window(:), krnl_c_vector, self.order_weights, fast_sort_on, new_vals, old_vals, output_val, sorted_vals);
                         case 'adaptive weighted median'
-                            filtered_image_prime(row, col) = NonLinearFilters.adaptive_weighted(window, distances, 100, 10);
+                            output_val = NonLinearFilters.adaptive_weighted(window, distances, 100, 10);
 %                         case 'order statistics'
-%                             filtered_image_prime(row, col) = NonLinearFilters.os(window(:), krnl_c_vector);
+%                             output_val = NonLinearFilters.os(window(:), krnl_c_vector);
+                    end
+                    filtered_image_prime(row, col) = output_val;
+                    if (self.fast_sort)
+                        fast_sort_on = 1;
                     end
                 end                 
             end
 
-            % extract self.image within the zero pad
+            % extract img within the zero pad
             filtered_image = filtered_image_prime(1+offset_h:img_h-offset_h, 1+offset_w:img_w-offset_w);
         end
         
-   
+%--------------------------------------------------------------------------   
         % FFT Conv.  
         function [filtered_image, type] = fft_compute(self, type)
             % returns a convolved greyscale image
@@ -131,11 +145,11 @@ classdef Convolutions
 
 
             % pad input image array by replicating borders as per the offsets
-            padded_img = padarray(self.image,[offset_h, offset_w], 'replicate');
-            [img_h, img_w] = size(padded_img);
+            img = padarray(self.image,[offset_h, offset_w], 'replicate');
+            [img_h, img_w] = size(img);
 
             % convolve using fft2 and return to spacial domain using ifft2
-            filtered_image_prime = ifft2(fft2(padded_img) .* fft2(self.kernel,img_h,img_w));
+            filtered_image_prime = ifft2(fft2(img) .* fft2(self.kernel,img_h,img_w));
 
             % extract image data, ignoring pre-padding done by fft2
             filtered_image = filtered_image_prime(self.krnl_h:img_h,self.krnl_w:img_w);

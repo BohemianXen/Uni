@@ -1,9 +1,9 @@
 classdef MyStatistics
     methods(Static)
-        function val = avg(window)
-            val = mean(window); %sum(window(:))/(dimensions(1)*dimensions(2));       
+        function [diff, diff_image] = ssd(img1, img2)
+            diff = sum((img1(:) - img2(:)) .^ 2);
+            diff_image = 0.5 + 10 * (img1 - img2);
         end
-        
         function sorted = qsort(vector)
             vector_length = length(vector);
             if (vector_length > 1)
@@ -29,6 +29,27 @@ classdef MyStatistics
             end
         end
         
+        function sorted = qsort_plus(new_vals, old_vals, old_median, old_list)
+            col_size = size(old_list, 2);
+            inserted = 1;
+            for i=1:size(old_vals)
+               for j=1:col_size
+                   if (old_vals(i) == old_list(j))
+                       old_list(j) = [];
+%                        col_size = col_size - 1;
+                       if (new_vals(inserted) <= old_median)
+                           old_list = [new_vals(inserted) old_list];
+                       else
+                           old_list(col_size) = new_vals(inserted);
+                       end
+                       inserted = inserted + 1;
+                       break
+                   end
+               end
+            end
+            
+            sorted = MyStatistics.qsort(old_list);
+        end
         function [kernel] = gaussian_filter(sigma)
         %creates a size x size sized gaussain kernel (with sd of value sigma) along
         %with the sum of all the elements 
