@@ -40,7 +40,7 @@ classdef Convolutions
         end
         
         function self = set.order_weights(self, weights)
-            if self.krnl_h * self.krnl_w == size(weights, 2)
+            if self.krnl_h * self.krnl_w == length(weights)
                 self.order_weights = weights;
             else
                 disp('New weights are of differing size to the kernel')
@@ -57,7 +57,7 @@ classdef Convolutions
         
 %--------------------------------------------------------------------------
         % Adaptive Conv.
-        function [filtered_image, type] = adaptive_compute(self, type)
+        function filtered_image = adaptive_compute(self, type)
            % returns a convolved greyscale self.image
 
             % calculate max (+/-) kernal overlap about desired pixel  
@@ -109,10 +109,11 @@ classdef Convolutions
                     end
       
                     switch(type)
-                        case 'adaptive linear'
-                            output_val = LinearFilters.adaptive(window, self.krnl_c, -1); % populate current pixel with new value
+                         % populate current pixel with new value
                         case 'mean'
                             output_val = sum(window .* self.kernel, 'all');
+                        case 'unsharp'
+                            output_val = LinearFilters.unsharp(window, self.krnl_c, -1);
                         case 'median'
                             [output_val, sorted_vals] = NonLinearFilters.median(window(:), krnl_c_vector, fast_sort_on, new_vals, old_vals, output_val, sorted_vals);
                         case 'weighted median'
@@ -135,7 +136,7 @@ classdef Convolutions
         
 %--------------------------------------------------------------------------   
         % FFT Conv.  
-        function [filtered_image, type] = fft_compute(self, type)
+        function filtered_image = fft_compute(self)
             % returns a convolved greyscale image
 
             self.kernel = flip(self.kernel); % flip kernel ahead of fft2 convolve

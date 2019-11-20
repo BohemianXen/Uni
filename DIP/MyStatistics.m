@@ -30,9 +30,9 @@ classdef MyStatistics
         end
         
         function sorted = qsort_plus(new_vals, old_vals, old_median, old_list)
-            col_size = size(old_list, 2);
+            col_size = length(old_list);
             inserted = 1;
-            for i=1:size(old_vals)
+            for i=1:length(old_vals)
                for j=1:col_size
                    if (old_vals(i) == old_list(j))
                        old_list(j) = [];

@@ -1,10 +1,10 @@
 classdef LinearFilters
     methods(Static)
         
-        function output_val = adaptive(window, center_index, k)
+        function output_val = unsharp(window, center_index, k)
             mean = mean2(window);
             output_val = mean;
-            std_dev = std2(window); %TODO: write own stats methods           
+            std_dev = std2(window);           
             
             if (std_dev ~= 0 && k ~= 0)
                  snr = mean/std_dev;

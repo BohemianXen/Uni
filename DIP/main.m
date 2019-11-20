@@ -1,14 +1,16 @@
 % fft convolution
 close all
-k_size = 3;
+k_size = 7;
 fast_sort_on = 0;
 
-% image = im2double(imread(char(files(1))));
-kernel = ones(k_size)/(k_size^2);
+% kernel = ones(k_size)/(k_size^2);
 % kernel = MyStatistics.gaussian_filter(1);
 [sar, foetus] = deal(Convolutions('nzjers1.jpg', kernel, fast_sort_on),...
                     Convolutions('foetus.png', kernel, fast_sort_on));
-Tests.verify_gaussian(sar, 0.7);  
+LinearTests.verify_gaussian(sar, 1);
+% LinearTests.verify_unsharp(sar, k_size);
+% LinearTests.convolution_speeds(sar);
+% LinearTests.compare(foetus, k_size)
 
 % input = sar;
 % input.order_weights = [3, 1, 1, 1, 3, 3, 1, 1, 1];
