@@ -119,7 +119,7 @@ classdef Convolutions
                         case 'weighted median'
                             [output_val, sorted_vals] = NonLinearFilters.weighted(window(:), krnl_c_vector, self.order_weights, fast_sort_on, new_vals, old_vals, output_val, sorted_vals);
                         case 'adaptive weighted median'
-                            output_val = NonLinearFilters.adaptive_weighted(window, distances, 100, 10);
+                            output_val = NonLinearFilters.adaptive_weighted(window, distances, 10, 0.5);
 %                         case 'order statistics'
 %                             output_val = NonLinearFilters.os(window(:), krnl_c_vector);
                     end
