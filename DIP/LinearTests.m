@@ -76,20 +76,26 @@ classdef LinearTests
         end
         
         function compare(input_image, k_size)
-            input_image.kernel = ones(k_size)/k_size^2;
+            edge_method = 'sobel';
+            input_edge = edge(input_image.image, edge_method);
+            input_image.kernel = ones(k_size)/k_size^2;         
+            
             tstart = tic;
             mean = input_image.fft_compute();
             mean_time = toc(tstart);
+            mean_edge = edge(mean, edge_method);
 
             tstart = tic;
             unsharp = input_image.adaptive_compute('unsharp');
             unsharp_time = toc(tstart);
+            unsharp_edge = edge(unsharp, edge_method);
             
             sigma = (k_size-1)/6;
             input_image.kernel = MyStatistics.gaussian_filter(sigma);
             tstart = tic;
             gaussian = input_image.fft_compute();
             gaussian_time = toc(tstart);
+            gaussian_edge = edge(gaussian, edge_method);
 
             % plots
             figure(1)
@@ -100,6 +106,13 @@ classdef LinearTests
             subplot(236); imshow(unsharp); title('Unsharp Filter');
             
             figure(2)
+            subplot(232); imshow(input_edge); 
+            title(sprintf('Original Image Edge Detection - %dx%d Kernel Size', k_size, k_size));
+            subplot(234); imshow(mean_edge); title('Mean Filter Edge Detection');
+            subplot(235); imshow(gaussian_edge); title(sprintf('Gaussian Filter (sigma=%.2f) Edge Detection', sigma));
+            subplot(236); imshow(unsharp_edge); title('Unsharp Filter Edge Detection');
+            
+            figure(3)
             x = categorical({'Mean', 'Gaussian', 'Unsharp'});
             x = reordercats(x, {'Mean', 'Gaussian', 'Unsharp'});
             bar(x, [mean_time, gaussian_time, unsharp_time]); 

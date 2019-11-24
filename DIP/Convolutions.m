@@ -63,12 +63,7 @@ classdef Convolutions
             % calculate max (+/-) kernal overlap about desired pixel  
             offset_h = floor(self.krnl_h/2);
             offset_w = floor(self.krnl_w/2);
-            if (strcmp(type, 'weighted median'))
-                krnl_c_vector = ceil(sum(self.order_weights)/2);
-            else
-                krnl_c_vector = prod(self.krnl_c) + 1;
-            end
-                
+            krnl_c_vector = ceil((self.krnl_h * self.krnl_w)/2);                
 
             % pad input self.image array by replicating borders as per the offsets
             img = padarray(self.image,[offset_h, offset_w], 'replicate');

@@ -29,6 +29,7 @@ classdef NonLinearFilters
             if (mean ~= 0)               
                 k = std_dev/mean;
                 weights = ceil(weights - (distances * c * k));
+                weights(weights<0) = 0;
             end
             
             sorted = repelem(window(:), weights(:));

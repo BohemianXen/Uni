@@ -77,22 +77,27 @@ classdef NonLinearTests
             
         end
         
-        function compare(input_image, k_size, fast_sort_on, weights)
+        function compare(input_image, k_size, weights)
+            edge_method = 'sobel';
+            input_edge = edge(input_image.image, edge_method);
             input_image.kernel = ones(k_size)/k_size^2;
-            input_image.fast_sort = fast_sort_on;
+            input_image.fast_sort = 1;
             
             tstart = tic;
             median = input_image.adaptive_compute('median');
             median_time = toc(tstart);
+            median_edge = edge(median, edge_method);
             
             input_image.order_weights = weights;
             tstart = tic;
             weighted = input_image.adaptive_compute('weighted median');
-            weighted_time = toc(tstart);            
+            weighted_time = toc(tstart);
+            weighted_edge = edge(weighted, edge_method);
             
             tstart = tic;
             adaptive_weighted = input_image.adaptive_compute('adaptive weighted median');
             adaptive_weighted_time = toc(tstart);
+            adaptive_weighted_edge = edge(adaptive_weighted, edge_method);
 
             % plots
             figure(1)
@@ -103,6 +108,13 @@ classdef NonLinearTests
             subplot(236); imshow(adaptive_weighted); title('Adaptive Weighted Median');
             
             figure(2)
+            subplot(232); imshow(input_edge); 
+            title(sprintf('Original Image Edge Detection - %dx%d Kernel Size', k_size, k_size));
+            subplot(234); imshow(median_edge); title('Median Edge Detection');
+            subplot(235); imshow(weighted_edge); title('Weighted Median Edge Detection');
+            subplot(236); imshow(adaptive_weighted_edge); title('Adaptive Weighted Median Edge Detection');
+            
+            figure(3)
             x = categorical({'Median', 'Weighted Median', 'Adaptive Weighted Median'});
             x = reordercats(x, {'Median', 'Weighted Median', 'Adaptive Weighted Median'});
             bar(x, [median_time, weighted_time, adaptive_weighted_time]); 
