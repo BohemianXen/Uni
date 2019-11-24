@@ -1,5 +1,6 @@
 close all
 
+% set kernel size and test weights
 k_size = 3;
 kernel = ones(k_size)/(k_size^2);
 weights3 = [3, 2, 1, 1, 2, 3, 1, 1, 1];
@@ -10,11 +11,15 @@ weights7(1:36) = repelem(weights3, 4);
 weights9 = ones(1, 81);
 weights9(1:54) = repelem(weights3, 6); 
 
+% create Convolution objects, one for each image
 fast_sort_on = 1;
 [sar, foetus] = deal(Convolutions('nzjers1.jpg', kernel, fast_sort_on),...
                     Convolutions('foetus.png', kernel, fast_sort_on));
 
-input = sar;
+input = foetus;
+
+% ---------------------Tests (comment in as appropriate)------------------
+
 % LinearTests.verify_gaussian(input, 1);
 % LinearTests.verify_unsharp(input, k_size);
 % LinearTests.convolution_speeds(input);
