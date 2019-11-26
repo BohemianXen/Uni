@@ -20,7 +20,7 @@ classdef MyStatistics
                 
                 for i=1:vector_length
                     if (vector(i) < pivot)
-                        % swap split and current and index if current value is less
+                        % swap split & current index if current value is less
                         % than the pivot
                         [vector(split), vector(i)] = deal(vector(i), vector(split));
                         split = split + 1;
@@ -69,11 +69,11 @@ classdef MyStatistics
             sorted = MyStatistics.qsort(old_list); % sort the new array
         end
         
-        function [kernel] = gaussian_filter(sigma)
+        function kernel = gaussian_filter(sigma)
         % creates a gaussian array based on std deviation sigma
 
         size = 2 * ceil(3*sigma) + 1; % calculate kernel size based on sigma
-        kernel = zeros(size, size);
+        kernel = zeros(size);
         variance = sigma^2;
 
         % offsets from center of image

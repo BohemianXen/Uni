@@ -35,6 +35,41 @@ classdef LinearTests
             imshow(img_diff); title(sprintf('Difference (ssd = %.2f)', diff));
         end
         
+        function fft_montage(input_image, mean)
+            sizes = [3, 5, 9, 25];
+            sigmas = [0.33, 0.5, 1, 2];
+            images = cell(1, length(sizes));
+            
+            for i=1:length(sizes)
+                if (mean)
+                    input_image.kernel = ones(sizes(i))/(sizes(i)^2);
+                else
+                    input_image.kernel = MyStatistics.gaussian_filter(sigmas(i));
+                end
+                images{i} = input_image.fft_compute();
+            end
+            
+            montage(images)
+            if (mean)
+                title('Mean Filter Montage (3, 5, 9, and 25 Sized Kernels)')
+            else
+                title('Gaussian Filter Montage (0.33, 0.5, 1, and 2 Std. Deviations)')
+            end
+        end
+        
+        function unsharp_montage(input_image)
+            sizes = [3, 5, 9, 25];
+            images = cell(1, length(sizes));
+            
+            for i=1:length(sizes)
+                input_image.kernel = ones(sizes(i))/(sizes(i)^2);
+                images{i} = input_image.adaptive_compute('unsharp');
+            end
+            
+            montage(images)
+            title('Unsharp Filter Montage (3, 5, 9, and 25 Sized Kernels)')
+        end
+        
         function convolution_speeds(input_image)
             [start, stop, step] = deal(3, 55, 2);
             points = ((stop-start)/step) + 1;

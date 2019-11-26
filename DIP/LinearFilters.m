@@ -3,7 +3,7 @@ classdef LinearFilters
     
     methods(Static)
         function output_val = unsharp(window, center_index, k)
-            % unsharp masking filter; adaptive if k arg is set to a -ve value
+            % unsharp masking filter; adaptive if k arg does not conform to 0 < k < 1
             
             mean = mean2(window);
             output_val = mean; % will output mean if all values within window are the same
@@ -18,5 +18,6 @@ classdef LinearFilters
                 output_val = output_val + (k*(center_val-mean));
             end
         end
+        
     end
 end 

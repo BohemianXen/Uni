@@ -1,16 +1,17 @@
-classdef Convolutions
+    classdef Convolutions
     % Main class for performing specific convolution types
     
     properties(SetAccess = protected)
         image
     end
-    properties(SetAccess = public)
+    properties(Access = public)
         kernel
         krnl_h
         krnl_w
         krnl_c
         order_weights
         fast_sort
+        constant
     end
 
     methods
@@ -20,6 +21,7 @@ classdef Convolutions
             self.kernel = kernel;
             self.order_weights = ones(1, self.krnl_h * self.krnl_w);
             self.fast_sort = fast_sort;
+            self.constant = 1;
         end
         
 %-------------------------Property getters and setters---------------------
@@ -56,6 +58,15 @@ classdef Convolutions
         function self = set.fast_sort(self, fast_sort)
             self.fast_sort = fast_sort;
         end
+        
+         function constant = get.constant(self)
+            constant = self.constant;
+        end
+        
+        function self = set.constant(self, constant)
+            self.constant = constant;
+        end
+        
         
 %------------------------------Spatial Conv.-------------------------------
         function filtered_image = adaptive_compute(self, type)
@@ -122,9 +133,9 @@ classdef Convolutions
                         case 'median'
                             [output_val, sorted_vals] = NonLinearFilters.median(window(:), krnl_c_vector, fast_sort_on, new_vals, old_vals, output_val, sorted_vals);
                         case 'weighted median'
-                            [output_val, sorted_vals] = NonLinearFilters.weighted(window(:), krnl_c_vector, self.order_weights, fast_sort_on, new_vals, old_vals, output_val, sorted_vals);
+                            [output_val, sorted_vals] = NonLinearFilters.weighted(window(:), self.order_weights);
                         case 'adaptive weighted median'
-                            output_val = NonLinearFilters.adaptive_weighted(window, distances, 10, 0.5);
+                            output_val = NonLinearFilters.adaptive_weighted(window, distances, 10, self.constant);
                     end
                     
                     filtered_image_prime(row, col) = output_val;
@@ -153,7 +164,7 @@ classdef Convolutions
             [img_h, img_w] = size(img);
 
             % convolve using fft2 and return to spacial domain using ifft2
-            filtered_image_prime = ifft2(fft2(img) .* fft2(self.kernel,img_h,img_w));
+            filtered_image_prime = ifft2(fft2(img) .* fft2(self.kernel, img_h, img_w));
 
             % extract image data, ignoring pre-padding done by fft2
             filtered_image = filtered_image_prime(self.krnl_h:img_h,self.krnl_w:img_w);

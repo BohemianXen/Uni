@@ -1,24 +1,5 @@
 classdef NonLinearTests
     methods(Static)
-        function verify_gaussian(input_image, sigma)
-            k_size = 2 * ceil(3*sigma) + 1;
-            test_kernel = fspecial('gaussian', k_size, sigma);
-            my_kernel = MyStatistics.gaussian_filter(sigma);
-            input_image.kernel = my_kernel;
-            
-            test_image = imfilter(input_image.image, test_kernel, 'replicate');
-            filtered = input_image.fft_compute();
-            [diff, img_diff] = MyStatistics.ssd(test_image, filtered);
-            
-            figure(1)
-            subplot(131); imshow(input_image.image); title(sprintf('Original Image (sigma=%.2f)', sigma));
-            subplot(132); imshow(test_image); title(sprintf('In-built Filter'));
-            subplot(133); imshow(filtered); title('My Gaussian (FFT Conv.)');
-
-            figure(2)
-            imshow(img_diff); title(sprintf('Difference (ssd = %.2f)', diff));
-        end
-        
         function verify_median(input_image, k_size)
             input_image.kernel = ones(k_size)/k_size^2;
             input_image.fast_sort = 1;
@@ -34,6 +15,52 @@ classdef NonLinearTests
 
             figure(2)
             imshow(img_diff); title(sprintf('Difference (ssd = %.2f)', diff));
+        end
+        
+        function montage(input_image, type)
+            sizes = [3, 5, 9, 25];
+            images = cell(1, length(sizes));
+             
+            for i=1:length(sizes)
+                input_image.kernel = ones(sizes(i))/(sizes(i)^2);
+                images{i} = input_image.adaptive_compute(type);
+            end
+            
+            montage(images)
+            title(sprintf('%s Filter Montage (3, 5, 9, and 25 Sized Kernels)', type))
+        end
+        
+        function weighted_montage(input_image, kernel_size, weights)
+            images = cell(1, 3);
+            input_image.kernel = ones(kernel_size)/(kernel_size^2);
+            
+            input_image.order_weights = weights;
+            images{1} = input_image.adaptive_compute('weighted median');
+            
+            central = ones(1, 25);
+            central(13) = 3;
+            input_image.order_weights = central;
+            images{2} = input_image.adaptive_compute('weighted median');
+            
+            input_image.order_weights = flip(weights); 
+            images{3} = input_image.adaptive_compute('weighted median');
+            
+            montage(images, 'Size', [1 3])
+            title(sprintf('Top Biased , Central Pixel, and Bottom Biased Weights (%dx%d Kernel Size)', kernel_size, kernel_size));
+        end
+        
+        function adaptive_montage(input_image, kernel_size)
+            constants = [0.5 1 5];
+            images = cell(1, 3);
+            input_image.kernel = ones(kernel_size)/(kernel_size^2);
+            
+            for i=1:length(constants)
+                input_image.constant = constants(i);
+                images{i} = input_image.adaptive_compute('adaptive weighted median');
+            end
+            
+            montage(images, 'Size', [1, 3])
+            title('Adaptive Weighted Median Filter Montage (w=10, c=0.5, 1, 5)')
         end
         
         function sort_speeds(input_image)
@@ -77,11 +104,12 @@ classdef NonLinearTests
             
         end
         
-        function compare(input_image, k_size, weights)
+        function compare(input_image, k_size, weights, c_constant)
             edge_method = 'sobel';
             input_edge = edge(input_image.image, edge_method);
             input_image.kernel = ones(k_size)/k_size^2;
             input_image.fast_sort = 1;
+            input_image.constant = c_constant;
             
             tstart = tic;
             median = input_image.adaptive_compute('median');
@@ -105,14 +133,16 @@ classdef NonLinearTests
             title(sprintf('Original Image - %dx%d Kernel Size', k_size, k_size));
             subplot(234); imshow(median); title('Median');
             subplot(235); imshow(weighted); title('Weighted Median');
-            subplot(236); imshow(adaptive_weighted); title('Adaptive Weighted Median');
+            subplot(236); imshow(adaptive_weighted); 
+            title(sprintf('Adaptive Weighted Median (w=10, c=%.2f)', input_image.constant));
             
             figure(2)
             subplot(232); imshow(input_edge); 
             title(sprintf('Original Image Edge Detection - %dx%d Kernel Size', k_size, k_size));
             subplot(234); imshow(median_edge); title('Median Edge Detection');
             subplot(235); imshow(weighted_edge); title('Weighted Median Edge Detection');
-            subplot(236); imshow(adaptive_weighted_edge); title('Adaptive Weighted Median Edge Detection');
+            subplot(236); imshow(adaptive_weighted_edge); 
+             title(sprintf('Adaptive Weighted Median Edge Detection (w=10, c=%.2f)', input_image.constant));
             
             figure(3)
             x = categorical({'Median', 'Weighted Median', 'Adaptive Weighted Median'});
