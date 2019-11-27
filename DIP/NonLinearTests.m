@@ -90,12 +90,7 @@ classdef NonLinearTests
                 medfilt_times(i) = exec_time;
                 
             end
-            
-%             max_time = max([qsort_times qsort_plus_times medfilt_times]);
-%             qsort_times = (qsort_times ./ max_time);
-%             qsort_plus_times = (qsort_plus_times ./ max_time);
-%             medfilt_times = (medfilt_times ./ max_time);
-%         
+                    
             bar(k_sizes, [qsort_times(:) qsort_plus_times(:) medfilt_times(:)], 'grouped'); 
             title('Execution Times by Kernel Size');
             xlabel('Kernel Size')
