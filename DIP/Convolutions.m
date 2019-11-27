@@ -1,4 +1,4 @@
-    classdef Convolutions
+classdef Convolutions
     % Main class for performing specific convolution types
     
     properties(SetAccess = protected)
@@ -16,12 +16,12 @@
 
     methods
 %------------------------------Constructor---------------------------------
-        function self = Convolutions(filename, kernel, fast_sort)
+        function self = Convolutions(filename, kernel, fast_sort, constant)
             self.image = im2double(imread(filename));
             self.kernel = kernel;
             self.order_weights = ones(1, self.krnl_h * self.krnl_w);
             self.fast_sort = fast_sort;
-            self.constant = 1;
+            self.constant = constant;
         end
         
 %-------------------------Property getters and setters---------------------
