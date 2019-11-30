@@ -26,9 +26,18 @@ class Filters:
         series *= window
 
     @staticmethod
-    def fft(series):
-        fft = np.fft.fft(series)
+    def fft(series, window=''):
         length = len(series)
+        if window is 'hanning':
+            series *= np.hanning(length)
+        elif window is 'hamming':
+            series *= np.hamming(length)
+        elif window is 'blackman':
+            series *= np.blackman(length)
+        else:
+            pass
+
+        fft = np.fft.fft(series)
         freq = np.fft.fftfreq(length) * 25e3
         voltages = [np.abs(x)/length for x in fft]
         #phase = [np.arctan()]

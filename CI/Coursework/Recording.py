@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 class Recording:
     def __init__(self, d=None, index=None, classes=None, filename=None, colour='black'):
         self._period = 1 / 25e3
-        self._range = 40
+        self._range = 36
+        self._offset = 10
+        self._window = 'hanning'
         self._colourmap = [colour, 'red', 'green', 'blue', 'orange']
 
         if filename is None:
@@ -40,7 +42,15 @@ class Recording:
 
     @range.setter
     def range(self, range_in):
-        self._range = self.range_in
+        self._range = range_in
+
+    @property
+    def offset(self):
+        return self._offset
+
+    @property
+    def window(self):
+        return self._window
 
     @property
     def colourmap(self):
@@ -79,8 +89,11 @@ class Recording:
         total_samples = len(self.d) if all else (self._range * 2)
         start = 0 if all else center - self._range
         stop = total_samples if all else center + self._range
+        start += self.offset
+        stop += self.offset
         x_axis = np.arange(start, stop)
 
+        #TODO: pack with zeros if not enough points in window (i.e. class is at very start/end of recording)
         if start < 0:
             start = 0
 
