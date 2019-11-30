@@ -22,11 +22,14 @@ class Recording:
                     filename += '.mat'
                 mat = spio.loadmat(filename, squeeze_me=True)
                 self._d = mat['d']
-                self._index = mat['Index']
-                self._classes = mat['Class']
+                if 'submission' not in filename:
+                    self._index = mat['Index']
+                    self._classes = mat['Class']
+
             except Exception as e:
                 print('Error generating .mat file:\n', e)
                 exit(-1)
+        #self.sort_indices_in_place()
 
     def __copy__(self):
         return Recording(self.d, self.index, self.classes)
@@ -85,21 +88,30 @@ class Recording:
         self._classes = classes
 
 # ----------------------------------------------------- Methods -- -----------------------------------------------------
+    def sort_indices_in_place(self):
+        paired = []
+        for i in range(0, len(self.index)):
+            paired.append([self.index[i], self.classes[i]])
+        paired = sorted(paired, key=lambda x: x[0])
+        self.index = np.array([x[0] for x in paired])
+        self.classes = np.array([x[1] for x in paired])
+
     def slice(self, center, all=False, copy=True):
-        total_samples = len(self.d) if all else (self._range * 2)
-        start = 0 if all else center - self._range
-        stop = total_samples if all else center + self._range
+        total_samples = len(self.d) if all else (self.range * 2)
+        start = 0 if all else center - self.range
+        stop = total_samples if all else center + self.range
         start += self.offset
         stop += self.offset
-        x_axis = np.arange(start, stop)
 
-        #TODO: pack with zeros if not enough points in window (i.e. class is at very start/end of recording)
         if start < 0:
             start = 0
+            stop = total_samples
 
         if stop > len(self.d):
-            stop = len(self.d)  # - 1
+            stop = len(self.d)
+            start = stop - total_samples - 1
 
+        x_axis = np.arange(start, stop)
         if copy:
             return [x_axis, np.copy(self.d[start:stop])]
         else:
