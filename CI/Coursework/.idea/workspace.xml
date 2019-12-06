@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ef486c0a-0f7f-4836-9a33-11801bf914b2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ClassIdentifiers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/IndexIdentifiers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/Filters.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IndexIdentifiers.py" beforeDir="false" afterPath="$PROJECT_DIR$/IndexIdentifiers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Recording.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recording.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +41,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.IndexIdentifiers">
+  <component name="RunManager" selected="Python.Main">
     <configuration name="IndexIdentifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Coursework" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -90,8 +86,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.IndexIdentifiers" />
         <item itemvalue="Python.Main" />
+        <item itemvalue="Python.IndexIdentifiers" />
       </list>
     </recent_temporary>
   </component>
@@ -129,6 +125,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/IndexIdentifiers.py</url>
+          <line>100</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/IndexIdentifiers.py</url>
+          <line>93</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

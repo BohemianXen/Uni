@@ -1,5 +1,6 @@
 from Recording import Recording
 from Filters import Filters
+from IndexIdentifiers import IndexIdentifiers
 from NeuralNetwork import NeuralNetwork
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,17 +12,17 @@ def plot(recording, center=200, time=False, all=False):
     [x_axis, voltages] = recording.slice(center, all)
 
     if not all or len(x_axis) < 1000:
-        [indexes, colours] = classify_series(recording, x_axis)
+        [indices, colours] = classify_series(recording, x_axis)
 
     if time:
         x_axis *= recording.period
-        indexes *= recording.period
+        indices *= recording.period
 
     plt.plot(x_axis, voltages, color=recording.colourmap[0])
 
-    if len(indexes) > 0:
-        for i in range(len(indexes)):
-            plt.scatter(indexes[i], 0, color=colours[i])
+    if len(indices) > 0:
+        for i in range(len(indices)):
+            plt.scatter(indices[i], 0, color=colours[i])
 
 
 def plot_fft(freq, amplitude):
@@ -31,10 +32,10 @@ def plot_fft(freq, amplitude):
 
 
 def classify_series(recording, x):
-    indexes_in_x = list(filter(lambda y: y in recording.index, x))
-    classes_in_x = [recording.classes[np.where(recording.index == y)] for y in indexes_in_x]
+    indices_in_x = list(filter(lambda y: y in recording.index, x))
+    classes_in_x = [recording.classes[np.where(recording.index == y)] for y in indices_in_x]
     class_colours = [recording.colourmap[int(y)] for y in classes_in_x]
-    return [np.array(indexes_in_x), class_colours]
+    return [np.array(indices_in_x), class_colours]
 
 
 def class_test(recording, target):
@@ -53,8 +54,9 @@ def class_test(recording, target):
             [fft_freq, fft_voltages] = Filters.fft(index)
             plot_fft(fft_freq, fft_voltages)
             plt.show()
-            
-def train_classes(recording, n, reps):
+
+
+def train_classes(recording, n, reps=4):
     # train the neural network on each training sample
     filtered = recording.__copy__()
     while reps > 0:
@@ -64,49 +66,90 @@ def train_classes(recording, n, reps):
             targets = np.zeros(n.o_nodes) + 0.01
             targets[recording.classes[i]-1] = 0.99
             n.train(fft_voltages, targets)
-            reps -= 1
+        reps -= 1
 
 
-def test_net(recording, n):
+def test_net(recording, n, correct, test=True):
     scorecard = []
-    incorrect = []
     guessed = []
+    #incorrect = []
+    #incorrect_guessed = []
+    checked = []
+
     for i in range(len(recording.index)):
         series = recording.slice(recording.index[i], copy=True)[1]
         [fft_freq, fft_voltages] = Filters.fft(series, recording.window)
         outputs = n.query(fft_voltages)
         guess = np.argmax(outputs) + 1
-        correct_class = recording.classes[i]
+        guessed.append(guess)
 
-        if guess == correct_class:
-            scorecard.append(1)
-        else:
-            scorecard.append(0)
-            incorrect.append(correct_class)
-            guessed.append(guess)
+        if test:
+            done = False
+            correct_class_index = 0
+            for correct_i in correct.index:
+                if correct_i - 50 <= recording.index[i] <= correct_i + 50:
+                    if correct_i not in checked:
+                        correct_class = correct.classes[correct_class_index]
+                        if guess == correct_class:
+                            scorecard.append(1)
+                            done = True
+                        checked.append(correct_i)
+                        break
+                correct_class_index += 1
+            if not done:
+                scorecard.append(0)
+                #incorrect.append(correct_class)
+                #incorrect_guessed.append(guess)
 
-    print('Net performance: %.2f' % (scorecard.count(1)/len(scorecard) * 100.0))
-    print(np.count_nonzero(recording.classes == 1), np.count_nonzero(recording.classes == 2), np.count_nonzero(recording.classes == 3), np.count_nonzero(recording.classes == 4))
-    print(incorrect.count(1), incorrect.count(2), incorrect.count(3), incorrect.count(4))
-    print(guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
+    print('\nGuess counts by class:', guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
+
+    if test:
+        print('Class Net performance: %.2f' % (scorecard.count(1)/len(scorecard) * 100.0))
+        #print(np.count_nonzero(recording.classes == 1), np.count_nonzero(recording.classes == 2), np.count_nonzero(recording.classes == 3), np.count_nonzero(recording.classes == 4))
+        #print(incorrect.count(1), incorrect.count(2), incorrect.count(3), incorrect.count(4))
+        #print(incorrect_guessed.count(1), incorrect_guessed.count(2), incorrect_guessed.count(3), incorrect_guessed.count(4))
+    else:
+        print(len(guessed), len(recording.index))
+    return np.array(guessed)
 
 
 if __name__ == '__main__':
     training_set = Recording(filename='training')
+    sorted_training_set = training_set.__copy__()
+    sorted_training_set.sort_indices_in_place()
+
     params = {
         'inputs': training_set.range,
-        'hiddens': int(training_set.range/3),
+        'hiddens': int(training_set.range / 3),
         'outputs': 4,
-        'lr': 0.6,
-        'bias': np.array([[0.0], [0.02], [-0.27], [-0.1]]),
-        'reps': 10000
+        'lr': 0.65,
+        'bias': np.array([[0.0], [0.02], [-0.27], [-0.1]]),  # [[0.0], [0.0], [0.0], [0.0]]
+        'reps': 4
     }
 
+    # Train and test classes net using training set and sorted training set, respectively
     class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
+    train_classes(training_set, class_net, params['reps'])
+    test_net(sorted_training_set, class_net, sorted_training_set)
 
-    #test_index = training_set.index[210]
-    #test_class = 1
+    # Test index finding accuracy of correlation method
+    correlation_test = training_set.__copy__()
+    # correlation_test.sort_indices_in_place()
+    index_finder_test = IndexIdentifiers(correlation_test)
+    index_finder_test.correlation_method()
+
+    # Test class identification net on generated index set (using closest correct index matching)
+    correlation_classes = test_net(correlation_test, class_net, sorted_training_set)
+    correlation_test.classes = correlation_classes
+
+    # Generate index and class vectors for submission set
+    submission_set = Recording(filename='submission')
+    index_finder = IndexIdentifiers(submission_set, test=False)
+    index_finder.correlation_method()
+    submission_set.classes = test_net(submission_set, class_net, training_set, test=False)
+    test_class = 1
+    class_test(submission_set, test_class)
     #class_test(training_set, test_class)
 
-    train_classes(training_set, class_net, params['reps'])
-    test_net(training_set, class_net)
+    # plot(submission_set, 0)
+    # plt.show()

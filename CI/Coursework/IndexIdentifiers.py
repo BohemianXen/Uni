@@ -1,187 +1,154 @@
-from Recording import Recording
-from Filters import Filters
-from NeuralNetwork import NeuralNetwork
 import numpy as np
 import matplotlib.pyplot as plt
-# import PyQt5
-
-def plot(recording, center=200, time=False, all=False):
-    plt.figure(1)
-    [x_axis, voltages] = recording.slice(center, all)
-
-    if not all or len(x_axis) < 1000:
-        [indexes, colours] = classify_series(recording, x_axis)
-
-    if time:
-        x_axis *= recording.period
-        indexes *= recording.period
-
-    plt.plot(x_axis, voltages, color=recording.colourmap[0])
-
-    if len(indexes) > 0:
-        for i in range(len(indexes)):
-            plt.scatter(indexes[i], 0, color=colours[i])
 
 
-def plot_fft(freq, amplitude):
-    plt.figure(2)
-    #plt.ylim(top=np.max(amplitude))
-    plt.bar(freq, amplitude, width=10)
+class IndexIdentifiers:
+    def __init__(self, recording, test=True):
+        self.recording = recording
+        self.test = test
 
+    def correlation_method(self):
+        indices = []
+        step = 18
+        diff_thresh = 0.28
+        correlation_thresh = 40
+        window_size = 50
+        window_voltage = 3
+        length = len(self.recording.d)
+        averaging_length = 4
+        duplicate_range = 20 #14
+        index_counter = 0
 
-def classify_series(recording, x):
-    indexes_in_x = list(filter(lambda y: y in recording.index, x))
-    classes_in_x = [recording.classes[np.where(recording.index == y)] for y in indexes_in_x]
-    class_colours = [recording.colourmap[int(y)] for y in classes_in_x]
-    return [np.array(indexes_in_x), class_colours]
+        for i in range(self.recording.range, length-self.recording.range, step):
+            end = min(i + step, length - 1)
+            series = self.recording.d[i:end]
+            diff = np.ediff1d(self.moving_average(series, averaging_length))
 
+            if max(diff) > diff_thresh:
+                center = i + np.argmax(diff)
+                [x, vals] = self.recording.slice(center)
+                smoothed = self.moving_average(vals, averaging_length)
+                smoothed = np.subtract(smoothed, np.median(smoothed))
+                window = np.hanning(window_size) * window_voltage
 
-def class_test(recording, target):
-    for i in range(len(recording.classes)):
-        if recording.classes[i] == target:
-            test_index = recording.index[i]
-            plot(recording, center=test_index)
+                if self.test and (self.recording.index[index_counter] - 30 < i < self.recording.index[index_counter] + 30):
+                    #plt.plot(x, vals)
+                    #plt.plot(x[averaging_length-1:], smoothed)
+                    #window_x = (self.recording.range*2)-window_size
+                    #plt.plot(x[window_x:window_x+window_size], window)
+                    #plt.show()
+                    if index_counter < len(self.recording.index) - 1:
+                        index_counter += 1
 
-            filtered = recording.__copy__()
-            filtered.colourmap = 'pink'
-            index = filtered.slice(test_index, copy=False)[1]
-            Filters.hanning(index)
-            plot(filtered, center=test_index)
-            plt.show()
+                correlation = np.correlate(smoothed, window)
+                if max(correlation) > correlation_thresh:
+                    indices.append(center)
+                    if len(indices) >= 2 and (center < (indices[-2] + duplicate_range)):
+                        del indices[-1]
 
-            # [fft_freq, fft_voltages] = Filters.fft(index)
-            # plot_fft(fft_freq, fft_voltages)
-            # plt.show()
+                    if not self.test:
+                        #plt.plot(x, vals)
+                        #plt.plot(x[averaging_length-1:], smoothed)
+                        #plt.show()
+                        None
+                #else:
+                #    if self.test:
+                #       print(i, max(correlation))
+        print('\nCorrelation Method Total Indices Found', len(indices))
+        if self.test:
+            self.test_indices(indices)
 
+        self.recording.index = np.array(indices)
 
-def correlation_method(recording, test=True):
-    indices = []
-    window = np.hanning(40) * 4  #  recording.slice(recording.index[1])[1]
-    step = 35
-    thresh = 60
-    length = len(recording.d)
-    for i in range(0, length, step):
-        correlation = np.correlate(recording.d[i:i+step], window)
-        if max(correlation) > thresh:  # replace with nn
-            indices.append(i)
+    @staticmethod
+    def moving_average(series, length):
+        summed = np.cumsum(series)
+        valid_range = summed[length:] - summed[:-length]
+        summed[length:] = valid_range
+        averaged = summed[length - 1:] / length
+        return averaged
 
-    print('\nTotal Indices Found', len(indices))
-    if test:
-        test_indices(recording, indices)
+    def median_method(self):
+        indices = []
+        window_length = 35 #80
+        step = 35
+        grad_step = 1
+        thresh = 1.5
+        max_grad = 0
+        length = len(self.recording.d)
 
-    return np.array(indices)
+        for i in range(0, length, step):
+            grads = []
+            end = i + window_length #length-1)
+            if end >= length:
+                end = length - 1
+            series = np.copy(self.recording.d[i:end])
+            median = np.median(series)
+            adjusted_series = np.subtract(series, median)
+            adjusted_series *= (np.hanning(len(series)) * 4)
+            adjusted_series = np.gradient(adjusted_series)
+            zero_crossings = np.where(np.diff(np.sign(adjusted_series)))[0]
+            for crossing in zero_crossings:
+                diff = adjusted_series[crossing] - adjusted_series[crossing + 1]
+                if np.sign(adjusted_series[crossing]) == 1 and diff > thresh:
+                    indices.append(i + crossing)
 
+            if max(adjusted_series) > max_grad:
+                max_grad = max(adjusted_series)
 
-def test_indices(recording, generated_indices):
-    thresh = 50
-    indices = list(generated_indices)
-    total_indices = len(indices)
-    expected_total_indices = len(recording.index)
-    sorted_index = sorted(recording.index)
-    correct = []
-    missed = []
-    # indices = list(recording.index)
+        print(max_grad)
+        print('\nMedian Method Total Indices Found', len(indices))
+        if self.test:
+            self.test_indices(indices)
 
-    while len(indices) != 0:
-        for i in range(0, len(sorted_index)):
-            if (sorted_index[i] - thresh) <= indices[0] <= (sorted_index[i] + thresh):
-                correct.append(indices[0])
-                sorted_index.pop(i)
-                indices.pop(0)
-                break
-            if i == len(sorted_index) - 1:
-                missed.append(indices[0])
-                indices.pop(0)
+        self.recording.index = np.array(indices)
 
-    total_correct = len(correct)
-    total_missed = len(missed)
-    false_positives = max(0, (total_indices - expected_total_indices))
-    score = max(0, (total_correct - total_missed - false_positives))
-    print('\nTotal Correct', total_correct)
-    print('Total Missed', total_missed)
-    print('False Positives', false_positives)
-    print('Index performance = %.2f' % (100.0*score/expected_total_indices))
+    #def net_method(self, net):
+    def test_indices(self, generated_indices):
+        thresh = 50
+        indices = list(generated_indices)
+        total_indices = len(indices)
+        expected_total_indices = len(self.recording.index)
+        sorted_index = sorted(self.recording.index)
+        correct = []
+        missed = []
+        # indices = list(self.recording.index)
 
+        while len(indices) != 0:
+            for i in range(0, len(sorted_index)):
+                if (sorted_index[i] - thresh) <= indices[0] <= (sorted_index[i] + thresh):
+                    correct.append(indices[0])
+                    sorted_index.pop(i)
+                    indices.pop(0)
+                    break
+                if i == len(sorted_index) - 1:
+                    missed.append(indices[0])
+                    indices.pop(0)
 
-def train_classes(recording, n, reps):
-    # train the neural network on each training sample
-    filtered = recording.__copy__()
-    while reps > 0:
-        for i in range(len(recording.index)):
-            series = filtered.slice(recording.index[i], copy=True)[1]
-            [fft_freq, fft_voltages] = Filters.fft(series, recording.window)
-            targets = np.zeros(n.o_nodes) + 0.01
-            targets[recording.classes[i]-1] = 0.99
-            n.train(fft_voltages, targets)
-            reps -= 1
-
-
-def test_net(recording, n, correct, test=True):
-    scorecard = []
-    incorrect = []
-    guessed = []
-    incorrect_guessed = []
-    for i in range(len(recording.index)):
-        series = recording.slice(recording.index[i], copy=True)[1]
-        [fft_freq, fft_voltages] = Filters.fft(series, recording.window)
-        outputs = n.query(fft_voltages)
-        guess = np.argmax(outputs) + 1
-        guessed.append(guess)
-
-        if test:
-            correct_class = correct.classes[i]
-
-            if guess == correct_class:
-                scorecard.append(1)
-            else:
-                scorecard.append(0)
-                incorrect.append(correct_class)
-                incorrect_guessed.append(guess)
-
-    if not test:
-        print(guessed.count(1), guessed.count(4),
-          guessed.count(3), guessed.count(4))
-
-    if test:
-        print('\nClass Net performance: %.2f' % (scorecard.count(1)/len(scorecard) * 100.0))
-        print(np.count_nonzero(recording.classes == 1), np.count_nonzero(recording.classes == 2), np.count_nonzero(recording.classes == 3), np.count_nonzero(recording.classes == 4))
-        print(incorrect.count(1), incorrect.count(2), incorrect.count(3), incorrect.count(4))
-        print(incorrect_guessed.count(1), incorrect_guessed.count(2), incorrect_guessed.count(3), incorrect_guessed.count(4))
-    else:
-        print(len(guessed), len(recording.index))
-    return np.array(guessed)
+        total_correct = len(correct)
+        total_missed = len(missed)
+        length_mismatch = max(0, (total_indices - expected_total_indices), (expected_total_indices - total_indices))
+        score = max(0, (total_correct - total_missed - length_mismatch))
+        print('Total Correct', total_correct)
+        print('Total Missed', total_missed)
+        print('Length Mismatch', length_mismatch)
+        print('Index performance = %.2f' % (100.0*score/expected_total_indices))
 
 
 if __name__ == '__main__':
+    from Recording import Recording
+
     training_set = Recording(filename='training')
-    params = {
-        'inputs': training_set.range,
-        'hiddens': int(training_set.range/3),
-        'outputs': 4,
-        'lr': 0.65,
-        'bias': np.array([[0.0], [0.02], [-0.27], [-0.1]]),  # [[0.0], [0.0], [0.0], [0.0]]
-        'reps': 10000
-    }
-    # TODO: Use gradient to find indices; integrate, differentiate, do shit my niggard
-    class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
+    training_set.sort_indices_in_place()
 
-    sorted_training_set = training_set.__copy__()
-    sorted_training_set.sort_indices_in_place()
+    correlation_set = training_set.__copy__()
+    correlation_index_finder = IndexIdentifiers(correlation_set)
+    correlation_index_finder.correlation_method()
 
-    correlation_recording = sorted_training_set.__copy__()
-    correlation_indices = correlation_method(correlation_recording)
-    correlation_recording.index = correlation_indices
-
-    train_classes(training_set, class_net, params['reps'])
-    #test_net(training_set, class_net, training_set)
-    test_net(sorted_training_set, class_net, sorted_training_set)
-
-    #correlation_classes = test_net(correlation_recording, class_net, sorted_training_set)
-    #correlation_recording.classes = correlation_classes
+    #median_set = training_set.__copy__()
+    #median_index_finder = IndexIdentifiers(median_set)
+    #median_index_finder.median_method()
 
     submission_set = Recording(filename='submission')
-    submission_set.index = correlation_method(submission_set, test=False)
-    submission_set.classes = test_net(submission_set, class_net, training_set, test=False)
-    test_class = 4
-    #class_test(correlation_recording, test_class)
-    class_test(training_set, test_class)
+    index_finder = IndexIdentifiers(submission_set, test=False)
+    index_finder.correlation_method()
