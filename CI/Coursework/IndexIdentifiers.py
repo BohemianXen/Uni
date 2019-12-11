@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from Filters import Filters
 
 
 class IndexIdentifiers:
@@ -7,16 +8,17 @@ class IndexIdentifiers:
         self.recording = recording
         self.test = test
 
-    def correlation_method(self):
+    def correlation_method(self, net):
         indices = []
+        classes = []
         step = 18
         diff_thresh = 0.28
-        correlation_thresh = 40
+        correlation_thresh = 35
         window_size = 50
         window_voltage = 3
         length = len(self.recording.d)
         averaging_length = 4
-        duplicate_range = 20 #14
+        duplicate_range = 25 #14
         index_counter = 0
 
         for i in range(self.recording.range, length-self.recording.range, step):
@@ -41,22 +43,31 @@ class IndexIdentifiers:
                         index_counter += 1
 
                 correlation = np.correlate(smoothed, window)
-                if max(correlation) > correlation_thresh:
+                if max(abs(correlation)) > correlation_thresh:
+                    guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
+                    classes.append(np.argmax(guessed_class) + 1)
                     indices.append(center)
+                    duplicate = False
                     if len(indices) >= 2 and (center < (indices[-2] + duplicate_range)):
-                        del indices[-1]
+                        if classes[-1] == classes[-2]:
+                            del classes[-1]
+                            del indices[-1]
+                            duplicate = True
 
-                    if not self.test:
+                    if not self.test and not duplicate:
                         #plt.plot(x, vals)
                         #plt.plot(x[averaging_length-1:], smoothed)
                         #plt.show()
                         None
-                #else:
-                #    if self.test:
-                #       print(i, max(correlation))
+                else:
+                    None
+
         print('\nCorrelation Method Total Indices Found', len(indices))
+
         if self.test:
             self.test_indices(indices)
+        else:
+            self.recording.classes = np.array(classes)
 
         self.recording.index = np.array(indices)
 
@@ -103,7 +114,6 @@ class IndexIdentifiers:
 
         self.recording.index = np.array(indices)
 
-    #def net_method(self, net):
     def test_indices(self, generated_indices):
         thresh = 50
         indices = list(generated_indices)

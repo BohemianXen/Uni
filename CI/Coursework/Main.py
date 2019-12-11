@@ -101,15 +101,17 @@ def test_net(recording, n, correct, test=True):
                 #incorrect.append(correct_class)
                 #incorrect_guessed.append(guess)
 
-    print('\nGuess counts by class:', guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
-
     if test:
-        print('Class Net performance: %.2f' % (scorecard.count(1)/len(scorecard) * 100.0))
+        print('\nClass Net performance: %.2f' % (scorecard.count(1)/len(scorecard) * 100.0))
         #print(np.count_nonzero(recording.classes == 1), np.count_nonzero(recording.classes == 2), np.count_nonzero(recording.classes == 3), np.count_nonzero(recording.classes == 4))
         #print(incorrect.count(1), incorrect.count(2), incorrect.count(3), incorrect.count(4))
         #print(incorrect_guessed.count(1), incorrect_guessed.count(2), incorrect_guessed.count(3), incorrect_guessed.count(4))
-    else:
-        print(len(guessed), len(recording.index))
+    #else:
+    #    print(len(guessed), len(recording.index))
+    print('Guess counts by class:', guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
+    print('Correct counts by class:', np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
+          np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4))
+
     return np.array(guessed)
 
 
@@ -123,9 +125,10 @@ if __name__ == '__main__':
         'hiddens': int(training_set.range / 3),
         'outputs': 4,
         'lr': 0.65,
-        'bias': np.array([[0.0], [0.02], [-0.27], [-0.1]]),  # [[0.0], [0.0], [0.0], [0.0]]
+        'bias': np.array([[0.0], [0.02], [-0.27], [-0.2]]),  # [[0.0], [0.0], [0.0], [0.0]]
         'reps': 4
     }
+    # TODO: Each neuron can only fire once at a time so perhaps do a rolling classification that prevents duplicates only if they are of the same class
 
     # Train and test classes net using training set and sorted training set, respectively
     class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
@@ -134,20 +137,20 @@ if __name__ == '__main__':
 
     # Test index finding accuracy of correlation method
     correlation_test = training_set.__copy__()
-    # correlation_test.sort_indices_in_place()
+    correlation_test.sort_indices_in_place()
     index_finder_test = IndexIdentifiers(correlation_test)
-    index_finder_test.correlation_method()
+    index_finder_test.correlation_method(class_net)
 
     # Test class identification net on generated index set (using closest correct index matching)
-    correlation_classes = test_net(correlation_test, class_net, sorted_training_set)
-    correlation_test.classes = correlation_classes
+    #correlation_classes = test_net(correlation_test, class_net, sorted_training_set)
+    #correlation_test.classes = correlation_classes
 
     # Generate index and class vectors for submission set
     submission_set = Recording(filename='submission')
     index_finder = IndexIdentifiers(submission_set, test=False)
-    index_finder.correlation_method()
-    submission_set.classes = test_net(submission_set, class_net, training_set, test=False)
-    test_class = 1
+    index_finder.correlation_method(class_net)
+    test_net(submission_set, class_net, training_set, test=False)
+    test_class = 4
     class_test(submission_set, test_class)
     #class_test(training_set, test_class)
 
