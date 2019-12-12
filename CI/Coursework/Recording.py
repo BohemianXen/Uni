@@ -10,7 +10,7 @@ class Recording:
         self._range = 36
         self._offset = 10
         self._window = 'hanning'
-        self._colourmap = [colour, 'red', 'green', 'blue', 'orange']
+        self._colourmap = [colour, 'red', 'green', 'blue', 'yellow',  'purple']
         self.pca = sk_pca(components)
 
         if filename is None:
@@ -91,9 +91,7 @@ class Recording:
 
 # ----------------------------------------------------- Methods -- -----------------------------------------------------
     def sort_indices_in_place(self):
-        paired = []
-        for i in range(0, len(self.index)):
-            paired.append([self.index[i], self.classes[i]])
+        paired = [[self.index[i], self.classes[i]] for i in range(0, len(self.index))]
         paired = sorted(paired, key=lambda x: x[0])
         self.index = np.array([x[0] for x in paired])
         self.classes = np.array([x[1] for x in paired])

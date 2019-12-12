@@ -35,11 +35,11 @@ def plot_fft(freq, amplitude):
 def classify_series(recording, x):
     indices_in_x = list(filter(lambda y: y in recording.index, x))
     classes_in_x = [recording.classes[np.where(recording.index == y)] for y in indices_in_x]
-    class_colours = [recording.colourmap[int(y)] for y in classes_in_x]
+    class_colours = [recording.colourmap[int(y)+1] for y in classes_in_x]
     return [np.array(indices_in_x), class_colours]
 
 
-def class_test(recording, target):
+def class_test(recording, target, fft=False):
     for i in range(len(recording.classes)):
         if recording.classes[i] == target:
             test_index = recording.index[i]
@@ -53,9 +53,10 @@ def class_test(recording, target):
             plot(filtered, center=test_index)
             plt.show()
 
-            [fft_freq, fft_voltages] = Filters.fft(series)
-            plot_fft(fft_freq, fft_voltages)
-            plt.show()
+            if fft:
+                [fft_freq, fft_voltages] = Filters.fft(series)
+                plot_fft(fft_freq, fft_voltages)
+                plt.show()
 
 
 def train_classes(recording, n, reps=4):
@@ -116,26 +117,35 @@ def test_net(recording, n, correct, test=True, knn=False):
         #print(incorrect_guessed.count(1), incorrect_guessed.count(2), incorrect_guessed.count(3), incorrect_guessed.count(4))
     #else:
     #    print(len(guessed), len(recording.index))
-    print('Guessed counts by class:', guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
+    print('Guessed counts by class:', guessed.count(0), guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
     if test:
-        print('Expected counts by class:', np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
+        print('Expected counts by class:', np.count_nonzero(correct.classes == 0), np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
               np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4), '\n')
 
     return np.array(guessed)
 
 
-def pca_fit(train, knn):
-    train_indices = []
+def pca_fit(recording, knn, train_for_noise=False):
     averaging_length = 2
-    for i in range(len(train.index)):
-        series = train.slice(train.index[i])
-        series = Filters.smooth(series, averaging_length=averaging_length)
-        train_indices.append(series)
+    step = 3000
+    window = 150
 
-    train_ext = train.pca.fit_transform(train_indices)
+    paired = [[Filters.smooth(recording.slice(i), averaging_length), recording.classes[np.nonzero(recording.index == i)][0]] for i in recording.index]
+    #paired = sorted(paired, key=lambda x: x[0])
+
+    if train_for_noise:
+        for i in range(0, len(recording.d), step):
+            start = max(0, i - window)
+            end = min(len(recording.d), i + window)
+            observation_window = np.arange(start, end)
+            common = np.intersect1d(observation_window, recording.index, assume_unique=True)
+            if len(common) is not 0:
+                paired.insert(np.random.randint(0, len(paired)-1), [Filters.smooth(recording.slice(i), averaging_length), 0])
+
+    train_ext = recording.pca.fit_transform([pair[0] for pair in paired])
     min_max_scaler = MinMaxScaler()
     train_norm = min_max_scaler.fit_transform(train_ext)
-    knn.fit(train_norm, train.classes)
+    knn.fit(train_norm, [pair[1] for pair in paired])
 
 
 def pca_predict(train, submission, knn):
@@ -178,14 +188,21 @@ def verify_class_agreements(net_set, knn_set):
     for i in range(len(net_set.index)-1):
         if net_set.classes[i] == 4:
             if net_set.index[i] + 40 > net_set.index[i+1]:
-                plot(knn_set, center=i)
-                plt.show()
                 filtered[i] = -1
                 filtered_classes[i] = -1
     filtered = [i for i in filtered if i != -1]
     filtered_classes = [i for i in filtered_classes if i != -1]
     print(len(net_set.classes) - len(filtered))
 
+
+def remove_noise(recording):
+    invalid = len(recording.classes) - np.count_nonzero(recording.classes)
+    print('Removing', invalid, 'indices')
+    valid_pairs = [[recording.index[i], recording.classes[i]] for i in range(0, len(recording.index)) if recording.classes[i] != 0]
+    valid_indices = [pair[0] for pair in valid_pairs]
+    valid_classes = [pair[1] for pair in valid_pairs]
+    recording.index = np.array(valid_indices)
+    recording.classes = np.array(valid_classes)
 
 if __name__ == '__main__':
     training_set = Recording(filename='training')
@@ -199,7 +216,8 @@ if __name__ == '__main__':
         'reps': 4,
         'components': 20,
         'neighbours': 6,
-        'distance': 2
+        'distance': 2,
+        'noise removal': True
     }
 
     training_set.components = params['components']  # TODO: getters and setters for new knn params
@@ -213,7 +231,7 @@ if __name__ == '__main__':
 
     print('\nFitting PCA')
     knn = KNeighborsClassifier(n_neighbors=params['neighbours'], p=params['distance'])
-    pca_fit(training_set, knn)
+    pca_fit(training_set, knn, train_for_noise=True)
 
     # Test index finding accuracy of correlation method
     print('\nTesting index identification performance')
@@ -240,12 +258,16 @@ if __name__ == '__main__':
     test_net(net_submission_set, class_net, training_set, test=False)
     test_net(knn_submission_set, class_net, training_set, test=False, knn=True)
     verify_class_agreements(net_submission_set, knn_submission_set)
-    # None
+    if params['noise removal']:
+        #class_test(knn_submission_set, 0)
+        remove_noise(knn_submission_set)
+        print(len(knn_submission_set.index))
+
+
     test_class = 4
     # class_test(training_set, test_class)
     # class_test(training_set, test_class)
-    class_test(net_submission_set, test_class)
-    #class_test(knn_submission_set, test_class)
+    #class_test(net_submission_set, test_class)
 
-    #plot(net_submission_set, 1000)
+    plot(net_submission_set, 1000)
     #plt.show()

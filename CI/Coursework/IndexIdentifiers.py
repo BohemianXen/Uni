@@ -11,13 +11,11 @@ class IndexIdentifiers:
 
     def correlation_method(self, net, knn=None, pca=None):
         indices = []
-        knn_indices = []
         classes = []
-        knn_classes = []
         knn_series = []
         step = 18
         diff_thresh = 0.25
-        correlation_thresh = 38
+        correlation_thresh = 30
         window_size = 50
         window_voltage = 3
         length = len(self.recording.d)
@@ -28,7 +26,7 @@ class IndexIdentifiers:
         for i in range(self.recording.range, length-self.recording.range, step):
             end = min(i + step, length - 1)
             series = self.recording.d[i:end]
-            diff = np.ediff1d(Filters.smooth(series, averaging_length, just_average=True))
+            diff = np.ediff1d(Filters.smooth(series, averaging_length-1, just_average=True))
 
             if max(diff) > diff_thresh:
                 center = i + np.argmax(diff)
@@ -46,7 +44,7 @@ class IndexIdentifiers:
                         index_counter += 1
 
                 correlation = np.correlate(smoothed, window)
-                if max(abs(correlation[5:-5])) > correlation_thresh:
+                if max(abs(correlation[3:-3])) > correlation_thresh:
                     guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
                     classes.append(np.argmax(guessed_class) + 1)
                     indices.append(center)
@@ -84,6 +82,7 @@ class IndexIdentifiers:
             None
 
         self.recording.index = np.array(indices)
+
 
     def median_method(self):
         indices = []

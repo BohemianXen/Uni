@@ -6,6 +6,7 @@
       <change beforePath="$PROJECT_DIR$/Filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/Filters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IndexIdentifiers.py" beforeDir="false" afterPath="$PROJECT_DIR$/IndexIdentifiers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Recording.py" beforeDir="false" afterPath="$PROJECT_DIR$/Recording.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -151,8 +152,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Main.py</url>
-          <line>180</line>
-          <option name="timeStamp" value="223" />
+          <line>55</line>
+          <option name="timeStamp" value="227" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
