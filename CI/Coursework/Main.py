@@ -5,14 +5,12 @@ from NeuralNetwork import NeuralNetwork
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
-# k Nearest Neighbour
 from sklearn.neighbors import KNeighborsClassifier
-# import PyQt5
 
 
 def plot(recording, center=200, time=False, all=False):
     plt.figure(1)
-    [x_axis, voltages] = recording.slice(center, all)
+    [x_axis, voltages] = recording.slice(center, all, x_needed=True)
 
     if not all or len(x_axis) < 1000:
         [indices, colours] = classify_series(recording, x_axis)
@@ -50,7 +48,7 @@ def class_test(recording, target):
             filtered = recording.__copy__()
             filtered.colourmap = 'pink'
             [x, series] = filtered.slice(test_index, x_needed=True)
-            series = Filters.smooth(series)
+            series = Filters.smooth(series, averaging_length=2)
             filtered.d[x[0]:x[-1]+1] = series
             plot(filtered, center=test_index)
             plt.show()
@@ -68,7 +66,7 @@ def train_classes(recording, n, reps=4):
             series = filtered.slice(recording.index[i])
             [fft_freq, fft_voltages] = Filters.fft(series, recording.window)
             targets = np.zeros(n.o_nodes) + 0.01
-            targets[recording.classes[i]-1] = 0.99
+            targets[recording.classes[i] - 1] = 0.99
             n.train(fft_voltages, targets)
         reps -= 1
 
@@ -126,19 +124,27 @@ def test_net(recording, n, correct, test=True, knn=False):
     return np.array(guessed)
 
 
-def pca_train(train, submission, knn):
+def pca_fit(train, knn):
+    train_indices = []
+    averaging_length = 2
+    for i in range(len(train.index)):
+        series = train.slice(train.index[i])
+        series = Filters.smooth(series, averaging_length=averaging_length)
+        train_indices.append(series)
+
+    train_ext = train.pca.fit_transform(train_indices)
+    min_max_scaler = MinMaxScaler()
+    train_norm = min_max_scaler.fit_transform(train_ext)
+    knn.fit(train_norm, train.classes)
+
+
+def pca_predict(train, submission, knn):
     test = train.__copy__()
     test.sort_indices_in_place()
-    train_indices = []
+
     test_indices = []
     submission_indices = []
     averaging_length = 2
-
-    for i in range(len(train.index)):
-        series = train.slice(train.index[i])
-        #series *= np.hanning(len(series))
-        series = Filters.smooth(series, averaging_length=averaging_length)
-        train_indices.append(series)
 
     for i in range(len(test.index)):
         series = test.slice(test.index[i])
@@ -150,16 +156,13 @@ def pca_train(train, submission, knn):
         series = Filters.smooth(series, averaging_length=averaging_length)
         submission_indices.append(series)
 
-    train_ext = train.pca.fit_transform(train_indices)
     test_ext = train.pca.transform(test_indices)
     submission_ext = train.pca.transform(submission_indices)
 
     min_max_scaler = MinMaxScaler()
-    train_norm = min_max_scaler.fit_transform(train_ext)
     test_norm = min_max_scaler.fit_transform(test_ext)
     submission_norm = min_max_scaler.fit_transform(submission_ext)
 
-    knn.fit(train_norm, train.classes)
     test.classes = knn.predict(test_norm)
     submission.classes = knn.predict(submission_norm)
     return test
@@ -167,7 +170,21 @@ def pca_train(train, submission, knn):
 
 def verify_class_agreements(net_set, knn_set):
     matches = [net_set.index[i] for i in range(len(net_set.index)) if net_set.classes[i] == knn_set.classes[i]]
-    print('Agreement Percentage: %.2f' % (100.0 * len(matches)/len(training_set.index)))
+    print('Agreed on', len(matches), 'out of', len(knn_set.classes), 'generated classes')
+    print('Agreement Percentage: %.2f' % (len(matches)/len(knn_set.index) * 100.0))
+    filtered = list(net_set.index)
+    filtered_classes = list(net_set.classes)
+    removed = 0
+    for i in range(len(net_set.index)-1):
+        if net_set.classes[i] == 4:
+            if net_set.index[i] + 40 > net_set.index[i+1]:
+                plot(knn_set, center=i)
+                plt.show()
+                filtered[i] = -1
+                filtered_classes[i] = -1
+    filtered = [i for i in filtered if i != -1]
+    filtered_classes = [i for i in filtered_classes if i != -1]
+    print(len(net_set.classes) - len(filtered))
 
 
 if __name__ == '__main__':
@@ -176,9 +193,9 @@ if __name__ == '__main__':
     params = {
         'inputs': training_set.range,
         'hiddens': int(training_set.range / 3),
-        'outputs': 4,
+        'outputs': 4, #5,
         'lr': 0.65,
-        'bias': np.array([[0.0], [0.0], [-0.28], [-0.17]]),  # [[0.0], [0.0], [0.0], [0.0]]
+        'bias': np.array([[0.05], [0.05], [-0.33], [-0.18]]),  # [[0.0], [0.0], [0.0], [0.0]]
         'reps': 4,
         'components': 20,
         'neighbours': 6,
@@ -191,16 +208,19 @@ if __name__ == '__main__':
 
     # Train and test classes net using training set and sorted training set, respectively
     print('Training class identification neural net')
-    knn = KNeighborsClassifier(n_neighbors=params['neighbours'], p=params['distance'])
     class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
     train_classes(training_set, class_net, params['reps'])
+
+    print('\nFitting PCA')
+    knn = KNeighborsClassifier(n_neighbors=params['neighbours'], p=params['distance'])
+    pca_fit(training_set, knn)
 
     # Test index finding accuracy of correlation method
     print('\nTesting index identification performance')
     correlation_test = training_set.__copy__()
     correlation_test.sort_indices_in_place()
     index_finder_test = IndexIdentifiers(correlation_test)
-    index_finder_test.correlation_method(class_net)
+    index_finder_test.correlation_method(class_net, knn=knn, pca=training_set.pca)
 
     # Generate index and class vectors for submission set
     print('\nFinding submission indices')
@@ -212,7 +232,8 @@ if __name__ == '__main__':
     test_net(sorted_training_set, class_net, sorted_training_set)
 
     knn_submission_set = net_submission_set.__copy__()
-    pca_set = pca_train(training_set, knn_submission_set, knn)
+
+    pca_set = pca_predict(training_set, knn_submission_set, knn)
     test_net(pca_set, class_net, sorted_training_set, knn=True)
 
     print('\nSumming submission generated class counts')
@@ -223,8 +244,8 @@ if __name__ == '__main__':
     test_class = 4
     # class_test(training_set, test_class)
     # class_test(training_set, test_class)
-    # class_test(submission_set, test_class)
+    class_test(net_submission_set, test_class)
     #class_test(knn_submission_set, test_class)
 
-    # plot(submission_set, 0)
-    # plt.show()
+    #plot(net_submission_set, 1000)
+    #plt.show()

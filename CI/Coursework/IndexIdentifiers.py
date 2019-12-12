@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from Filters import Filters
+from sklearn.preprocessing import MinMaxScaler
 
 
 class IndexIdentifiers:
@@ -8,19 +9,20 @@ class IndexIdentifiers:
         self.recording = recording
         self.test = test
 
-    def correlation_method(self, net, knn=None):
-        net_indices = []
+    def correlation_method(self, net, knn=None, pca=None):
+        indices = []
         knn_indices = []
-        net_classes = []
+        classes = []
         knn_classes = []
+        knn_series = []
         step = 18
-        diff_thresh = 0.3
-        correlation_thresh = 40
+        diff_thresh = 0.25
+        correlation_thresh = 38
         window_size = 50
         window_voltage = 3
         length = len(self.recording.d)
         averaging_length = 4
-        duplicate_range = 20 #14
+        duplicate_range = 30 #14
         index_counter = 0
 
         for i in range(self.recording.range, length-self.recording.range, step):
@@ -31,8 +33,7 @@ class IndexIdentifiers:
             if max(diff) > diff_thresh:
                 center = i + np.argmax(diff)
                 [x, vals] = self.recording.slice(center, x_needed=True)
-                smoothed = Filters.smooth(vals, averaging_length=averaging_length, just_average=True)
-                smoothed = np.subtract(smoothed, np.median(smoothed))
+                smoothed = Filters.smooth(vals, averaging_length=averaging_length)
                 window = np.hanning(window_size) * window_voltage
 
                 if self.test and (self.recording.index[index_counter] - 30 < i < self.recording.index[index_counter] + 30):
@@ -45,35 +46,44 @@ class IndexIdentifiers:
                         index_counter += 1
 
                 correlation = np.correlate(smoothed, window)
-                if max(abs(correlation)) > correlation_thresh:
+                if max(abs(correlation[5:-5])) > correlation_thresh:
                     guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
-                    net_classes.append(np.argmax(guessed_class) + 1)
-                    net_indices.append(center)
-                    #knn_classes.append(knn.predict())
+                    classes.append(np.argmax(guessed_class) + 1)
+                    indices.append(center)
                     duplicate = False
-                    if len(net_indices) >= 2 and (center < (net_indices[-2] + duplicate_range)):
-                        if net_classes[-1] == net_classes[-2]:
-                            del net_classes[-1]
-                            del net_indices[-1]
+                    if len(indices) >= 2 and (center < (indices[-2] + duplicate_range)):
+                        if classes[-1] == classes[-2]:
+                            del classes[-1]
+                            del indices[-1]
                             duplicate = True
 
-                    if not self.test and not duplicate:
+                    if not duplicate:  # and not self.test:
+                        knn_series.append(smoothed)
                         #plt.plot(x, vals)
                         #plt.plot(x[averaging_length-1:], smoothed)
                         #plt.show()
                         None
                 else:
                     None
+        found = len(indices)
+        if knn is not None and pca is not None:
+            test_ext = pca.transform(knn_series)
+            min_max_scaler = MinMaxScaler()
+            test_norm = min_max_scaler.fit_transform(test_ext)
+            knn_classes = knn.predict(test_norm)
+            disagreements = [indices[i] for i in range(found) if classes[i] != knn_classes[i]]
+            print('\n(Training Set) Agreed on', found - len(disagreements), 'out of', found, 'generated classes')
+            print('(Training Set) Agreement Percentage: %.2f' % ((found-len(disagreements)) / found * 100.0))
 
-        print('Correlation Method Total Indices Found', len(net_indices))
+        #print('Correlation Method Total Indices Found', found)
 
         if self.test:
-            self.test_indices(net_indices)
+            self.test_indices(indices)
         else:
-            self.recording.classes = np.array(net_classes)
+            self.recording.classes = np.array(classes)
             None
 
-        self.recording.index = np.array(net_indices)
+        self.recording.index = np.array(indices)
 
     def median_method(self):
         indices = []
