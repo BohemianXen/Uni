@@ -14,8 +14,8 @@ class IndexIdentifiers:
         net_classes = []
         knn_classes = []
         step = 18
-        diff_thresh = 0.28
-        correlation_thresh = 35
+        diff_thresh = 0.3
+        correlation_thresh = 40
         window_size = 50
         window_voltage = 3
         length = len(self.recording.d)
@@ -30,9 +30,9 @@ class IndexIdentifiers:
 
             if max(diff) > diff_thresh:
                 center = i + np.argmax(diff)
-                [x, vals] = self.recording.slice(center)
-                smoothed = Filters.smooth(vals, averaging_length=averaging_length) #Filters.moving_average(vals, averaging_length)
-                #smoothed = np.subtract(smoothed, np.median(smoothed))
+                [x, vals] = self.recording.slice(center, x_needed=True)
+                smoothed = Filters.smooth(vals, averaging_length=averaging_length, just_average=True)
+                smoothed = np.subtract(smoothed, np.median(smoothed))
                 window = np.hanning(window_size) * window_voltage
 
                 if self.test and (self.recording.index[index_counter] - 30 < i < self.recording.index[index_counter] + 30):
@@ -46,16 +46,16 @@ class IndexIdentifiers:
 
                 correlation = np.correlate(smoothed, window)
                 if max(abs(correlation)) > correlation_thresh:
-                    #guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
-                    #net_classes.append(np.argmax(guessed_class) + 1)
+                    guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
+                    net_classes.append(np.argmax(guessed_class) + 1)
                     net_indices.append(center)
                     #knn_classes.append(knn.predict())
                     duplicate = False
                     if len(net_indices) >= 2 and (center < (net_indices[-2] + duplicate_range)):
-                        #if net_classes[-1] == net_classes[-2]:
-                            #del net_classes[-1]
-                        del net_indices[-1]
-                        duplicate = True
+                        if net_classes[-1] == net_classes[-2]:
+                            del net_classes[-1]
+                            del net_indices[-1]
+                            duplicate = True
 
                     if not self.test and not duplicate:
                         #plt.plot(x, vals)
@@ -65,7 +65,7 @@ class IndexIdentifiers:
                 else:
                     None
 
-        print('\nCorrelation Method Total Indices Found', len(net_indices))
+        print('Correlation Method Total Indices Found', len(net_indices))
 
         if self.test:
             self.test_indices(net_indices)

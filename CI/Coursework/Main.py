@@ -49,7 +49,7 @@ def class_test(recording, target):
 
             filtered = recording.__copy__()
             filtered.colourmap = 'pink'
-            [x, series] = filtered.slice(test_index, copy=True)
+            [x, series] = filtered.slice(test_index, x_needed=True)
             series = Filters.smooth(series)
             filtered.d[x[0]:x[-1]+1] = series
             plot(filtered, center=test_index)
@@ -65,7 +65,7 @@ def train_classes(recording, n, reps=4):
     filtered = recording.__copy__()
     while reps > 0:
         for i in range(len(recording.index)):
-            series = filtered.slice(recording.index[i], copy=True)[1]
+            series = filtered.slice(recording.index[i])
             [fft_freq, fft_voltages] = Filters.fft(series, recording.window)
             targets = np.zeros(n.o_nodes) + 0.01
             targets[recording.classes[i]-1] = 0.99
@@ -82,7 +82,7 @@ def test_net(recording, n, correct, test=True, knn=False):
 
     for i in range(len(recording.index)):
         if not knn:
-            series = recording.slice(recording.index[i], copy=True)[1]
+            series = recording.slice(recording.index[i])
             [fft_freq, fft_voltages] = Filters.fft(series, recording.window)
             outputs = n.query(fft_voltages)
             guess = np.argmax(outputs) + 1
@@ -121,7 +121,7 @@ def test_net(recording, n, correct, test=True, knn=False):
     print('Guessed counts by class:', guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
     if test:
         print('Expected counts by class:', np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
-              np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4))
+              np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4), '\n')
 
     return np.array(guessed)
 
@@ -132,20 +132,22 @@ def pca_train(train, submission, knn):
     train_indices = []
     test_indices = []
     submission_indices = []
+    averaging_length = 2
 
     for i in range(len(train.index)):
-        series = train.slice(train.index[i], copy=True)[1]
-        series *= np.hanning(len(series))
+        series = train.slice(train.index[i])
+        #series *= np.hanning(len(series))
+        series = Filters.smooth(series, averaging_length=averaging_length)
         train_indices.append(series)
 
     for i in range(len(test.index)):
-        series = test.slice(test.index[i], copy=True)[1]
-        series *= np.hanning(len(series))
+        series = test.slice(test.index[i])
+        series = Filters.smooth(series, averaging_length=averaging_length)
         test_indices.append(series)
 
     for i in range(len(submission.index)):
-        series = submission.slice(submission.index[i], copy=True)[1]
-        series *= np.hanning(len(series))
+        series = submission.slice(submission.index[i])
+        series = Filters.smooth(series, averaging_length=averaging_length)
         submission_indices.append(series)
 
     train_ext = train.pca.fit_transform(train_indices)
@@ -163,6 +165,11 @@ def pca_train(train, submission, knn):
     return test
 
 
+def verify_class_agreements(net_set, knn_set):
+    matches = [net_set.index[i] for i in range(len(net_set.index)) if net_set.classes[i] == knn_set.classes[i]]
+    print('Agreement Percentage: %.2f' % (100.0 * len(matches)/len(training_set.index)))
+
+
 if __name__ == '__main__':
     training_set = Recording(filename='training')
 
@@ -173,8 +180,8 @@ if __name__ == '__main__':
         'lr': 0.65,
         'bias': np.array([[0.0], [0.0], [-0.28], [-0.17]]),  # [[0.0], [0.0], [0.0], [0.0]]
         'reps': 4,
-        'components': 10,
-        'neighbours': 8,
+        'components': 20,
+        'neighbours': 6,
         'distance': 2
     }
 
@@ -183,35 +190,41 @@ if __name__ == '__main__':
     sorted_training_set.sort_indices_in_place()
 
     # Train and test classes net using training set and sorted training set, respectively
-
+    print('Training class identification neural net')
     knn = KNeighborsClassifier(n_neighbors=params['neighbours'], p=params['distance'])
     class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
     train_classes(training_set, class_net, params['reps'])
 
     # Test index finding accuracy of correlation method
+    print('\nTesting index identification performance')
     correlation_test = training_set.__copy__()
     correlation_test.sort_indices_in_place()
     index_finder_test = IndexIdentifiers(correlation_test)
     index_finder_test.correlation_method(class_net)
 
     # Generate index and class vectors for submission set
+    print('\nFinding submission indices')
     net_submission_set = Recording(filename='submission')
     index_finder = IndexIdentifiers(net_submission_set, test=False)
     index_finder.correlation_method(class_net)
-    test_net(net_submission_set, class_net, training_set, test=False)
 
+    print('\nTraining class performance')
     test_net(sorted_training_set, class_net, sorted_training_set)
 
     knn_submission_set = net_submission_set.__copy__()
     pca_set = pca_train(training_set, knn_submission_set, knn)
     test_net(pca_set, class_net, sorted_training_set, knn=True)
 
+    print('\nSumming submission generated class counts')
+    test_net(net_submission_set, class_net, training_set, test=False)
+    test_net(knn_submission_set, class_net, training_set, test=False, knn=True)
+    verify_class_agreements(net_submission_set, knn_submission_set)
     # None
     test_class = 4
     # class_test(training_set, test_class)
     # class_test(training_set, test_class)
     # class_test(submission_set, test_class)
-    class_test(knn_submission_set, test_class)
+    #class_test(knn_submission_set, test_class)
 
     # plot(submission_set, 0)
     # plt.show()

@@ -98,7 +98,7 @@ class Recording:
         self.index = np.array([x[0] for x in paired])
         self.classes = np.array([x[1] for x in paired])
 
-    def slice(self, center, all=False, copy=True):
+    def slice(self, center, all=False, x_needed=False):
         total_samples = len(self.d) if all else (self.range * 2)
         start = 0 if all else center - self.range
         stop = total_samples if all else center + self.range
@@ -114,10 +114,11 @@ class Recording:
             start = stop - total_samples - 1
 
         x_axis = np.arange(start, stop)
-        if copy:
+        if x_needed:
             return [x_axis, np.copy(self.d[start:stop])]
         else:
-            return [x_axis, self.d[start:stop]]
+            return  np.copy(self.d[start:stop])
+
 
     def generate_mat(self, filename):
         #if '.mat' not in filename:

@@ -52,7 +52,7 @@ class Filters:
     @staticmethod
     def fft(series, window='hanning'):
         length = len(series)
-        series = Filters.smooth(series, window=window)
+        series = Filters.smooth(series, window=window, averaging_length=3)
         fft = np.fft.fft(series)
         freq = np.fft.fftfreq(length) * 25e3
         voltages = [np.abs(x)/length for x in fft]
