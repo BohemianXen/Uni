@@ -14,25 +14,25 @@ class IndexIdentifiers:
         classes = []
         knn_series = []
         step = 18
-        diff_thresh = 0.25
+        diff_thresh = 0.28
         correlation_thresh = 30
-        window_size = 50
+        window_size = 30
         window_voltage = 3
+        window = np.hanning(window_size) * window_voltage
         length = len(self.recording.d)
-        averaging_length = 4
+        averaging_length = 3
         duplicate_range = 30 #14
         index_counter = 0
 
         for i in range(self.recording.range, length-self.recording.range, step):
             end = min(i + step, length - 1)
             series = self.recording.d[i:end]
-            diff = np.ediff1d(Filters.smooth(series, averaging_length-1, just_average=True))
+            diff = np.ediff1d(Filters.smooth(series, averaging_length, just_average=True))
 
             if max(diff) > diff_thresh:
                 center = i + np.argmax(diff)
                 [x, vals] = self.recording.slice(center, x_needed=True)
-                smoothed = Filters.smooth(vals, averaging_length=averaging_length)
-                window = np.hanning(window_size) * window_voltage
+                smoothed = Filters.smooth(vals, averaging_length+1)
 
                 if self.test and (self.recording.index[index_counter] - 30 < i < self.recording.index[index_counter] + 30):
                     #plt.plot(x, vals)
@@ -44,7 +44,7 @@ class IndexIdentifiers:
                         index_counter += 1
 
                 correlation = np.correlate(smoothed, window)
-                if max(abs(correlation[3:-3])) > correlation_thresh:
+                if max(abs(correlation[10:-10])) > correlation_thresh:
                     guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
                     classes.append(np.argmax(guessed_class) + 1)
                     indices.append(center)

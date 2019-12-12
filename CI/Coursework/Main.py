@@ -182,27 +182,28 @@ def verify_class_agreements(net_set, knn_set):
     matches = [net_set.index[i] for i in range(len(net_set.index)) if net_set.classes[i] == knn_set.classes[i]]
     print('Agreed on', len(matches), 'out of', len(knn_set.classes), 'generated classes')
     print('Agreement Percentage: %.2f' % (len(matches)/len(knn_set.index) * 100.0))
-    filtered = list(net_set.index)
-    filtered_classes = list(net_set.classes)
-    removed = 0
-    for i in range(len(net_set.index)-1):
-        if net_set.classes[i] == 4:
-            if net_set.index[i] + 40 > net_set.index[i+1]:
-                filtered[i] = -1
-                filtered_classes[i] = -1
-    filtered = [i for i in filtered if i != -1]
-    filtered_classes = [i for i in filtered_classes if i != -1]
-    print(len(net_set.classes) - len(filtered))
+    print('Net guess counts by class:', np.count_nonzero(net_set.classes == 0), np.count_nonzero(net_set.classes == 1),
+          np.count_nonzero(net_set.classes == 2),
+          np.count_nonzero(net_set.classes == 3), np.count_nonzero(net_set.classes == 4))
+    print('KNN guess counts by class:', np.count_nonzero(knn_set.classes == 0), np.count_nonzero(knn_set.classes == 1),
+          np.count_nonzero(knn_set.classes == 2),
+          np.count_nonzero(knn_set.classes == 3), np.count_nonzero(knn_set.classes == 4), '\n')
 
 
-def remove_noise(recording):
-    invalid = len(recording.classes) - np.count_nonzero(recording.classes)
-    print('Removing', invalid, 'indices')
-    valid_pairs = [[recording.index[i], recording.classes[i]] for i in range(0, len(recording.index)) if recording.classes[i] != 0]
+def remove_noise(net_recording, knn_recording):
+    net_pairs = [[net_recording.index[i], net_recording.classes[i]] for i in range(len(net_recording.index))]
+    valid_pairs = [[knn_recording.index[i], knn_recording.classes[i]] for i in range(len(knn_recording.index)) if knn_recording.classes[i] != 0]
+
     valid_indices = [pair[0] for pair in valid_pairs]
-    valid_classes = [pair[1] for pair in valid_pairs]
-    recording.index = np.array(valid_indices)
-    recording.classes = np.array(valid_classes)
+    valid_classes_net = [pair[1] for pair in net_pairs if pair[0] in valid_indices]
+    valid_classes_knn = [pair[1] for pair in valid_pairs]
+
+    net_recording.index = np.array(valid_indices)
+    knn_recording.index = np.array(valid_indices)
+    net_recording.classes = np.array(valid_classes_net)
+    knn_recording.classes = np.array(valid_classes_knn)
+    verify_class_agreements(net_recording, knn_recording)
+
 
 if __name__ == '__main__':
     training_set = Recording(filename='training')
@@ -212,7 +213,7 @@ if __name__ == '__main__':
         'hiddens': int(training_set.range / 3),
         'outputs': 4, #5,
         'lr': 0.65,
-        'bias': np.array([[0.05], [0.05], [-0.33], [-0.18]]),  # [[0.0], [0.0], [0.0], [0.0]]
+        'bias': np.array([[0.1], [0.1], [-0.28], [-0.2]]),  # [[0.0], [0.0], [0.0], [0.0]]
         'reps': 4,
         'components': 20,
         'neighbours': 6,
@@ -260,9 +261,8 @@ if __name__ == '__main__':
     verify_class_agreements(net_submission_set, knn_submission_set)
     if params['noise removal']:
         #class_test(knn_submission_set, 0)
-        remove_noise(knn_submission_set)
-        print(len(knn_submission_set.index))
-
+        print('\nRemoving noise and re-calculating agreements')
+        remove_noise(net_submission_set, knn_submission_set)
 
     test_class = 4
     # class_test(training_set, test_class)
