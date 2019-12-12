@@ -49,12 +49,13 @@ def class_test(recording, target):
 
             filtered = recording.__copy__()
             filtered.colourmap = 'pink'
-            index = filtered.slice(test_index, copy=False)[1]
-            Filters.hanning(index)
+            [x, series] = filtered.slice(test_index, copy=True)
+            series = Filters.smooth(series)
+            filtered.d[x[0]:x[-1]+1] = series
             plot(filtered, center=test_index)
             plt.show()
 
-            [fft_freq, fft_voltages] = Filters.fft(index)
+            [fft_freq, fft_voltages] = Filters.fft(series)
             plot_fft(fft_freq, fft_voltages)
             plt.show()
 
@@ -118,8 +119,9 @@ def test_net(recording, n, correct, test=True, knn=False):
     #else:
     #    print(len(guessed), len(recording.index))
     print('Guessed counts by class:', guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
-    print('Expected counts by class:', np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
-          np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4))
+    if test:
+        print('Expected counts by class:', np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
+              np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4))
 
     return np.array(guessed)
 
@@ -169,10 +171,10 @@ if __name__ == '__main__':
         'hiddens': int(training_set.range / 3),
         'outputs': 4,
         'lr': 0.65,
-        'bias': np.array([[0.0], [0.02], [-0.27], [-0.2]]),  # [[0.0], [0.0], [0.0], [0.0]]
+        'bias': np.array([[0.0], [0.0], [-0.28], [-0.17]]),  # [[0.0], [0.0], [0.0], [0.0]]
         'reps': 4,
-        'components': 20,
-        'neighbours': 6,
+        'components': 10,
+        'neighbours': 8,
         'distance': 2
     }
 
@@ -204,10 +206,10 @@ if __name__ == '__main__':
     pca_set = pca_train(training_set, knn_submission_set, knn)
     test_net(pca_set, class_net, sorted_training_set, knn=True)
 
-
-    #None
+    # None
     test_class = 4
-    #class_test(training_set, test_class)
+    # class_test(training_set, test_class)
+    # class_test(training_set, test_class)
     # class_test(submission_set, test_class)
     class_test(knn_submission_set, test_class)
 

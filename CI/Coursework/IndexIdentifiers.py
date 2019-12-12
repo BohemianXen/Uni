@@ -20,19 +20,19 @@ class IndexIdentifiers:
         window_voltage = 3
         length = len(self.recording.d)
         averaging_length = 4
-        duplicate_range = 10 #14
+        duplicate_range = 20 #14
         index_counter = 0
 
         for i in range(self.recording.range, length-self.recording.range, step):
             end = min(i + step, length - 1)
             series = self.recording.d[i:end]
-            diff = np.ediff1d(self.moving_average(series, averaging_length))
+            diff = np.ediff1d(Filters.smooth(series, averaging_length, just_average=True))
 
             if max(diff) > diff_thresh:
                 center = i + np.argmax(diff)
                 [x, vals] = self.recording.slice(center)
-                smoothed = self.moving_average(vals, averaging_length)
-                smoothed = np.subtract(smoothed, np.median(smoothed))
+                smoothed = Filters.smooth(vals, averaging_length=averaging_length) #Filters.moving_average(vals, averaging_length)
+                #smoothed = np.subtract(smoothed, np.median(smoothed))
                 window = np.hanning(window_size) * window_voltage
 
                 if self.test and (self.recording.index[index_counter] - 30 < i < self.recording.index[index_counter] + 30):
@@ -46,16 +46,16 @@ class IndexIdentifiers:
 
                 correlation = np.correlate(smoothed, window)
                 if max(abs(correlation)) > correlation_thresh:
-                    guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
-                    net_classes.append(np.argmax(guessed_class) + 1)
+                    #guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
+                    #net_classes.append(np.argmax(guessed_class) + 1)
                     net_indices.append(center)
                     #knn_classes.append(knn.predict())
                     duplicate = False
                     if len(net_indices) >= 2 and (center < (net_indices[-2] + duplicate_range)):
-                        if net_classes[-1] == net_classes[-2]:
-                            del net_classes[-1]
-                            del net_indices[-1]
-                            duplicate = True
+                        #if net_classes[-1] == net_classes[-2]:
+                            #del net_classes[-1]
+                        del net_indices[-1]
+                        duplicate = True
 
                     if not self.test and not duplicate:
                         #plt.plot(x, vals)
@@ -74,14 +74,6 @@ class IndexIdentifiers:
             None
 
         self.recording.index = np.array(net_indices)
-
-    @staticmethod
-    def moving_average(series, length):
-        summed = np.cumsum(series)
-        valid_range = summed[length:] - summed[:-length]
-        summed[length:] = valid_range
-        averaged = summed[length - 1:] / length
-        return averaged
 
     def median_method(self):
         indices = []

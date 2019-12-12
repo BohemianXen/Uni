@@ -26,17 +26,33 @@ class Filters:
         series *= window
 
     @staticmethod
-    def fft(series, window=''):
-        length = len(series)
+    def smooth(series, averaging_length=4, window='', just_average=False):
+        summed = np.cumsum(series)
+        valid_range = summed[averaging_length:] - summed[:-averaging_length]
+        summed[averaging_length:] = valid_range
+        averaged = summed[averaging_length - 1:] / averaging_length
+
+        if just_average:
+            return averaged
+
+        smoothed = np.subtract(averaged, np.median(averaged))
+        smoothed = np.pad(smoothed, (0, averaging_length-1), mode='edge')
+
         if window is 'hanning':
-            series *= np.hanning(length)
+            smoothed *= np.hanning(len(smoothed))
         elif window is 'hamming':
-            series *= np.hamming(length)
+            smoothed *= np.hamming(len(smoothed))
         elif window is 'blackman':
-            series *= np.blackman(length)
+            smoothed *= np.blackman(len(smoothed))
         else:
             pass
 
+        return smoothed
+
+    @staticmethod
+    def fft(series, window='hanning'):
+        length = len(series)
+        series = Filters.smooth(series, window=window)
         fft = np.fft.fft(series)
         freq = np.fft.fftfreq(length) * 25e3
         voltages = [np.abs(x)/length for x in fft]
