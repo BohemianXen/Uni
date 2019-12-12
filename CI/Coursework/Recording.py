@@ -1,15 +1,17 @@
 import scipy.io as spio
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA as sk_pca
 
 
 class Recording:
-    def __init__(self, d=None, index=None, classes=None, filename=None, colour='black'):
+    def __init__(self, d=None, index=None, classes=None, filename=None, colour='black', components=20):
         self._period = 1 / 25e3
         self._range = 36
         self._offset = 10
         self._window = 'hanning'
         self._colourmap = [colour, 'red', 'green', 'blue', 'orange']
+        self.pca = sk_pca(components)
 
         if filename is None:
             self._d = d

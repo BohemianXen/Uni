@@ -4,6 +4,9 @@ from IndexIdentifiers import IndexIdentifiers
 from NeuralNetwork import NeuralNetwork
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
+# k Nearest Neighbour
+from sklearn.neighbors import KNeighborsClassifier
 # import PyQt5
 
 
@@ -69,7 +72,7 @@ def train_classes(recording, n, reps=4):
         reps -= 1
 
 
-def test_net(recording, n, correct, test=True):
+def test_net(recording, n, correct, test=True, knn=False):
     scorecard = []
     guessed = []
     #incorrect = []
@@ -77,10 +80,13 @@ def test_net(recording, n, correct, test=True):
     checked = []
 
     for i in range(len(recording.index)):
-        series = recording.slice(recording.index[i], copy=True)[1]
-        [fft_freq, fft_voltages] = Filters.fft(series, recording.window)
-        outputs = n.query(fft_voltages)
-        guess = np.argmax(outputs) + 1
+        if not knn:
+            series = recording.slice(recording.index[i], copy=True)[1]
+            [fft_freq, fft_voltages] = Filters.fft(series, recording.window)
+            outputs = n.query(fft_voltages)
+            guess = np.argmax(outputs) + 1
+        else:
+            guess = recording.classes[i]
         guessed.append(guess)
 
         if test:
@@ -102,23 +108,61 @@ def test_net(recording, n, correct, test=True):
                 #incorrect_guessed.append(guess)
 
     if test:
-        print('\nClass Net performance: %.2f' % (scorecard.count(1)/len(scorecard) * 100.0))
+        if not knn:
+            print('\nClass Net performance: %.2f' % (scorecard.count(1)/len(scorecard) * 100.0))
+        else:
+            print('\nKNN performance: %.2f' % (scorecard.count(1) / len(scorecard) * 100.0))
         #print(np.count_nonzero(recording.classes == 1), np.count_nonzero(recording.classes == 2), np.count_nonzero(recording.classes == 3), np.count_nonzero(recording.classes == 4))
         #print(incorrect.count(1), incorrect.count(2), incorrect.count(3), incorrect.count(4))
         #print(incorrect_guessed.count(1), incorrect_guessed.count(2), incorrect_guessed.count(3), incorrect_guessed.count(4))
     #else:
     #    print(len(guessed), len(recording.index))
-    print('Guess counts by class:', guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
-    print('Correct counts by class:', np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
+    print('Guessed counts by class:', guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
+    print('Expected counts by class:', np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
           np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4))
 
     return np.array(guessed)
 
 
+def pca_train(train, submission, knn):
+    test = train.__copy__()
+    test.sort_indices_in_place()
+    train_indices = []
+    test_indices = []
+    submission_indices = []
+
+    for i in range(len(train.index)):
+        series = train.slice(train.index[i], copy=True)[1]
+        series *= np.hanning(len(series))
+        train_indices.append(series)
+
+    for i in range(len(test.index)):
+        series = test.slice(test.index[i], copy=True)[1]
+        series *= np.hanning(len(series))
+        test_indices.append(series)
+
+    for i in range(len(submission.index)):
+        series = submission.slice(submission.index[i], copy=True)[1]
+        series *= np.hanning(len(series))
+        submission_indices.append(series)
+
+    train_ext = train.pca.fit_transform(train_indices)
+    test_ext = train.pca.transform(test_indices)
+    submission_ext = train.pca.transform(submission_indices)
+
+    min_max_scaler = MinMaxScaler()
+    train_norm = min_max_scaler.fit_transform(train_ext)
+    test_norm = min_max_scaler.fit_transform(test_ext)
+    submission_norm = min_max_scaler.fit_transform(submission_ext)
+
+    knn.fit(train_norm, train.classes)
+    test.classes = knn.predict(test_norm)
+    submission.classes = knn.predict(submission_norm)
+    return test
+
+
 if __name__ == '__main__':
     training_set = Recording(filename='training')
-    sorted_training_set = training_set.__copy__()
-    sorted_training_set.sort_indices_in_place()
 
     params = {
         'inputs': training_set.range,
@@ -126,14 +170,21 @@ if __name__ == '__main__':
         'outputs': 4,
         'lr': 0.65,
         'bias': np.array([[0.0], [0.02], [-0.27], [-0.2]]),  # [[0.0], [0.0], [0.0], [0.0]]
-        'reps': 4
+        'reps': 4,
+        'components': 20,
+        'neighbours': 6,
+        'distance': 2
     }
-    # TODO: Each neuron can only fire once at a time so perhaps do a rolling classification that prevents duplicates only if they are of the same class
+
+    training_set.components = params['components']  # TODO: getters and setters for new knn params
+    sorted_training_set = training_set.__copy__()
+    sorted_training_set.sort_indices_in_place()
 
     # Train and test classes net using training set and sorted training set, respectively
+
+    knn = KNeighborsClassifier(n_neighbors=params['neighbours'], p=params['distance'])
     class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
     train_classes(training_set, class_net, params['reps'])
-    test_net(sorted_training_set, class_net, sorted_training_set)
 
     # Test index finding accuracy of correlation method
     correlation_test = training_set.__copy__()
@@ -141,18 +192,24 @@ if __name__ == '__main__':
     index_finder_test = IndexIdentifiers(correlation_test)
     index_finder_test.correlation_method(class_net)
 
-    # Test class identification net on generated index set (using closest correct index matching)
-    #correlation_classes = test_net(correlation_test, class_net, sorted_training_set)
-    #correlation_test.classes = correlation_classes
-
     # Generate index and class vectors for submission set
-    submission_set = Recording(filename='submission')
-    index_finder = IndexIdentifiers(submission_set, test=False)
+    net_submission_set = Recording(filename='submission')
+    index_finder = IndexIdentifiers(net_submission_set, test=False)
     index_finder.correlation_method(class_net)
-    test_net(submission_set, class_net, training_set, test=False)
+    test_net(net_submission_set, class_net, training_set, test=False)
+
+    test_net(sorted_training_set, class_net, sorted_training_set)
+
+    knn_submission_set = net_submission_set.__copy__()
+    pca_set = pca_train(training_set, knn_submission_set, knn)
+    test_net(pca_set, class_net, sorted_training_set, knn=True)
+
+
+    #None
     test_class = 4
-    class_test(submission_set, test_class)
     #class_test(training_set, test_class)
+    # class_test(submission_set, test_class)
+    class_test(knn_submission_set, test_class)
 
     # plot(submission_set, 0)
     # plt.show()

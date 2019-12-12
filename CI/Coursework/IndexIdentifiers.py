@@ -8,9 +8,11 @@ class IndexIdentifiers:
         self.recording = recording
         self.test = test
 
-    def correlation_method(self, net):
-        indices = []
-        classes = []
+    def correlation_method(self, net, knn=None):
+        net_indices = []
+        knn_indices = []
+        net_classes = []
+        knn_classes = []
         step = 18
         diff_thresh = 0.28
         correlation_thresh = 35
@@ -18,7 +20,7 @@ class IndexIdentifiers:
         window_voltage = 3
         length = len(self.recording.d)
         averaging_length = 4
-        duplicate_range = 25 #14
+        duplicate_range = 10 #14
         index_counter = 0
 
         for i in range(self.recording.range, length-self.recording.range, step):
@@ -45,13 +47,14 @@ class IndexIdentifiers:
                 correlation = np.correlate(smoothed, window)
                 if max(abs(correlation)) > correlation_thresh:
                     guessed_class = net.query(Filters.fft(vals, self.recording.window)[1])
-                    classes.append(np.argmax(guessed_class) + 1)
-                    indices.append(center)
+                    net_classes.append(np.argmax(guessed_class) + 1)
+                    net_indices.append(center)
+                    #knn_classes.append(knn.predict())
                     duplicate = False
-                    if len(indices) >= 2 and (center < (indices[-2] + duplicate_range)):
-                        if classes[-1] == classes[-2]:
-                            del classes[-1]
-                            del indices[-1]
+                    if len(net_indices) >= 2 and (center < (net_indices[-2] + duplicate_range)):
+                        if net_classes[-1] == net_classes[-2]:
+                            del net_classes[-1]
+                            del net_indices[-1]
                             duplicate = True
 
                     if not self.test and not duplicate:
@@ -62,14 +65,15 @@ class IndexIdentifiers:
                 else:
                     None
 
-        print('\nCorrelation Method Total Indices Found', len(indices))
+        print('\nCorrelation Method Total Indices Found', len(net_indices))
 
         if self.test:
-            self.test_indices(indices)
+            self.test_indices(net_indices)
         else:
-            self.recording.classes = np.array(classes)
+            self.recording.classes = np.array(net_classes)
+            None
 
-        self.recording.index = np.array(indices)
+        self.recording.index = np.array(net_indices)
 
     @staticmethod
     def moving_average(series, length):
