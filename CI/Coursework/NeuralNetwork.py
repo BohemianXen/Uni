@@ -3,7 +3,7 @@ import scipy.special
 import numpy as np
 
 
-# Neural network class definition
+# Neural network class provided from coursework with only personal addition of output biasing
 class NeuralNetwork:
     # Init the network, this gets run whenever we make a new instance of this class
     def __init__(self, input_nodes, hidden_nodes, output_nodes, learning_rate, bias):
