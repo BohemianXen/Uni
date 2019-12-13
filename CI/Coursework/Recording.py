@@ -19,7 +19,6 @@ class Recording:
             self._classes = classes
         else:
             try:
-                print(("\n Trying to load %s .mat file..."%filename).upper())
                 if '.mat' not in filename:
                     filename += '.mat'
                 mat = spio.loadmat(filename, squeeze_me=True)
@@ -27,11 +26,9 @@ class Recording:
                 if 'submission' not in filename:
                     self._index = mat['Index']
                     self._classes = mat['Class']
-                print(("\n Successfully to loaded %s .mat file..." % filename).upper())
             except Exception as e:
-                print('Error generating .mat file:\n', e)
+                print('\nError reading .mat file:\n'.upper(), e)
                 exit(-1)
-        #self.sort_indices_in_place()
 
     def __copy__(self):
         return Recording(self.d, self.index, self.classes)

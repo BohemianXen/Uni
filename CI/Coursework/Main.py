@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import KNeighborsClassifier
+import time as t
 
 
 def plot(recording, center=200, time=False, all=False):
@@ -201,7 +202,10 @@ def remove_noise(net_recording, knn_recording):
 
 
 if __name__ == '__main__':
+    print('\nTrying to load test and submission files...'.upper())
     training_set = Recording(filename='training')
+    net_submission_set = Recording(filename='submission')
+    print('\nSuccessfully loaded test and submission files...'.upper())
     #test_class = 1
     #class_test(training_set, test_class)
 
@@ -212,8 +216,8 @@ if __name__ == '__main__':
         'lr': 0.65,
         'bias': np.array([[0.1], [0.1], [-0.28], [-0.2]]),  # [[0.0], [0.0], [0.0], [0.0]]
         'reps': 4,
-        'components': 20,
-        'neighbours': 6,
+        'components': 12,
+        'neighbours': 3,
         'distance': 2,
         'noise removal': True
     }
@@ -225,11 +229,18 @@ if __name__ == '__main__':
     # Train and test classes net using training set and sorted training set, respectively
     print('\nTraining class identification neural net...'.upper())
     class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
+    start = t.time()
     train_classes(training_set, class_net, params['reps'])
+    net_train_time = t.time() - start
+    print('Neural net trained in %.2fs (%d reps)...' % (net_train_time, params['reps']))
 
     print('\nFitting PCA...'.upper())
     knn = KNeighborsClassifier(n_neighbors=params['neighbours'], p=params['distance'])
-    pca_fit(training_set, knn, train_for_noise=True)
+    start = t.time()
+    pca_fit(training_set, knn, train_for_noise=params['noise removal'])
+    pca_fit_time = t.time() - start
+    print('PCA completed in %.2fs  (%d components, %d neighbours, p%d norm)...'
+          % (pca_fit_time, params['components'], params['neighbours'], params['distance']))
 
     print('\nTesting neural net class performance on training set...'.upper())
     net_score = test_net(sorted_training_set, class_net, sorted_training_set)
@@ -246,13 +257,18 @@ if __name__ == '__main__':
 
     # Generate index and class vectors for submission set
     print('\nNeural net predicting submission classes while Finding submission indices...'.upper())
-    net_submission_set = Recording(filename='submission')
     index_finder = IndexIdentifiers(net_submission_set, test=False)
+    start = t.time()
     index_finder.correlation_method(class_net)
+    index_time = t.time() - start
+    print('Submission indices AND classes simultaneously predicted in %.2fs (neural net)...' % index_time)
 
     print('\nKNN predicting submission classes...'.upper())
     knn_submission_set = net_submission_set.__copy__()
+    start = t.time()
     knn_predict(training_set, knn, knn_submission_set)
+    knn_predict_time = t.time() - start
+    print('Submission classes predicted in %.2fs (KNN)...' % knn_predict_time)
 
     print('\nChecking guess counts of submission sets for plausibility...\n'.upper())
     test_net(net_submission_set, class_net, training_set, test=False)
@@ -262,16 +278,16 @@ if __name__ == '__main__':
     agreement_score = verify_class_agreements(net_submission_set, knn_submission_set)
     if params['noise removal']:
         # class_test(knn_submission_set, 0)  # Comment in to plot the generated 'noise' types
-        print('\nRemoving noise and re-calculating agreements...'.upper())
+        print('Removing noise and re-calculating agreements...'.upper())
         agreement_score = remove_noise(net_submission_set, knn_submission_set)
-
+    total_indices = len(knn_submission_set.index)
     if knn_score >= net_score:
         total_score = knn_score * index_score
-        output_filename = '%.2f + %.2f - KNN' % (total_score * 100.0, agreement_score * 100)
+        output_filename = '%.2f - %.2f - %d - KNN' % (total_score * 100.0, agreement_score * 100, total_indices)
         knn_submission_set.generate_mat(output_filename)
     else:
         total_score = net_score * index_score
-        output_filename = '%.2f + %.2f - Net' % (total_score * 100.0, agreement_score * 100)
+        output_filename = '%.2f - %.2f - %d - Net' % (total_score * 100.0, agreement_score * 100, total_indices)
         net_submission_set.generate_mat(output_filename)
 
     #test_class = 1
