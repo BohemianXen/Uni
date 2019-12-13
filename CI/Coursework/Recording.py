@@ -11,7 +11,7 @@ class Recording:
         self._offset = 10
         self._window = 'hanning'
         self._colourmap = [colour, 'red', 'green', 'blue', 'yellow',  'purple']
-        self.pca = sk_pca(components)
+        self.pca = sk_pca(components)  #TODO: PROTECT
 
         if filename is None:
             self._d = d
@@ -19,7 +19,7 @@ class Recording:
             self._classes = classes
         else:
             try:
-
+                print(("\n Trying to load %s .mat file..."%filename).upper())
                 if '.mat' not in filename:
                     filename += '.mat'
                 mat = spio.loadmat(filename, squeeze_me=True)
@@ -27,7 +27,7 @@ class Recording:
                 if 'submission' not in filename:
                     self._index = mat['Index']
                     self._classes = mat['Class']
-
+                print(("\n Successfully to loaded %s .mat file..." % filename).upper())
             except Exception as e:
                 print('Error generating .mat file:\n', e)
                 exit(-1)
@@ -89,7 +89,7 @@ class Recording:
     def classes(self, classes):
         self._classes = classes
 
-# ----------------------------------------------------- Methods -- -----------------------------------------------------
+# ----------------------------------------------------- Methods --------------------------------------------------------
     def sort_indices_in_place(self):
         paired = [[self.index[i], self.classes[i]] for i in range(0, len(self.index))]
         paired = sorted(paired, key=lambda x: x[0])
@@ -117,10 +117,7 @@ class Recording:
         else:
             return  np.copy(self.d[start:stop])
 
-
     def generate_mat(self, filename):
-        #if '.mat' not in filename:
-         #   filename += '.mat'
 
         mat = {
             'd': self.d,
@@ -130,6 +127,7 @@ class Recording:
 
         try:
             spio.savemat(filename, mat)
+            print('Successfully saved: %s' % filename)
         except Exception as e:
             print('Error generating .mat file:\n', e)
             return False

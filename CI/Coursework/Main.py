@@ -16,10 +16,14 @@ def plot(recording, center=200, time=False, all=False):
         [indices, colours] = classify_series(recording, x_axis)
 
     if time:
-        x_axis *= recording.period
-        indices *= recording.period
+        x_axis *= int(recording.period/1e-6)
+        indices *= int(recording.period/1e-6)
 
     plt.plot(x_axis, voltages, color=recording.colourmap[0])
+    plt.xlabel('Sample No.')
+    if time:
+        plt.xlabel('Time (us)')
+    plt.ylabel('Voltage [V}')
 
     if len(indices) > 0:
         for i in range(len(indices)):
@@ -46,7 +50,7 @@ def class_test(recording, target, fft=False):
             plot(recording, center=test_index)
 
             filtered = recording.__copy__()
-            filtered.colourmap = 'pink'
+            filtered.colourmap = 'red'
             [x, series] = filtered.slice(test_index, x_needed=True)
             series = Filters.smooth(series, averaging_length=2)
             filtered.d[x[0]:x[-1]+1] = series
@@ -106,32 +110,27 @@ def test_net(recording, n, correct, test=True, knn=False):
                 scorecard.append(0)
                 #incorrect.append(correct_class)
                 #incorrect_guessed.append(guess)
-
+    score = 0.0
     if test:
+        score = float(scorecard.count(1)/len(scorecard))
         if not knn:
-            print('\nClass Net performance: %.2f' % (scorecard.count(1)/len(scorecard) * 100.0))
+            print('\nNeural net performance: %.2f' % (score * 100.0))
         else:
-            print('\nKNN performance: %.2f' % (scorecard.count(1) / len(scorecard) * 100.0))
-        #print(np.count_nonzero(recording.classes == 1), np.count_nonzero(recording.classes == 2), np.count_nonzero(recording.classes == 3), np.count_nonzero(recording.classes == 4))
-        #print(incorrect.count(1), incorrect.count(2), incorrect.count(3), incorrect.count(4))
-        #print(incorrect_guessed.count(1), incorrect_guessed.count(2), incorrect_guessed.count(3), incorrect_guessed.count(4))
-    #else:
-    #    print(len(guessed), len(recording.index))
-    print('Guessed counts by class:', guessed.count(0), guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
+            print('\nKNN performance: %.2f' % (score * 100.0))
+
+    print('Guess counts by class:', guessed.count(0), guessed.count(1), guessed.count(2), guessed.count(3), guessed.count(4))
     if test:
         print('Expected counts by class:', np.count_nonzero(correct.classes == 0), np.count_nonzero(correct.classes == 1), np.count_nonzero(correct.classes == 2),
-              np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4), '\n')
+              np.count_nonzero(correct.classes == 3), np.count_nonzero(correct.classes == 4))
 
-    return np.array(guessed)
+    return score
 
 
 def pca_fit(recording, knn, train_for_noise=False):
     averaging_length = 2
     step = 3000
     window = 150
-
     paired = [[Filters.smooth(recording.slice(i), averaging_length), recording.classes[np.nonzero(recording.index == i)][0]] for i in recording.index]
-    #paired = sorted(paired, key=lambda x: x[0])
 
     if train_for_noise:
         for i in range(0, len(recording.d), step):
@@ -148,46 +147,42 @@ def pca_fit(recording, knn, train_for_noise=False):
     knn.fit(train_norm, [pair[1] for pair in paired])
 
 
-def pca_predict(train, submission, knn):
+def knn_predict(train, knn, submission=None):
     test = train.__copy__()
     test.sort_indices_in_place()
-
     test_indices = []
-    submission_indices = []
     averaging_length = 2
 
-    for i in range(len(test.index)):
-        series = test.slice(test.index[i])
-        series = Filters.smooth(series, averaging_length=averaging_length)
+    test_range = range(len(test.index)) if submission is None else range(len(submission.index))
+    for i in test_range:
+        series = test.slice(test.index[i]) if submission is None else submission.slice(submission.index[i])
+        series = Filters.smooth(series, averaging_length)
         test_indices.append(series)
 
-    for i in range(len(submission.index)):
-        series = submission.slice(submission.index[i])
-        series = Filters.smooth(series, averaging_length=averaging_length)
-        submission_indices.append(series)
-
     test_ext = train.pca.transform(test_indices)
-    submission_ext = train.pca.transform(submission_indices)
-
     min_max_scaler = MinMaxScaler()
     test_norm = min_max_scaler.fit_transform(test_ext)
-    submission_norm = min_max_scaler.fit_transform(submission_ext)
-
     test.classes = knn.predict(test_norm)
-    submission.classes = knn.predict(submission_norm)
-    return test
+    if submission is None:
+        return test
+    else:
+        submission.classes = knn.predict(test_norm)
 
 
 def verify_class_agreements(net_set, knn_set):
     matches = [net_set.index[i] for i in range(len(net_set.index)) if net_set.classes[i] == knn_set.classes[i]]
+    score = float(len(matches) / len(knn_set.index))
+
     print('Agreed on', len(matches), 'out of', len(knn_set.classes), 'generated classes')
-    print('Agreement Percentage: %.2f' % (len(matches)/len(knn_set.index) * 100.0))
+    print('Agreement Percentage: %.2f' % (score * 100.0))
     print('Net guess counts by class:', np.count_nonzero(net_set.classes == 0), np.count_nonzero(net_set.classes == 1),
           np.count_nonzero(net_set.classes == 2),
           np.count_nonzero(net_set.classes == 3), np.count_nonzero(net_set.classes == 4))
     print('KNN guess counts by class:', np.count_nonzero(knn_set.classes == 0), np.count_nonzero(knn_set.classes == 1),
           np.count_nonzero(knn_set.classes == 2),
           np.count_nonzero(knn_set.classes == 3), np.count_nonzero(knn_set.classes == 4), '\n')
+
+    return score
 
 
 def remove_noise(net_recording, knn_recording):
@@ -202,11 +197,13 @@ def remove_noise(net_recording, knn_recording):
     knn_recording.index = np.array(valid_indices)
     net_recording.classes = np.array(valid_classes_net)
     knn_recording.classes = np.array(valid_classes_knn)
-    verify_class_agreements(net_recording, knn_recording)
+    return verify_class_agreements(net_recording, knn_recording)
 
 
 if __name__ == '__main__':
     training_set = Recording(filename='training')
+    #test_class = 1
+    #class_test(training_set, test_class)
 
     params = {
         'inputs': training_set.range,
@@ -226,48 +223,61 @@ if __name__ == '__main__':
     sorted_training_set.sort_indices_in_place()
 
     # Train and test classes net using training set and sorted training set, respectively
-    print('Training class identification neural net')
+    print('\nTraining class identification neural net...'.upper())
     class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
     train_classes(training_set, class_net, params['reps'])
 
-    print('\nFitting PCA')
+    print('\nFitting PCA...'.upper())
     knn = KNeighborsClassifier(n_neighbors=params['neighbours'], p=params['distance'])
     pca_fit(training_set, knn, train_for_noise=True)
 
+    print('\nTesting neural net class performance on training set...'.upper())
+    net_score = test_net(sorted_training_set, class_net, sorted_training_set)
+
+    print('\nTesting KNN class performance on training set...'.upper())
+    knn_score = test_net(knn_predict(training_set, knn), class_net, sorted_training_set, knn=True)
+
     # Test index finding accuracy of correlation method
-    print('\nTesting index identification performance')
+    print('\nTesting index identification performance...'.upper())
     correlation_test = training_set.__copy__()
     correlation_test.sort_indices_in_place()
     index_finder_test = IndexIdentifiers(correlation_test)
-    index_finder_test.correlation_method(class_net, knn=knn, pca=training_set.pca)
+    index_score = index_finder_test.correlation_method(class_net, knn=knn, pca=training_set.pca)
 
     # Generate index and class vectors for submission set
-    print('\nFinding submission indices')
+    print('\nNeural net predicting submission classes while Finding submission indices...'.upper())
     net_submission_set = Recording(filename='submission')
     index_finder = IndexIdentifiers(net_submission_set, test=False)
     index_finder.correlation_method(class_net)
 
-    print('\nTraining class performance')
-    test_net(sorted_training_set, class_net, sorted_training_set)
-
+    print('\nKNN predicting submission classes...'.upper())
     knn_submission_set = net_submission_set.__copy__()
+    knn_predict(training_set, knn, knn_submission_set)
 
-    pca_set = pca_predict(training_set, knn_submission_set, knn)
-    test_net(pca_set, class_net, sorted_training_set, knn=True)
-
-    print('\nSumming submission generated class counts')
+    print('\nChecking guess counts of submission sets for plausibility...\n'.upper())
     test_net(net_submission_set, class_net, training_set, test=False)
     test_net(knn_submission_set, class_net, training_set, test=False, knn=True)
-    verify_class_agreements(net_submission_set, knn_submission_set)
-    if params['noise removal']:
-        #class_test(knn_submission_set, 0)
-        print('\nRemoving noise and re-calculating agreements')
-        remove_noise(net_submission_set, knn_submission_set)
 
-    test_class = 4
-    # class_test(training_set, test_class)
+    print('\nCalculating neural net and knn submission class prediction agreements...'.upper())
+    agreement_score = verify_class_agreements(net_submission_set, knn_submission_set)
+    if params['noise removal']:
+        # class_test(knn_submission_set, 0)  # Comment in to plot the generated 'noise' types
+        print('\nRemoving noise and re-calculating agreements...'.upper())
+        agreement_score = remove_noise(net_submission_set, knn_submission_set)
+
+    if knn_score >= net_score:
+        total_score = knn_score * index_score
+        output_filename = '%.2f + %.2f - KNN' % (total_score * 100.0, agreement_score * 100)
+        knn_submission_set.generate_mat(output_filename)
+    else:
+        total_score = net_score * index_score
+        output_filename = '%.2f + %.2f - Net' % (total_score * 100.0, agreement_score * 100)
+        net_submission_set.generate_mat(output_filename)
+
+    #test_class = 1
+    #class_test(training_set, test_class)
     # class_test(training_set, test_class)
     #class_test(net_submission_set, test_class)
 
-    plot(net_submission_set, 1000)
+    #plot(net_submission_set, 1000)
     #plt.show()

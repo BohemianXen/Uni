@@ -64,25 +64,25 @@ class IndexIdentifiers:
                 else:
                     None
         found = len(indices)
+        print('\nCorrelation Method Total Found', found, 'Indices')
+
         if knn is not None and pca is not None:
             test_ext = pca.transform(knn_series)
             min_max_scaler = MinMaxScaler()
             test_norm = min_max_scaler.fit_transform(test_ext)
             knn_classes = knn.predict(test_norm)
             disagreements = [indices[i] for i in range(found) if classes[i] != knn_classes[i]]
-            print('\n(Training Set) Agreed on', found - len(disagreements), 'out of', found, 'generated classes')
-            print('(Training Set) Agreement Percentage: %.2f' % ((found-len(disagreements)) / found * 100.0))
-
-        #print('Correlation Method Total Indices Found', found)
+            print('Net and KNN Agreed on', found - len(disagreements), 'out of the ', found, 'generated classes')
+            print('... An agreement percentage: %.2f' % ((found-len(disagreements)) / found * 100.0))
 
         if self.test:
-            self.test_indices(indices)
+            score = self.test_indices(indices)
+            self.recording.index = np.array(indices)
+            return score
         else:
             self.recording.classes = np.array(classes)
-            None
 
         self.recording.index = np.array(indices)
-
 
     def median_method(self):
         indices = []
@@ -143,11 +143,12 @@ class IndexIdentifiers:
         total_correct = len(correct)
         total_missed = len(missed)
         length_mismatch = max(0, (total_indices - expected_total_indices), (expected_total_indices - total_indices))
-        score = max(0, (total_correct - total_missed - length_mismatch))
+        score = float(max(0, (total_correct - total_missed - length_mismatch))/expected_total_indices)
         print('Total Correct', total_correct)
         print('Total Missed', total_missed)
-        print('Length Mismatch', length_mismatch)
-        print('Index performance = %.2f' % (100.0*score/expected_total_indices))
+        print('Length Mismatch With Training Set', length_mismatch)
+        print('Index performance = %.2f' % (100.0*score))
+        return score
 
 
 if __name__ == '__main__':
