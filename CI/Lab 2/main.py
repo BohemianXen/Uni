@@ -7,6 +7,7 @@ GATES = {
     'OR': {'weights': [1, 1], 'bias': 0},
     'NAND': {'weights': [-1, -1], 'bias': 2},
     'NOR': {'weights': [-1, -1], 'bias': 1},
+    'test': {'weights': [1, -1], 'bias': 0.5}
 }
 
 
@@ -97,5 +98,5 @@ def plot(inputs, weights, bias, outputs, title):
 if __name__ == '__main__':
     #test0()
     #test1()
-    #test2('NAND')
+    test2('test')
     xor_solution()

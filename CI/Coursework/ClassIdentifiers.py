@@ -102,7 +102,6 @@ if __name__ == '__main__':
         'bias': np.array([[0.0], [0.02], [-0.27], [-0.1]]),  # [[0.0], [0.0], [0.0], [0.0]]
         'reps': 10000
     }
-    # TODO: Use gradient to find indices; integrate, differentiate, do shit my nigga
     class_net = NeuralNetwork(params['inputs'], params['hiddens'], params['outputs'], params['lr'], params['bias'])
 
     find_indices(training_set)

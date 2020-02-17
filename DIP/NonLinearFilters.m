@@ -1,5 +1,5 @@
 classdef NonLinearFilters
-    % linear filter algorithm(s)
+    % nonlinear filter algorithms
     
     methods(Static)
         function [output_val, sorted] = median(values, center_index, fast_sort_on, new_vals, old_vals, old_median, old_list)

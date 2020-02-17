@@ -2,29 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="452f1773-7be6-4be0-bb2c-ee598ac64212" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/live_manager/StreamManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/app_log.log" beforeDir="false" afterPath="$PROJECT_DIR$/application/app_log.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/live_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/live_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/live_manager/LiveMotion.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/live_manager/LiveMotion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/main_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/main_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/live_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/live_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/live_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/live_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/ui_files/account_view.ui" beforeDir="false" afterPath="$PROJECT_DIR$/views/ui_files/account_view.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/ui_files/account_view_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/ui_files/account_view_ui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/ui_files/device_view.ui" beforeDir="false" afterPath="$PROJECT_DIR$/views/ui_files/device_view.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/ui_files/device_view_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/ui_files/device_view_ui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/ui_files/live_view.ui" beforeDir="false" afterPath="$PROJECT_DIR$/views/ui_files/live_view.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/ui_files/live_view_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/views/ui_files/live_view_ui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/login_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/login_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/login_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/login_model.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -99,99 +86,15 @@
       <replace>StreamManager</replace>
     </replaceStrings>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/application/gait_ui" />
-        <option value="$PROJECT_DIR$/views/Views.py" />
-        <option value="$PROJECT_DIR$/views/ui_files/login_view_ui.py" />
-        <option value="$PROJECT_DIR$/views/ui_files/connect_view_ui.py" />
-        <option value="$PROJECT_DIR$/controllers/home_controller.py" />
-        <option value="$PROJECT_DIR$/views/ui_files/history_view_ui.py" />
-        <option value="$PROJECT_DIR$/controllers/live_manager/TestPort.py" />
-        <option value="$PROJECT_DIR$/models/main_model.py" />
-        <option value="$PROJECT_DIR$/views/account_view.py" />
-        <option value="$PROJECT_DIR$/views/device_view.py" />
-        <option value="$PROJECT_DIR$/views/upload_view.py" />
-        <option value="$PROJECT_DIR$/views/home_view.py" />
-        <option value="$PROJECT_DIR$/models/device_model.py" />
-        <option value="$PROJECT_DIR$/models/history_model.py" />
-        <option value="$PROJECT_DIR$/models/home_model.py" />
-        <option value="$PROJECT_DIR$/models/upload_model.py" />
-        <option value="$PROJECT_DIR$/models/account_model.py" />
-        <option value="$PROJECT_DIR$/views/connect_view.py" />
-        <option value="$PROJECT_DIR$/models/connect_model.py" />
-        <option value="$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/exporters/ImageExporter.py" />
-        <option value="$PROJECT_DIR$/controllers/login_controller.py" />
-        <option value="$PROJECT_DIR$/data_processors/CombineBytes.py" />
-        <option value="$PROJECT_DIR$/data_processors/Date.py" />
-        <option value="$PROJECT_DIR$/views/history_view.py" />
-        <option value="$PROJECT_DIR$/models/Database.py" />
-        <option value="$PROJECT_DIR$/controllers/history_controller.py" />
-        <option value="$PROJECT_DIR$/models/login_model.py" />
-        <option value="$PROJECT_DIR$/data_processors/Converters.py" />
-        <option value="$PROJECT_DIR$/application/Logger.py" />
-        <option value="$PROJECT_DIR$/views/login_view.py" />
-        <option value="$PROJECT_DIR$/controllers/connect_manager/DeviceFinder.py" />
-        <option value="$PROJECT_DIR$/controllers/connect_manager/DeviceFinderLinux.py" />
-        <option value="$PROJECT_DIR$/controllers/connect_manager/DeviceConnectorLinux.py" />
-        <option value="$PROJECT_DIR$/controllers/live_manager/PortTest.py" />
-        <option value="$PROJECT_DIR$/controllers/device_controller.py" />
-        <option value="$PROJECT_DIR$/controllers/account_controller.py" />
-        <option value="$PROJECT_DIR$/controllers/upload_controller.py" />
-        <option value="$PROJECT_DIR$/controllers/connect_controller.py" />
-        <option value="$PROJECT_DIR$/controllers/history_manager/DummySteps.py" />
-        <option value="$PROJECT_DIR$/controllers/live_manager/DummyLiveMotion.py" />
-        <option value="$PROJECT_DIR$/views/main_view.py" />
-        <option value="$PROJECT_DIR$/application/app.py" />
-        <option value="$PROJECT_DIR$/controllers/live_manager/SerialPortTest.py" />
-        <option value="$PROJECT_DIR$/controllers/connect_manager/DeviceConnector.py" />
-        <option value="$PROJECT_DIR$/controllers/live_manager/LiveMotion.py" />
-        <option value="$PROJECT_DIR$/models/live_model.py" />
-        <option value="$PROJECT_DIR$/controllers/main_controller.py" />
-        <option value="$PROJECT_DIR$/controllers/live_manager/StreamManager.py" />
-        <option value="$PROJECT_DIR$/controllers/live_manager/DummyLiveMotion1.py" />
-        <option value="$PROJECT_DIR$/controllers/live_controller.py" />
-        <option value="$PROJECT_DIR$/views/live_view.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="950" />
-    <option name="width" value="980" />
-    <option name="height" value="1040" />
-  </component>
+  <component name="ProjectId" id="1XD4mbWpkn7YcT5Kb2w0Vnp11bT" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="GAIT_UI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAIT_UI" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAIT_UI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAIT_UI" type="462c0819:PsiDirectoryNode" />
-              <item name="data_processors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GAIT_UI" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GAIT_UI" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/controllers/live_manager" />
     <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
   </component>
@@ -207,18 +110,6 @@
       <recent name="C:\Users\blaze\Desktop\Programming\Uni\trunk\GDBP\GAIT_UI\controllers\connect_manager" />
       <recent name="C:\Users\blaze\Desktop\Programming\Uni\trunk\GDBP\GAIT_UI\views" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Python.app">
     <configuration name="Converters" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -344,6 +235,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration" cleanupOnStartRun="true">
     <configuration useDefault="false">C:\Users\blaze\AppData\Roaming\Subversion</configuration>
     <supportedVersion>125</supportedVersion>
@@ -354,10 +257,6 @@
         <SvnCopyRootSimple>
           <option name="myVcsRoot" value="C:\Users\blaze\Desktop\Programming\Uni\trunk\GDBP\GAIT_UI" />
           <option name="myCopyRoot" value="C:\Users\blaze\Desktop\Programming\Uni\trunk\GDBP\GAIT_UI" />
-        </SvnCopyRootSimple>
-        <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="C:\Users\blaze\Desktop\Programming\Uni\trunk\GDBP\GAIT_UI\.idea" />
-          <option name="myCopyRoot" value="C:\Users\blaze\Desktop\Programming\Uni\trunk\GDBP\GAIT_UI\.idea" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -389,46 +288,27 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09643329" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="0" weight="0.32956153" />
-      <window_info anchor="bottom" id="Python Console" order="1" weight="0.32956153" />
-      <window_info anchor="bottom" id="Terminal" order="2" weight="0.32956153" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.503963" side_tool="true" weight="0.41584158" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.32956153" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49867898" weight="0.30975956" />
-      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.49603698" weight="0.46676096" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="10" weight="0.32956153" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19550858" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="0" weight="0.32956153" />
-      <window_info anchor="bottom" id="Python Console" order="1" weight="0.32956153" />
-      <window_info anchor="bottom" id="Terminal" order="2" weight="0.32956153" />
-      <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.503963" side_tool="true" weight="0.41584158" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" weight="0.32956153" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49867898" weight="0.30975956" />
-      <window_info active="true" anchor="bottom" id="Debug" order="7" sideWeight="0.49603698" visible="true" weight="0.41584158" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="10" weight="0.32956153" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout-to-restore>
+  <component name="WindowStateProjectService">
+    <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1580568634554">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1580568634554" />
+    <state width="1515" height="196" key="GridCell.Tab.0.bottom" timestamp="1581377068962">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="196" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1581377068962" />
+    <state width="1515" height="196" key="GridCell.Tab.0.center" timestamp="1581377068962">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="196" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1581377068962" />
+    <state width="1515" height="196" key="GridCell.Tab.0.left" timestamp="1581377068962">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="196" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1581377068962" />
+    <state width="1515" height="196" key="GridCell.Tab.0.right" timestamp="1581377068962">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1515" height="196" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1581377068962" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -440,433 +320,5 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/graphicsItems/AxisItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="829" selection-start-line="829" selection-end-line="829" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/ui_files/history_view_ui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="827">
-          <caret line="74" column="48" selection-start-line="74" selection-start-column="48" selection-end-line="74" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/_strptime.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="364" selection-start-line="364" selection-end-line="364" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Device Permutations/Script.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="70" column="58" lean-forward="true" selection-start-line="70" selection-start-column="3" selection-end-line="70" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/statistics.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-24">
-          <caret line="306" selection-start-line="306" selection-end-line="306" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/pstats.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="112" selection-start-line="112" selection-end-line="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/graphicsItems/PlotCurveItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="352" selection-start-line="352" selection-end-line="352" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/login_view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/history_view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1632">
-          <caret line="100" column="8" selection-start-line="100" selection-start-column="8" selection-end-line="100" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/account_view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/connect_manager/DeviceFinder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="30" column="85" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="85" />
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/connect_manager/DeviceFinderLinux.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="35" column="85" selection-start-line="35" selection-start-column="85" selection-end-line="35" selection-end-column="85" />
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/connect_manager/DeviceConnectorLinux.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1079">
-          <caret line="71" column="111" selection-start-line="71" selection-start-column="111" selection-end-line="71" selection-end-column="111" />
-          <folding>
-            <element signature="e#0#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_manager/PortTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="14" column="58" selection-start-line="14" selection-start-column="58" selection-end-line="14" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/device_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/home_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/upload_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="24" column="40" lean-forward="true" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/account_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/history_manager/DummySteps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydevd_bundle/pydevd_resolver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3519">
-          <caret line="214" selection-start-line="214" selection-end-line="214" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/history_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/login_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" column="7" selection-start-line="7" selection-start-column="3" selection-end-line="18" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/logging/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="1535" selection-start-line="1535" selection-end-line="1535" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/app_log.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_manager/app_log.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/graphicsItems/GraphicsWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/main_view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="73" column="77" selection-start-line="73" selection-start-column="77" selection-end-line="73" selection-end-column="77" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/history_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/connect_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255">
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_manager/DummyLiveMotion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="57" column="42" lean-forward="true" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/graphicsItems/PlotItem/PlotItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="629" selection-start-line="629" selection-end-line="629" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/Views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/pyqtgraph/widgets/PlotWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/connect_manager/DeviceConnector.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="54" column="20" lean-forward="true" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
-          <folding>
-            <element signature="e#188#305#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/connect_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="47" column="25" lean-forward="true" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data_processors/Converters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-111">
-          <caret line="163" column="43" selection-start-line="163" selection-start-column="43" selection-end-line="163" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/Logger.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_manager/SerialPortTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="75" column="53" lean-forward="true" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/site-packages/serial/serialwin32.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="267" selection-start-line="267" selection-end-line="267" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/ui_files/device_view_ui.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="81" column="56" selection-start-line="81" selection-start-column="56" selection-end-line="81" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_manager/DummyLiveMotion1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/main_controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/live_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_manager/StreamManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="72" column="26" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/live_manager/LiveMotion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1411">
-          <caret line="88" column="43" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/live_view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="196" column="51" selection-start-line="196" selection-start-column="51" selection-end-line="196" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-36">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/login_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="34" column="12" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

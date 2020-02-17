@@ -57,13 +57,13 @@ title('9x9 Unsharp Masking Filter vs. 9x9 Median Filter (Foetus Image)')
 input = sar;
 % LinearTests.fft_montage(input, 0);
 % LinearTests.unsharp_montage(input);
-% LinearTests.verify_gaussian(input, 1);
+LinearTests.verify_gaussian(input, 1);
 % LinearTests.verify_unsharp(input, k_size);
 % LinearTests.convolution_speeds(input);
 % LinearTests.compare(input, k_size)
   
 % NonLinearTests.montage(input, 'median')
-% NonLinearTests.weighted_montage(input, k_size, weights5);
+% NonLinearTests.weighted_montage(input, k_size, weights);
 % NonLinearTests.adaptive_montage(input, k_size);
 % NonLinearTests.verify_median(input, k_size);
 % NonLinearTests.sort_speeds(input)

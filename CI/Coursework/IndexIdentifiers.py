@@ -26,7 +26,7 @@ class IndexIdentifiers:
         # ----------------------------------------------- Param Inits --------------------------------------------------
         indices, classes, knn_series = [], [], []
         step = int(self.recording.range/2)
-        diff_thresh, correlation_thresh = 0.29, 31  # Thresholds
+        diff_thresh, correlation_thresh = 0.28, 36  # Thresholds
         window_size, window_voltage = 48, 3.3
         window = np.hanning(window_size) * window_voltage  # Scaled Hanning window to be used for correlation
         length = len(self.recording.d)

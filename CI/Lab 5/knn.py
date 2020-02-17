@@ -10,7 +10,7 @@ from neural_network import NeuralNetwork as nn
 def knn():
 
     pca = PCA(params['test file'], params['training file'], params['components'])
-    pca.plot()
+    #pca.plot()
 
     # Extract the principle components from the training data
     train_ext = pca._pca.fit_transform(pca.train_data)
