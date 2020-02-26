@@ -1,6 +1,9 @@
 #include <Arduino_LSM9DS1.h>
 #include <ArduinoBLE.h>
 
+#define IO_USERNAME "BohemianXen"
+#define IO_KEY "aio_Mbeo57A4D24lfhO07ODfzvIOgKQy"
+
 #//GLOBALS
 const byte saveLED = 3;
 const byte sendLED = 4;
@@ -12,8 +15,26 @@ byte saveStatus, sendStatus = 0;
 byte sampleRates [3] = {0, 0, 0}; // {IMU.accelerationSampleRate(), IMU.gyroscopeSampleRate(), IMU.magneticFieldSampleRate()};
 
 //BLE
-BLEService sampleService("1101");
-BLEUnsignedLongCharacteristic sampleChar("2101", BLERead | BLENotify | BLEIndicate);
+BLEService accXService("1001");
+BLEService accYService("1002");
+BLEService accZService("1003");
+BLEService gyroXService("0101");
+BLEService gyroYService("0102");
+BLEService gyroZService("0103");
+BLEService magXService("0011");
+BLEService magYService("0012");
+BLEService magZService("0013");
+
+BLELongCharacteristic accXChar("2001", BLERead | BLENotify); //| BLEIndicate);
+BLELongCharacteristic accYChar("2002", BLERead | BLENotify); //| BLEIndicate);
+BLELongCharacteristic accZChar("2003", BLERead | BLENotify); //| BLEIndicate);
+BLELongCharacteristic gyroXChar("0201", BLERead | BLENotify); //| BLEIndicate);
+BLELongCharacteristic gyroYChar("0202", BLERead | BLENotify); //| BLEIndicate);
+BLELongCharacteristic gyroZChar("0203", BLERead | BLENotify); //| BLEIndicate);
+BLELongCharacteristic magXChar("0021", BLERead | BLENotify); //| BLEIndicate);
+BLELongCharacteristic magYChar("0022", BLERead | BLENotify); //| BLEIndicate);
+BLELongCharacteristic magZChar("0023", BLERead | BLENotify); //| BLEIndicate);
+
 //BLEDevice central;
 
 
@@ -50,20 +71,37 @@ void setup() {
   }
   
   BLE.setLocalName("FallDetector");
-  BLE.setAdvertisedService(sampleService);
-  sampleService.addCharacteristic(sampleChar);
-  BLE.addService(sampleService);
+  BLE.setDeviceName("FallDetector");
   
+  accXService.addCharacteristic(accXChar);
+  accYService.addCharacteristic(accYChar);
+  accZService.addCharacteristic(accZChar);
+  gyroXService.addCharacteristic(gyroXChar);
+  gyroYService.addCharacteristic(gyroYChar);
+  gyroZService.addCharacteristic(gyroZChar);
+  magXService.addCharacteristic(magXChar);
+  magYService.addCharacteristic(magYChar);
+  magZService.addCharacteristic(magZChar);
+  BLE.addService(accXService);
+  BLE.addService(accYService);
+  BLE.addService(accZService);
+  BLE.addService(gyroXService);
+  BLE.addService(gyroYService);
+  BLE.addService(gyroZService);
+  BLE.addService(magXService);
+  BLE.addService(magYService);
+  BLE.addService(magZService);
+  
+  BLE.setAdvertisedService(accXService);
   BLE.advertise();
-  Serial.println("Bluetooth device active, waiting for connections...");
-
+  Serial.println("Advertising...");
 }
 
 void loop() {
   BLEDevice central = BLE.central();
   
   if (central) {
-    Serial.print("Connected to central: ");
+    Serial.print("Connected to: ");
     Serial.println(central.address());
     digitalWrite(LED_BUILTIN, HIGH);
   
@@ -72,18 +110,19 @@ void loop() {
         digitalWrite(saveLED, LOW);
         saveStatus = digitalRead(saveButton);
         if (saveStatus) {
-          //Serial.println("Starting Save In 3 Seconds!");
+          Serial.println("Starting Save In 3 Seconds!");
           blinkSaveLED(); 
           startSave();
-          //digitalWrite(saveLED, LOW);
-          //Serial.println("Saved!");
-          delay(5000);
+          digitalWrite(saveLED, LOW);
+          Serial.println("Saved!");
+          delay(100);
         }
     }
   }
   digitalWrite(LED_BUILTIN, LOW);
-  Serial.print("Disconnected from central: ");
+  Serial.print("Disconnected from: ");
   Serial.println(central.address());
+  delay(200);
 }
 
 
@@ -124,7 +163,7 @@ void startSave() {
     digitalWrite(saveLED, LOW);
     digitalWrite(sendLED, HIGH);
     bleWrite(imuDataF,imuDataL,totalSamples);
-    //digitalWrite(sendLED, LOW);
+    digitalWrite(sendLED, LOW);
   }
 }
 
@@ -145,44 +184,7 @@ unsigned short getVals(float dataOut[][9], unsigned short totalSamples, unsigned
       //if (sampleNo == totalSamples) { return sampleNo; }  
   }
   return sampleNo;
-}
-  
-  /*if (IMU.accelerationAvailable()) {
-    IMU.readAcceleration(dataOut[sampleNo][0], dataOut[sampleNo][1], dataOut[sampleNo][2]);
-  } else {
-    Serial.println("Acc data not ready!");
-    ready = false;
-  }
-
-  if (ready && IMU.gyroscopeAvailable()) {
-    IMU.readGyroscope(dataOut[sampleNo][3], dataOut[sampleNo][4], dataOut[sampleNo][5]);
-  } else {
-    Serial.println("Gyro data not ready!");
-    ready = false;
-  }
-  
-  if (readMag){
-    if (ready && IMU.magneticFieldAvailable()) {
-      IMU.readMagneticField(dataOut[sampleNo][6], dataOut[sampleNo][7], dataOut[sampleNo][8]);
-    } else {
-      //Serial.println("Mag data not ready!");
-      ready = false;
-    }
-  }
-
-    /*if (ready) {
-    for (int i = 0; i < 9; i++) {
-      //float scaled = dataOut[i] * 1000.0;
-       dataOut[sampleNo][i] =  dataOut[i]; // (long) scaled;
-      //Serial.print(imuData[sampleNo][i]);
-      //Serial.print(",");
-    }
-    //Serial.println();
-    //delay(round(1/sampleRates[0]));
-  }
-  return sampleNo;
-}*/
-
+}  
 
 bool bleWrite(float imuDataF[][9], long imuDataL[][9], int totalSamples) {
    for (int i = 0; i < totalSamples; i++) {
@@ -191,13 +193,21 @@ bool bleWrite(float imuDataF[][9], long imuDataL[][9], int totalSamples) {
       float scaled = imuDataF[i][j] * 1000.0;
       imuDataL[i][j] = (long) scaled;
       Serial.print(imuDataL[i][j]);
-      //delay(100);
       Serial.print(",");
     }
-    
-    Serial.println();
-   }
+   Serial.println();
 
-   sampleChar.writeValue(imuDataL[0][0]);
-   delay(500);
+   accXChar.writeValue(imuDataL[i][0]);
+   accYChar.writeValue(imuDataL[i][1]);
+   accZChar.writeValue(imuDataL[i][2]);
+   delay(10); 
+   gyroXChar.writeValue(imuDataL[i][3]);
+   gyroYChar.writeValue(imuDataL[i][4]);
+   gyroZChar.writeValue(imuDataL[i][5]);
+   delay(10);
+   magXChar.writeValue(imuDataL[i][6]);
+   magYChar.writeValue(imuDataL[i][7]);
+   magZChar.writeValue(imuDataL[i][8]);
+   delay(10);
+   } 
 } 
