@@ -15,25 +15,8 @@ byte saveStatus, sendStatus = 0;
 byte sampleRates [3] = {0, 0, 0}; // {IMU.accelerationSampleRate(), IMU.gyroscopeSampleRate(), IMU.magneticFieldSampleRate()};
 
 //BLE
-BLEService accXService("1001");
-BLEService accYService("1002");
-BLEService accZService("1003");
-BLEService gyroXService("0101");
-BLEService gyroYService("0102");
-BLEService gyroZService("0103");
-BLEService magXService("0011");
-BLEService magYService("0012");
-BLEService magZService("0013");
-
-BLELongCharacteristic accXChar("2001", BLERead | BLENotify); //| BLEIndicate);
-BLELongCharacteristic accYChar("2002", BLERead | BLENotify); //| BLEIndicate);
-BLELongCharacteristic accZChar("2003", BLERead | BLENotify); //| BLEIndicate);
-BLELongCharacteristic gyroXChar("0201", BLERead | BLENotify); //| BLEIndicate);
-BLELongCharacteristic gyroYChar("0202", BLERead | BLENotify); //| BLEIndicate);
-BLELongCharacteristic gyroZChar("0203", BLERead | BLENotify); //| BLEIndicate);
-BLELongCharacteristic magXChar("0021", BLERead | BLENotify); //| BLEIndicate);
-BLELongCharacteristic magYChar("0022", BLERead | BLENotify); //| BLEIndicate);
-BLELongCharacteristic magZChar("0023", BLERead | BLENotify); //| BLEIndicate);
+BLEService imuService("f9dd156e-f108-4139-925c-dd1f157cffa0");
+BLELongCharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLENotify); //| BLEIndicate);
 
 //BLEDevice central;
 
@@ -73,26 +56,10 @@ void setup() {
   BLE.setLocalName("FallDetector");
   BLE.setDeviceName("FallDetector");
   
-  accXService.addCharacteristic(accXChar);
-  accYService.addCharacteristic(accYChar);
-  accZService.addCharacteristic(accZChar);
-  gyroXService.addCharacteristic(gyroXChar);
-  gyroYService.addCharacteristic(gyroYChar);
-  gyroZService.addCharacteristic(gyroZChar);
-  magXService.addCharacteristic(magXChar);
-  magYService.addCharacteristic(magYChar);
-  magZService.addCharacteristic(magZChar);
-  BLE.addService(accXService);
-  BLE.addService(accYService);
-  BLE.addService(accZService);
-  BLE.addService(gyroXService);
-  BLE.addService(gyroYService);
-  BLE.addService(gyroZService);
-  BLE.addService(magXService);
-  BLE.addService(magYService);
-  BLE.addService(magZService);
+  imuService.addCharacteristic(imuChar);
+  BLE.addService(imuService);
   
-  BLE.setAdvertisedService(accXService);
+  BLE.setAdvertisedService(imuService);
   BLE.advertise();
   Serial.println("Advertising...");
 }
@@ -187,27 +154,18 @@ unsigned short getVals(float dataOut[][9], unsigned short totalSamples, unsigned
 }  
 
 bool bleWrite(float imuDataF[][9], long imuDataL[][9], int totalSamples) {
+   Serial.println("Sending data...");
    for (int i = 0; i < totalSamples; i++) {
-    //long message[]
+    //byte buff[36];
+    //long shift = 0;
     for (int j = 0; j < 9; j++) {
       float scaled = imuDataF[i][j] * 1000.0;
       imuDataL[i][j] = (long) scaled;
+      imuChar.writeValue(imuDataL[i][j]);
       Serial.print(imuDataL[i][j]);
       Serial.print(",");
     }
-   Serial.println();
-
-   accXChar.writeValue(imuDataL[i][0]);
-   accYChar.writeValue(imuDataL[i][1]);
-   accZChar.writeValue(imuDataL[i][2]);
-   delay(10); 
-   gyroXChar.writeValue(imuDataL[i][3]);
-   gyroYChar.writeValue(imuDataL[i][4]);
-   gyroZChar.writeValue(imuDataL[i][5]);
-   delay(10);
-   magXChar.writeValue(imuDataL[i][6]);
-   magYChar.writeValue(imuDataL[i][7]);
-   magZChar.writeValue(imuDataL[i][8]);
-   delay(10);
+    Serial.println();
+    //delay(10);
    } 
 } 
