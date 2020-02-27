@@ -14,8 +14,8 @@ class ConnectionManagerBLE:
         self.devices_found = {}
         self.target_address = None
         self.connected = False
-        self.data = zeros((total_samples, payload_length))
-        self.sample_no, self.current_index = total_samples, 0
+        self.data = []  # zeros((total_samples, payload_length))
+        self.current_sample = 0
         #self.loop = asyncio.get_event_loop()
 
     async def run(self):
@@ -51,37 +51,32 @@ class ConnectionManagerBLE:
             print("Connected: {0}".format(self.connected))
 
             if self.connected:
-                self.sample_no, self.current_index = 0, 0
-                await client.start_notify(UUIDs['imu_characteristic'], self.notification_handler)
-                print('Waiting for readings...') # % (self.sample_no, self.current_index))
-                while self.connected and self.sample_no != self.total_samples:
+                self.current_sample = 0
+                await client.start_notify(UUIDs['imu'][1], self.notification_handler)
+                print('Waiting for readings...')
+                while self.connected and self.current_sample != self.total_samples:
                     self.connected = await client.is_connected()
-                    await asyncio.sleep(1.0, loop=loop)
-                await client.stop_notify(UUIDs['imu_characteristic'])
+                    #await asyncio.sleep(1.0, loop=loop)
+                await client.stop_notify(UUIDs['imu'][1])
                 return self.data
 
     def notification_handler(self, sender, data):
         """Simple notification handler which prints the data received."""
-        formatted = bytearray_to_int(data) / 1000.0
-        print("{0}: {1}".format(sender, formatted))
-        self.data[self.sample_no][self.current_index] = formatted
-
-        self.current_index += 1
-        #print(self.current_index)
-        if self.current_index == self.payload_length:
-            self.sample_no += 1
-            self.current_index = 0
-            #print(self.sample_no)
+        parsed_data = bytearray_to_int(data)
+        self.data.append(parsed_data)
+        print("{0}: {1}".format(sender, parsed_data))
+        self.current_sample += 1
 
 
 def bytearray_to_int(array):
-    return int.from_bytes(array, byteorder='little', signed=True)
+    parsed = [int.from_bytes(array[i:i+3], byteorder='little', signed=True) for i in range(0, 36, 4)]
+    return [x/1000.0 for x in parsed]
 
 
 if __name__ == '__main__':
     UUIDs = {
-        'imu_service': 'f9dd156e-f108-4139-925c-dd1f157cffa0',
-        'imu_characteristic': '41277a1b-b4f8-4ddc-871a-db0dd23a3a31'
+        'data_ready': ('a34984b9-7b89-4553-aced-242a0b289bbc', '4174c433-4064-4349-bfa2-009a432a24a4'),
+        'imu': ('f9dd156e-f108-4139-925c-dd1f157cffa0', '41277a1b-b4f8-4ddc-871a-db0dd23a3a31')
     }
 
     params = {
@@ -98,7 +93,7 @@ if __name__ == '__main__':
     found = connection_manager.find_detector()
 
     if found != -1:
-        print('\nConnecting to %s (with adddress %s)' % (connection_manager.target_name, connection_manager.target_address))
+        print('\nConnecting to %s (with address %s)' % (connection_manager.target_name, connection_manager.target_address))
         loop = asyncio.get_event_loop()
         data = loop.run_until_complete(connection_manager.connect(loop))
         success = SerialToCSV.write_data(data)

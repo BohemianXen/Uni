@@ -9,14 +9,18 @@ const byte saveLED = 3;
 const byte sendLED = 4;
 const byte saveButton = 5; 
 const byte sendButton = 6;
-unsigned long debounceTime = 1000;
-//unsigned long 
+//const unsigned long debounceTime = 1000;
+const unsigned short totalSamples = 238; //sampleRates[0] * captureTimeSecs;
 byte saveStatus, sendStatus = 0;
 byte sampleRates [3] = {0, 0, 0}; // {IMU.accelerationSampleRate(), IMU.gyroscopeSampleRate(), IMU.magneticFieldSampleRate()};
 
 //BLE
+BLEService dataReadyService("a34984b9-7b89-4553-aced-242a0b289bbc");
+BLEBoolCharacteristic dataReadyChar("4174c433-4064-4349-bfa2-009a432a24a4", BLERead | BLENotify);
+
 BLEService imuService("f9dd156e-f108-4139-925c-dd1f157cffa0");
-BLELongCharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLENotify); //| BLEIndicate);
+BLECharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLENotify, 36);
+
 
 //BLEDevice central;
 
@@ -55,34 +59,44 @@ void setup() {
   
   BLE.setLocalName("FallDetector");
   BLE.setDeviceName("FallDetector");
-  
+
+  dataReadyService.addCharacteristic(dataReadyChar);
   imuService.addCharacteristic(imuChar);
+  BLE.addService(dataReadyService);
   BLE.addService(imuService);
   
-  BLE.setAdvertisedService(imuService);
+  BLE.setAdvertisedService(dataReadyService);
   BLE.advertise();
   Serial.println("Advertising...");
 }
 
 void loop() {
+  long imuDataL [totalSamples][9];
+  bool dataReady = 0;
   BLEDevice central = BLE.central();
   
   if (central) {
     Serial.print("Connected to: ");
     Serial.println(central.address());
     digitalWrite(LED_BUILTIN, HIGH);
+    dataReadyChar.writeValue(0);  
   
     while (central.connected()) {
         digitalWrite(sendLED, LOW);
         digitalWrite(saveLED, LOW);
+       
         saveStatus = digitalRead(saveButton);
         if (saveStatus) {
           Serial.println("Starting Save In 3 Seconds!");
-          blinkSaveLED(); 
-          startSave();
+          blinkSaveLED(500); 
+          dataReady = startSave(imuDataL);
+          dataReadyChar.writeValue(dataReady);
           digitalWrite(saveLED, LOW);
           Serial.println("Saved!");
-          delay(100);
+          //delay(100);
+          bool dataSent = sendData(imuDataL);
+          dataReadyChar.writeValue(!dataSent);
+          digitalWrite(sendLED, LOW);
         }
     }
   }
@@ -93,50 +107,52 @@ void loop() {
 }
 
 
-void blinkSaveLED() {
+void blinkSaveLED(int period) {
   digitalWrite(saveLED, HIGH);
-  delay(500);
+  delay(period);
   digitalWrite(saveLED, LOW); 
-  delay(500); 
+  delay(period); 
   digitalWrite(saveLED,HIGH);
-  delay(500);
-  digitalWrite(saveLED, HIGH);
-  delay(500);
-  digitalWrite(saveLED, LOW); 
-  delay(500); 
-  digitalWrite(saveLED,HIGH);
-  delay(500);
+  delay(period);
+  digitalWrite(saveLED, LOW);
+  delay(period);
+  digitalWrite(saveLED, HIGH); 
+  delay(period); 
+  digitalWrite(saveLED,LOW);
+  delay(period);
+  if (period == 500) { digitalWrite(saveLED, HIGH); }
 }
 
-void startSave() {
+bool startSave(long imuDataL[][9]) {
   const bool readMag = false;
   const byte captureTimeSecs = 2;
-  const unsigned short totalSamples = sampleRates[0] * captureTimeSecs;
   unsigned short samplesRead = 0;
   float imuDataF [totalSamples][9];
-  long imuDataL [totalSamples][9]; // = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-  
-  //Serial.println(totalSamples);
-  //bool newSampleRead; 
-  
-  //do {
-  samplesRead = getVals(imuDataF, totalSamples, samplesRead, readMag);
-  //Serial.println(samplesRead);
-    //Serial.println(samplesRead);
-    //delay(100);
-  //} while (newSampleRead && (samplesRead != totalSamples)); // getVals return
+  bool success = 0;
 
+  samplesRead = getVals(imuDataF, samplesRead, readMag);
+  
   if (samplesRead == totalSamples) {
     digitalWrite(saveLED, LOW);
     digitalWrite(sendLED, HIGH);
-    bleWrite(imuDataF,imuDataL,totalSamples);
-    digitalWrite(sendLED, LOW);
+    
+    success = saveData(imuDataF, imuDataL);
+    
+    if (success) {
+      Serial.println("Data save successful");
+      //blinkSaveLED(20);  
+    } else {
+      Serial.println("Data save unsuccessful");
+      digitalWrite(saveLED, LOW);
+    } 
   }
+
+  return success;
 }
 
 
 // TODO: add timeout based on millis
-unsigned short getVals(float dataOut[][9], unsigned short totalSamples, unsigned short sampleNo, bool readMag) {
+unsigned short getVals(float dataOut[][9], unsigned short sampleNo, bool readMag) {
   //bool ready = true;
   //float dataOut[9] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
   int maxSamplePeriod = 1000/sampleRates[0];
@@ -153,19 +169,56 @@ unsigned short getVals(float dataOut[][9], unsigned short totalSamples, unsigned
   return sampleNo;
 }  
 
-bool bleWrite(float imuDataF[][9], long imuDataL[][9], int totalSamples) {
+bool saveData(float imuDataF[][9], long imuDataL[][9]) {
    Serial.println("Sending data...");
+   int totalRead = 0;
    for (int i = 0; i < totalSamples; i++) {
-    //byte buff[36];
-    //long shift = 0;
     for (int j = 0; j < 9; j++) {
       float scaled = imuDataF[i][j] * 1000.0;
       imuDataL[i][j] = (long) scaled;
-      imuChar.writeValue(imuDataL[i][j]);
+      //imuChar.writeValue(imuDataL[i][j]);
+      totalRead++; 
       Serial.print(imuDataL[i][j]);
       Serial.print(",");
     }
     Serial.println();
     //delay(10);
-   } 
+   }
+   Serial.println(totalRead);
+   if (totalRead == (totalSamples*9)) {
+    return 1;  
+   } else {
+    return 0;
+   }
 } 
+
+bool sendData(long imuDataL[][9]) {
+  int totalSent = 0;
+
+   for (int i = 0; i < totalSamples; i++) {
+     byte buff[36];
+     byte offset = 0;
+         
+    for (int j = 0; j < 9; j++) {
+      byte shift = 0;
+      //Serial.print("Pre-Shift:\t");
+      //Serial.println(imuDataL[i][j], BIN); 
+      for (int k = 0; k < 4; k++) {
+        buff[k+offset] = (byte) (imuDataL[i][j] >> shift);
+        shift += 8;
+        //Serial.print("Post-Shift:\t");
+        //Serial.println(buff[k+offset], BIN); 
+      }     
+      offset += 4;
+      totalSent++;      
+    }
+    
+    imuChar.writeValue(buff, 36);
+   }
+
+   if (totalSent== (totalSamples*9)) {
+    return 1;  
+   } else {
+    return 0;
+   }
+}
