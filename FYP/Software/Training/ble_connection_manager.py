@@ -1,13 +1,26 @@
-#import bluetooth, traceback
-from PyQt5.QtCore import QElapsedTimer
+from PyQt5.QtCore import QElapsedTimer, QObject
 import asyncio
-from bleak import discover, BleakClient
-from numpy import zeros
+#from bleak import discover, BleakClient
 from csv_writer import SerialToCSV
 
+UUIDs = {
+    'data_ready': ('a34984b9-7b89-4553-aced-242a0b289bbc', '4174c433-4064-4349-bfa2-009a432a24a4'),
+    'imu': ('f9dd156e-f108-4139-925c-dd1f157cffa0', '41277a1b-b4f8-4ddc-871a-db0dd23a3a31'),
+    'data_send': ('ab36b3d9-12e4-4922-ac94-8873e8252045', '976aca21-135a-4dfa-b548-68308f7acceb')
+}
 
-class ConnectionManagerBLE:
+params = {
+    # 'address': 57:0F:6E:FA:4E:C9',
+    'name': 'FallDetector',
+    'samples': 238,
+    'length': 9
+}
+
+
+class ConnectionManagerBLE(QObject):
+
     def __init__(self, target_name='FallDetector', total_samples=238, payload_length=9):
+        super().__init__()
         self.target_name = target_name
         self.total_samples = total_samples
         self.payload_length = payload_length
@@ -18,7 +31,8 @@ class ConnectionManagerBLE:
         self.current_sample = 0
         #self.loop = asyncio.get_event_loop()
 
-    async def run(self):
+    async def discover_devices(self):
+        from bleak import discover
         self.discovered_devices = await discover()
         for d in self.discovered_devices:
             print(d)
@@ -46,21 +60,23 @@ class ConnectionManagerBLE:
 
     # TODO: Add attempt counter
     async def connect(self, loop):
+        from bleak import BleakClient
+
         async with BleakClient(self.target_address, loop=loop) as client:
             self.connected = await client.is_connected()
             print("Connected: {0}".format(self.connected))
 
             if self.connected:
                 self.current_sample = 0
-                await client.start_notify(UUIDs['imu'][1], self.notification_handler)
+                await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
                 print('Waiting for readings...')
                 while self.connected and self.current_sample != self.total_samples:
                     self.connected = await client.is_connected()
-                    #await asyncio.sleep(1.0, loop=loop)
+                    await asyncio.sleep(0.1, loop=loop)
                 await client.stop_notify(UUIDs['imu'][1])
                 return self.data
 
-    def notification_handler(self, sender, data):
+    def imu_notification_handler(self, sender, data):
         """Simple notification handler which prints the data received."""
         parsed_data = bytearray_to_int(data)
         self.data.append(parsed_data)
@@ -74,22 +90,11 @@ def bytearray_to_int(array):
 
 
 if __name__ == '__main__':
-    UUIDs = {
-        'data_ready': ('a34984b9-7b89-4553-aced-242a0b289bbc', '4174c433-4064-4349-bfa2-009a432a24a4'),
-        'imu': ('f9dd156e-f108-4139-925c-dd1f157cffa0', '41277a1b-b4f8-4ddc-871a-db0dd23a3a31')
-    }
-
-    params = {
-        # 'address': 57:0F:6E:FA:4E:C9',
-        'name': 'FallDetector',
-        'samples': 238,
-        'length': 9
-    }
-
+    #from bleak import discover, BleakClient
     connection_manager = ConnectionManagerBLE(target_name=params['name'], total_samples=params['samples'], payload_length=params['length'])
 
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(connection_manager.run())
+    loop.run_until_complete(connection_manager.discover_devices())
     found = connection_manager.find_detector()
 
     if found != -1:

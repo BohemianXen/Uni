@@ -10,7 +10,7 @@ const byte sendLED = 4;
 const byte saveButton = 5; 
 const byte sendButton = 6;
 //const unsigned long debounceTime = 1000;
-const unsigned short totalSamples = 238; //sampleRates[0] * captureTimeSecs;
+unsigned short totalSamples = 238; //sampleRates[0] * captureTimeSecs;
 byte saveStatus, sendStatus = 0;
 byte sampleRates [3] = {0, 0, 0}; // {IMU.accelerationSampleRate(), IMU.gyroscopeSampleRate(), IMU.magneticFieldSampleRate()};
 
@@ -20,6 +20,10 @@ BLEBoolCharacteristic dataReadyChar("4174c433-4064-4349-bfa2-009a432a24a4", BLER
 
 BLEService imuService("f9dd156e-f108-4139-925c-dd1f157cffa0");
 BLECharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLENotify, 36);
+
+BLEService sendDataService("ab36b3d9-12e4-4922-ac94-8873e8252045");
+BLEBoolCharacteristic sendDataChar("976aca21-135a-4dfa-b548-68308f7acceb", BLERead | BLEWrite);
+
 
 
 //BLEDevice central;
@@ -62,9 +66,13 @@ void setup() {
 
   dataReadyService.addCharacteristic(dataReadyChar);
   imuService.addCharacteristic(imuChar);
+  sendDataService.addCharacteristic(sendDataChar);
   BLE.addService(dataReadyService);
   BLE.addService(imuService);
-  
+  BLE.addService(sendDataService);
+
+  //sendDataChar.setEventHandler(BLEWritten, sendData);
+   
   BLE.setAdvertisedService(dataReadyService);
   BLE.advertise();
   Serial.println("Advertising...");
@@ -79,13 +87,14 @@ void loop() {
     Serial.print("Connected to: ");
     Serial.println(central.address());
     digitalWrite(LED_BUILTIN, HIGH);
-    dataReadyChar.writeValue(0);  
+    dataReadyChar.writeValue(0);
+    sendDataChar.writeValue(0);  
   
     while (central.connected()) {
         digitalWrite(sendLED, LOW);
         digitalWrite(saveLED, LOW);
        
-        saveStatus = digitalRead(saveButton);
+        saveStatus = digitalRead(saveButton) || sendDataChar.value();
         if (saveStatus) {
           Serial.println("Starting Save In 3 Seconds!");
           blinkSaveLED(500); 
@@ -95,11 +104,13 @@ void loop() {
           Serial.println("Saved!");
           //delay(100);
           bool dataSent = sendData(imuDataL);
-          dataReadyChar.writeValue(!dataSent);
+          dataReadyChar.writeValue(0);
+          sendDataChar.writeValue(0);
           digitalWrite(sendLED, LOW);
         }
     }
   }
+  
   digitalWrite(LED_BUILTIN, LOW);
   Serial.print("Disconnected from: ");
   Serial.println(central.address());

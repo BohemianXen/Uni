@@ -4,8 +4,23 @@ from Logger import Logger
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QFileDialog
+
 from ui_files.main_view_ui import Ui_MainWindow
 from Plotter import Plotter
+from ble_connection_manager import ConnectionManagerBLE
+from StreamManager import StreamManager
+
+#import asyncio
+from PyQt5.QtCore import QThreadPool
+#from asyncqt import QEventLoop, asyncSlot, asyncClose
+
+
+params = {
+    # 'address': 57:0F:6E:FA:4E:C9',
+    'name': 'FallDetector',
+    'samples': 238,
+    'length': 9
+}
 
 
 class GUI(QApplication):
@@ -49,25 +64,23 @@ class MainView(QMainWindow):
 
     def __init__(self):
         super().__init__()
-
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
-        self._plotter = Plotter(self._ui)
 
-        self._filename = ''
+        self._plotter = Plotter(self._ui)
+        self._connection_manager = ConnectionManagerBLE(target_name=params['name'], total_samples=params['samples'], payload_length=params['length'])
+        self._stream_manager = StreamManager(params, self._connection_manager)
+
+        self._pool = QThreadPool.globalInstance()
 
         self._ui.filePushButton.clicked.connect(lambda: self.file_button_clicked())
         self._ui.plotPushButton.clicked.connect(lambda: self.plot_button_clicked())
+        self._ui.connectPushButton.clicked.connect(lambda: self.connect_button_clicked())
         self._ui.plotPushButton.setEnabled(False)
 
-        # tab indices
-        self._tabs = {
-            '1': self._ui.configTab,
-            '2': self._ui.plotTab,
-            #'3': self._ui.trainTab,
-        }
+        self._filename = ''
 
     def file_button_clicked(self):
         self._filename = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"CSV Files(*.csv)")[0]
@@ -93,9 +106,12 @@ class MainView(QMainWindow):
             self._plotter.add_legends()
             self._plotter.plot(data)
 
+    def connect_button_clicked(self):
+        self._pool.start(self._stream_manager)
+
     def closeEvent(self, *args, **kwargs):
         self._logger.log('Close button clicked. Shutting down.', Logger.DEBUG)
-        self._controller.on_close()
+        #self._controller.on_close()
 
 
 if __name__ == '__main__':

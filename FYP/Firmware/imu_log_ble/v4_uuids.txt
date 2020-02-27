@@ -2,3 +2,6 @@ a34984b9-7b89-4553-aced-242a0b289bbc - dataReadyService
 4174c433-4064-4349-bfa2-009a432a24a4 - dataReadyChar
 f9dd156e-f108-4139-925c-dd1f157cffa0 - imuService
 41277a1b-b4f8-4ddc-871a-db0dd23a3a31 - imuChar
+ab36b3d9-12e4-4922-ac94-8873e8252045 - sendDataService
+976aca21-135a-4dfa-b548-68308f7acceb - sendDataChar
+
