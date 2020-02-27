@@ -28,7 +28,7 @@ void setup() {
   pinMode(saveButton, INPUT);
   pinMode(sendButton, INPUT);
   
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   if (!IMU.begin()) {
     Serial.println("Failed to initialise IMU!");

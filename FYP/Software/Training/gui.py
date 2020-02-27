@@ -1,0 +1,106 @@
+import sys
+from csv import reader as csv_reader
+from Logger import Logger
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QFileDialog
+from ui_files.main_view_ui import Ui_MainWindow
+from Plotter import Plotter
+
+
+class GUI(QApplication):
+    """ Application class. Instantiates all UI models, views, and controllers.
+
+    Args:
+        sys_argv (list): Command line arguments for debug purposes.
+
+    Parameters:
+        DEBUG_MODE (bool): Class attribute depicting run mode.
+        name (str): The name of this class name.
+        logger (Logger): Logging instance for this class.
+        module_names (list): List of all the modules present in the app.
+    """
+
+    DEBUG_MODE = False
+
+    def __init__(self, sys_argv):
+        super(GUI, self).__init__(sys_argv)
+        self.setStyle('Fusion')
+        self.name = self.__class__.__name__
+        self.logger = Logger(self.name)
+        self.logger.log('App started', Logger.INFO)
+        self.main_view = MainView()
+        self.main_view.show()
+
+
+class MainView(QMainWindow):
+    """ View class. Instantiates all UI QWidgets associated with this view and links signals to controller slots.
+
+    Args:
+        controller (QWidget): The view's corresponding controller; that which manipulates this view.
+
+    Parameters:
+        _controller (QWidget): A reference to the passed controller.
+        _ui (Ui_LiveView): Holds all the generated UI elements for an added layer of abstraction.
+        name (str): The name of this class.
+        _logger (Logger): Logging instance for this class.
+        _tabs (dict): Maps the tab indexes to their corresponding view objects.
+    """
+
+    def __init__(self):
+        super().__init__()
+
+        self._ui = Ui_MainWindow()
+        self._ui.setupUi(self)
+        self.name = self.__class__.__name__
+        self._logger = Logger(self.name)
+        self._plotter = Plotter(self._ui)
+
+        self._filename = ''
+
+        self._ui.filePushButton.clicked.connect(lambda: self.file_button_clicked())
+        self._ui.plotPushButton.clicked.connect(lambda: self.plot_button_clicked())
+        self._ui.plotPushButton.setEnabled(False)
+
+        # tab indices
+        self._tabs = {
+            '1': self._ui.configTab,
+            '2': self._ui.plotTab,
+            #'3': self._ui.trainTab,
+        }
+
+    def file_button_clicked(self):
+        self._filename = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"CSV Files(*.csv)")[0]
+        if self._filename != '':
+            msg = 'Selected: ' + self._filename[self._filename.rfind('/')+1:]  # .rstrip('.csv')
+            self._logger.log(msg, Logger.INFO)
+            self._ui.fileLabel.setText(msg)
+            self._ui.plotPushButton.setEnabled(True)
+        else:
+            self._ui.fileLabel.setText('No File Selected')
+            self._ui.plotPushButton.setEnabled(False)
+
+    def plot_button_clicked(self):
+        data = []
+        with open(self._filename, 'r', newline='') as file:
+            reader = csv_reader(file, delimiter=',')
+            for row in reader:
+                if row[0] != 'ax':
+                    data.append([float(val) for val in row])
+
+        if len(data) != 0:
+            self._plotter.clear_plots(legend_clear=False)
+            self._plotter.add_legends()
+            self._plotter.plot(data)
+
+    def closeEvent(self, *args, **kwargs):
+        self._logger.log('Close button clicked. Shutting down.', Logger.DEBUG)
+        self._controller.on_close()
+
+
+if __name__ == '__main__':
+    gui = GUI(sys.argv)
+    if gui.arguments()[1] == '-d':
+        gui.DEBUG_MODE = True
+
+        sys.exit(gui.exec_())

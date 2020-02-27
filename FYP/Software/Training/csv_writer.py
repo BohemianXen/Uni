@@ -55,7 +55,7 @@ class SerialToCSV:
 if __name__ == '__main__':
     params = {
         'port_no': 5,
-        'rate': 9600,
+        'rate': 115200,
         'timeout': 1,
         'samples': 238
     }

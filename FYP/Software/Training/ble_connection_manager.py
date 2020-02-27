@@ -5,6 +5,7 @@ from bleak import discover, BleakClient
 from numpy import zeros
 from csv_writer import SerialToCSV
 
+
 class ConnectionManagerBLE:
     def __init__(self, target_name='FallDetector', total_samples=238, payload_length=9):
         self.target_name = target_name
