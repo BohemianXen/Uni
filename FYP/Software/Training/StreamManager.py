@@ -1,8 +1,16 @@
 import asyncio
-from PyQt5.QtCore import QRunnable
+from PyQt5.QtCore import QRunnable, QObject, pyqtSignal, pyqtSlot
 from Logger import Logger
-from ble_connection_manager import ConnectionManagerBLE
 from csv_writer import SerialToCSV
+from asyncqt import asyncSlot
+
+class StreamManagerSignals(QObject):
+    deviceFound = pyqtSignal(bool)
+    dataReady = pyqtSignal(list)
+    connected = pyqtSignal(bool)
+
+    def __init__(self):
+        super(StreamManagerSignals, self).__init__()
 
 
 class StreamManager(QRunnable):
@@ -10,16 +18,13 @@ class StreamManager(QRunnable):
         super(StreamManager, self).__init__()
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
+        self.signals = StreamManagerSignals()
         self._params = params
         self._connection_manager = connection_manager
 
-
     def run(self) -> None:
-        #connection_manager = ConnectionManagerBLE(target_name=self._params['name'], total_samples=self._params['samples'],
-        #                                          payload_length=self._params['length'])
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        #time.sleep(2)
         loop = asyncio.get_event_loop()
         loop.set_debug(False)
         loop.run_until_complete(self._connection_manager.discover_devices())
@@ -28,13 +33,10 @@ class StreamManager(QRunnable):
         if found != -1:
             print('\nConnecting to %s (with address %s)' % (
             self._connection_manager.target_name, self._connection_manager.target_address))
-            #loop = asyncio.get_event_loop()
-            data = loop.run_until_complete(self._connection_manager.connect(loop))
-            success = SerialToCSV.write_data(data)
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(self._connection_manager.connect(loop))
 
-            if success != -1:
-                print('Successfully wrote %d entries' % success)
-            else:
-                print('Failed to save data')
-            loop.close()
+        else:
+            print('Could not find a fall detector device')
 
+        loop.stop()

@@ -90,6 +90,8 @@ class Plotter:
         self._ui.gyroPlot.setXRange(0, len(data), padding=0.02)
         self._ui.magPlot.setXRange(0, len(data), padding=0.02)
 
+        self._acc_plot.plot().getViewBox().enableAutoRange()
+
         for sensor in range(3):
             acc_series = [packet[sensor] for packet in data]
             gyro_series = [packet[sensor+3] for packet in data]

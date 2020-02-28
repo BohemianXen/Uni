@@ -1,6 +1,6 @@
-from PyQt5.QtCore import QElapsedTimer, QObject
+from PyQt5.QtCore import QElapsedTimer, QObject, pyqtSignal
+from Logger import Logger
 import asyncio
-#from bleak import discover, BleakClient
 from csv_writer import SerialToCSV
 
 UUIDs = {
@@ -17,10 +17,21 @@ params = {
 }
 
 
-class ConnectionManagerBLE(QObject):
+class ConnectionManagerSignals(QObject):
+    dataReady = pyqtSignal(list)
+    connected = pyqtSignal(bool)
 
-    def __init__(self, target_name='FallDetector', total_samples=238, payload_length=9):
+    def __init__(self):
+        super(ConnectionManagerSignals, self).__init__()
+
+
+class ConnectionManagerBLE(QObject):
+    def __init__(self, caller=None, target_name='FallDetector', total_samples=238, payload_length=9):
         super().__init__()
+        self.name = self.__class__.__name__
+        self._logger = Logger(self.name)
+
+        self.caller = caller
         self.target_name = target_name
         self.total_samples = total_samples
         self.payload_length = payload_length
@@ -29,7 +40,20 @@ class ConnectionManagerBLE(QObject):
         self.connected = False
         self.data = []  # zeros((total_samples, payload_length))
         self.current_sample = 0
-        #self.loop = asyncio.get_event_loop()
+        self._start_stream = False
+
+        if self.caller is not None:
+            self.signals = ConnectionManagerSignals()
+            self.signals.connected.connect(self.caller.device_connected)
+            self.signals.dataReady.connect(self.caller.data_ready)
+
+    @property
+    def start_stream(self):
+        return self._start_stream
+
+    @start_stream.setter
+    def start_stream(self, value):
+        self._start_stream = value
 
     async def discover_devices(self):
         from bleak import discover
@@ -63,18 +87,40 @@ class ConnectionManagerBLE(QObject):
         from bleak import BleakClient
 
         async with BleakClient(self.target_address, loop=loop) as client:
+            self._client = client
             self.connected = await client.is_connected()
             print("Connected: {0}".format(self.connected))
-
             if self.connected:
+                if self.caller is not None:
+                    self.signals.connected.emit(True)
+
                 self.current_sample = 0
                 await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
+
                 print('Waiting for readings...')
-                while self.connected and self.current_sample != self.total_samples:
+                while self.connected:
+                    if self.current_sample == self.total_samples:
+                        if self.caller is not None:
+                            self.signals.dataReady.emit(self.data)
+                            print('Done transferring data')
+                            self.current_sample = 0
+                            self.start_stream = False
+                        else:
+                            return self.data
+
+                    if self.start_stream:
+                        print('Starting recording through UI')
+                        await client.write_gatt_char(UUIDs['data_send'][1], bytearray([0x01]), response=True)
+
+
                     self.connected = await client.is_connected()
                     await asyncio.sleep(0.1, loop=loop)
                 await client.stop_notify(UUIDs['imu'][1])
-                return self.data
+                #return self.data
+            else:
+                print('Disconnected')
+                if self.caller is not None:
+                    self.signals.connected.emit(False)
 
     def imu_notification_handler(self, sender, data):
         """Simple notification handler which prints the data received."""
@@ -82,6 +128,7 @@ class ConnectionManagerBLE(QObject):
         self.data.append(parsed_data)
         print("{0}: {1}".format(sender, parsed_data))
         self.current_sample += 1
+        self.start_stream = False
 
 
 def bytearray_to_int(array):
@@ -90,7 +137,7 @@ def bytearray_to_int(array):
 
 
 if __name__ == '__main__':
-    #from bleak import discover, BleakClient
+
     connection_manager = ConnectionManagerBLE(target_name=params['name'], total_samples=params['samples'], payload_length=params['length'])
 
     loop = asyncio.get_event_loop()
@@ -107,3 +154,4 @@ if __name__ == '__main__':
             print('Successfully wrote %d entries' % success)
         else:
             print('Failed to save data')
+    exit(0)

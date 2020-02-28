@@ -1,18 +1,18 @@
 import sys
 from csv import reader as csv_reader
 from Logger import Logger
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
+from PyQt5.QtCore import pyqtSignal, pyqtSlot
 
 from ui_files.main_view_ui import Ui_MainWindow
 from Plotter import Plotter
 from ble_connection_manager import ConnectionManagerBLE
 from StreamManager import StreamManager
+from csv_writer import SerialToCSV
 
 #import asyncio
 from PyQt5.QtCore import QThreadPool
-#from asyncqt import QEventLoop, asyncSlot, asyncClose
+from asyncqt import QEventLoop, asyncSlot, asyncClose
 
 
 params = {
@@ -70,7 +70,7 @@ class MainView(QMainWindow):
         self._logger = Logger(self.name)
 
         self._plotter = Plotter(self._ui)
-        self._connection_manager = ConnectionManagerBLE(target_name=params['name'], total_samples=params['samples'], payload_length=params['length'])
+        self._connection_manager = ConnectionManagerBLE(caller=self, target_name=params['name'], total_samples=params['samples'], payload_length=params['length'])
         self._stream_manager = StreamManager(params, self._connection_manager)
 
         self._pool = QThreadPool.globalInstance()
@@ -78,9 +78,10 @@ class MainView(QMainWindow):
         self._ui.filePushButton.clicked.connect(lambda: self.file_button_clicked())
         self._ui.plotPushButton.clicked.connect(lambda: self.plot_button_clicked())
         self._ui.connectPushButton.clicked.connect(lambda: self.connect_button_clicked())
-        self._ui.plotPushButton.setEnabled(False)
+        self._ui.recordPushButton.clicked.connect(lambda: self.record_button_clicked())
 
         self._filename = ''
+        self._connected = False
 
     def file_button_clicked(self):
         self._filename = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"CSV Files(*.csv)")[0]
@@ -108,6 +109,37 @@ class MainView(QMainWindow):
 
     def connect_button_clicked(self):
         self._pool.start(self._stream_manager)
+        self._ui.connectPushButton.setEnabled(False)
+
+    def record_button_clicked(self):
+        if self._connected:
+            self._ui.connectPushButton.setEnabled(False)
+            if not self._connection_manager.start_stream:
+                self._connection_manager.start_stream = True
+        else:
+            self._ui.connectPushButton.setEnabled(True)
+            self._ui.recordPushButton.setEnabled(False)
+
+
+    @pyqtSlot(bool)
+    def device_connected(self, connected):
+        self._connected = connected
+        if connected:
+            self._ui.connectPushButton.setEnabled(False)
+            self._ui.recordPushButton.setEnabled(True)
+        else:
+            self._ui.connectPushButton.setEnabled(True)
+            self._ui.recordPushButton.setEnabled(False)
+        #self.signals.connected.emit(connected)
+
+    @pyqtSlot(list)
+    def data_ready(self, data):
+        #self.signals.dataReady.emit(data)
+        success = SerialToCSV.write_data(data)
+        if success != -1:
+            print('Successfully wrote %d entries' % success)
+        else:
+            print('Failed to save data')
 
     def closeEvent(self, *args, **kwargs):
         self._logger.log('Close button clicked. Shutting down.', Logger.DEBUG)

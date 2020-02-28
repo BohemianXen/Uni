@@ -24,8 +24,6 @@ BLECharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLEN
 BLEService sendDataService("ab36b3d9-12e4-4922-ac94-8873e8252045");
 BLEBoolCharacteristic sendDataChar("976aca21-135a-4dfa-b548-68308f7acceb", BLERead | BLEWrite);
 
-
-
 //BLEDevice central;
 
 
@@ -93,10 +91,13 @@ void loop() {
     while (central.connected()) {
         digitalWrite(sendLED, LOW);
         digitalWrite(saveLED, LOW);
-       
-        saveStatus = digitalRead(saveButton) || sendDataChar.value();
-        if (saveStatus) {
-          Serial.println("Starting Save In 3 Seconds!");
+        
+        byte external_start = 0;
+        sendDataChar.readValue(external_start);
+        if (external_start) { Serial.println("Received start command from central"); }
+
+        if (external_start || digitalRead(saveButton)) {
+          Serial.println("Starting save in 3 seconds");
           blinkSaveLED(500); 
           dataReady = startSave(imuDataL);
           dataReadyChar.writeValue(dataReady);
