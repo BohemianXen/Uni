@@ -2,13 +2,13 @@ import sys
 from csv import reader as csv_reader
 from Logger import Logger
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication
 
 from ui_files.main_view_ui import Ui_MainWindow
 from Plotter import Plotter
 from ble_connection_manager import ConnectionManagerBLE
 from StreamManager import StreamManager
-from csv_writer import SerialToCSV
+from processing.CSVConverters import CSVConverters
 
 #import asyncio
 from PyQt5.QtCore import QThreadPool
@@ -79,6 +79,7 @@ class MainView(QMainWindow):
         self._ui.plotPushButton.clicked.connect(lambda: self.plot_button_clicked())
         self._ui.connectPushButton.clicked.connect(lambda: self.connect_button_clicked())
         self._ui.recordPushButton.clicked.connect(lambda: self.record_button_clicked())
+        self._ui.progressBar.setValue(0)
 
         self._filename = ''
         self._connected = False
@@ -95,13 +96,7 @@ class MainView(QMainWindow):
             self._ui.plotPushButton.setEnabled(False)
 
     def plot_button_clicked(self):
-        data = []
-        with open(self._filename, 'r', newline='') as file:
-            reader = csv_reader(file, delimiter=',')
-            for row in reader:
-                if row[0] != 'ax':
-                    data.append([float(val) for val in row])
-
+        data = CSVConverters.csv_to_list(self._filename)
         if len(data) != 0:
             self._plotter.clear_plots(legend_clear=False)
             self._plotter.add_legends()
@@ -110,8 +105,9 @@ class MainView(QMainWindow):
     def connect_button_clicked(self):
         self._pool.start(self._stream_manager)
         self._ui.connectPushButton.setEnabled(False)
+        self._ui.progressBar.setValue(0)
 
-    def record_button_clicked(self):
+    def record_button_clicked(self):# TODO: disable while saving
         if self._connected:
             self._ui.connectPushButton.setEnabled(False)
             if not self._connection_manager.start_stream:
@@ -119,6 +115,8 @@ class MainView(QMainWindow):
         else:
             self._ui.connectPushButton.setEnabled(True)
             self._ui.recordPushButton.setEnabled(False)
+            self._ui.progressBar.setValue(0)
+
 
 
     @pyqtSlot(bool)
@@ -135,15 +133,28 @@ class MainView(QMainWindow):
     @pyqtSlot(list)
     def data_ready(self, data):
         #self.signals.dataReady.emit(data)
-        success = SerialToCSV.write_data(data)
+        success = CSVConverters.write_data(data)
         if success != -1:
             print('Successfully wrote %d entries' % success)
         else:
             print('Failed to save data')
+        self._connection_manager.data = []
+
+    @pyqtSlot(int)
+    def update_progress(self, value):
+        percentage = int((value/params['samples']) * 100)
+        self._ui.progressBar.setValue(percentage)
 
     def closeEvent(self, *args, **kwargs):
         self._logger.log('Close button clicked. Shutting down.', Logger.DEBUG)
-        #self._controller.on_close()
+        #pools = QThreadPool.globalInstance()
+        self._model.controllers['live'].stop_streaming('main controller')
+        print('{} thread(s) were running on termination'.format(self.pools.activeThreadCount()))
+        while self.pools.activeThreadCount() > 0:
+            self.pools.waitForDone(500)
+            print('Finishing up...')
+
+        QCoreApplication.exit(0)
 
 
 if __name__ == '__main__':

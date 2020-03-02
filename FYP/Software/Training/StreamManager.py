@@ -1,8 +1,7 @@
 import asyncio
 from PyQt5.QtCore import QRunnable, QObject, pyqtSignal, pyqtSlot
 from Logger import Logger
-from csv_writer import SerialToCSV
-from asyncqt import asyncSlot
+
 
 class StreamManagerSignals(QObject):
     deviceFound = pyqtSignal(bool)

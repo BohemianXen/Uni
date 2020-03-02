@@ -80,7 +80,7 @@ QTabBar::tab:selected,  QTabBar::tab:hover { background-color: rgb(90, 90, 121);
 QTabWidget::pane { border: 0px}</string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="configTab">
      <property name="styleSheet">

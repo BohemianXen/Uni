@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QElapsedTimer, QObject, pyqtSignal
 from Logger import Logger
 import asyncio
-from csv_writer import SerialToCSV
+from processing.CSVConverters import CSVConverters
 
 UUIDs = {
     'data_ready': ('a34984b9-7b89-4553-aced-242a0b289bbc', '4174c433-4064-4349-bfa2-009a432a24a4'),
@@ -20,6 +20,7 @@ params = {
 class ConnectionManagerSignals(QObject):
     dataReady = pyqtSignal(list)
     connected = pyqtSignal(bool)
+    progressUpdated = pyqtSignal(int)
 
     def __init__(self):
         super(ConnectionManagerSignals, self).__init__()
@@ -46,6 +47,7 @@ class ConnectionManagerBLE(QObject):
             self.signals = ConnectionManagerSignals()
             self.signals.connected.connect(self.caller.device_connected)
             self.signals.dataReady.connect(self.caller.data_ready)
+            self.signals.progressUpdated.connect(self.caller.update_progress)
 
     @property
     def start_stream(self):
@@ -128,6 +130,8 @@ class ConnectionManagerBLE(QObject):
         self.data.append(parsed_data)
         print("{0}: {1}".format(sender, parsed_data))
         self.current_sample += 1
+        if self.caller is not None:
+            self.signals.progressUpdated.emit(self.current_sample)
         self.start_stream = False
 
 
@@ -148,7 +152,7 @@ if __name__ == '__main__':
         print('\nConnecting to %s (with address %s)' % (connection_manager.target_name, connection_manager.target_address))
         loop = asyncio.get_event_loop()
         data = loop.run_until_complete(connection_manager.connect(loop))
-        success = SerialToCSV.write_data(data)
+        success = CSVConverters.write_data(data)
 
         if success != -1:
             print('Successfully wrote %d entries' % success)
