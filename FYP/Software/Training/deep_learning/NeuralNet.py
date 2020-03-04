@@ -11,17 +11,21 @@ from datetime import datetime
 
 
 class NeuralNet:
-    def __init__(self, inputs=238, hiddens=500,  outputs=2, activation='relu', epochs=10, lr=0.3, mag=False):
-        self._inputs = (inputs * 9) if mag else (inputs * 6)
+    def __init__(self, mag=False, inputs=238, hiddens=500,  outputs=2, activation='relu', epochs=10, lr=0.3, ):
+        self._mag = mag
+        self._inputs = (inputs * 9) if self._mag else (inputs * 6)
+
         self._hiddens = hiddens
         self._outputs = outputs
         self._activation = activation
         self._epochs = epochs
         self._lr = lr
-        self._mag = mag
-
         self._data = []
-        self._limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
+
+        if self._mag:
+            self._limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
+        else:
+            self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
         input_layer = tf.keras.Input(shape=(self._inputs,))
         x = layers.Dense(self._hiddens)(input_layer)
@@ -38,7 +42,7 @@ class NeuralNet:
     def load_data(self, root, save=True):
         print('Parsing data in root directory \'%s\'\n' % root[root.rfind('\\')+1:])
         root = path.normpath(root)
-        dirs = [path.join(root, d) for d in listdir(root) if path.isdir(path.join(root, d))]
+        dirs = [path.join(root, d) for d in listdir(root) if path.isdir(path.join(root, d)) and 'General' not in d]
         data = []
 
         if dirs != 0:
@@ -48,12 +52,8 @@ class NeuralNet:
 
                 if files != 0:
                     for file in files:
-                        all_data = np.array(CSVConverters.csv_to_list(file), dtype=np.float64)
+                        all_data = np.array(CSVConverters.csv_to_list(file, remove_mag=(not self._mag)), dtype=np.float64)
                         normalised = all_data / self._limits[:, ]
-                        if not self._mag:
-                            all_data = np.array([x[:-3] for x in all_data], dtype=np.float64)
-                            normalised = all_data / ((self._limits[:-3])[:, ])
-
                         flattened = np.concatenate([[label], normalised.flatten()])
                         data.append(flattened)
 
@@ -104,7 +104,7 @@ class NeuralNet:
 
             for i, sample in enumerate(predictions):
                 guess = np.argmax(predictions[i])
-                if labels[i] == guess:
+                if labels[i] == guess:  # guess == np.random.choice([0, 1, labels[i]]):
                     score += 1
             score = (score / size) * 100.0
             print('Net performance: %.2f\n' % score)
@@ -124,7 +124,8 @@ if __name__ == '__main__':
         'lr': 0.3,
         'epochs': 10,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
+        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
+        'mag': False
     }
     test = r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data\Test_2'
     nn = NeuralNet()

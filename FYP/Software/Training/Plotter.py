@@ -83,9 +83,10 @@ class Plotter:
         self._gyro_plot.clear()
         self._mag_plot.clear()
 
-    def plot(self, data):
-        """Updates the accelerometer graph with new data."""
-        sensor_names = ['Acc X', 'Acc Y', 'Acc Z', 'Gyro X', 'Gyro Y', 'Gyro Z', 'Mag X', 'Mag Y', 'Mag Z']
+    def plot(self, data, mag=False):
+        """Updates the motion graphs with new data."""
+        sensor_names = ('Acc X', 'Acc Y', 'Acc Z', 'Gyro X', 'Gyro Y', 'Gyro Z', 'Mag X', 'Mag Y', 'Mag Z')
+        pens = ('r', 'g', 'b', 'w')
         self._ui.accPlot.setXRange(0, len(data), padding=0.02)
         self._ui.gyroPlot.setXRange(0, len(data), padding=0.02)
         self._ui.magPlot.setXRange(0, len(data), padding=0.02)
@@ -95,13 +96,18 @@ class Plotter:
         for sensor in range(3):
             acc_series = [packet[sensor] for packet in data]
             gyro_series = [packet[sensor+3] for packet in data]
-            mag_series = [packet[sensor+6] for packet in data]
-            self._acc_plot.plot().setData(y=acc_series, pen=(sensor, 3), name=sensor_names[sensor])
-            self._gyro_plot.plot().setData(y=gyro_series, pen=(sensor+3, 3), name=sensor_names[sensor+3])
-            self._mag_plot.plot().setData(y=mag_series, pen=(sensor+6, 3), name=sensor_names[sensor+6])
+            # TODO: Accx legend always uses default grey pen
+            self._acc_plot.plot().setData(y=acc_series, pen=pg.mkPen(pens[sensor]), name=sensor_names[sensor])
+            self._gyro_plot.plot().setData(y=gyro_series, pen=pg.mkPen(pens[sensor]), name=sensor_names[sensor+3])
+
+            if mag:
+                mag_series = [packet[sensor+6] for packet in data]
+                self._mag_plot.plot().setData(y=mag_series, pen=(sensor + 6, 3), name=sensor_names[sensor + 6])
 
         if len(self._acc_plot.legend.items) == 0:
             for sensor in range(3):
                 self._acc_plot.legend.addItem(self._acc_plot.items[sensor], name=sensor_names[sensor])
                 self._gyro_plot.legend.addItem(self._gyro_plot.items[sensor], name=sensor_names[sensor+3])
-                self._mag_plot.legend.addItem(self._mag_plot.items[sensor], name=sensor_names[sensor+6])
+
+                if mag:
+                    self._mag_plot.legend.addItem(self._mag_plot.items[sensor], name=sensor_names[sensor+6])

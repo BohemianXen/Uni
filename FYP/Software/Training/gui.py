@@ -18,8 +18,9 @@ from asyncqt import QEventLoop, asyncSlot, asyncClose
 params = {
     # 'address': 57:0F:6E:FA:4E:C9',
     'name': 'FallDetector',
-    'samples': 238,
-    'length': 9
+    'total samples': 480,
+    'sample length': 6,
+    'packet length': 4
 }
 
 
@@ -70,7 +71,10 @@ class MainView(QMainWindow):
         self._logger = Logger(self.name)
 
         self._plotter = Plotter(self._ui)
-        self._connection_manager = ConnectionManagerBLE(caller=self, target_name=params['name'], total_samples=params['samples'], payload_length=params['length'])
+        self._connection_manager = ConnectionManagerBLE(caller=self, target_name=params['name'],
+                                                        total_samples=params['total samples'],
+                                                        sample_length=params['sample length'],
+                                                        packet_length=params['packet length'])
         self._stream_manager = StreamManager(params, self._connection_manager)
 
         self._pool = QThreadPool.globalInstance()
@@ -100,7 +104,8 @@ class MainView(QMainWindow):
         if len(data) != 0:
             self._plotter.clear_plots(legend_clear=False)
             self._plotter.add_legends()
-            self._plotter.plot(data)
+            mag = True if len(data[0]) == 9 else False
+            self._plotter.plot(data, mag=mag)
 
     def connect_button_clicked(self):
         self._pool.start(self._stream_manager)
@@ -142,7 +147,7 @@ class MainView(QMainWindow):
 
     @pyqtSlot(int)
     def update_progress(self, value):
-        percentage = int((value/params['samples']) * 100)
+        percentage = int(((value*params['sample length'])/params['total samples']) * 100)
         self._ui.progressBar.setValue(percentage)
 
     def closeEvent(self, *args, **kwargs):

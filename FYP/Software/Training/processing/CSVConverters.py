@@ -12,7 +12,9 @@ class CSVConverters:
     def write_data(data, root='General'):
         written = 0
         with open('Training Data\\{0}\\{1}.csv'.format(root, datetime.now().strftime("%Y-%m-%d %H_%M_%S")), 'w', newline='') as f:
-            col_headers = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'mx', 'my', 'mz']
+            col_headers = ['ax', 'ay', 'az', 'gx', 'gy', 'gz']  #  'mx', 'my', 'mz']
+            if len(data[0]) == 9:
+                col_headers.extend(['mx', 'my', 'mz'])
             try:
                 f_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 f_writer.writerow(col_headers)
@@ -25,13 +27,16 @@ class CSVConverters:
         return written
 
     @staticmethod
-    def csv_to_list(filename):
+    def csv_to_list(filename, remove_mag=True):
         data = []
         with open(filename, 'r', newline='') as file:
             reader = csv.reader(file, delimiter=',')
             for row in reader:
                 if row[0] != 'ax':
-                    data.append([float(val) for val in row])
+                    if remove_mag and len(row) == 9:
+                        data.append([float(val) for val in row[:-3]])
+                    else:
+                        data.append([float(val) for val in row])
         return data
 
 

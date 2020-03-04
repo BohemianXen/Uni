@@ -12,8 +12,9 @@ UUIDs = {
 params = {
     # 'address': 57:0F:6E:FA:4E:C9',
     'name': 'FallDetector',
-    'samples': 238,
-    'length': 9
+    'total samples': 480,
+    'sample length': 6,
+    'packet length': 4
 }
 
 
@@ -27,7 +28,7 @@ class ConnectionManagerSignals(QObject):
 
 
 class ConnectionManagerBLE(QObject):
-    def __init__(self, caller=None, target_name='FallDetector', total_samples=238, payload_length=9):
+    def __init__(self, caller=None, target_name='FallDetector', total_samples=480, sample_length=6, packet_length=4):
         super().__init__()
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
@@ -35,13 +36,19 @@ class ConnectionManagerBLE(QObject):
         self.caller = caller
         self.target_name = target_name
         self.total_samples = total_samples
-        self.payload_length = payload_length
+        self.sample_length = sample_length
+        self.packet_length = packet_length
+        self.total_packets = int(self.total_samples/self.packet_length)
+
         self.devices_found = {}
         self.target_address = None
         self.connected = False
-        self.data = []  # zeros((total_samples, payload_length))
-        self.current_sample = 0
+        self.data = []  # zeros((total_samples, sample_length))
+        self.current_packet = 0
         self._start_stream = False
+
+        self.short_delay = 0.1
+        self.long_delay = 0.025 * self.total_samples
 
         if self.caller is not None:
             self.signals = ConnectionManagerSignals()
@@ -96,27 +103,32 @@ class ConnectionManagerBLE(QObject):
                 if self.caller is not None:
                     self.signals.connected.emit(True)
 
-                self.current_sample = 0
+                print('Starting data transfer notification')
                 await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
 
+                self.current_packet = 0
                 print('Waiting for readings...')
                 while self.connected:
-                    if self.current_sample == self.total_samples:
+                    delay = self.short_delay
+                    if self.current_packet == self.total_packets: # self.total_samples: # len(self.data) == self.total_samples:
                         if self.caller is not None:
                             self.signals.dataReady.emit(self.data)
-                            print('Done transferring data')
-                            self.current_sample = 0
+                            print('Done transferring data, saving to csv')
+                            self.current_packet = 0
                             self.start_stream = False
                         else:
+                            #loop.stop()
+                            await client.stop_notify(UUIDs['imu'][1])
                             return self.data
 
                     if self.start_stream:
                         print('Starting recording through UI')
                         await client.write_gatt_char(UUIDs['data_send'][1], bytearray([0x01]), response=True)
 
-
                     self.connected = await client.is_connected()
-                    await asyncio.sleep(0.1, loop=loop)
+                    await asyncio.sleep(delay, loop=loop)
+
+                print('Stopping data transfer notification')
                 await client.stop_notify(UUIDs['imu'][1])
                 #return self.data
             else:
@@ -126,23 +138,28 @@ class ConnectionManagerBLE(QObject):
 
     def imu_notification_handler(self, sender, data):
         """Simple notification handler which prints the data received."""
-        parsed_data = bytearray_to_int(data)
-        self.data.append(parsed_data)
-        print("{0}: {1}".format(sender, parsed_data))
-        self.current_sample += 1
+        parsed_data = bytearray_to_int(data, len(data), int(len(data)/4))
+        for entry in parsed_data:
+            self.data.append(entry)
+
+        self.current_packet += 1
+        #print("Packet no. {0}: {1}".format(self.current_packet, parsed_data))
+
         if self.caller is not None:
-            self.signals.progressUpdated.emit(self.current_sample)
+            self.signals.progressUpdated.emit(self.current_packet)
         self.start_stream = False
 
 
-def bytearray_to_int(array):
-    parsed = [int.from_bytes(array[i:i+3], byteorder='little', signed=True) for i in range(0, 36, 4)]
-    return [x/1000.0 for x in parsed]
+def bytearray_to_int(array, total_bytes, total_samples):
+    parsed = [int.from_bytes(array[i:i+3], byteorder='little', signed=True)/1000.0 for i in range(0, total_bytes, 4)]
+    parsed_split = [parsed[i:i + 6] for i in range(0, total_samples, 6)]
+    return parsed_split
 
 
 if __name__ == '__main__':
 
-    connection_manager = ConnectionManagerBLE(target_name=params['name'], total_samples=params['samples'], payload_length=params['length'])
+    connection_manager = ConnectionManagerBLE(target_name=params['name'], total_samples=params['total samples'],
+                                              sample_length=params['sample length'],  packet_length=params['packet length'])
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(connection_manager.discover_devices())
@@ -152,6 +169,7 @@ if __name__ == '__main__':
         print('\nConnecting to %s (with address %s)' % (connection_manager.target_name, connection_manager.target_address))
         loop = asyncio.get_event_loop()
         data = loop.run_until_complete(connection_manager.connect(loop))
+        #loop.stop()
         success = CSVConverters.write_data(data)
 
         if success != -1:
