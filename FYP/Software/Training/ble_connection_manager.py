@@ -2,6 +2,7 @@ from PyQt5.QtCore import QElapsedTimer, QObject, pyqtSignal
 from Logger import Logger
 import asyncio
 from processing.CSVConverters import CSVConverters
+from processing.DataProcessors import DataProcessors
 
 
 UUIDs = {
@@ -51,8 +52,9 @@ class ConnectionManagerBLE(QObject):
         self.current_packet = 0
         self._start_stream = False
 
-        self.short_delay = 0.2
-        self.long_delay = 0.0125 * self.total_samples
+        self.short_delay = 1.0 # 0.2
+        self.long_delay = self.total_samples / 6
+        self.delay = self.short_delay
         self.force_disconnect = False
 
         if self.caller is not None:
@@ -101,7 +103,7 @@ class ConnectionManagerBLE(QObject):
     async def connect(self, loop):
         from bleak import BleakClient
 
-        async with BleakClient(self.target_address, loop=loop) as client:
+        async with BleakClient(self.target_address, loop=loop, timeout=10.0) as client:
             self._client = client
             self.connected = await client.is_connected()
             print("Connected: {0}".format(self.connected))
@@ -117,15 +119,16 @@ class ConnectionManagerBLE(QObject):
 
                 self.current_packet = 0
                 print('Waiting for readings...')
+
                 while self.connected:
-                    self.delay = self.short_delay
                     if self.current_packet == self.total_packets: # self.total_samples: # len(self.data) == self.total_samples:
                         if self.caller is not None:
                             self.signals.dataReady.emit(self.data[:])
-                            self.data = []
-                            print('Done transferring data, saving to csv')
+                            print('Done transferring data')
                             self.current_packet = 0
+                            self.data = []
                             self.start_stream = False
+                            self.delay = self.short_delay
                             #await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x00]), response=True)
                         else:
                             #loop.stop()
@@ -138,13 +141,14 @@ class ConnectionManagerBLE(QObject):
                         self.start_stream = False
 
                     self.connected = await client.is_connected() and not self.force_disconnect
+                    print('\nLooping' + str(self.current_packet) + '\n')
                     await asyncio.sleep(self.delay, loop=loop)
+
 
                 print('Stopping data transfer notification')
                 await client.stop_notify(UUIDs['starting stream'][1])
                 await client.stop_notify(UUIDs['imu'][1])
                 #await client.stop_notify(UUIDs['data ready'][1])
-                #return self.data
             else:
                 print('Disconnected')
                 if self.caller is not None:
@@ -160,31 +164,23 @@ class ConnectionManagerBLE(QObject):
         if int.from_bytes(data, byteorder='little', signed=False):
             if self.caller is not None:
                 self.signals.startingStream.emit(True)
-
+                #self.delay = self.long_delay
 
     def data_ready_notification_handler(self, sender, data):
         ready = int.from_bytes(data, byteorder='little', signed=False)
         print("Data ready: %d"%ready)
         self.delay = self.long_delay if ready else self.short_delay
 
-    def imu_notification_handler(self, sender, data):
+    def imu_notification_handler(self, sender, packet):
         """Simple notification handler which prints the data received."""
-        parsed_data = bytearray_to_int(data, len(data), int(len(data)/4))
-        #for entry in parsed_data:
-        self.data.extend(parsed_data)
 
+        self.data.append(packet)
         self.current_packet += 1
-        #print("Packet no. {0}: {1}".format(self.current_packet, parsed_data))
+        #print("Packet no. {0}: {1}".format(self.current_packet, self.data[-1]))
 
         if self.caller is not None:
             self.signals.progressUpdated.emit(self.current_packet)
         self.start_stream = False
-
-
-def bytearray_to_int(array, total_bytes, total_samples):
-    parsed = [int.from_bytes(array[i:i+3], byteorder='little', signed=True)/1000.0 for i in range(0, total_bytes, 4)]
-    parsed_split = [parsed[i:i + 6] for i in range(0, total_samples, 6)]
-    return parsed_split
 
 
 if __name__ == '__main__':
@@ -201,7 +197,7 @@ if __name__ == '__main__':
         loop = asyncio.get_event_loop()
         data = loop.run_until_complete(connection_manager.connect(loop))
         #loop.stop()
-        success = CSVConverters.write_data(data)
+        success = CSVConverters.write_data(DataProcessors.bytearray_to_int(data))
 
         if success != -1:
             print('Successfully wrote %d entries' % success)

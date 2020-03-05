@@ -10,6 +10,7 @@ class CSVConverters:
 
     @staticmethod
     def write_data(data, root='General'):
+        print('Saving as csv')
         written = 0
         with open('Training Data\\{0}\\{1}.csv'.format(root, datetime.now().strftime("%Y-%m-%d %H_%M_%S")), 'w', newline='') as f:
             col_headers = ['ax', 'ay', 'az', 'gx', 'gy', 'gz']  #  'mx', 'my', 'mz']
@@ -38,8 +39,6 @@ class CSVConverters:
                     else:
                         data.append([float(val) for val in row])
         return data
-
-
 
 
 class Tests:

@@ -25,7 +25,7 @@ class StreamManager(QRunnable):
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         loop = asyncio.get_event_loop()
-        loop.set_debug(False)
+        loop.set_debug(True)
         loop.run_until_complete(self._connection_manager.discover_devices())
         found = self._connection_manager.find_detector()
 

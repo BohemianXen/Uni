@@ -9,11 +9,12 @@ from ble_connection_manager import ConnectionManagerBLE
 from StreamManager import StreamManager
 from processing.CSVConverters import CSVConverters
 from AudioPlayer import AudioPlayer
+from processing.DataProcessors import DataProcessors
 
 
 params = {
     # 'address': 57:0F:6E:FA:4E:C9',
-    'play audio': True,
+    'play audio': False,
     'name': 'FallDetector',
     'total samples': 480,
     'sample length': 6,
@@ -146,12 +147,13 @@ class MainView(QMainWindow):
     @pyqtSlot(list)
     def data_ready(self, data):
         #self.signals.dataReady.emit(data)
-        success = CSVConverters.write_data(data, root='General')
+        converted_data = DataProcessors.bytearray_to_int(data)
+        success = CSVConverters.write_data(converted_data, root='General')
         if success != -1:
             print('Successfully wrote %d entries' % success)
         else:
             print('Failed to save data')
-        self._connection_manager.data = []
+        #self._connection_manager.data = []
 
     @pyqtSlot(int)
     def update_progress(self, value):
