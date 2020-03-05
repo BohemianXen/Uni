@@ -36,6 +36,7 @@ class StreamManager(QRunnable):
             loop.run_until_complete(self._connection_manager.connect(loop))
 
         else:
+            self._connection_manager.signals.connected.emit(False)
             print('Could not find a fall detector device')
 
         loop.stop()

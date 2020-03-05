@@ -10,12 +10,12 @@ const byte sendLED = 4;
 const byte saveButton = 5; 
 const byte sendButton = 6;
 
-const byte sampleLength = 6; //No. of paramters in a single sample (9 if all, 6 w/o magnetometer)
-const byte packetLength = 4; // No. of samples in a single data packet
+const byte sampleLength = 6; //No. of parameters in a single sample (9 if all, 6 w/o magnetometer)
+const byte packetLength = 10; // No. of samples in a single data packet
 const unsigned short packetSize = sampleLength * packetLength * 4; // No. of bytes in an entire packet
 //const unsigned long debounceTime = 1000;
 unsigned short totalSamples = 480; //sampleRates[0] * captureTimeSecs;
-unsigned short totalPackets = totalSamples/packetLength;
+unsigned short totalPackets = totalSamples/packetLength; //TODO: What do to if float result
 byte saveStatus, sendStatus = 0;
 byte sampleRates [3] = {0, 0, 0}; // {IMU.accelerationSampleRate(), IMU.gyroscopeSampleRate(), IMU.magneticFieldSampleRate()};
 
@@ -24,10 +24,13 @@ BLEService dataReadyService("a34984b9-7b89-4553-aced-242a0b289bbc");
 BLEBoolCharacteristic dataReadyChar("4174c433-4064-4349-bfa2-009a432a24a4", BLERead | BLENotify);
 
 BLEService imuService("f9dd156e-f108-4139-925c-dd1f157cffa0");
-BLECharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLENotify, packetSize);
+BLECharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLEIndicate, packetSize);
 
 BLEService sendDataService("ab36b3d9-12e4-4922-ac94-8873e8252045");
 BLEBoolCharacteristic sendDataChar("976aca21-135a-4dfa-b548-68308f7acceb", BLERead | BLEWrite);
+
+BLEService startingStreamService("05b7f95e-0d89-43da-973c-3aa5a67b6031");
+BLEBoolCharacteristic startingStreamChar("20b35680-9cf5-4f41-bde9-308abbc3c019", BLERead | BLENotify);
 
 //BLEDevice central;
 
@@ -63,9 +66,11 @@ void setup() {
   dataReadyService.addCharacteristic(dataReadyChar);
   imuService.addCharacteristic(imuChar);
   sendDataService.addCharacteristic(sendDataChar);
+  startingStreamService.addCharacteristic(startingStreamChar);
   BLE.addService(dataReadyService);
   BLE.addService(imuService);
   BLE.addService(sendDataService);
+  BLE.addService(startingStreamService);
 
   //sendDataChar.setEventHandler(BLEWritten, sendData);
    
@@ -75,6 +80,7 @@ void setup() {
 
 void loop() {
   long imuDataL [totalSamples][sampleLength];
+  initialiseData(imuDataL);
   bool dataReady = 0;
   BLEDevice central = BLE.central();
   
@@ -83,7 +89,8 @@ void loop() {
     Serial.println(central.address());
     digitalWrite(LED_BUILTIN, HIGH);
     dataReadyChar.writeValue(0);
-    sendDataChar.writeValue(0);  
+    sendDataChar.writeValue(0);
+    startingStreamChar.writeValue(0);  
   
     while (central.connected()) {
         digitalWrite(sendLED, LOW);
@@ -91,8 +98,10 @@ void loop() {
         
         byte external_start = 0;
         sendDataChar.readValue(external_start);
+        bool startStream = external_start || digitalRead(saveButton);
 
-        if (external_start || digitalRead(saveButton)) {
+        if (startStream) {
+          startingStreamChar.writeValue(1);
           blinkSaveLED(500); 
           dataReady = startSave(imuDataL);
           dataReadyChar.writeValue(dataReady);
@@ -101,6 +110,7 @@ void loop() {
           bool dataSent = sendData(imuDataL);
           dataReadyChar.writeValue(0);
           sendDataChar.writeValue(0);
+          startingStreamChar.writeValue(0);
           digitalWrite(sendLED, LOW);
         }
     }
@@ -110,6 +120,14 @@ void loop() {
   Serial.print("Disconnected from: ");
   Serial.println(central.address());
   delay(200);
+}
+
+void initialiseData(long imuDataL[][sampleLength]) {
+  for (int i = 0; i < totalSamples; i++) {
+    for (int j = 0; j < sampleLength; j++) {
+      imuDataL[i][j] = 0;
+    }
+  }
 }
 
 
@@ -130,12 +148,13 @@ void blinkSaveLED(int period) {
 }
 
 bool startSave(long imuDataL[][sampleLength]) {
-  const bool readMag = false;
+  const bool readMag = (sampleLength == 9);
   const byte captureTimeSecs = 2;
   unsigned short samplesRead = 0;
   float imuDataF [totalSamples][sampleLength];
   bool success = 0;
-
+  
+  initialiseData(imuDataL);
   samplesRead = getVals(imuDataF, samplesRead, readMag);
   
   if (samplesRead == totalSamples) {
@@ -153,19 +172,22 @@ bool startSave(long imuDataL[][sampleLength]) {
 
 // TODO: add timeout based on millis
 unsigned short getVals(float dataOut[][sampleLength], unsigned short sampleNo, bool readMag) {
-  //bool ready = true;
-  //float dataOut[9] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  int maxSamplePeriod = 1000/sampleRates[0];
+  int minSamplePeriod = 1000/sampleRates[0];
 
-  while (sampleNo != totalSamples && IMU.accelerationAvailable() && IMU.gyroscopeAvailable()) { 
+  while (sampleNo != totalSamples && IMU.accelerationAvailable() && IMU.gyroscopeAvailable()) {
       IMU.readAcceleration(dataOut[sampleNo][0], dataOut[sampleNo][1], dataOut[sampleNo][2]);
       IMU.readGyroscope(dataOut[sampleNo][3], dataOut[sampleNo][4], dataOut[sampleNo][5]);
-      //IMU.readMagneticField(dataOut[sampleNo][6], dataOut[sampleNo][7], dataOut[sampleNo][8]);
-      sampleNo++; //Serial.println(sampleNo);
-      delay(maxSamplePeriod);
-      //if readMag 
-      //if (sampleNo == totalSamples) { return sampleNo; }  
+
+      /*if (readMag) {
+        Serial.println(IMU.magneticFieldAvailable());
+        IMU.readMagneticField(dataOut[sampleNo][6], dataOut[sampleNo][7], dataOut[sampleNo][8]);
+      }*/
+      
+      sampleNo++;
+      //Serial.println(sampleNo);
+      delay(minSamplePeriod);  
   }
+  Serial.println("Done");
   return sampleNo;
 }  
 
@@ -222,7 +244,7 @@ bool sendData(long imuDataL[][sampleLength]) {
       // ---------------- Attempt to send data packet --------------
      int retries = 3;
      success = imuChar.writeValue(buff, packetSize);
-     delay(80);
+     delay(5);
     
     if(!success) {
        Serial.print("Failed to write sample: ");

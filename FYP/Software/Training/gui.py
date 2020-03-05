@@ -1,26 +1,23 @@
 import sys
-from csv import reader as csv_reader
 from Logger import Logger
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QThreadPool
 
 from ui_files.main_view_ui import Ui_MainWindow
 from Plotter import Plotter
 from ble_connection_manager import ConnectionManagerBLE
 from StreamManager import StreamManager
 from processing.CSVConverters import CSVConverters
-
-#import asyncio
-from PyQt5.QtCore import QThreadPool
-from asyncqt import QEventLoop, asyncSlot, asyncClose
+from AudioPlayer import AudioPlayer
 
 
 params = {
     # 'address': 57:0F:6E:FA:4E:C9',
+    'play audio': True,
     'name': 'FallDetector',
     'total samples': 480,
     'sample length': 6,
-    'packet length': 4
+    'packet length': 10
 }
 
 
@@ -76,8 +73,10 @@ class MainView(QMainWindow):
                                                         sample_length=params['sample length'],
                                                         packet_length=params['packet length'])
         self._stream_manager = StreamManager(params, self._connection_manager)
+        self._audio_player = AudioPlayer()
 
         self._pool = QThreadPool.globalInstance()
+        self._pool.setMaxThreadCount(4)
 
         self._ui.filePushButton.clicked.connect(lambda: self.file_button_clicked())
         self._ui.plotPushButton.clicked.connect(lambda: self.plot_button_clicked())
@@ -135,10 +134,19 @@ class MainView(QMainWindow):
             self._ui.recordPushButton.setEnabled(False)
         #self.signals.connected.emit(connected)
 
+    @pyqtSlot(bool)
+    def starting_stream(self, value):
+        if value and params['play audio']:
+            print('Playing audio')
+            #self._pool.start(self._audio_player)
+            self._audio_player.play()  # TODO: only works once if separate thread
+            #self._pool.disconnect(self._audio_player)
+
+
     @pyqtSlot(list)
     def data_ready(self, data):
         #self.signals.dataReady.emit(data)
-        success = CSVConverters.write_data(data)
+        success = CSVConverters.write_data(data, root='General')
         if success != -1:
             print('Successfully wrote %d entries' % success)
         else:
@@ -147,16 +155,16 @@ class MainView(QMainWindow):
 
     @pyqtSlot(int)
     def update_progress(self, value):
-        percentage = int(((value*params['sample length'])/params['total samples']) * 100)
+        percentage = int(((value*params['packet length'])/params['total samples']) * 100)
         self._ui.progressBar.setValue(percentage)
 
     def closeEvent(self, *args, **kwargs):
         self._logger.log('Close button clicked. Shutting down.', Logger.DEBUG)
-        #pools = QThreadPool.globalInstance()
-        self._model.controllers['live'].stop_streaming('main controller')
-        print('{} thread(s) were running on termination'.format(self.pools.activeThreadCount()))
-        while self.pools.activeThreadCount() > 0:
-            self.pools.waitForDone(500)
+
+        print('{} thread(s) running on termination'.format(self._pool.activeThreadCount()))
+        while self._pool.activeThreadCount() > 0:
+            self._connection_manager.force_disconnect = True
+            self._pool.waitForDone(1000)
             print('Finishing up...')
 
         QCoreApplication.exit(0)
@@ -166,5 +174,4 @@ if __name__ == '__main__':
     gui = GUI(sys.argv)
     if gui.arguments()[1] == '-d':
         gui.DEBUG_MODE = True
-
         sys.exit(gui.exec_())
