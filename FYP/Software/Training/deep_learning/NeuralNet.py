@@ -2,8 +2,7 @@ from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 #from tensorflow import keras
-from tensorflow.keras import optimizers, losses
-from tensorflow.keras import layers
+from tensorflow.keras import optimizers, losses, layers, callbacks, models
 from processing.CSVConverters import CSVConverters
 from os import path, listdir
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -11,16 +10,18 @@ from datetime import datetime
 
 
 class NeuralNet:
-    def __init__(self, mag=False, inputs=238, hiddens=500,  outputs=2, activation='relu', epochs=10, lr=0.3, ):
+    def __init__(self, mag=False, samples=480, hiddens=960,  outputs=2, activation='relu', epochs=10, batch_size=32, lr=0.3):
         self._mag = mag
-        self._inputs = (inputs * 9) if self._mag else (inputs * 6)
+        self._inputs = (samples * 9) if self._mag else (samples * 6)
 
         self._hiddens = hiddens
         self._outputs = outputs
         self._activation = activation
         self._epochs = epochs
+        self._batch_size = batch_size
         self._lr = lr
         self._data = []
+        self._history = None
 
         if self._mag:
             self._limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
@@ -28,9 +29,9 @@ class NeuralNet:
             self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
         input_layer = tf.keras.Input(shape=(self._inputs,))
-        x = layers.Dense(self._hiddens)(input_layer)
-        x = layers.Dense(self._hiddens)(x)
-        output_layer = layers.Dense(self._outputs)(x)
+        x = layers.Dense(self._hiddens, activation='relu')(input_layer)
+        x = layers.Dense(self._hiddens, activation='relu')(x)
+        output_layer = layers.Dense(self._outputs, activation='softmax')(x)
         self.model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
         # self.model = tf.keras.Sequential()
         # self.model.add(layers.Dense(self._hiddens, input_shape=(self._inputs,)))
@@ -52,9 +53,9 @@ class NeuralNet:
 
                 if files != 0:
                     for file in files:
-                        all_data = np.array(CSVConverters.csv_to_list(file, remove_mag=(not self._mag)), dtype=np.float64)
-                        normalised = all_data / self._limits[:, ]
-                        flattened = np.concatenate([[label], normalised.flatten()])
+                        all_data = np.array(CSVConverters.csv_to_list(file, remove_mag=(not self._mag)), dtype=np.float32)
+                        normalised = all_data / self._limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
+                        flattened =  all_data if len(all_data) == 1 else np.concatenate([[label], normalised.flatten()])
                         data.append(flattened)
 
         if data != 0:
@@ -64,15 +65,17 @@ class NeuralNet:
         else:
             return -1
 
-    def train(self, save=False):
+    def train(self, save=False, shuffle=True, validation_data=None):
         print('Training net\n')
-        model_loss = losses.mean_squared_error
+        model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
         model_optimiser = optimizers.Adam()
-        self.model.compile(loss=model_loss, optimizer=model_optimiser)
+        self.model.compile(loss=model_loss, optimizer=model_optimiser, metrics=['accuracy'])
 
         size = len(self._data)
         if size != 0:
-            data = np.zeros((size, len(self._data[0]) - 1), dtype=np.float64)
+            if shuffle:
+                np.random.shuffle(self._data)
+            data = np.zeros((size, len(self._data[0]) - 1), dtype=np.float32)
             labels = np.zeros(size)
             targets = np.zeros((size, self._outputs)) + 0.01
             for i, sample in enumerate(self._data):
@@ -80,7 +83,11 @@ class NeuralNet:
                 labels[i] = sample[0]
                 targets[i][int(labels[i])] = 0.99
 
-            self.model.fit(data, targets, epochs=self._epochs, batch_size=1) # TODO: generate
+            #callback = callbacks.EarlyStopping(monitor='accuracy', min_delta=0.005, patience=10, mode='auto')
+            callback = callbacks.EarlyStopping(monitor='loss', patience=6, mode='auto')
+
+            self._history = self.model.fit(data, targets, epochs=self._epochs, batch_size=self._batch_size, validation_split=0.36, verbose=2, callbacks=[callback]) # TODO: generate
+            #self.model.evaluate()
             #if save(self.model.save('Save - {0}'))
 
     def predict(self, root='', shuffle=True):
@@ -89,7 +96,7 @@ class NeuralNet:
         size = len(test_data)
 
         if size != 0:
-            data = np.zeros((size, len(test_data[0]) - 1), dtype=np.float64)
+            data = np.zeros((size, len(test_data[0]) - 1), dtype=np.float32)
             labels = np.zeros(size)
             if shuffle:
                 print('Shuffling test data\n')
@@ -110,6 +117,21 @@ class NeuralNet:
             print('Net performance: %.2f\n' % score)
             return score
 
+    def save_model(self):
+        # TODO: Better to use checkpoints during training, save only best (lowest) loss
+        filename = '%.2f_.h5'%((self._history.history['val_accuracy'][-1])*100)
+        self.model.save('Saved Models\\Val Accuracy - ' + filename, overwrite=False) # TODO: try/catch
+
+    @staticmethod
+    def load_model(filename):
+       return models.load_model(filename) # TODO: try/catch
+
+    def save_data(self, filename):
+        if len(self._data) != 0:
+            full_filename = '{0}_{1}.csv'.format(filename, len(self._data))
+            np.save(full_filename, self._data, delimiter=',')
+            print('Saving' + filename)
+
 
 class Tests:
     def __init__(self):
@@ -118,17 +140,24 @@ class Tests:
 
 if __name__ == '__main__':
     params = {
-        'samples': 238,
-        'hiddens': 500,
-        'outputs': 10,
+        'samples': 480,
+        'hiddens': 480,
+        'outputs': 2,
+        'activation': 'relu',
         'lr': 0.3,
-        'epochs': 10,
+        'epochs': 80,
+        'batch size': 32,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
         'mag': False
     }
     test = r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data\Test_2'
-    nn = NeuralNet()
+    nn = NeuralNet(samples=params['samples'], hiddens=params['hiddens'], outputs=params['outputs'],
+                   activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
+                   mag=params['mag'])
     training_data = nn.load_data(params['train_root'], save=True)
-    nn.train()
-    score = nn.predict(params['test_root'], shuffle=False)
+    nn.train(shuffle=True)
+    nn.save_model()
+    model = NeuralNet.load_model(r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\Val Accuracy - 95.83_.h5')
+    print('Done')
+    #score = nn.predict(params['test_root'], shuffle=False)
