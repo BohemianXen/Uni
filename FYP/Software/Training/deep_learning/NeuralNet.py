@@ -5,6 +5,7 @@ import tensorflow as tf
 from tensorflow.keras import optimizers, losses, layers, callbacks, models
 from processing.CSVConverters import CSVConverters
 from os import path, listdir
+import matplotlib.pyplot as plt
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from datetime import datetime
 
@@ -65,11 +66,12 @@ class NeuralNet:
         else:
             return -1
 
-    def train(self, save=False, shuffle=True, validation_data=None):
+    def train(self, save=False, shuffle=True, validation_data=None, plot=True):
         print('Training net\n')
         model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
         model_optimiser = optimizers.Adam()
         self.model.compile(loss=model_loss, optimizer=model_optimiser, metrics=['accuracy'])
+
 
         size = len(self._data)
         if size != 0:
@@ -84,11 +86,14 @@ class NeuralNet:
                 targets[i][int(labels[i])] = 0.99
 
             #callback = callbacks.EarlyStopping(monitor='accuracy', min_delta=0.005, patience=10, mode='auto')
-            callback = callbacks.EarlyStopping(monitor='loss', patience=6, mode='auto')
+            callback = callbacks.EarlyStopping(monitor='loss', patience=4, mode='auto')
 
-            self._history = self.model.fit(data, targets, epochs=self._epochs, batch_size=self._batch_size, validation_split=0.36, verbose=2, callbacks=[callback]) # TODO: generate
+            self._history = self.model.fit(data, targets, epochs=self._epochs, batch_size=self._batch_size, validation_split=0.15, verbose=2, callbacks=[callback]) # TODO: generate
             #self.model.evaluate()
-            #if save(self.model.save('Save - {0}'))
+            if save:
+                self.save_model()
+            if plot:
+                self.plot()
 
     def predict(self, root='', shuffle=True):
         test_data = self.load_data(root, save=False)
@@ -110,6 +115,7 @@ class NeuralNet:
             predictions = self.model.predict(data, batch_size=1)
 
             for i, sample in enumerate(predictions):
+                print(predictions[i])
                 guess = np.argmax(predictions[i])
                 if labels[i] == guess:  # guess == np.random.choice([0, 1, labels[i]]):
                     score += 1
@@ -130,7 +136,31 @@ class NeuralNet:
         if len(self._data) != 0:
             full_filename = '{0}_{1}.csv'.format(filename, len(self._data))
             np.save(full_filename, self._data, delimiter=',')
-            print('Saving' + filename)
+            print('Saving training data in: ' + filename)
+
+    def plot(self):
+        if self._history is None:
+            return -1
+        fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex=True)
+        fig.tight_layout(pad=3.0)
+
+        ax1.plot(self._history.history['loss'], label='Training')
+        ax1.plot(self._history.history['val_loss'], label='Validation')
+        ax1.legend()
+        ax1.set_title('Loss')
+        ax1.set_xlabel('Epoch')
+        ax1.set_ylabel('Loss')
+
+        #plt.subplot(2, 1, 2)
+        #x = np.arange(0, self._epochs)
+        ax2.plot(self._history.history['accuracy'], label='Training')
+        ax2.plot(self._history.history['val_accuracy'], label='Validation')
+        ax2.legend()
+        ax2.set_title('Accuracy')
+        ax2.set_xlabel('Epoch')
+        ax2.set_ylabel('Accuracy')
+
+        plt.show()
 
 
 class Tests:
@@ -156,8 +186,9 @@ if __name__ == '__main__':
                    activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
                    mag=params['mag'])
     training_data = nn.load_data(params['train_root'], save=True)
-    nn.train(shuffle=True)
-    nn.save_model()
+    nn.train(shuffle=True, save=False, plot=True)
+    #nn.predict(root=params['test_root'])
+
     model = NeuralNet.load_model(r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\Val Accuracy - 95.83_.h5')
     print('Done')
     #score = nn.predict(params['test_root'], shuffle=False)

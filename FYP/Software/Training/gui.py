@@ -18,7 +18,8 @@ params = {
     'name': 'FallDetector',
     'total samples': 480,
     'sample length': 6,
-    'packet length': 10
+    'packet length': 8,
+    'root': 'General'
 }
 
 
@@ -148,7 +149,7 @@ class MainView(QMainWindow):
     def data_ready(self, data):
         #self.signals.dataReady.emit(data)
         converted_data = DataProcessors.bytearray_to_int(data)
-        success = CSVConverters.write_data(converted_data, root='General')
+        success = CSVConverters.write_data(converted_data, root=params['root'])
         if success != -1:
             print('Successfully wrote %d entries' % success)
         else:

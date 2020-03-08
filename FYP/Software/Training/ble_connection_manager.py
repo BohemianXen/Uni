@@ -17,7 +17,7 @@ params = {
     'name': 'FallDetector',
     'total samples': 480,
     'sample length': 6,
-    'packet length': 10
+    'packet length': 8
 }
 
 
@@ -33,7 +33,7 @@ class ConnectionManagerSignals(QObject):
 
 
 class ConnectionManagerBLE(QObject):
-    def __init__(self, caller=None, target_name='FallDetector', total_samples=480, sample_length=6, packet_length=10):
+    def __init__(self, caller=None, target_name='FallDetector', total_samples=480, sample_length=6, packet_length=8):
         super().__init__()
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
@@ -103,7 +103,7 @@ class ConnectionManagerBLE(QObject):
     async def connect(self, loop):
         from bleak import BleakClient
 
-        async with BleakClient(self.target_address, loop=loop, timeout=10.0) as client:
+        async with BleakClient(self.target_address, loop=loop, timeout=5.0) as client:
             self._client = client
             self.connected = await client.is_connected()
             print("Connected: {0}".format(self.connected))
@@ -129,7 +129,7 @@ class ConnectionManagerBLE(QObject):
                             self.data = []
                             self.start_stream = False
                             self.delay = self.short_delay
-                            #await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x00]), response=True)
+                            await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x00]), response=True)
                         else:
                             #loop.stop()
                             await client.stop_notify(UUIDs['imu'][1])
@@ -141,7 +141,7 @@ class ConnectionManagerBLE(QObject):
                         self.start_stream = False
 
                     self.connected = await client.is_connected() and not self.force_disconnect
-                    print('\nLooping' + str(self.current_packet) + '\n')
+                    #print('\nLooping ' + str(self.current_packet) + '\n')
                     await asyncio.sleep(self.delay, loop=loop)
 
 
