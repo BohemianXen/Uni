@@ -1,10 +1,9 @@
 from __future__ import print_function
 import numpy as np
 import tensorflow as tf
-#from tensorflow import keras
 from tensorflow.keras import optimizers, losses, layers, callbacks, models
+from processing.DataProcessors import DataProcessors
 from processing.CSVConverters import CSVConverters
-from os import path, listdir
 import matplotlib.pyplot as plt
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from datetime import datetime
@@ -21,7 +20,8 @@ class NeuralNet:
         self._epochs = epochs
         self._batch_size = batch_size
         self._lr = lr
-        self._data = []
+        self._train_data = []
+        self._val_data = []
         self._history = None
 
         if self._mag:
@@ -41,62 +41,69 @@ class NeuralNet:
 
     # @property
     # def losses
-    def load_data(self, root, save=True):
-        print('Parsing data in root directory \'%s\'\n' % root[root.rfind('\\')+1:])
-        root = path.normpath(root)
-        dirs = [path.join(root, d) for d in listdir(root) if path.isdir(path.join(root, d)) and 'General' not in d]
-        data = []
+    def load_data(self, roots, save=True):
+        for root in roots:
+            train = True if 'Training Data' in root else False
+            test = True if 'Test Data' in root else False
 
-        if dirs != 0:
-            for directory in dirs:
-                label = int(directory[directory.rfind('_')+1:]) # TODO: Regex practice!
-                files = [path.join(directory, f) for f in listdir(directory) if (path.isfile(path.join(directory, f)) and ('.csv' in f))]
+            all_data = []
+            files, labels = CSVConverters.get_data_files(root)
 
-                if files != 0:
-                    for file in files:
-                        all_data = np.array(CSVConverters.csv_to_list(file, remove_mag=(not self._mag)), dtype=np.float32)
-                        normalised = all_data / self._limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
-                        flattened =  all_data if len(all_data) == 1 else np.concatenate([[label], normalised.flatten()])
-                        data.append(flattened)
+            if len(files) == 0:
+                return -1
+            else:
+                for i, file in enumerate(files):
+                    data = np.array(CSVConverters.csv_to_list(file, remove_mag=(not self._mag)), dtype=np.float32)
+                    normalised = data / self._limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
+                    if len(data) != 1:
+                        normalised = normalised.flatten()
 
-        if data != 0:
-            if save:
-                self._data = np.copy(data)
-            return np.copy(data)
-        else:
-            return -1
+                    all_data.append(np.concatenate([[labels[i]], normalised]))
 
-    def train(self, save=False, shuffle=True, validation_data=None, plot=True):
+            if len(all_data) == 0:
+                return -1
+            else:
+                if test:
+                    return np.copy(all_data)
+                if train:
+                    self._train_data = np.copy(all_data)
+                else:
+                    self._val_data = np.copy(all_data)
+
+
+    def train(self, save=False, shuffle=True, plot=True):
         print('Training net\n')
+        val_given = len(self._val_data) != 0
+
         model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
         model_optimiser = optimizers.Adam()
         self.model.compile(loss=model_loss, optimizer=model_optimiser, metrics=['accuracy'])
 
+        # callback = callbacks.EarlyStopping(monitor='accuracy', min_delta=0.005, patience=10, mode='auto')
+        callback = callbacks.EarlyStopping(monitor='loss', patience=8, mode='auto')
 
-        size = len(self._data)
-        if size != 0:
-            if shuffle:
-                np.random.shuffle(self._data)
-            data = np.zeros((size, len(self._data[0]) - 1), dtype=np.float32)
-            labels = np.zeros(size)
-            targets = np.zeros((size, self._outputs)) + 0.01
-            for i, sample in enumerate(self._data):
-                data[i] = sample[1:]
-                labels[i] = sample[0]
-                targets[i][int(labels[i])] = 0.99
+        train_data, train_targets = DataProcessors.parse_train_data(self._train_data, self._outputs, shuffle)
 
-            #callback = callbacks.EarlyStopping(monitor='accuracy', min_delta=0.005, patience=10, mode='auto')
-            callback = callbacks.EarlyStopping(monitor='loss', patience=4, mode='auto')
+        if val_given:
+            val_data, val_targets = DataProcessors.parse_train_data(self._val_data, self._outputs, shuffle)
+            self._history = self.model.fit(train_data, train_targets, validation_data=(val_data, val_targets),
+                                           epochs=self._epochs, batch_size=self._batch_size,
+                                           verbose=2, callbacks=[callback])
+        else:
+            self._history = self.model.fit(train_data, train_targets, epochs=self._epochs, batch_size=self._batch_size,
+                                           validation_split=0.15, verbose=2, callbacks=[callback])
 
-            self._history = self.model.fit(data, targets, epochs=self._epochs, batch_size=self._batch_size, validation_split=0.15, verbose=2, callbacks=[callback]) # TODO: generate
-            #self.model.evaluate()
-            if save:
-                self.save_model()
-            if plot:
-                self.plot()
 
-    def predict(self, root='', shuffle=True):
-        test_data = self.load_data(root, save=False)
+
+
+        #self.model.evaluate()
+        if save:
+            self.save_model()
+        if plot:
+            self.plot()
+
+    def predict_directory(self, root, shuffle=True):
+        test_data = self.load_data([root], save=False)
         score = 0.0
         size = len(test_data)
 
@@ -125,17 +132,13 @@ class NeuralNet:
 
     def save_model(self):
         # TODO: Better to use checkpoints during training, save only best (lowest) loss
-        filename = '%.2f_.h5'%((self._history.history['val_accuracy'][-1])*100)
-        self.model.save('Saved Models\\Val Accuracy - ' + filename, overwrite=False) # TODO: try/catch
+        filename = '%f_.h5'%((self._history.history['loss'][-1]))
+        self.model.save('Saved Models\\Loss - ' + filename, overwrite=False) # TODO: try/catch
 
-    @staticmethod
-    def load_model(filename):
-       return models.load_model(filename) # TODO: try/catch
-
-    def save_data(self, filename):
-        if len(self._data) != 0:
-            full_filename = '{0}_{1}.csv'.format(filename, len(self._data))
-            np.save(full_filename, self._data, delimiter=',')
+    def save_train_data(self, filename):
+        if len(self._train_data) != 0:
+            full_filename = '{0}_{1}.csv'.format(filename, len(self._train_data))
+            np.save(full_filename, self._train_data, delimiter=',')
             print('Saving training data in: ' + filename)
 
     def plot(self):
@@ -157,10 +160,16 @@ class NeuralNet:
         ax2.plot(self._history.history['val_accuracy'], label='Validation')
         ax2.legend()
         ax2.set_title('Accuracy')
-        ax2.set_xlabel('Epoch')
+        #ax2.set_xlabel('Epoch')
         ax2.set_ylabel('Accuracy')
 
         plt.show()
+
+    # -------------------------------------------------- Static Methods ------------------------------------------------
+
+    @staticmethod
+    def load_model(filename):
+       return models.load_model(filename) # TODO: try/catch
 
 
 class Tests:
@@ -175,20 +184,23 @@ if __name__ == '__main__':
         'outputs': 2,
         'activation': 'relu',
         'lr': 0.3,
-        'epochs': 80,
+        'epochs': 60,
         'batch size': 32,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
+        'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
         'mag': False
     }
-    test = r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data\Test_2'
+
     nn = NeuralNet(samples=params['samples'], hiddens=params['hiddens'], outputs=params['outputs'],
                    activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
                    mag=params['mag'])
-    training_data = nn.load_data(params['train_root'], save=True)
+    training_data = nn.load_data(roots=[params['train_root'], params['val_root']], save=True)
     nn.train(shuffle=True, save=False, plot=True)
-    #nn.predict(root=params['test_root'])
-
-    model = NeuralNet.load_model(r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\Val Accuracy - 95.83_.h5')
+    nn.predict_directory(root=params['test_root'])
+    #nn.save_model()
+    model = NeuralNet.load_model(r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\Loss - 0.000890_.h5')
+    nn.model = model
+    nn.predict_directory(root=params['test_root'])
     print('Done')
     #score = nn.predict(params['test_root'], shuffle=False)
