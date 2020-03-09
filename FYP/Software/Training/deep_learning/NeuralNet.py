@@ -10,9 +10,12 @@ from datetime import datetime
 
 
 class NeuralNet:
-    def __init__(self, mag=False, samples=480, hiddens=960,  outputs=2, activation='relu', epochs=10, batch_size=32, lr=0.3):
+    def __init__(self, mag=False, cutoff=1, samples=480, hiddens=960,  outputs=2, activation='relu', epochs=10, batch_size=32, lr=0.3):
         self._mag = mag
-        self._inputs = (samples * 9) if self._mag else (samples * 6)
+        self._total_samples = samples
+        self._samples = int(self._total_samples * cutoff)
+        self._inputs = (self._samples * 9) if self._mag else (self._samples * 6)
+
 
         self._hiddens = hiddens
         self._outputs = outputs
@@ -53,8 +56,14 @@ class NeuralNet:
                 return -1
             else:
                 for i, file in enumerate(files):
-                    data = np.array(CSVConverters.csv_to_list(file, remove_mag=(not self._mag)), dtype=np.float32)
-                    normalised = data / self._limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
+                    data = CSVConverters.csv_to_list(file, remove_mag=(not self._mag))
+
+                    # If simulating short capture, skip last few samples of recording
+                    if len(data) > self._samples:
+                        data = data[:self._samples]
+
+                    # Normalise data using raw sensor limits then flatten series' to 1D (if not already)
+                    normalised = np.array(data, dtype=np.float32) / self._limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
                     if len(data) != 1:
                         normalised = normalised.flatten()
 
@@ -119,7 +128,7 @@ class NeuralNet:
                 labels[i] = sample[0]
 
             print('Predicting...\n')
-            predictions = self.model.predict(data, batch_size=1)
+            predictions = self.model.predict(data)
 
             for i, sample in enumerate(predictions):
                 print(predictions[i])
@@ -179,6 +188,8 @@ class Tests:
 
 if __name__ == '__main__':
     params = {
+        'mag': False,
+        'cutoff': 1.0,
         'samples': 480,
         'hiddens': 480,
         'outputs': 2,
@@ -188,19 +199,19 @@ if __name__ == '__main__':
         'batch size': 32,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
-        'mag': False
+        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
+
     }
 
-    nn = NeuralNet(samples=params['samples'], hiddens=params['hiddens'], outputs=params['outputs'],
+    nn = NeuralNet(mag=params['mag'], cutoff=params['cutoff'], samples=params['samples'], hiddens=params['hiddens'], outputs=params['outputs'],
                    activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
-                   mag=params['mag'])
+                   )
     training_data = nn.load_data(roots=[params['train_root'], params['val_root']], save=True)
     nn.train(shuffle=True, save=False, plot=True)
     nn.predict_directory(root=params['test_root'])
     #nn.save_model()
     model = NeuralNet.load_model(r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\Loss - 0.000890_.h5')
-    nn.model = model
-    nn.predict_directory(root=params['test_root'])
+    #nn.model = model
+    #nn.predict_directory(root=params['test_root'])
     print('Done')
     #score = nn.predict(params['test_root'], shuffle=False)
