@@ -85,6 +85,7 @@ class Plotter:
 
     def plot(self, data, mag=False):
         """Updates the motion graphs with new data."""
+
         sensor_names = ('Acc X', 'Acc Y', 'Acc Z', 'Gyro X', 'Gyro Y', 'Gyro Z', 'Mag X', 'Mag Y', 'Mag Z')
         pens = ('r', 'g', 'b', 'w')
         self._ui.accPlot.setXRange(0, len(data), padding=0.02)

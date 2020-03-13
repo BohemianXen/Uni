@@ -756,7 +756,7 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}</string>
           </font>
          </property>
          <property name="text">
-          <string>Standing</string>
+          <string>STANDING</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

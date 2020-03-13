@@ -252,7 +252,7 @@ class Ui_MainWindow(object):
         self.fileLabel.setText(_translate("MainWindow", "No File Selected"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.plotTab), _translate("MainWindow", "Plot"))
         self.modelPushButton.setText(_translate("MainWindow", "Select Model"))
-        self.actionLabel.setText(_translate("MainWindow", "Standing"))
+        self.actionLabel.setText(_translate("MainWindow", "STANDING"))
         self.modelLabel.setText(_translate("MainWindow", "No Model Selected"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.liveTab), _translate("MainWindow", "Live"))
 from pyqtgraph import PlotWidget
