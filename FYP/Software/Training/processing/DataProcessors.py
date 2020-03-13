@@ -4,6 +4,15 @@ import numpy as np
 class DataProcessors:
     def __init__(self):
         None
+    @staticmethod
+    def normalise(data, limits, single=False):
+        # Normalise data using raw sensor limits then flatten series' to 1D (if not already)
+        normalised = np.array(data, dtype=np.float32) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
+        if len(data) != 1:
+            normalised = normalised.flatten()
+        if single:
+            normalised = np.expand_dims(normalised, axis=0)
+        return normalised
 
     @staticmethod
     def parse_train_data(train_data, outputs, shuffle):

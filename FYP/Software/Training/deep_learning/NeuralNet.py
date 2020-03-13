@@ -10,7 +10,7 @@ from datetime import datetime
 
 
 class NeuralNet:
-    def __init__(self, mag=False, cutoff=1, samples=480, hiddens=960,  outputs=2, activation='relu', epochs=10, batch_size=32, lr=0.3):
+    def __init__(self, mag=False, cutoff=1, samples=480, hiddens=480,  outputs=3, activation='relu', epochs=10, batch_size=32, lr=0.3):
         self._mag = mag
         self._total_samples = samples
         self._samples = int(self._total_samples * cutoff)
@@ -32,15 +32,21 @@ class NeuralNet:
         else:
             self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
-        input_layer = tf.keras.Input(shape=(self._inputs,))
-        x = layers.Dense(self._hiddens, activation='relu')(input_layer)
-        x = layers.Dense(self._hiddens, activation='relu')(x)
-        output_layer = layers.Dense(self._outputs, activation='softmax')(x)
-        self.model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
-        # self.model = tf.keras.Sequential()
-        # self.model.add(layers.Dense(self._hiddens, input_shape=(self._inputs,)))
-        # self.model.add(layers.Dense(self._hiddens, activation=self._activation))
-        # self.model.add(layers.Dense(self._outputs))
+        self.model = self.create_model(self._inputs, self._hiddens, self._outputs, self._batch_size)
+
+    @staticmethod
+    def create_model(inputs, hiddens, outputs, batch_size):
+        input_layer = tf.keras.Input(shape=(inputs,))  # , batch_input_shape=(batch_size, inputs))
+        x = layers.Dense(hiddens, activation='relu')(input_layer)
+        x = layers.Dense(hiddens, activation='relu')(x)
+        output_layer = layers.Dense(outputs, activation='softmax')(x)
+
+        model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
+        model_optimiser = optimizers.Adam()
+
+        model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
+        model.compile(loss=model_loss, optimizer=model_optimiser, metrics=['accuracy'])
+        return model
 
     # @property
     # def losses
@@ -58,15 +64,12 @@ class NeuralNet:
                 for i, file in enumerate(files):
                     data = CSVConverters.csv_to_list(file, remove_mag=(not self._mag))
 
+
                     # If simulating short capture, skip last few samples of recording
                     if len(data) > self._samples:
                         data = data[:self._samples]
 
-                    # Normalise data using raw sensor limits then flatten series' to 1D (if not already)
-                    normalised = np.array(data, dtype=np.float32) / self._limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
-                    if len(data) != 1:
-                        normalised = normalised.flatten()
-
+                    normalised = DataProcessors.normalise(data, limits=self._limits)
                     all_data.append(np.concatenate([[labels[i]], normalised]))
 
             if len(all_data) == 0:
@@ -83,10 +86,6 @@ class NeuralNet:
     def train(self, save=False, shuffle=True, plot=True):
         print('Training net\n')
         val_given = len(self._val_data) != 0
-
-        model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
-        model_optimiser = optimizers.Adam()
-        self.model.compile(loss=model_loss, optimizer=model_optimiser, metrics=['accuracy'])
 
         # callback = callbacks.EarlyStopping(monitor='accuracy', min_delta=0.005, patience=10, mode='auto')
         callback = callbacks.EarlyStopping(monitor='loss', patience=8, mode='auto')
@@ -141,8 +140,8 @@ class NeuralNet:
 
     def save_model(self):
         # TODO: Better to use checkpoints during training, save only best (lowest) loss
-        filename = '%f_.h5'%((self._history.history['loss'][-1]))
-        self.model.save('Saved Models\\Loss - ' + filename, overwrite=False) # TODO: try/catch
+        filename = '%f - %d inputs.h5' % ((self._history.history['loss'][-1]), self._inputs)
+        self.model.save('Saved Models\\Loss - ' + filename, overwrite=False)  # TODO: try/catch
 
     def save_train_data(self, filename):
         if len(self._train_data) != 0:
@@ -177,8 +176,17 @@ class NeuralNet:
     # -------------------------------------------------- Static Methods ------------------------------------------------
 
     @staticmethod
-    def load_model(filename):
-       return models.load_model(filename) # TODO: try/catch
+    def load_model(filename, single=False):
+        model = models.load_model(filename) # TODO: try/catch
+
+        if single: # fROM https://datascience.stackexchange.com/questions/13461/how-can-i-get-prediction-for-only-one-instance-in-keras
+            weights = model.get_weights()
+            single_item_model = NeuralNet.create_model()
+            single_item_model.set_weights(weights)
+            return single_item_model
+        else:
+            return model
+
 
 
 class Tests:
@@ -189,10 +197,10 @@ class Tests:
 if __name__ == '__main__':
     params = {
         'mag': False,
-        'cutoff': 1.0,
+        'cutoff': 0.5,
         'samples': 480,
         'hiddens': 480,
-        'outputs': 2,
+        'outputs': 3,
         'activation': 'relu',
         'lr': 0.3,
         'epochs': 60,
@@ -209,9 +217,9 @@ if __name__ == '__main__':
     training_data = nn.load_data(roots=[params['train_root'], params['val_root']], save=True)
     nn.train(shuffle=True, save=False, plot=True)
     nn.predict_directory(root=params['test_root'])
-    #nn.save_model()
-    model = NeuralNet.load_model(r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\Loss - 0.000890_.h5')
-    #nn.model = model
-    #nn.predict_directory(root=params['test_root'])
+    nn.save_model()
+    model = NeuralNet.load_model(r"C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\Loss - 0.002302 - 1440 inputs.h5")
+    nn.model = model
+    nn.predict_directory(root=params['test_root'])
     print('Done')
     #score = nn.predict(params['test_root'], shuffle=False)

@@ -10,16 +10,21 @@ from StreamManager import StreamManager
 from processing.CSVConverters import CSVConverters
 from AudioPlayer import AudioPlayer
 from processing.DataProcessors import DataProcessors
-
+from deep_learning.NeuralNet import NeuralNet
+import numpy as np
+import tensorflow as tf
+#tf.getLogger('tensorflow').disabled = True
 
 params = {
     # 'address': 57:0F:6E:FA:4E:C9',
     'play audio': False,
     'name': 'FallDetector',
-    'total samples': 480,
+    'total samples': 240,
     'sample length': 6,
     'packet length': 8,
-    'root': 'General'
+    'root': 'General',
+    'live mode': True,
+    'actions': ('Standing', 'Walking', 'Fall (Forwards)')
 }
 
 
@@ -70,11 +75,14 @@ class MainView(QMainWindow):
         self._logger = Logger(self.name)
 
         self._plotter = Plotter(self._ui)
+        self._live_mode = params['live mode']
         self._connection_manager = ConnectionManagerBLE(caller=self, target_name=params['name'],
                                                         total_samples=params['total samples'],
                                                         sample_length=params['sample length'],
-                                                        packet_length=params['packet length'])
+                                                        packet_length=params['packet length'],
+                                                        live_mode=self._live_mode)
         self._stream_manager = StreamManager(params, self._connection_manager)
+
         self._audio_player = AudioPlayer()
 
         self._pool = QThreadPool.globalInstance()
@@ -84,13 +92,24 @@ class MainView(QMainWindow):
         self._ui.plotPushButton.clicked.connect(lambda: self.plot_button_clicked())
         self._ui.connectPushButton.clicked.connect(lambda: self.connect_button_clicked())
         self._ui.recordPushButton.clicked.connect(lambda: self.record_button_clicked())
+        self._ui.modelPushButton.clicked.connect(lambda: self.model_button_clicked())
+
         self._ui.progressBar.setValue(0)
+        #self._ui.modelPushButton.setEnabled(False)
+
+        self._model = None
 
         self._filename = ''
+        self._model_filename = ''
         self._connected = False
+        if params['sample length'] == 9:
+            self._limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
+        else:
+            self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
     def file_button_clicked(self):
-        self._filename = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"CSV Files(*.csv)")[0]
+        default_dir = 'Training Data\\' + params['root']
+        self._filename = QFileDialog.getOpenFileName(self, 'Open file', default_dir, 'CSV Files(*.csv)')[0]
         if self._filename != '':
             msg = 'Selected: ' + self._filename[self._filename.rfind('/')+1:]  # .rstrip('.csv')
             self._logger.log(msg, Logger.INFO)
@@ -99,6 +118,21 @@ class MainView(QMainWindow):
         else:
             self._ui.fileLabel.setText('No File Selected')
             self._ui.plotPushButton.setEnabled(False)
+
+    def model_button_clicked(self):
+        default_dir = 'deep_learning\\Saved Models'
+        self._model_filename = QFileDialog.getOpenFileName(self, 'Open file', default_dir, 'H5 Files(*.h5)')[0]
+        if self._model_filename != '':
+            msg = 'Selected: ' + self._model_filename[self._model_filename.rfind('/')+1:]  # .rstrip('.csv')
+            self._logger.log(msg, Logger.INFO)
+            self._ui.modelLabel.setText(msg)
+            if self._live_mode:
+               self._model = NeuralNet.load_model(self._model_filename)
+        else:
+            self._ui.fileLabel.setText('No Model Selected')
+            if self._live_mode:
+                self._ui.recordPushButton.setEnabled(True)
+                self._model = None
 
     def plot_button_clicked(self):
         data = CSVConverters.csv_to_list(self._filename)
@@ -113,7 +147,7 @@ class MainView(QMainWindow):
         self._ui.connectPushButton.setEnabled(False)
         self._ui.progressBar.setValue(0)
 
-    def record_button_clicked(self):# TODO: disable while saving
+    def record_button_clicked(self): # TODO: disable while saving
         if self._connected:
             self._ui.connectPushButton.setEnabled(False)
             if not self._connection_manager.start_stream:
@@ -131,9 +165,13 @@ class MainView(QMainWindow):
         if connected:
             self._ui.connectPushButton.setEnabled(False)
             self._ui.recordPushButton.setEnabled(True)
+            if self._live_mode:
+                self._ui.modelPushButton.setEnabled(True)
         else:
             self._ui.connectPushButton.setEnabled(True)
             self._ui.recordPushButton.setEnabled(False)
+            if self._live_mode:
+                self._ui.modelPushButton.setEnabled(False)
         #self.signals.connected.emit(connected)
 
     @pyqtSlot(bool)
@@ -149,11 +187,21 @@ class MainView(QMainWindow):
     def data_ready(self, data):
         #self.signals.dataReady.emit(data)
         converted_data = DataProcessors.bytearray_to_int(data)
-        success = CSVConverters.write_data(converted_data, root=params['root'])
-        if success != -1:
-            print('Successfully wrote %d entries' % success)
+        if not self._live_mode:
+            success = CSVConverters.write_data(converted_data, root=params['root'])
+            if success != -1:
+                print('Successfully wrote %d entries' % success)
+            else:
+                print('Failed to save data')
         else:
-            print('Failed to save data')
+            if self._model is not None:
+                normalised = DataProcessors.normalise(converted_data, limits=self._limits, single=True)
+                prediction = self._model.predict(normalised, verbose=0)
+                guess = np.argmax(prediction)
+                #print(guess)
+                print(params['actions'][guess])
+                self._ui.actionLabel.setText(params['actions'][guess])
+
         #self._connection_manager.data = []
 
     @pyqtSlot(int)

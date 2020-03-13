@@ -65,7 +65,7 @@ class CSVConverters:
     @staticmethod
     def get_test_set(root=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
                      target=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
-                     test_size=84, dir_prefix='Generated_Test_', copy=True):
+                     test_size=42, dir_prefix='11Mar_Generated_Validation_ForwardFalls_', copy=True):
 
         files, labels = CSVConverters.get_data_files(root)
 
@@ -82,7 +82,7 @@ class CSVConverters:
                         print(e)
                         return -1
 
-            dir_counts = np.zeros(len(unique_labels))
+            dir_counts = np.zeros(4)
             chosen = np.random.choice(files, size=test_size, replace=False)
             for file in chosen:
                 label = labels[files.index(file)]
@@ -123,4 +123,4 @@ class Tests:
 
 if __name__ == '__main__':
     test = r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data'
-    #print(CSVConverters.get_test_set(copy=False))
+    #print(CSVConverters.get_test_set(copy=True))

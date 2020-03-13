@@ -33,7 +33,7 @@ class ConnectionManagerSignals(QObject):
 
 
 class ConnectionManagerBLE(QObject):
-    def __init__(self, caller=None, target_name='FallDetector', total_samples=480, sample_length=6, packet_length=8):
+    def __init__(self, caller=None, target_name='FallDetector', total_samples=480, sample_length=6, packet_length=8, live_mode = False):
         super().__init__()
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
@@ -44,6 +44,7 @@ class ConnectionManagerBLE(QObject):
         self.sample_length = sample_length
         self.packet_length = packet_length
         self.total_packets = int(self.total_samples/self.packet_length)
+        self.live_mode = live_mode
 
         self.devices_found = {}
         self.target_address = None
@@ -112,8 +113,13 @@ class ConnectionManagerBLE(QObject):
                     self.signals.connected.emit(True)
                 self.force_disconnect = False
                 print('Starting data transfer notification')
+
                 await client.start_notify(UUIDs['starting stream'][1], self.starting_stream_notification_handler)
-                await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
+
+                if self.live_mode:
+                    await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
+                else:
+                    await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
                 #await client.start_notify(UUIDs['data ready'][1], self.data_ready_notification_handler)
                 # await client.set_disconnected_callback(self.disconnect_handler)
 
@@ -127,9 +133,9 @@ class ConnectionManagerBLE(QObject):
                             print('Done transferring data')
                             self.current_packet = 0
                             self.data = []
-                            self.start_stream = False
+                            #self.start_stream = False
                             self.delay = self.short_delay
-                            await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x00]), response=True)
+                            #await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x00]), response=True)
                         else:
                             #loop.stop()
                             await client.stop_notify(UUIDs['imu'][1])
@@ -168,7 +174,7 @@ class ConnectionManagerBLE(QObject):
 
     def data_ready_notification_handler(self, sender, data):
         ready = int.from_bytes(data, byteorder='little', signed=False)
-        print("Data ready: %d"%ready)
+        print("Data ready: %d" % ready)
         self.delay = self.long_delay if ready else self.short_delay
 
     def imu_notification_handler(self, sender, packet):
@@ -180,6 +186,14 @@ class ConnectionManagerBLE(QObject):
 
         if self.caller is not None:
             self.signals.progressUpdated.emit(self.current_packet)
+        self.start_stream = False
+
+    def live_imu_notification_handler(self, sender, packet):
+        """Simple notification handler which prints the data received."""
+        self.data.append(packet)
+        if self.caller is not None:
+            print('Hello')
+            self.signals.dataReady.emit(packet)
         self.start_stream = False
 
 
