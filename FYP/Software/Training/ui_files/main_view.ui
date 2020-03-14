@@ -611,13 +611,62 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}</string>
      <widget class="QWidget" name="gridLayoutWidget_3">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>-1</x>
         <y>0</y>
-        <width>2770</width>
-        <height>751</height>
+        <width>2771</width>
+        <height>741</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="liveGridLayout">
+       <item row="2" column="1">
+        <widget class="QLabel" name="modelLabel">
+         <property name="minimumSize">
+          <size>
+           <width>280</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>280</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>No Model Selected</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="actionLabel">
+         <property name="minimumSize">
+          <size>
+           <width>280</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>280</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>22</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>STANDING</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="4" rowspan="3" colspan="2">
         <spacer name="horizontalSpacer_13">
          <property name="orientation">
@@ -688,45 +737,13 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}</string>
          </property>
         </spacer>
        </item>
-       <item row="1" column="3">
-        <widget class="PlotWidget" name="accLivePlot">
-         <property name="minimumSize">
-          <size>
-           <width>1200</width>
-           <height>229</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>1200</width>
-           <height>229</height>
-          </size>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0" colspan="6">
         <spacer name="verticalSpacer_11">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>5</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="4" column="0" colspan="6">
-        <spacer name="verticalSpacer_12">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Minimum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -736,48 +753,21 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}</string>
          </property>
         </spacer>
        </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="actionLabel">
-         <property name="minimumSize">
+       <item row="4" column="0" colspan="5">
+        <spacer name="verticalSpacer_12">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>280</width>
-           <height>50</height>
+           <width>20</width>
+           <height>10</height>
           </size>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>280</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>25</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>STANDING</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="3">
-        <widget class="PlotWidget" name="gyroLivePlot">
-         <property name="minimumSize">
-          <size>
-           <width>1200</width>
-           <height>229</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>1200</width>
-           <height>229</height>
-          </size>
-         </property>
-        </widget>
+        </spacer>
        </item>
        <item row="2" column="3">
         <spacer name="verticalSpacer_14">
@@ -785,7 +775,7 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}</string>
           <enum>Qt::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Maximum</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -795,25 +785,47 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}</string>
          </property>
         </spacer>
        </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="modelLabel">
+       <item row="3" column="3">
+        <widget class="PlotWidget" name="gyroLivePlot">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>280</width>
-           <height>50</height>
+           <width>1200</width>
+           <height>300</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>280</width>
-           <height>16777215</height>
+           <width>1200</width>
+           <height>300</height>
           </size>
          </property>
-         <property name="text">
-          <string>No Model Selected</string>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="PlotWidget" name="accLivePlot">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+         <property name="minimumSize">
+          <size>
+           <width>1200</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>1200</width>
+           <height>300</height>
+          </size>
          </property>
         </widget>
        </item>

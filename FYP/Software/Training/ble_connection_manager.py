@@ -40,10 +40,10 @@ class ConnectionManagerBLE(QObject):
 
         self.caller = caller
         self.target_name = target_name
-        self.total_samples = total_samples
+        self._total_samples = total_samples
         self.sample_length = sample_length
         self.packet_length = packet_length
-        self.total_packets = int(self.total_samples/self.packet_length)
+        self.total_packets = int(self._total_samples/self.packet_length)
         self.live_mode = live_mode
 
         self.devices_found = {}
@@ -54,7 +54,7 @@ class ConnectionManagerBLE(QObject):
         self._start_stream = False
 
         self.short_delay = 1.0 # 0.2
-        self.long_delay = self.total_samples / 6
+        self.long_delay = self._total_samples / 6
         self.delay = self.short_delay
         self.force_disconnect = False
 
@@ -66,12 +66,23 @@ class ConnectionManagerBLE(QObject):
             self.signals.startingStream.connect(self.caller.starting_stream)
 
     @property
+    def total_samples(self):
+        return self._total_samples
+
+    @total_samples.setter
+    def total_samples(self, value):
+        self._total_samples = value
+        self.total_packets = int(self._total_samples/self.packet_length)
+
+    @property
     def start_stream(self):
         return self._start_stream
 
     @start_stream.setter
     def start_stream(self, value):
         self._start_stream = value
+
+
 
     async def discover_devices(self):
         from bleak import discover
@@ -115,11 +126,7 @@ class ConnectionManagerBLE(QObject):
                 print('Starting data transfer notification')
 
                 await client.start_notify(UUIDs['starting stream'][1], self.starting_stream_notification_handler)
-
-                if self.live_mode:
-                    await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
-                else:
-                    await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
+                await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
                 #await client.start_notify(UUIDs['data ready'][1], self.data_ready_notification_handler)
                 # await client.set_disconnected_callback(self.disconnect_handler)
 
@@ -127,7 +134,7 @@ class ConnectionManagerBLE(QObject):
                 print('Waiting for readings...')
 
                 while self.connected:
-                    if self.current_packet == self.total_packets: # self.total_samples: # len(self.data) == self.total_samples:
+                    if self.current_packet >= self.total_packets: # self._total_samples: # len(self.data) == self._total_samples:
                         if self.caller is not None:
                             self.signals.dataReady.emit(self.data[:])
                             print('Done transferring data')
@@ -188,14 +195,6 @@ class ConnectionManagerBLE(QObject):
             self.signals.progressUpdated.emit(self.current_packet)
         self.start_stream = False
 
-    def live_imu_notification_handler(self, sender, packet):
-        """Simple notification handler which prints the data received."""
-        self.data.append(packet)
-        if self.caller is not None:
-            print('Hello')
-            self.signals.dataReady.emit(packet)
-        self.start_stream = False
-
 
 if __name__ == '__main__':
 
@@ -211,7 +210,7 @@ if __name__ == '__main__':
         loop = asyncio.get_event_loop()
         data = loop.run_until_complete(connection_manager.connect(loop))
         #loop.stop()
-        success = CSVConverters.write_data(DataProcessors.bytearray_to_int(data))
+        success = CSVConverters.write_data(DataProcessors.bytearray_to_float(data))
 
         if success != -1:
             print('Successfully wrote %d entries' % success)

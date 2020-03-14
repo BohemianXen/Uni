@@ -19,13 +19,15 @@ tf.get_logger().setLevel('DEBUG')  # Reduce logging
 
 
 params = {
+    'live mode': True,
     'play audio': False,
     'name': 'FallDetector',
-    'total samples': 240,
+    'live packet size': 40,
+    'total live samples': 120,
+    'total capture samples': 480,
     'sample length': 6,
     'packet length': 8,
     'root': 'General',
-    'live mode': True,
     'actions': ('Standing'.upper(), 'Walking'.upper(), 'Forward Fall'.upper()),
     'actions_colours': ('Green', 'Green', 'Red')
 }
@@ -83,16 +85,24 @@ class MainView(QMainWindow):
         self._pool = QThreadPool.globalInstance()
         self._pool.setMaxThreadCount(4)
 
-        self._live_mode = params['live mode']
-        self._logger.log('Live Mode set to ' + str(self._live_mode), Logger.DEBUG)
-
         # Instantiate BLE modules
         self._connection_manager = ConnectionManagerBLE(caller=self, target_name=params['name'],
-                                                        total_samples=params['total samples'],
+                                                        total_samples=params['total capture samples'],
                                                         sample_length=params['sample length'],
                                                         packet_length=params['packet length'],
-                                                        live_mode=self._live_mode)
+                                                        live_mode=params['live mode'])
+
         self._stream_manager = StreamManager(params, self._connection_manager)
+
+        self._live_mode = params['live mode']
+        if self._live_mode:
+            self._logger.log('Starting in Live Mode', Logger.DEBUG)
+            self._connection_manager.total_samples = params['live packet size']
+
+        else:
+            self._logger.log('Starting in Data Capture Mode', Logger.DEBUG)
+
+
 
         # UI callbacks
         self._ui.filePushButton.clicked.connect(lambda: self.file_button_clicked())
@@ -107,6 +117,7 @@ class MainView(QMainWindow):
         self._model_filename = ''
         self._connected = False
         self._model = None
+        self._live_data = []
 
         if params['sample length'] == 9:
             self._limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
@@ -235,6 +246,13 @@ class MainView(QMainWindow):
             # Play audio cue to aid timing
             self._logger.log('Playing audio', Logger.DEBUG)
             self._audio_player.play()  # TODO: only works once if separate thread
+    @pyqtSlot(int)
+    def update_progress(self, value):
+        """Updates progress bar packet-wise"""
+        if not self._live_mode:
+            percentage = int(((value*params['packet length'])/params['total capture samples']) * 100)
+            self._ui.progressBar.setValue(percentage)
+            self.update_console('Transfer %d%% complete' % percentage)
 
     @pyqtSlot(list)
     def data_ready(self, data):
@@ -255,25 +273,29 @@ class MainView(QMainWindow):
                 self.update_console(msg)
 
         else:
-            if self._model is not None:
-                normalised = DataProcessors.normalise(converted_data, limits=self._limits, single=True)
-                prediction = self._model.predict(normalised, verbose=0)
-                guess = np.argmax(prediction)
-                action = params['actions'][guess]
-                self.update_console(action)
-                self._ui.actionLabel.setText(action)
-                self._ui.actionLabel.setStyleSheet('color: ' + params['actions_colours'][guess])
+            self._live_data.extend(converted_data)
+            overlap = len(self._live_data) - params['total live samples']
+            if overlap >= 0 and self._model is not None:
+                if overlap == 0:
+                    self.live_packet_ready(self._live_data)
+                else:
+                    self.live_packet_ready(self._live_data[-params['total live samples']:])
+                    self._live_data = self._live_data[overlap:]
 
+    # ------------------------------------------------- Live Update ----------------------------------------------------
 
+    def live_packet_ready(self, new_data):
+        normalised = DataProcessors.normalise(new_data, limits=self._limits, single=True)
+        prediction = self._model.predict(normalised, verbose=0)
+        guess = int(np.argmax(prediction))
+        action = params['actions'][guess]
 
-    @pyqtSlot(int)
-    def update_progress(self, value):
-        """Updates progress bar packet-wise"""
-        percentage = int(((value*params['packet length'])/params['total samples']) * 100)
-        self._ui.progressBar.setValue(percentage)
-        self.update_console('Transfer %d%% complete' % percentage)
+        self.update_console(action)
+        self._ui.actionLabel.setText(action)
+        self._ui.actionLabel.setStyleSheet('color: ' + params['actions_colours'][guess])
 
-    # ----------------------------------------------------- On Close ---------------------------------------------------
+    # -------------------------------------------------- On Close ------------------------------------------------------
+
     def closeEvent(self, *args, **kwargs):
         self._logger.log('Close button clicked. Shutting down.', Logger.DEBUG)
 

@@ -278,7 +278,7 @@ class Tests:
 if __name__ == '__main__':
     params = {
         'mag': False,
-        'cutoff': 0.5,
+        'cutoff': 0.25,
         'max samples': 480,
         'hiddens': 480,
         'outputs': 3,

@@ -1,9 +1,6 @@
 #include <Arduino_LSM9DS1.h>
 #include <ArduinoBLE.h>
 
-#define IO_USERNAME "BohemianXen"
-#define IO_KEY "aio_Mbeo57A4D24lfhO07ODfzvIOgKQy"
-
 #//GLOBALS
 const byte saveLED = 3;
 const byte sendLED = 4;
@@ -14,7 +11,7 @@ const byte sampleLength = 6; //No. of parameters in a single sample (9 if all, 6
 const byte packetLength = 8; // No. of samples in a single data packet
 const unsigned short packetSize = sampleLength * packetLength * 4; // No. of bytes in an entire packet
 //const unsigned long debounceTime = 1000;
-unsigned short totalSamples = 240; //sampleRates[0] * captureTimeSecs;
+unsigned short totalSamples = 40; //sampleRates[0] * captureTimeSecs;
 unsigned short totalPackets = totalSamples/packetLength; //TODO: What do to if float result
 byte saveStatus, sendStatus = 0;
 byte sampleRates [3] = {0, 0, 0}; // {IMU.accelerationSampleRate(), IMU.gyroscopeSampleRate(), IMU.magneticFieldSampleRate()};
@@ -125,7 +122,7 @@ void loop() {
             startingStreamChar.writeValue(0);
             digitalWrite(saveLED, LOW);
           }
-          delay(200);
+          delay(10);
         }
     }
   }
@@ -275,11 +272,11 @@ bool sendData(long imuDataL[][sampleLength]) {
       do {
         success = imuChar.writeValue(buff, packetSize);
         retries--;
-        delay(100);
+        delay(50);
       } while (!success && (retries != 0)); 
 
       if (!success) {
-        delay(3000);
+        delay(20);
         return 0; 
       }
     }
