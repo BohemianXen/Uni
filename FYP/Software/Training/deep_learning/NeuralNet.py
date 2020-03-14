@@ -12,7 +12,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 class NeuralNet:
-    def __init__(self, mag=False, cutoff=1, max_samples=480, hiddens=480,  outputs=3, activation='relu', epochs=10, batch_size=32, lr=0.3):
+    def __init__(self, mag=False, cutoff=1, max_samples=480, hiddens=480,  outputs=4, activation='relu', epochs=10, batch_size=32, lr=0.3):
         self._mag = mag
         self._total_samples = max_samples
         self._hiddens = hiddens
@@ -34,7 +34,7 @@ class NeuralNet:
         else:
             self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
-        self._model = self.create_model(self._inputs, self._hiddens, self._outputs, self._batch_size)
+        self._model = self.create_model(self._inputs, self._hiddens, self._outputs, self._batch_size, self._lr)
     # ------------------------------------------------- Properties -----------------------------------------------------
 
     @property
@@ -48,7 +48,7 @@ class NeuralNet:
     # -------------------------------------------------- Static Methods ------------------------------------------------
 
     @staticmethod
-    def create_model(inputs, hiddens, outputs, batch_size):
+    def create_model(inputs, hiddens, outputs, batch_size, lr):
         """Creates a keras model based on the Functional API"""
 
         # Instantiate layers
@@ -59,7 +59,7 @@ class NeuralNet:
 
         # Choose loss and optimisation functions/algorithms
         model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
-        model_optimiser = optimizers.Adam()
+        model_optimiser = optimizers.Adam()  # optimizers.SGD(learning_rate=lr)
 
         # Instantiate and compile model
         model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
@@ -130,7 +130,7 @@ class NeuralNet:
         # Early stopping criteria to stop overfitting
         callback_list = []
         #callback_list.append(callbacks.EarlyStopping(monitor='val_accuracy', patience=15, mode='auto'))
-        callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=5, mode='auto'))
+        callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=6, mode='auto'))
 
         # Separate labels and train data, shuffling if necessary since they are initially read-in in time order
         train_data, train_targets = DataProcessors.parse_train_data(self._train_data, self._outputs, shuffle)
@@ -211,7 +211,7 @@ class NeuralNet:
 
         if size != 0:
             data = np.zeros((size, len(test_data[0]) - 1), dtype=np.float32)
-            labels = np.zeros(size)
+            labels = np.zeros(size, dtype=np.int32)
 
             if shuffle:
                 print('Shuffling test data\n')
@@ -219,20 +219,26 @@ class NeuralNet:
 
             for i, sample in enumerate(test_data):
                 data[i] = sample[1:]  # Remove label from data
-                labels[i] = sample[0]
+                labels[i] = int(sample[0])
 
             print('Predicting...\n')
             predictions = self._model.predict(data)
 
+            test_matrix = np.zeros(shape=(self._outputs, self._outputs))
             for i, sample in enumerate(predictions):
                 print(predictions[i])
 
                 guess = np.argmax(predictions[i])  # Best guess is highest probability* score in prediction
                 if labels[i] == guess:
+                    test_matrix[int(guess)][int(guess)] += 1
                     score += 1
+                else:
+                    test_matrix[int(labels[i])][int(guess)] += 1
 
             score = (score / size) * 100.0
             print('Net performance: %.2f\n' % score)
+            for row in test_matrix:
+                print(row)
             return score
         else:
             return -1
@@ -280,12 +286,12 @@ if __name__ == '__main__':
         'mag': False,
         'cutoff': 0.25,
         'max samples': 480,
-        'hiddens': 480,
-        'outputs': 3,
+        'hiddens': 240,
+        'outputs': 4,
         'activation': 'relu',
-        'learning rate': 0.3,
-        'epochs': 50,
-        'batch size': 32,
+        'learning rate': 0.01,
+        'epochs': 100,
+        'batch size': 35,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'

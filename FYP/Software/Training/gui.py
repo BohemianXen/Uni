@@ -1,8 +1,5 @@
 import sys
 from Logger import Logger
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QThreadPool
-
 from ui_files.main_view_ui import Ui_MainWindow
 from Plotter import Plotter
 from ble_connection_manager import ConnectionManagerBLE
@@ -12,6 +9,8 @@ from AudioPlayer import AudioPlayer
 from processing.DataProcessors import DataProcessors
 from deep_learning.NeuralNet import NeuralNet
 
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QThreadPool
 from datetime import datetime
 import numpy as np
 import tensorflow as tf
@@ -20,6 +19,7 @@ tf.get_logger().setLevel('DEBUG')  # Reduce logging
 
 params = {
     'live mode': True,
+    'quick capture': False,
     'play audio': False,
     'name': 'FallDetector',
     'live packet size': 40,
@@ -28,8 +28,8 @@ params = {
     'sample length': 6,
     'packet length': 8,
     'root': 'General',
-    'actions': ('Standing'.upper(), 'Walking'.upper(), 'Forward Fall'.upper()),
-    'actions_colours': ('Green', 'Green', 'Red')
+    'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Down'.upper(), 'Forward Fall'.upper()),
+    'actions_colours': ('Green', 'Green', 'Green', 'Red')
 }
 
 
@@ -261,38 +261,48 @@ class MainView(QMainWindow):
         converted_data = DataProcessors.bytearray_to_float(data)  # Convert byte array to signed floats
 
         if not self._live_mode:
-            msg = 'Attempting to save %d entries in csv file' % len(converted_data)
-            self.update_console(msg)
-
-            success = CSVConverters.write_data(converted_data, root=params['root'])
-            if success != -1:
-                msg = 'Successfully wrote %d entries' % success
-                self.update_console(msg)
-            else:
-                msg = 'Failed to save data'
-                self.update_console(msg)
-
+            self.capture_packet_ready(converted_data)
         else:
             self._live_data.extend(converted_data)
             overlap = len(self._live_data) - params['total live samples']
             if overlap >= 0 and self._model is not None:
                 if overlap == 0:
-                    self.live_packet_ready(self._live_data)
+                    self.live_packet_ready(self._live_data, capture=params['quick capture'])
                 else:
-                    self.live_packet_ready(self._live_data[-params['total live samples']:])
+                    self.live_packet_ready(self._live_data[-params['total live samples']:], capture=params['quick capture'])
                     self._live_data = self._live_data[overlap:]
 
-    # ------------------------------------------------- Live Update ----------------------------------------------------
+    # ------------------------------------------- Data Packet Funcs ----------------------------------------------------
 
-    def live_packet_ready(self, new_data):
-        normalised = DataProcessors.normalise(new_data, limits=self._limits, single=True)
-        prediction = self._model.predict(normalised, verbose=0)
-        guess = int(np.argmax(prediction))
-        action = params['actions'][guess]
+    def capture_packet_ready(self, data):
+        """Saves the current data packet in csv format."""
 
-        self.update_console(action)
-        self._ui.actionLabel.setText(action)
-        self._ui.actionLabel.setStyleSheet('color: ' + params['actions_colours'][guess])
+        msg = 'Attempting to save %d entries in csv file' % len(data)
+        self.update_console(msg)
+
+        success = CSVConverters.write_data(data, root=params['root'])
+        if success != -1:
+            msg = 'Successfully wrote %d entries' % success
+            self.update_console(msg)
+        else:
+            msg = 'Failed to save data'
+            self.update_console(msg)
+
+    def live_packet_ready(self, new_data, capture):
+        """Either saves the current live packet or puts it through the trained model for action determination."""
+
+        if capture:
+            self.capture_packet_ready(new_data)
+        else:
+            normalised = DataProcessors.normalise(new_data, limits=self._limits, single=True)
+            prediction = self._model.predict(normalised, verbose=0)
+            guess = int(np.argmax(prediction))
+            action = params['actions'][guess]
+
+            self.update_console(action)
+            #print(prediction)
+            self._ui.actionLabel.setText(action)
+            self._ui.actionLabel.setStyleSheet('color: ' + params['actions_colours'][guess])
 
     # -------------------------------------------------- On Close ------------------------------------------------------
 
