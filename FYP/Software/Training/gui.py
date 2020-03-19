@@ -7,7 +7,7 @@ from StreamManager import StreamManager
 from processing.CSVConverters import CSVConverters
 from AudioPlayer import AudioPlayer
 from processing.DataProcessors import DataProcessors
-from deep_learning.NeuralNet import NeuralNet
+from deep_learning import NeuralNet, RawNeuralNet
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QThreadPool
@@ -18,7 +18,7 @@ tf.get_logger().setLevel('DEBUG')  # Reduce logging
 
 
 params = {
-    'live mode': True,
+    'live mode': False,
     'quick capture': False,
     'play audio': False,
     'name': 'FallDetector',
@@ -78,10 +78,12 @@ class MainView(QMainWindow):
         self._ui.setupUi(self)
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
+        self._classifier = RawNeuralNet
         self._plotter = Plotter(self._ui)
         self._audio_player = AudioPlayer()
 
         # Thread pools
+
         self._pool = QThreadPool.globalInstance()
         self._pool.setMaxThreadCount(4)
 
@@ -102,8 +104,6 @@ class MainView(QMainWindow):
         else:
             self._logger.log('Starting in Data Capture Mode', Logger.DEBUG)
 
-
-
         # UI callbacks
         self._ui.filePushButton.clicked.connect(lambda: self.file_button_clicked())
         self._ui.plotPushButton.clicked.connect(lambda: self.plot_button_clicked())
@@ -118,11 +118,6 @@ class MainView(QMainWindow):
         self._connected = False
         self._model = None
         self._live_data = []
-
-        if params['sample length'] == 9:
-            self._limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
-        else:
-            self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
     def update_console(self, message):
         """Writes a line to the console text widget during a port test.
@@ -246,6 +241,7 @@ class MainView(QMainWindow):
             # Play audio cue to aid timing
             self._logger.log('Playing audio', Logger.DEBUG)
             self._audio_player.play()  # TODO: only works once if separate thread
+
     @pyqtSlot(int)
     def update_progress(self, value):
         """Updates progress bar packet-wise"""
@@ -294,8 +290,8 @@ class MainView(QMainWindow):
         if capture:
             self.capture_packet_ready(new_data)
         else:
-            normalised = DataProcessors.normalise(new_data, limits=self._limits, single=True)
-            prediction = self._model.predict(normalised, verbose=0)
+            features = DataProcessors.raw_normalise(new_data, single=True)  # self._classifier.pre_process(new_data)
+            prediction = self._model.predict(features, verbose=0)
             guess = int(np.argmax(prediction))
             action = params['actions'][guess]
 

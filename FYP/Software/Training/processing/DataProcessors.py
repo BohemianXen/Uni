@@ -6,8 +6,12 @@ class DataProcessors:
         None
 
     @staticmethod
-    def normalise(data, limits, single=False):
+    def raw_normalise(data, single=False):
         """Normalises data using raw sensor limits then flatten series' to 1D (if not already)"""
+        if len(data[0]) == 9:
+            limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
+        else:
+            limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
         normalised = np.array(data, dtype=np.float32) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
         if len(data) != 1:

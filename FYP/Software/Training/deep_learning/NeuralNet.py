@@ -1,7 +1,6 @@
 from __future__ import print_function
+from abc import ABCMeta, abstractmethod
 import numpy as np
-import tensorflow as tf
-
 from tensorflow.keras import optimizers, losses, layers, callbacks, models
 from processing.DataProcessors import DataProcessors
 from processing.CSVConverters import CSVConverters
@@ -11,31 +10,19 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
-class NeuralNet:
-    def __init__(self, mag=False, cutoff=1, max_samples=480, hiddens=480,  outputs=4, activation='relu', epochs=10, batch_size=32, lr=0.3):
-        self._mag = mag
-        self._total_samples = max_samples
-        self._hiddens = hiddens
-        self._outputs = outputs
-        self._activation = activation
-        self._epochs = epochs
-        self._batch_size = batch_size
-        self._lr = lr
-
-        self._samples = int(self._total_samples * cutoff)
-        self._inputs = (self._samples * 9) if self._mag else (self._samples * 6)
-
+class NeuralNet(metaclass=ABCMeta):
+    def __init__(self):
+        self._mag = False
+        self._inputs = 0
+        self._outputs = 0
+        self._epochs = 0
+        self._batch_size = 0
         self._train_data = []
         self._val_data = []
+        self._model = None
         self._history = None
 
-        if self._mag:
-            self._limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
-        else:
-            self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
-
-        self._model = self.create_model(self._inputs, self._hiddens, self._outputs, self._batch_size, self._lr)
-    # ------------------------------------------------- Properties -----------------------------------------------------
+    # ----------------------------------------------- Properties -------------------------------------------------------
 
     @property
     def model(self):
@@ -45,43 +32,43 @@ class NeuralNet:
     def model(self, model):
         self._model = model
 
-    # -------------------------------------------------- Static Methods ------------------------------------------------
+    # ---------------------------------------------- Abstract Methods --------------------------------------------------
 
-    @staticmethod
-    def create_model(inputs, hiddens, outputs, batch_size, lr):
+    @abstractmethod
+    def create_model(self):
         """Creates a keras model based on the Functional API"""
-
-        # Instantiate layers
-        input_layer = tf.keras.Input(shape=(inputs,))  # , batch_input_shape=(batch_size, inputs))
-        x = layers.Dense(hiddens, activation='relu')(input_layer)
-        x = layers.Dense(hiddens, activation='relu')(x)
-        output_layer = layers.Dense(outputs, activation='softmax')(x)
-
-        # Choose loss and optimisation functions/algorithms
-        model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
-        model_optimiser = optimizers.Adam()  # optimizers.SGD(learning_rate=lr)
-
-        # Instantiate and compile model
-        model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
-        model.compile(loss=model_loss, optimizer=model_optimiser, metrics=['accuracy'])
-        return model
+        pass
 
     @staticmethod
-    def load_model(filename, single=False):
+    @abstractmethod
+    def pre_process(raw_data):
+        """Feature extraction"""
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def get_stop_conditions():
+        """Feature extraction"""
+        pass
+
+    # ----------------------------------------------- Static Methods ---------------------------------------------------
+    @staticmethod
+    def load_model(filename):
         """Loads and returns a previously created model"""
 
-        model = models.load_model(filename)  # TODO: try/catch
-
-        if single:
-            # FROM https://datascience.stackexchange.com/questions/13461/how-can-i-get-prediction-for-only-one-instance-in-keras
-            weights = model.get_weights()
-            single_item_model = NeuralNet.create_model()
-            single_item_model.set_weights(weights)
-            return single_item_model
-        else:
+        try:
+            model = models.load_model(filename)  # TODO: try/catch
             return model
+        except FileNotFoundError as path_error:
+            print('Could not find to .h5 file: {}'.format(filename))
+            print(path_error)
+            exit(-1)
+        except Exception as e:
+            print('Failed to load model: {}'.format(filename))
+            print(e)
+            exit(-1)
 
-    # -------------------------------------------------- Methods -------------------------------------------------------
+    # ----------------------------------------------- Class Methods ----------------------------------------------------
 
     def load_data(self, roots):
         """Parses all recorded data held within input directories and converts all entries into a normalised np array"""
@@ -104,9 +91,9 @@ class NeuralNet:
                     if len(data) > self._samples:
                         data = data[:self._samples]
 
-                    # Normalise and flatten the data samples then0 prefix the label
-                    normalised = DataProcessors.normalise(data, limits=self._limits)
-                    all_data.append(np.concatenate([[labels[i]], normalised]))
+                    # Normalise and flatten the data samples then prefix the label
+                    features = self.pre_process(data)
+                    all_data.append(np.concatenate([[labels[i]], features]))
 
             if len(all_data) == 0:
                 return False  # No data read in
@@ -128,9 +115,7 @@ class NeuralNet:
         val_given = len(self._val_data) != 0  # Check if validation data has been specified
 
         # Early stopping criteria to stop overfitting
-        callback_list = []
-        #callback_list.append(callbacks.EarlyStopping(monitor='val_accuracy', patience=15, mode='auto'))
-        callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=6, mode='auto'))
+        callback_list = self.get_stop_conditions()
 
         # Separate labels and train data, shuffling if necessary since they are initially read-in in time order
         train_data, train_targets = DataProcessors.parse_train_data(self._train_data, self._outputs, shuffle)
@@ -139,11 +124,11 @@ class NeuralNet:
         if val_given:
             val_data, val_targets = DataProcessors.parse_train_data(self._val_data, self._outputs, shuffle)
             self._history = self._model.fit(train_data, train_targets, validation_data=(val_data, val_targets),
-                                           epochs=self._epochs, batch_size=self._batch_size,
-                                           verbose=2, callbacks=callback_list)
+                                            epochs=self._epochs, batch_size=self._batch_size,
+                                            verbose=2, callbacks=callback_list)
         else:
             self._history = self._model.fit(train_data, train_targets, epochs=self._epochs, batch_size=self._batch_size,
-                                           validation_split=0.15, verbose=2, callbacks=callback_list)
+                                            validation_split=0.15, verbose=2, callbacks=callback_list)
 
         if save:
             self.save_model()
@@ -245,62 +230,35 @@ class NeuralNet:
 
 
 class Tests:
-    def __init__(self):
-        None
+    def __init__(self, params):
+        self._params = params
 
-    @staticmethod
-    def train_net(net, shuffle=True, plot=True, save=False, predict=True, test_save=False):
+    def train_net(self, net, shuffle=True, plot=True, save=False, predict=True, test_save=False):
         baseline = -1
 
-        loaded = net.load_data(roots=[params['train_root'], params['val_root']])
+        loaded = net.load_data(roots=[self._params['train_root'], self._params['val_root']])
         if loaded:
             assert net.train(shuffle=shuffle, save=save, plot=plot)
 
         if predict:
-            baseline = net.predict_directory(root=params['test_root'])
+            baseline = net.predict_directory(root=self._params['test_root'])
             assert baseline != -1
 
         if predict and test_save and not save:
             saved_filename = net.save_model()
             assert saved_filename is not False
 
-            score = Tests.save_model(net, filename=saved_filename)
+            score = self.save_model(net, filename=saved_filename)
             min_score = 0.8 * baseline
             assert min_score <= score
 
-    @staticmethod
-    def save_model(net, filename):
+    def save_model(self, net, filename):
         net.model = None
         full_path = os.path.join(os.getcwd(), filename)
         model = NeuralNet.load_model(full_path)
         assert model is not None
 
         net.model = model
-        score = net.predict_directory(root=params['test_root'])
+        score = net.predict_directory(root=self._params['test_root'])
 
         return score
-
-
-if __name__ == '__main__':
-    params = {
-        'mag': False,
-        'cutoff': 0.25,
-        'max samples': 480,
-        'hiddens': 240,
-        'outputs': 4,
-        'activation': 'relu',
-        'learning rate': 0.01,
-        'epochs': 100,
-        'batch size': 35,
-        'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-        'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
-
-    }
-
-    nn = NeuralNet(mag=params['mag'], cutoff=params['cutoff'], max_samples=params['max samples'],
-                   hiddens=params['hiddens'], outputs=params['outputs'],activation=params['activation'],
-                   epochs=params['epochs'], batch_size=params['batch size'], lr=params['learning rate'])
-
-    Tests.train_net(nn, save=True, test_save=False)
-    #score = nn.predict(params['test_root'], shuffle=False)
