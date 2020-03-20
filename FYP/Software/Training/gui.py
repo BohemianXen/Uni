@@ -7,7 +7,7 @@ from StreamManager import StreamManager
 from processing.CSVConverters import CSVConverters
 from AudioPlayer import AudioPlayer
 from processing.DataProcessors import DataProcessors
-from deep_learning import NeuralNet, RawNeuralNet
+from deep_learning import NeuralNet, RawNeuralNet, SMVNeuralNet
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QThreadPool
@@ -18,7 +18,7 @@ tf.get_logger().setLevel('DEBUG')  # Reduce logging
 
 
 params = {
-    'live mode': False,
+    'live mode': True,
     'quick capture': False,
     'play audio': False,
     'name': 'FallDetector',
@@ -78,7 +78,7 @@ class MainView(QMainWindow):
         self._ui.setupUi(self)
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
-        self._classifier = RawNeuralNet
+        self._classifier = None  # RawNeuralNet
         self._plotter = Plotter(self._ui)
         self._audio_player = AudioPlayer()
 
@@ -159,6 +159,10 @@ class MainView(QMainWindow):
 
             if self._live_mode:
                 self._model = NeuralNet.load_model(self._model_filename)
+                if '15' in self._model_filename:  # TODO: Add classifier name to model filenames
+                    self._classifier = SMVNeuralNet
+                else:
+                   self._classifier = RawNeuralNet
 
         else:
             self._ui.fileLabel.setText('No Model Selected')
@@ -290,7 +294,7 @@ class MainView(QMainWindow):
         if capture:
             self.capture_packet_ready(new_data)
         else:
-            features = DataProcessors.raw_normalise(new_data, single=True)  # self._classifier.pre_process(new_data)
+            features = self._classifier.pre_process(new_data, single=True)
             prediction = self._model.predict(features, verbose=0)
             guess = int(np.argmax(prediction))
             action = params['actions'][guess]

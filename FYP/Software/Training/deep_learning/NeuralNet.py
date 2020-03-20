@@ -41,7 +41,7 @@ class NeuralNet(metaclass=ABCMeta):
 
     @staticmethod
     @abstractmethod
-    def pre_process(raw_data):
+    def pre_process(raw_data, single):
         """Feature extraction"""
         pass
 

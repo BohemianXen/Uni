@@ -1,24 +1,107 @@
 import numpy as np
+from Plotter import Plotter
 
 
 class DataProcessors:
     def __init__(self):
-        None
+        pass
 
     @staticmethod
     def raw_normalise(data, single=False):
         """Normalises data using raw sensor limits then flatten series' to 1D (if not already)"""
-        if len(data[0]) == 9:
-            limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
-        else:
-            limits = np.array([4, 4, 4, 2000, 2000, 2000])
+        normalised = DataProcessors.normalise(data)
 
-        normalised = np.array(data, dtype=np.float32) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
         if len(data) != 1:
             normalised = normalised.flatten()
         if single:
             normalised = np.expand_dims(normalised, axis=0)  # For only querying one packet at a time
         return normalised
+
+    @staticmethod
+    def normalise(data):
+        if len(data[0]) == 9:
+            limits = np.array([4, 4, 4, 2000, 2000, 2000, 400, 400, 400])
+        else:
+            limits = np.array([4, 4, 4, 2000, 2000, 2000])
+
+        return np.array(data, dtype=np.float32) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
+
+    @staticmethod
+    def smv(raw_data, smooth=True, plot=False, no_smv=False, single=False):
+        data = DataProcessors.normalise(raw_data)  # np.array(raw_data)
+        acc_raw = data[:, :3].T
+        gyro_raw = data[:, 3:].T
+
+        if smooth:
+            acc_smoothed = DataProcessors.smooth(acc_raw)
+            gyro_smoothed = DataProcessors.smooth(gyro_raw)
+
+            ax_std = np.std(acc_smoothed[0])
+            ay_std = np.std(acc_smoothed[1])
+            az_std = np.std(acc_smoothed[2])
+
+            gx_std = np.std(gyro_smoothed[0])
+            gy_std = np.std(gyro_smoothed[1])
+            gz_std = np.std(gyro_smoothed[2])
+
+            ax_mean = np.mean(acc_smoothed[0])
+            ay_mean = np.mean(acc_smoothed[1])
+            az_mean = np.mean(acc_smoothed[2])
+
+            gx_mean = np.mean(gyro_smoothed[0])
+            gy_mean = np.mean(gyro_smoothed[1])
+            gz_mean = np.mean(gyro_smoothed[2])
+
+            stds = np.array([ax_std, ay_std, az_std, gx_std, gy_std, gz_std])
+            means = np.array([ax_mean, ay_mean, az_mean, gx_mean, gy_mean, gz_mean])
+
+
+            # Both for testing only; remember to adjust no. of inputs in SMVNeuralNet if so
+            if plot:
+                Plotter.pyplot_plot(acc_raw, acc_smoothed, gyro_raw, gyro_smoothed)
+            if no_smv:
+                acc_smoothed = acc_smoothed.T.flatten()
+                gyro_smoothed = gyro_smoothed.T.flatten()
+                return np.concatenate([acc_smoothed, gyro_smoothed])
+
+            #acc = np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1))  # TODO: Normalise against max possible SMV
+            # gyro = np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1))
+            acc = np.sqrt(np.sum([np.mean(acc_smoothed[0])**2, np.mean(acc_smoothed[1])**2, np.mean(acc_smoothed[2])**2]))
+            gyro = np.sqrt(np.sum([np.mean(gyro_smoothed[0])**2, np.mean(gyro_smoothed[1]**2), np.mean(gyro_smoothed[2])**2]))
+            acc_sum = np.sum(np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1)))
+            #gyro_sum = np.sum(np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1)))
+        else:
+            acc = np.sqrt(np.sum(np.square(acc_raw.T), axis=1))  # TODO: Normalise against max possible SMV
+            gyro = np.sqrt(np.sum(np.square(gyro_raw.T), axis=1))
+
+        features = np.concatenate([stds, means, [acc], [gyro], [acc_sum]]) #  [gyro_sum]])
+
+        if single:
+            return np.expand_dims(features, axis=0)
+        else:
+            return features
+
+    @staticmethod
+    def smooth(series, averaging_length=3, just_average=True):
+        """Moving averages the series, optionallu removes the median from all values, and optionally applies window.
+        Parameters:
+            series(ndarray): The noisy input series.
+            averaging_length(int, optional): The length of the moving average. Defaults to 4.
+            just_average(bool, optional): Whether to just do the moving average stage only. Defaults to False.
+        Returns:
+            (ndarray): Smoothed input data.
+        """
+
+        smoothed = np.zeros_like(series)
+        # Calculate moving average over valid indices
+        for i in range(3):
+            summed = np.cumsum(series[i, :])
+            valid_range = summed[averaging_length:] - summed[:-averaging_length]
+            summed[averaging_length:] = valid_range
+            averaged = summed[averaging_length - 1:] / averaging_length
+            smoothed[i] = np.concatenate([[averaged[0]]*(averaging_length-1), averaged])
+
+        return smoothed
 
     @staticmethod
     def parse_train_data(train_data, outputs, shuffle):
@@ -57,3 +140,23 @@ class DataProcessors:
             converted_array.extend(parsed_split)
 
         return converted_array
+
+
+    # @staticmethod
+    # def raw_normalise(data, smooth=True, single=False):
+    #     """Normalises data using raw sensor limits then flatten series' to 1D (if not already)"""
+    #     normalised = DataProcessors.normalise(data)
+    #     acc_raw = normalised[:, :3].T
+    #     gyro_raw = normalised[:, 3:].T
+    #
+    #     if smooth:
+    #         acc_raw = DataProcessors.smooth(acc_raw)
+    #         gyro_raw = DataProcessors.smooth(gyro_raw)
+    #
+    #     smoothed = np.concatenate([acc_raw.T, gyro_raw.T])
+    #
+    #     if len(data) != 1:
+    #         smoothed = smoothed.flatten()
+    #     if single:
+    #         smoothed = np.expand_dims(normalised, axis=0)  # For only querying one packet at a time
+    #     return smoothed

@@ -1,6 +1,7 @@
 from Logger import Logger
 from ui_files.main_view_ui import Ui_MainWindow
 import pyqtgraph as pg
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -112,3 +113,27 @@ class Plotter:
 
                 if mag:
                     self._mag_plot.legend.addItem(self._mag_plot.items[sensor], name=sensor_names[sensor+6])
+
+    @staticmethod
+    def pyplot_plot(acc_raw, acc_smoothed, gyro_raw, gyro_smoothed):
+        fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex=True)
+        fig.tight_layout(pad=3.0)
+        axes = ('X', 'Y', 'Z')
+        colours = ('r', 'g', 'b')
+
+        for i in range(3):
+            ax1.plot(acc_raw[i], label='acc' + axes[i], linestyle='--', color=colours[i])
+            ax1.plot(acc_smoothed[i], label='acc' + axes[i] + 'smooth', color=colours[i])
+            ax2.plot(gyro_raw[i], label='gyro' + axes[i], linestyle='--', color=colours[i])
+            ax2.plot(gyro_smoothed[i], label='gyro' + axes[i] + 'smooth', color=colours[i])
+
+        ax1.legend()
+        ax1.set_title('Acc')
+        ax1.set_xlabel('Sample No.')
+        ax1.set_ylabel('gs')
+
+        ax2.legend()
+        ax2.set_title('Gyro')
+        ax2.set_ylabel('dps')
+
+        plt.show()
