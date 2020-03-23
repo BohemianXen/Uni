@@ -6,7 +6,7 @@ from processing.DataProcessors import DataProcessors
 
 
 class SMVNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=9,  outputs=4, activation='relu', epochs=100, batch_size=18, lr=0.01):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=9,  outputs=6, activation='relu', epochs=100, batch_size=18, lr=0.01):
         super().__init__()
         self._mag = mag
         self._total_samples = max_samples
@@ -70,11 +70,11 @@ if __name__ == '__main__':
         'cutoff': 0.25,
         'max samples': 480,
         'hiddens': 9,
-        'outputs': 4,
+        'outputs': 6,
         'activation': 'tanh',
         'learning rate': 0.001,
-        'epochs': 80,
-        'batch size': 14,
+        'epochs': 200,
+        'batch size': 49,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'

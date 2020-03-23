@@ -28,8 +28,9 @@ params = {
     'sample length': 6,
     'packet length': 8,
     'root': 'General',
-    'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Down'.upper(), 'Forward Fall'.upper()),
-    'actions_colours': ('Green', 'Green', 'Green', 'Red')
+    'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Down'.upper(), 'Forward Fall'.upper(),
+                'Left Fall'.upper(), 'Right Fall'.upper()),
+    'actions colours': ('Green', 'Green', 'Green', 'Red', 'Red', 'Red')
 }
 
 
@@ -302,7 +303,7 @@ class MainView(QMainWindow):
             self.update_console(action)
             #print(prediction)
             self._ui.actionLabel.setText(action)
-            self._ui.actionLabel.setStyleSheet('color: ' + params['actions_colours'][guess])
+            self._ui.actionLabel.setStyleSheet('color: ' + params['actions colours'][guess])
 
     # -------------------------------------------------- On Close ------------------------------------------------------
 

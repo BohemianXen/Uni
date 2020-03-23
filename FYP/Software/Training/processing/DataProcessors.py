@@ -1,7 +1,6 @@
 import numpy as np
 from Plotter import Plotter
 
-
 class DataProcessors:
     def __init__(self):
         pass
@@ -24,7 +23,7 @@ class DataProcessors:
         else:
             limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
-        return np.array(data, dtype=np.float32) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
+        return np.array(data) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
 
     @staticmethod
     def smv(raw_data, smooth=True, plot=False, no_smv=False, single=False):
@@ -140,6 +139,12 @@ class DataProcessors:
             converted_array.extend(parsed_split)
 
         return converted_array
+
+    @staticmethod
+    def mirror(data, mask=(1, 1, 1, 1, 1, 1)):
+        mask = np.array(mask)
+        return np.array(data) * mask[:, ]
+
 
 
     # @staticmethod

@@ -3,6 +3,7 @@ from datetime import datetime
 from os import path, listdir, mkdir
 import numpy as np
 from shutil import move, copy2
+from processing.DataProcessors import DataProcessors
 
 
 class CSVConverters:
@@ -10,10 +11,18 @@ class CSVConverters:
        None
 
     @staticmethod
-    def write_data(data, root='General'): # TODO: only works because only method to call this (gui) currently shares same parent directory as 'Training Data'
+    def write_data(data, root='General', suffix=None): # TODO: only works because only method to call this (gui) currently shares same parent directory as 'Training Data'
         print('Saving as csv')
+        filename = 'Training Data\\{0}\\{1}'.format(root, datetime.now().strftime("%Y-%m-%d %H_%M_%S"))
+
+        if suffix is not None and type(suffix) is int:
+            filename = '..\\' + filename
+            filename += '_' + str(suffix)
+
+        filename += '.csv'
+
         written = 0
-        with open('Training Data\\{0}\\{1}.csv'.format(root, datetime.now().strftime("%Y-%m-%d %H_%M_%S")), 'w', newline='') as f:
+        with open(filename, 'w', newline='') as f:
             col_headers = ['ax', 'ay', 'az', 'gx', 'gy', 'gz']  #  'mx', 'my', 'mz']
             if len(data[0]) == 9:
                 col_headers.extend(['mx', 'my', 'mz'])
@@ -61,11 +70,10 @@ class CSVConverters:
 
         return [all_files, all_labels]
 
-
     @staticmethod
     def get_test_set(root=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-                     target=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
-                     test_size=42, dir_prefix='14Mar_Generated_Validation_StandingDynamic_', copy=True):
+                     target=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
+                     test_size=42, dir_prefix='23Mar_Generated_Validation_RightFall_', copy=True):
 
         files, labels = CSVConverters.get_data_files(root)
 
@@ -73,10 +81,10 @@ class CSVConverters:
         if len(unique_labels) != 0:
             for label in unique_labels:
                 dir_name = dir_prefix + str(label)
-                full_dir_name = path.join(target, dir_name)
-                if not path.exists(full_dir_name):
+                dir_path = path.join(target, dir_name)
+                if not path.exists(dir_path):
                     try:
-                        mkdir(full_dir_name)
+                        mkdir(dir_path)
                     except OSError as e:
                         print('Could not create dir: ' + dir_name)
                         print(e)
@@ -108,19 +116,47 @@ class CSVConverters:
 
             return dir_counts #  == test_size
 
+    @staticmethod
+    def mirror(root=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
+               target=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
+               output_dir='23Mar_Train_LeftFallMirrored_4', mask=(1, 1, 1, 1, 1, 1)):
 
+        files, labels = CSVConverters.get_data_files(root)
 
+        dir_path = path.join(target, output_dir)
+        if not path.exists(dir_path):
+            try:
+                mkdir(dir_path)
+            except OSError as e:
+                print('Could not create dir: ' + dir_path)
+                print(e)
+                return -1
 
+        success_counts = 0
+        for file in files:
+            data = CSVConverters.csv_to_list(file)
+            mirrored_data = DataProcessors.mirror(data, mask=mask)
+            success = CSVConverters.write_data(mirrored_data, root=output_dir, suffix=success_counts)
+            if success == -1:
+                print('Failed to save data for', file)
+                return -1
+            else:
+                success_counts += 1
+
+        return success_counts
 
 
 class Tests:
     def __init__(self):
-        None
+        pass
 
     @staticmethod
     def test_directories():
-        None
+        pass
+
 
 if __name__ == '__main__':
     test = r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data'
     #print(CSVConverters.get_test_set(copy=True))
+
+    #CSVConverters.mirror(mask=(1, -1, 1, 1, 1, -1))

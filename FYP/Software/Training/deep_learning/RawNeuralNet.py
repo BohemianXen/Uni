@@ -6,7 +6,7 @@ from processing.DataProcessors import DataProcessors
 
 
 class RawNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=4, activation='relu', epochs=10, batch_size=35, lr=0.01):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=6, activation='relu', epochs=10, batch_size=35, lr=0.01):
         super().__init__()
         self._mag = mag
         self._total_samples = max_samples
@@ -78,11 +78,11 @@ if __name__ == '__main__':
         'cutoff': 0.25,
         'max samples': 480,
         'hiddens': 240,
-        'outputs': 4,
+        'outputs': 6,
         'activation': 'relu',
         'learning rate': 0.01,
         'epochs': 80,
-        'batch size': 35,
+        'batch size': 49,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
@@ -94,5 +94,5 @@ if __name__ == '__main__':
                    epochs=params['epochs'], batch_size=params['batch size'], lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, save=False, test_save=False)
+    tests.train_net(nn, save=True, test_save=False)
     #score = nn.predict(params['test_root'], shuffle=False)
