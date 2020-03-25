@@ -12,6 +12,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 class NeuralNet(metaclass=ABCMeta):
     def __init__(self):
+        self.name = self.__class__.__name__
         self._mag = False
         self._inputs = 0
         self._outputs = 0
@@ -142,7 +143,7 @@ class NeuralNet(metaclass=ABCMeta):
         """Saves the model held in the _model instance attribute as HDF5 file"""
         # TODO: Better to use checkpoints during training, save only best (lowest)
 
-        filename = '%f - %d inputs.h5' % ((self._history.history['loss'][-1]), self._inputs)  # Add loss to filename
+        filename = '%f - %d inputs_%s.h5' % ((self._history.history['loss'][-1]), self._inputs, self.name)  # Add loss to filename
         filename = 'Saved Models\\Loss - ' + filename
         try:
             self._model.save(filename, overwrite=True)

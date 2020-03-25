@@ -8,6 +8,7 @@ from processing.DataProcessors import DataProcessors
 class RawNeuralNet(NeuralNet, Tests):
     def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=8, activation='relu', epochs=10, batch_size=35, lr=0.01):
         super().__init__()
+        self.name = self.__class__.__name__
         self._mag = mag
         self._total_samples = max_samples
         self._hiddens = hiddens
@@ -53,7 +54,7 @@ class RawNeuralNet(NeuralNet, Tests):
 
         # Choose loss and optimisation functions/algorithms
         model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
-        model_optimiser = optimizers.Adam()  # optimizers.SGD(learning_rate=lr)
+        model_optimiser = optimizers.Adam(learning_rate=self._lr)  # optimizers.SGD(learning_rate=lr)
 
         # Instantiate and compile model
         self._model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
@@ -80,7 +81,7 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'relu',
-        'learning rate': 0.01,
+        'learning rate': 0.0005,
         'epochs': 80,
         'batch size': 64,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',

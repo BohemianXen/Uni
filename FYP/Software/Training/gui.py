@@ -27,7 +27,7 @@ params = {
     'total capture samples': 480,
     'sample length': 6,
     'packet length': 8,
-    'root': '24Mar_Train_LyingRight_4',
+    'root': 'General',
     'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Forwards'.upper(), 'Lying Left'.upper(),
                 'Lying Right'.upper(),  'Forward Fall'.upper(), 'Left Fall'.upper(), 'Right Fall'.upper()),
     'actions colours': ('Green', 'Green', 'Green', 'Green', 'Green', 'Red', 'Red', 'Red')
@@ -160,7 +160,7 @@ class MainView(QMainWindow):
 
             if self._live_mode:
                 self._model = NeuralNet.load_model(self._model_filename)
-                if '15' in self._model_filename:  # TODO: Add classifier name to model filenames
+                if 'SMV' in self._model_filename:  # TODO: Add classifier name to model filenames
                     self._classifier = SMVNeuralNet
                 else:
                    self._classifier = RawNeuralNet

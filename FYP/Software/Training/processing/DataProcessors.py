@@ -26,54 +26,53 @@ class DataProcessors:
         return np.array(data) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
 
     @staticmethod
-    def smv(raw_data, smooth=True, plot=False, no_smv=False, single=False):
+    def smv(raw_data, smooth=False, plot=False, no_smv=False, single=False):
         data = DataProcessors.normalise(raw_data)  # np.array(raw_data)
         acc_raw = data[:, :3].T
         gyro_raw = data[:, 3:].T
+        acc_smoothed = acc_raw
+        gyro_smoothed = gyro_raw
 
         if smooth:
             acc_smoothed = DataProcessors.smooth(acc_raw)
             gyro_smoothed = DataProcessors.smooth(gyro_raw)
 
-            ax_std = np.std(acc_smoothed[0])
-            ay_std = np.std(acc_smoothed[1])
-            az_std = np.std(acc_smoothed[2])
+        ax_std = np.std(acc_smoothed[0])
+        ay_std = np.std(acc_smoothed[1])
+        az_std = np.std(acc_smoothed[2])
 
-            gx_std = np.std(gyro_smoothed[0])
-            gy_std = np.std(gyro_smoothed[1])
-            gz_std = np.std(gyro_smoothed[2])
+        gx_std = np.std(gyro_smoothed[0])
+        gy_std = np.std(gyro_smoothed[1])
+        gz_std = np.std(gyro_smoothed[2])
 
-            ax_mean = np.mean(acc_smoothed[0])
-            ay_mean = np.mean(acc_smoothed[1])
-            az_mean = np.mean(acc_smoothed[2])
+        ax_mean = np.mean(acc_smoothed[0])
+        ay_mean = np.mean(acc_smoothed[1])
+        az_mean = np.mean(acc_smoothed[2])
 
-            gx_mean = np.mean(gyro_smoothed[0])
-            gy_mean = np.mean(gyro_smoothed[1])
-            gz_mean = np.mean(gyro_smoothed[2])
+        gx_mean = np.mean(gyro_smoothed[0])
+        gy_mean = np.mean(gyro_smoothed[1])
+        gz_mean = np.mean(gyro_smoothed[2])
 
-            stds = np.array([ax_std, ay_std, az_std, gx_std, gy_std, gz_std])
-            means = np.array([ax_mean, ay_mean, az_mean, gx_mean, gy_mean, gz_mean])
+        stds = np.array([ax_std, ay_std, az_std, gx_std, gy_std, gz_std])
+        means = np.array([ax_mean, ay_mean, az_mean, gx_mean, gy_mean, gz_mean])
 
+        # Both for testing only; remember to adjust no. of inputs in SMVNeuralNet if used
+        if plot:
+            Plotter.pyplot_plot(acc_raw, acc_smoothed, gyro_raw, gyro_smoothed)
+        if no_smv:
+            acc_smoothed = acc_smoothed.T.flatten()
+            gyro_smoothed = gyro_smoothed.T.flatten()
+            return np.concatenate([acc_smoothed, gyro_smoothed])
 
-            # Both for testing only; remember to adjust no. of inputs in SMVNeuralNet if so
-            if plot:
-                Plotter.pyplot_plot(acc_raw, acc_smoothed, gyro_raw, gyro_smoothed)
-            if no_smv:
-                acc_smoothed = acc_smoothed.T.flatten()
-                gyro_smoothed = gyro_smoothed.T.flatten()
-                return np.concatenate([acc_smoothed, gyro_smoothed])
+        acc = np.sqrt(np.sum([np.mean(acc_smoothed[0])**2, np.mean(acc_smoothed[1])**2, np.mean(acc_smoothed[2])**2]))
+        gyro = np.sqrt(np.sum([np.mean(gyro_smoothed[0])**2, np.mean(gyro_smoothed[1]**2), np.mean(gyro_smoothed[2])**2]))
 
-            #acc = np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1))  # TODO: Normalise against max possible SMV
-            # gyro = np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1))
-            acc = np.sqrt(np.sum([np.mean(acc_smoothed[0])**2, np.mean(acc_smoothed[1])**2, np.mean(acc_smoothed[2])**2]))
-            gyro = np.sqrt(np.sum([np.mean(gyro_smoothed[0])**2, np.mean(gyro_smoothed[1]**2), np.mean(gyro_smoothed[2])**2]))
-            acc_sum = np.sum(np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1)))
-            #gyro_sum = np.sum(np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1)))
-        else:
-            acc = np.sqrt(np.sum(np.square(acc_raw.T), axis=1))  # TODO: Normalise against max possible SMV
-            gyro = np.sqrt(np.sum(np.square(gyro_raw.T), axis=1))
+        #acc_sum = np.sum(np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1)))
+        #gyro_sum = np.sum(np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1)))
+        #acc_mags = np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1))
+        #gyro_mags = np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1))
 
-        features = np.concatenate([stds, means, [acc], [gyro], [acc_sum]]) #  [gyro_sum]])
+        features = np.concatenate([stds, means, [acc], [gyro]])
 
         if single:
             return np.expand_dims(features, axis=0)

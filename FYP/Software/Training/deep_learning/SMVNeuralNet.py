@@ -6,10 +6,12 @@ from processing.DataProcessors import DataProcessors
 
 
 class SMVNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=9,  outputs=8, activation='relu', epochs=100, batch_size=18, lr=0.01):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, inputs=14, hiddens=9,  outputs=8, activation='tanh', epochs=60, batch_size=64, lr=0.004):
         super().__init__()
+        self.name = self.__class__.__name__
         self._mag = mag
         self._total_samples = max_samples
+        self._inputs = inputs
         self._hiddens = hiddens
         self._outputs = outputs
         self._activation = activation
@@ -19,7 +21,6 @@ class SMVNeuralNet(NeuralNet, Tests):
 
         self._samples = int(self._total_samples * cutoff)
         #self._inputs = (self._samples * 3) if self._mag else (self._samples * 2)
-        self._inputs = 15  # += 6
 
         self.create_model()
     # ------------------------------------------------- Properties -----------------------------------------------------
@@ -60,7 +61,7 @@ class SMVNeuralNet(NeuralNet, Tests):
     def get_stop_conditions():
         callback_list = []
         #callback_list.append(callbacks.EarlyStopping(monitor='val_accuracy', patience=15, mode='auto'))
-        callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=12, mode='auto'))
+        callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=6, mode='auto'))
         return callback_list
 
 
@@ -69,11 +70,12 @@ if __name__ == '__main__':
         'mag': False,
         'cutoff': 0.25,
         'max samples': 480,
-        'hiddens': 9,
+        'inputs': 14,
+        'hiddens': 8,
         'outputs': 8,
         'activation': 'tanh',
         'learning rate': 0.004,
-        'epochs': 100,
+        'epochs': 80,
         'batch size': 64,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
@@ -82,8 +84,9 @@ if __name__ == '__main__':
     }
 
     nn = SMVNeuralNet(mag=params['mag'], cutoff=params['cutoff'], max_samples=params['max samples'],
-                   hiddens=params['hiddens'], outputs=params['outputs'],activation=params['activation'],
-                   epochs=params['epochs'], batch_size=params['batch size'], lr=params['learning rate'])
+                      inputs=params['inputs'], hiddens=params['hiddens'], outputs=params['outputs'],
+                      activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
+                      lr=params['learning rate'])
 
     tests = Tests(params=params)
     tests.train_net(nn, save=True, test_save=False)
