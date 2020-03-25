@@ -27,10 +27,10 @@ params = {
     'total capture samples': 480,
     'sample length': 6,
     'packet length': 8,
-    'root': 'General',
-    'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Down'.upper(), 'Forward Fall'.upper(),
-                'Left Fall'.upper(), 'Right Fall'.upper()),
-    'actions colours': ('Green', 'Green', 'Green', 'Red', 'Red', 'Red')
+    'root': '24Mar_Train_LyingRight_4',
+    'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Forwards'.upper(), 'Lying Left'.upper(),
+                'Lying Right'.upper(),  'Forward Fall'.upper(), 'Left Fall'.upper(), 'Right Fall'.upper()),
+    'actions colours': ('Green', 'Green', 'Green', 'Green', 'Green', 'Red', 'Red', 'Red')
 }
 
 
@@ -266,7 +266,7 @@ class MainView(QMainWindow):
         else:
             self._live_data.extend(converted_data)
             overlap = len(self._live_data) - params['total live samples']
-            if overlap >= 0 and self._model is not None:
+            if overlap >= 0 and (params['quick capture'] or self._model is not None):
                 if overlap == 0:
                     self.live_packet_ready(self._live_data, capture=params['quick capture'])
                 else:

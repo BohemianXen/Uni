@@ -73,7 +73,7 @@ class CSVConverters:
     @staticmethod
     def get_test_set(root=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
                      target=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-                     test_size=42, dir_prefix='23Mar_Generated_Validation_RightFall_', copy=True):
+                     test_size=42, dir_prefix='24Mar_Generated_Validation_LyingRight_', copy=True):
 
         files, labels = CSVConverters.get_data_files(root)
 

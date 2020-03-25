@@ -6,7 +6,7 @@ from processing.DataProcessors import DataProcessors
 
 
 class SMVNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=9,  outputs=6, activation='relu', epochs=100, batch_size=18, lr=0.01):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=9,  outputs=8, activation='relu', epochs=100, batch_size=18, lr=0.01):
         super().__init__()
         self._mag = mag
         self._total_samples = max_samples
@@ -19,7 +19,7 @@ class SMVNeuralNet(NeuralNet, Tests):
 
         self._samples = int(self._total_samples * cutoff)
         #self._inputs = (self._samples * 3) if self._mag else (self._samples * 2)
-        self._inputs = 15 # self._inputs + 6
+        self._inputs = 15  # += 6
 
         self.create_model()
     # ------------------------------------------------- Properties -----------------------------------------------------
@@ -45,7 +45,7 @@ class SMVNeuralNet(NeuralNet, Tests):
 
         # Choose loss and optimisation functions/algorithms
         model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
-        model_optimiser = optimizers.Adam()  # optimizers.RMSprop(learning_rate=self._lr)   #  optimizers.SGD(learning_rate=self._lr)
+        model_optimiser = optimizers.Adam(learning_rate=self._lr)  # optimizers.RMSprop(learning_rate=self._lr)   #  optimizers.SGD(learning_rate=self._lr)
 
         # Instantiate and compile model
         self._model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
@@ -60,7 +60,7 @@ class SMVNeuralNet(NeuralNet, Tests):
     def get_stop_conditions():
         callback_list = []
         #callback_list.append(callbacks.EarlyStopping(monitor='val_accuracy', patience=15, mode='auto'))
-        callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=15, mode='auto'))
+        callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=12, mode='auto'))
         return callback_list
 
 
@@ -70,11 +70,11 @@ if __name__ == '__main__':
         'cutoff': 0.25,
         'max samples': 480,
         'hiddens': 9,
-        'outputs': 6,
+        'outputs': 8,
         'activation': 'tanh',
-        'learning rate': 0.001,
-        'epochs': 200,
-        'batch size': 49,
+        'learning rate': 0.004,
+        'epochs': 100,
+        'batch size': 64,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
