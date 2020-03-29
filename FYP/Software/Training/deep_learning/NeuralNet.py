@@ -1,6 +1,7 @@
 from __future__ import print_function
 from abc import ABCMeta, abstractmethod
 import numpy as np
+from scipy.io import savemat
 from tensorflow.keras import optimizers, losses, layers, callbacks, models
 from processing.DataProcessors import DataProcessors
 from processing.CSVConverters import CSVConverters
@@ -33,6 +34,10 @@ class NeuralNet(metaclass=ABCMeta):
     def model(self, model):
         self._model = model
 
+    @property
+    def train_data(self):
+        return np.copy(self._train_data)
+
     # ---------------------------------------------- Abstract Methods --------------------------------------------------
 
     @abstractmethod
@@ -58,16 +63,16 @@ class NeuralNet(metaclass=ABCMeta):
         """Loads and returns a previously created model"""
 
         try:
-            model = models.load_model(filename)  # TODO: try/catch
+            model = models.load_model(filename)
             return model
         except FileNotFoundError as path_error:
-            print('Could not find to .h5 file: {}'.format(filename))
+            print('Could not find path to .h5 file: {}'.format(filename))
             print(path_error)
-            exit(-1)
+            return -1
         except Exception as e:
             print('Failed to load model: {}'.format(filename))
             print(e)
-            exit(-1)
+            return -1
 
     # ----------------------------------------------- Class Methods ----------------------------------------------------
 
@@ -157,7 +162,6 @@ class NeuralNet(metaclass=ABCMeta):
             return False
 
     def save_train_data(self, filename):
-        from scipy.io import savemat
         """Saves the labelled training data held in the _train_data instance attribute as a .csv and .mat file"""
 
         if len(self._train_data) != 0:
@@ -225,7 +229,11 @@ class NeuralNet(metaclass=ABCMeta):
             for i, sample in enumerate(predictions):
                 print(predictions[i])
 
-                guess = np.argmax(predictions[i])  # Best guess is highest probability* score in prediction
+                if np.ndim(predictions) > 1:
+                    guess = np.argmax(predictions[i])  # Best guess is highest probability* score in prediction
+                else:
+                    guess = int(predictions[i])  # KNN predict is one dimensional
+
                 if labels[i] == guess:
                     test_matrix[int(guess)][int(guess)] += 1
                     score += 1

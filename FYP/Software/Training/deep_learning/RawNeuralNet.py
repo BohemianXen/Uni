@@ -6,7 +6,7 @@ from processing.DataProcessors import DataProcessors
 
 
 class RawNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=8, activation='relu', epochs=10, batch_size=35, lr=0.01):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=8, activation='relu', epochs=80, batch_size=64, lr=0.0004):
         super().__init__()
         self.name = self.__class__.__name__
         self._mag = mag
@@ -31,15 +31,6 @@ class RawNeuralNet(NeuralNet, Tests):
         #     self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
         self.create_model()
-    # ------------------------------------------------- Properties -----------------------------------------------------
-
-    @property
-    def model(self):
-        return self._model
-
-    @model.setter
-    def model(self, model):
-        self._model = model
 
     # --------------------------------------------------- Overrides ----------------------------------------------------
 
@@ -91,10 +82,9 @@ if __name__ == '__main__':
     }
 
     nn = RawNeuralNet(mag=params['mag'], cutoff=params['cutoff'], max_samples=params['max samples'],
-                   hiddens=params['hiddens'], outputs=params['outputs'], activation=params['activation'],
-                   epochs=params['epochs'], batch_size=params['batch size'], lr=params['learning rate'])
+                      hiddens=params['hiddens'], outputs=params['outputs'], activation=params['activation'],
+                      epochs=params['epochs'], batch_size=params['batch size'], lr=params['learning rate'])
 
     tests = Tests(params=params)
-    #tests.train_net(nn, shuffle=False, save_model=False, save_data=True, test_save=False)
-    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
-    #score = nn.predict(params['test_root'], shuffle=False)
+    tests.train_net(nn, shuffle=True, save_model=True, save_data=False, test_save=False)
+

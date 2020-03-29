@@ -6,7 +6,7 @@ from processing.DataProcessors import DataProcessors
 
 
 class SMVNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, inputs=14, hiddens=9,  outputs=8, activation='tanh', epochs=60, batch_size=64, lr=0.004):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, inputs=14, hiddens=8,  outputs=8, activation='tanh', epochs=80, batch_size=64, lr=0.004):
         super().__init__()
         self.name = self.__class__.__name__
         self._mag = mag
@@ -23,15 +23,6 @@ class SMVNeuralNet(NeuralNet, Tests):
         #self._inputs = (self._samples * 3) if self._mag else (self._samples * 2)
 
         self.create_model()
-    # ------------------------------------------------- Properties -----------------------------------------------------
-
-    @property
-    def model(self):
-        return self._model
-
-    @model.setter
-    def model(self, model):
-        self._model = model
 
     # --------------------------------------------------- Overrides ----------------------------------------------------
 
@@ -90,4 +81,3 @@ if __name__ == '__main__':
 
     tests = Tests(params=params)
     tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
-    #score = nn.predict(params['test_root'], shuffle=False)

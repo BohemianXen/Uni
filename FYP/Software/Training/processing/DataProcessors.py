@@ -10,9 +10,9 @@ class DataProcessors:
     def raw_normalise(data, single=False):
         """Normalises data using raw sensor limits then flatten series' to 1D (if not already)"""
         normalised = DataProcessors.normalise(data)
-        acc_raw = normalised[:, :3].T
-        gyro_raw = normalised[:, 3:].T
-        normalised = np.concatenate([acc_raw, gyro_raw])
+        # acc_raw = normalised[:, :3].T
+        # gyro_raw = normalised[:, 3:].T
+        # normalised = np.concatenate([acc_raw, gyro_raw])
 
         if len(data) != 1:
             normalised = normalised.flatten()
@@ -107,7 +107,7 @@ class DataProcessors:
 
     @staticmethod
     def parse_train_data(train_data, outputs, shuffle):
-        """Split data, labels, and targets into separate numppy arrays as necessary"""
+        """Split data, labels, and targets into separate numpy arrays as necessary"""
 
         size = len(train_data)
 

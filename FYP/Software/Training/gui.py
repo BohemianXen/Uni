@@ -7,7 +7,7 @@ from StreamManager import StreamManager
 from processing.CSVConverters import CSVConverters
 from AudioPlayer import AudioPlayer
 from processing.DataProcessors import DataProcessors
-from deep_learning import NeuralNet, RawNeuralNet, SMVNeuralNet
+from deep_learning import RawNeuralNet, SMVNeuralNet, KNNClassifier
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QThreadPool
@@ -79,7 +79,7 @@ class MainView(QMainWindow):
         self._ui.setupUi(self)
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
-        self._classifier = None  # RawNeuralNet
+        self._classifier = None
         self._plotter = Plotter(self._ui)
         self._audio_player = AudioPlayer()
 
@@ -151,20 +151,27 @@ class MainView(QMainWindow):
         """Opens .h5 file dialogue"""
 
         default_dir = 'deep_learning\\Saved Models'
-        self._model_filename = QFileDialog.getOpenFileName(self, 'Open file', default_dir, 'H5 Files(*.h5)')[0]
+        #filters = "H5 Files (*.h5);;Pickle files (*.txt)"
+        self._model_filename = QFileDialog.getOpenFileName(self, 'Open file', default_dir)[0]
 
         if self._model_filename != '':
-            msg = 'Selected: ' + self._model_filename[self._model_filename.rfind('/')+1:]  # .rstrip('.h5')
+            msg = 'Selected: ' + self._model_filename[self._model_filename.rfind('/')+1:]
             self.update_console(msg)
             self._ui.modelLabel.setText(msg)
 
             if self._live_mode:
-                self._model = NeuralNet.load_model(self._model_filename)
+
                 if 'SMV' in self._model_filename:  # TODO: Add classifier name to model filenames
                     self._classifier = SMVNeuralNet
+                elif 'Raw' in self._model_filename:
+                    self._classifier = RawNeuralNet
+                elif 'KNN' in self._model_filename:
+                    self._classifier = KNNClassifier
                 else:
-                   self._classifier = RawNeuralNet
+                    pass
 
+                if self._classifier is not None:
+                    self._model = self._classifier.load_model(self._model_filename)
         else:
             self._ui.fileLabel.setText('No Model Selected')
 
@@ -296,14 +303,21 @@ class MainView(QMainWindow):
             self.capture_packet_ready(new_data)
         else:
             features = self._classifier.pre_process(new_data, single=True)
-            prediction = self._model.predict(features, verbose=0)
-            guess = int(np.argmax(prediction))
-            action = params['actions'][guess]
+            prediction = self._model.predict(features)
 
-            self.update_console(action)
-            #print(prediction)
-            self._ui.actionLabel.setText(action)
-            self._ui.actionLabel.setStyleSheet('color: ' + params['actions colours'][guess])
+            try:
+                if np.ndim(prediction) > 1:
+                    guess = np.argmax(prediction)  # Best guess is highest probability* score in prediction
+                else:
+                    guess = int(prediction[0])  # KNN predict is absolute
+
+                action = params['actions'][guess]
+                self.update_console(action)
+                # print(prediction)
+                self._ui.actionLabel.setText(action)
+                self._ui.actionLabel.setStyleSheet('color: ' + params['actions colours'][guess])
+            except Exception as e:
+                print(e)
 
     # -------------------------------------------------- On Close ------------------------------------------------------
 
