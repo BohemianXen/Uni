@@ -89,5 +89,5 @@ if __name__ == '__main__':
                       lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, save=True, test_save=False)
+    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
     #score = nn.predict(params['test_root'], shuffle=False)

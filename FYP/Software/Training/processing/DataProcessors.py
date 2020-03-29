@@ -1,6 +1,7 @@
 import numpy as np
 from Plotter import Plotter
 
+
 class DataProcessors:
     def __init__(self):
         pass
@@ -9,6 +10,9 @@ class DataProcessors:
     def raw_normalise(data, single=False):
         """Normalises data using raw sensor limits then flatten series' to 1D (if not already)"""
         normalised = DataProcessors.normalise(data)
+        acc_raw = normalised[:, :3].T
+        gyro_raw = normalised[:, 3:].T
+        normalised = np.concatenate([acc_raw, gyro_raw])
 
         if len(data) != 1:
             normalised = normalised.flatten()

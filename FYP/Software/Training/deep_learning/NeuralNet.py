@@ -108,7 +108,7 @@ class NeuralNet(metaclass=ABCMeta):
 
         return True
 
-    def train(self, save=False, shuffle=True, plot=True):
+    def train(self, shuffle=True, save_model=False, save_data=False, plot=True):
         """Trains the model currently held in the model instance attribute"""
 
         print('Training net\n')
@@ -131,7 +131,10 @@ class NeuralNet(metaclass=ABCMeta):
             self._history = self._model.fit(train_data, train_targets, epochs=self._epochs, batch_size=self._batch_size,
                                             validation_split=0.15, verbose=2, callbacks=callback_list)
 
-        if save:
+        if save_data:
+            self.save_train_data('Test')
+
+        if save_model:
             self.save_model()
 
         if plot:
@@ -154,12 +157,20 @@ class NeuralNet(metaclass=ABCMeta):
             return False
 
     def save_train_data(self, filename):
-        """ UNUSED: Saves the labelled training data held in the _train_data instance attribute as a .csv file"""
+        from scipy.io import savemat
+        """Saves the labelled training data held in the _train_data instance attribute as a .csv and .mat file"""
 
         if len(self._train_data) != 0:
             full_filename = '{0}_{1}.csv'.format(filename, len(self._train_data))
             print('Saving training data in: ' + filename)
-            np.save(full_filename, self._train_data, delimiter=',')
+            try:
+                #np.save(full_filename, self._train_data, delimiter=',')
+                cols = {'labels': self._train_data[:, 0], 'data': self._train_data[:, 1:]}
+                savemat(full_filename.rstrip('.csv') + '.mat', cols)
+
+            except Exception as e:
+                print('Failed to save as .csv and .mat')
+                print(e)
 
     def plot(self):
         """Creates subplots of per-epoch train/validation loss/accuracy history"""
@@ -234,18 +245,18 @@ class Tests:
     def __init__(self, params):
         self._params = params
 
-    def train_net(self, net, shuffle=True, plot=True, save=False, predict=True, test_save=False):
+    def train_net(self, net, shuffle=True, plot=True, save_model=False, save_data=False, predict=True, test_save=False):
         baseline = -1
 
         loaded = net.load_data(roots=[self._params['train_root'], self._params['val_root']])
         if loaded:
-            assert net.train(shuffle=shuffle, save=save, plot=plot)
+            assert net.train(shuffle=shuffle, save_model=save_model, save_data=save_data, plot=plot)
 
         if predict:
             baseline = net.predict_directory(root=self._params['test_root'])
             assert baseline != -1
 
-        if predict and test_save and not save:
+        if predict and test_save and not save_model:
             saved_filename = net.save_model()
             assert saved_filename is not False
 

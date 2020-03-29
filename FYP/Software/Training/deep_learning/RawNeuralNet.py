@@ -81,7 +81,7 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'relu',
-        'learning rate': 0.0005,
+        'learning rate': 0.0004,
         'epochs': 80,
         'batch size': 64,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
@@ -95,5 +95,6 @@ if __name__ == '__main__':
                    epochs=params['epochs'], batch_size=params['batch size'], lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, save=True, test_save=False)
+    #tests.train_net(nn, shuffle=False, save_model=False, save_data=True, test_save=False)
+    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
     #score = nn.predict(params['test_root'], shuffle=False)
