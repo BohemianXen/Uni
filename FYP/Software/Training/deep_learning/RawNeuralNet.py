@@ -86,5 +86,5 @@ if __name__ == '__main__':
                       epochs=params['epochs'], batch_size=params['batch size'], lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, shuffle=True, save_model=True, save_data=False, test_save=False)
+    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
 
