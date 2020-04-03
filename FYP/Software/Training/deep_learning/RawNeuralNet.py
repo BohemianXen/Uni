@@ -3,7 +3,7 @@ import tensorflow as tf
 from deep_learning.NeuralNet import NeuralNet, Tests
 from tensorflow.keras import optimizers, losses, layers, callbacks
 from processing.DataProcessors import DataProcessors
-
+from numpy import expand_dims as expand
 
 class RawNeuralNet(NeuralNet, Tests):
     def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=8, activation='relu', epochs=80, batch_size=64, lr=0.0004):
@@ -54,7 +54,12 @@ class RawNeuralNet(NeuralNet, Tests):
     @staticmethod
     def pre_process(raw_data, single=False):
         """Simply flattens and normalises raw data as per sensor max/mins"""
-        return DataProcessors.raw_normalise(raw_data, single=single)
+        normalised = DataProcessors.raw_normalise(raw_data)
+
+        if single:
+            normalised = expand(normalised, axis=0)
+
+        return normalised
 
     @staticmethod
     def get_stop_conditions():
@@ -86,5 +91,5 @@ if __name__ == '__main__':
                       epochs=params['epochs'], batch_size=params['batch size'], lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
+    tests.train_net(nn, shuffle=True, save_model=True, save_data=False, test_save=False)
 

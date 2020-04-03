@@ -19,6 +19,7 @@ class NeuralNet(metaclass=ABCMeta):
         self._outputs = 0
         self._epochs = 0
         self._batch_size = 0
+        self._samples = 0
         self._train_data = []
         self._val_data = []
         self._model = None
@@ -126,9 +127,16 @@ class NeuralNet(metaclass=ABCMeta):
         # Separate labels and train data, shuffling if necessary since they are initially read-in in time order
         train_data, train_targets = DataProcessors.parse_train_data(self._train_data, self._outputs, shuffle)
 
+        if len(self.model.input_shape) == 3:
+            train_data = np.expand_dims(train_data, axis=2)
+
         # Fit model, validating either using given validation data or by splitting the training data
         if val_given:
             val_data, val_targets = DataProcessors.parse_train_data(self._val_data, self._outputs, shuffle)
+
+            if len(self.model.input_shape) == 3:
+                val_data = np.expand_dims(val_data, axis=2)
+
             self._history = self._model.fit(train_data, train_targets, validation_data=(val_data, val_targets),
                                             epochs=self._epochs, batch_size=self._batch_size,
                                             verbose=2, callbacks=callback_list)
@@ -221,6 +229,9 @@ class NeuralNet(metaclass=ABCMeta):
             for i, sample in enumerate(test_data):
                 data[i] = sample[1:]  # Remove label from data
                 labels[i] = int(sample[0])
+
+            if len(self.model.input_shape) == 3:
+                data = np.expand_dims(data, axis=2)
 
             print('Predicting...\n')
             predictions = self._model.predict(data)

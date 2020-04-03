@@ -7,17 +7,33 @@ class DataProcessors:
         pass
 
     @staticmethod
-    def raw_normalise(data, single=False):
+    def bytearray_to_float(array):
+        """Converts bytearrays into signed float arrays"""
+        total_bytes = len(array[0])
+        total_samples = int(total_bytes / 4)
+        converted_array = []
+
+        for packet in array:
+            # Convert bytes in little endian 4-byte chunks and scale from long to float
+            parsed = [int.from_bytes(packet[i:i + 3], byteorder='little', signed=True) / 1000.0 for i in range(0, total_bytes, 4)]
+
+            # Split into each separate sensor sample and return
+            parsed_split = [parsed[i:i + 6] for i in range(0, total_samples, 6)]
+            converted_array.extend(parsed_split)
+
+        return converted_array
+
+    @staticmethod
+    def raw_normalise(data):
         """Normalises data using raw sensor limits then flatten series' to 1D (if not already)"""
         normalised = DataProcessors.normalise(data)
-        # acc_raw = normalised[:, :3].T
-        # gyro_raw = normalised[:, 3:].T
-        # normalised = np.concatenate([acc_raw, gyro_raw])
+        acc_raw = normalised[:, :3].T
+        gyro_raw = normalised[:, 3:].T
+        normalised = np.concatenate([acc_raw, gyro_raw])
 
         if len(data) != 1:
             normalised = normalised.flatten()
-        if single:
-            normalised = np.expand_dims(normalised, axis=0)  # For only querying one packet at a time
+
         return normalised
 
     @staticmethod
@@ -30,7 +46,7 @@ class DataProcessors:
         return np.array(data) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
 
     @staticmethod
-    def smv(raw_data, smooth=False, plot=False, no_smv=False, single=False):
+    def smv(raw_data, smooth=False, plot=False, no_smv=False):
         data = DataProcessors.normalise(raw_data)  # np.array(raw_data)
         acc_raw = data[:, :3].T
         gyro_raw = data[:, 3:].T
@@ -78,10 +94,7 @@ class DataProcessors:
 
         features = np.concatenate([stds, means, [acc], [gyro]])
 
-        if single:
-            return np.expand_dims(features, axis=0)
-        else:
-            return features
+        return features
 
     @staticmethod
     def smooth(series, averaging_length=3, just_average=True):
@@ -117,31 +130,14 @@ class DataProcessors:
 
             data = np.zeros((size, len(train_data[0]) - 1), dtype=np.float32)
             labels = np.zeros(size)
-            targets = np.zeros((size, outputs)) + 0.01  # Initialise all targets to zero
+            targets = np.zeros((size, outputs))  # + 0.01  # Initialise all targets to zero
 
             for i, sample in enumerate(train_data):
                 data[i] = sample[1:]  # Remove label from data
                 labels[i] = sample[0]
-                targets[i][int(labels[i])] = 0.99  # Set ideal target index to 0.99
+                targets[i][int(labels[i])] = 1  # 0.99  # Set ideal target index to 0.99
 
             return [data, targets]
-
-    @staticmethod
-    def bytearray_to_float(array):
-        """Converts bytearrays into signed float arrays"""
-        total_bytes = len(array[0])
-        total_samples = int(total_bytes / 4)
-        converted_array = []
-
-        for packet in array:
-            # Convert bytes in little endian 4-byte chunks and scale from long to float
-            parsed = [int.from_bytes(packet[i:i + 3], byteorder='little', signed=True) / 1000.0 for i in range(0, total_bytes, 4)]
-
-            # Split into each separate sensor sample and return
-            parsed_split = [parsed[i:i + 6] for i in range(0, total_samples, 6)]
-            converted_array.extend(parsed_split)
-
-        return converted_array
 
     @staticmethod
     def mirror(data, mask=(1, 1, 1, 1, 1, 1)):

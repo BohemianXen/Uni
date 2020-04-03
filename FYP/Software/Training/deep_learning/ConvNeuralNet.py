@@ -1,18 +1,19 @@
 from __future__ import print_function
 import tensorflow as tf
+from numpy import expand_dims as expand
 from deep_learning.NeuralNet import NeuralNet, Tests
 from tensorflow.keras import optimizers, losses, layers, callbacks
 from processing.DataProcessors import DataProcessors
-from numpy import expand_dims as expand
 
 
-class SMVNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, inputs=14, hiddens=8,  outputs=8, activation='tanh', epochs=80, batch_size=64, lr=0.004):
+class ConvNeuralNet(NeuralNet, Tests):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=8, activation='tanh', epochs=60, batch_size=64, lr=0.00045):
         super().__init__()
         self.name = self.__class__.__name__
         self._mag = mag
         self._total_samples = max_samples
-        self._inputs = inputs
+        self._samples = int(self._total_samples * cutoff)
+        self._inputs = (self._samples * 9) if self._mag else (self._samples * 6)
         self._hiddens = hiddens
         self._outputs = outputs
         self._activation = activation
@@ -20,10 +21,16 @@ class SMVNeuralNet(NeuralNet, Tests):
         self._batch_size = batch_size
         self._lr = lr
 
-        self._samples = int(self._total_samples * cutoff)
-        #self._inputs = (self._samples * 3) if self._mag else (self._samples * 2)
-
         self.create_model()
+    # ------------------------------------------------- Properties -----------------------------------------------------
+
+    @property
+    def model(self):
+        return self._model
+
+    @model.setter
+    def model(self, model):
+        self._model = model
 
     # --------------------------------------------------- Overrides ----------------------------------------------------
 
@@ -31,13 +38,20 @@ class SMVNeuralNet(NeuralNet, Tests):
         """Creates a keras model based on the Functional API"""
 
         # Instantiate layers
-        input_layer = tf.keras.Input(shape=(self._inputs,))  # , batch_input_shape=(batch_size, inputs))
-        x = layers.Dense(self._hiddens, activation=self._activation)(input_layer)
-        x = layers.Dense(self._hiddens, activation=self._activation)(x)
+        input_layer = tf.keras.Input(shape=(self._inputs, 1))
+
+        x = layers.Conv1D(32, kernel_size=3, activation=self._activation, padding='same', data_format='channels_last')(input_layer)
+        x = layers.MaxPool1D()(x)
+        x = layers.Conv1D(64, kernel_size=9, activation=self._activation, padding='valid', data_format='channels_last')(x)
+        x = layers.MaxPool1D()(x)
+        x = layers.Dropout(0.4)(x)
+
+        x = layers.Flatten()(x)
+        x = layers.Dense(self._hiddens, activation='relu')(x)
         output_layer = layers.Dense(self._outputs, activation='softmax')(x)
 
         # Choose loss and optimisation functions/algorithms
-        model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
+        model_loss = losses.categorical_crossentropy  # losses.mean_squared_error
         model_optimiser = optimizers.Adam(learning_rate=self._lr)  # optimizers.RMSprop(learning_rate=self._lr)   #  optimizers.SGD(learning_rate=self._lr)
 
         # Instantiate and compile model
@@ -47,10 +61,10 @@ class SMVNeuralNet(NeuralNet, Tests):
     @staticmethod
     def pre_process(raw_data, single=False):
         """Simply flattens and normalises raw data as per sensor max/mins"""
-        normalised = DataProcessors.smv(raw_data)
+        normalised = DataProcessors.raw_normalise(raw_data)
 
         if single:
-            normalised = expand(normalised, axis=0)
+            normalised = expand(normalised, axis=2)
 
         return normalised
 
@@ -67,12 +81,11 @@ if __name__ == '__main__':
         'mag': False,
         'cutoff': 0.25,
         'max samples': 480,
-        'inputs': 14,
-        'hiddens': 8,
+        'hiddens': 240,
         'outputs': 8,
         'activation': 'tanh',
-        'learning rate': 0.004,
-        'epochs': 80,
+        'learning rate': 0.0005,
+        'epochs': 30,
         'batch size': 64,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
@@ -80,10 +93,10 @@ if __name__ == '__main__':
 
     }
 
-    nn = SMVNeuralNet(mag=params['mag'], cutoff=params['cutoff'], max_samples=params['max samples'],
-                      inputs=params['inputs'], hiddens=params['hiddens'], outputs=params['outputs'],
-                      activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
-                      lr=params['learning rate'])
+    nn = ConvNeuralNet(mag=params['mag'], cutoff=params['cutoff'], max_samples=params['max samples'],
+                       hiddens=params['hiddens'], outputs=params['outputs'],
+                       activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
+                       lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
+    tests.train_net(nn, shuffle=True, save_model=True, save_data=False, test_save=False)
