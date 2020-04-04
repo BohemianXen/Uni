@@ -2,14 +2,13 @@ from __future__ import print_function
 
 import pickle
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import KNeighborsClassifier
 
-from processing.DataProcessors import DataProcessors
 from deep_learning import RawNeuralNet, SMVNeuralNet
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 from sklearn import neighbors, datasets
+
 
 class KNNClassifier:
 
@@ -48,7 +47,7 @@ class KNNClassifier:
     @staticmethod
     def pre_process(raw_data, single=False):
         """Simply flattens and normalises raw data as per sensor max/mins"""
-        return DataProcessors.smv(raw_data, single=single)
+        return SMVNeuralNet.pre_process(raw_data, single=single)
 
     def load_data(self, shuffle=True):
         self._helper.load_data(roots=[self._train_root, self._val_root])
@@ -58,7 +57,7 @@ class KNNClassifier:
 
     def save_model(self):
         filename = '%d Neighbours - %d Norm - %d classes_%s' % (self._neighbours, self._distance,
-                                                                len(self.model.classes_), self.name)
+                                                                len(self._model.classes_), self.name)
         filename = 'Saved Models\\' + filename
         try:
             pickle.dump(self._model, open(filename, 'wb'))
@@ -136,7 +135,8 @@ if __name__ == '__main__':
         'distance': 2,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
+        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
+        'save': False
 
     }
 
@@ -144,6 +144,9 @@ if __name__ == '__main__':
                         val_root=params['val_root'])
 
     knn.predict_directory(params['test_root'])
-    #knn.save_model()
-    model = knn.load_model(r"C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\5 Neighbours - 3 Norm - 8 classes_KNNClassifier")
+
+    if params['save']:
+        knn.save_model()
+
+    # model = knn.load_model(r"C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\5 Neighbours - 3 Norm - 8 classes_KNNClassifier")
     #print(type(model))

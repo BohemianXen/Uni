@@ -7,7 +7,8 @@ from numpy import expand_dims as expand
 
 
 class SMVNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, inputs=14, hiddens=8,  outputs=8, activation='tanh', epochs=80, batch_size=64, lr=0.004):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, inputs=14, hiddens=8,  outputs=8, activation='tanh',
+                 loss=losses.categorical_crossentropy, epochs=80, batch_size=64, lr=0.004):
         super().__init__()
         self.name = self.__class__.__name__
         self._mag = mag
@@ -16,6 +17,7 @@ class SMVNeuralNet(NeuralNet, Tests):
         self._hiddens = hiddens
         self._outputs = outputs
         self._activation = activation
+        self._loss = loss
         self._epochs = epochs
         self._batch_size = batch_size
         self._lr = lr
@@ -37,7 +39,7 @@ class SMVNeuralNet(NeuralNet, Tests):
         output_layer = layers.Dense(self._outputs, activation='softmax')(x)
 
         # Choose loss and optimisation functions/algorithms
-        model_loss = losses.mean_squared_error  # losses.categorical_crossentropy
+        model_loss = self._loss
         model_optimiser = optimizers.Adam(learning_rate=self._lr)  # optimizers.RMSprop(learning_rate=self._lr)   #  optimizers.SGD(learning_rate=self._lr)
 
         # Instantiate and compile model
@@ -71,8 +73,9 @@ if __name__ == '__main__':
         'hiddens': 8,
         'outputs': 8,
         'activation': 'tanh',
+        'loss': losses.categorical_crossentropy,  # losses.mean_squared_error
         'learning rate': 0.004,
-        'epochs': 80,
+        'epochs': 60,
         'batch size': 64,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
@@ -82,8 +85,8 @@ if __name__ == '__main__':
 
     nn = SMVNeuralNet(mag=params['mag'], cutoff=params['cutoff'], max_samples=params['max samples'],
                       inputs=params['inputs'], hiddens=params['hiddens'], outputs=params['outputs'],
-                      activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
-                      lr=params['learning rate'])
+                      loss=params['loss'], activation=params['activation'], epochs=params['epochs'],
+                      batch_size=params['batch size'], lr=params['learning rate'])
 
     tests = Tests(params=params)
     tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)

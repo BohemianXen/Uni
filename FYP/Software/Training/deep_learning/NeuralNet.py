@@ -2,7 +2,9 @@ from __future__ import print_function
 from abc import ABCMeta, abstractmethod
 import numpy as np
 from scipy.io import savemat
-from tensorflow.keras import optimizers, losses, layers, callbacks, models
+from tensorflow.keras import models
+from tensorflow.keras.utils import plot_model
+from sklearn import metrics
 from processing.DataProcessors import DataProcessors
 from processing.CSVConverters import CSVConverters
 import matplotlib.pyplot as plt
@@ -209,6 +211,8 @@ class NeuralNet(metaclass=ABCMeta):
             ax2.set_ylabel('Accuracy')
 
             plt.show()
+
+            # plot_model(self.model, to_file='model.png')
             return True
 
     def predict_directory(self, root, shuffle=True):
@@ -230,11 +234,15 @@ class NeuralNet(metaclass=ABCMeta):
                 data[i] = sample[1:]  # Remove label from data
                 labels[i] = int(sample[0])
 
-            if len(self.model.input_shape) == 3:
-                data = np.expand_dims(data, axis=2)
+            try:
+                if len(self.model.input_shape) == 3:
+                    data = np.expand_dims(data, axis=2)
+            except AttributeError:
+                pass
 
             print('Predicting...\n')
             predictions = self._model.predict(data)
+            guesses = np.zeros(len(predictions))
 
             test_matrix = np.zeros(shape=(self._outputs, self._outputs))
             for i, sample in enumerate(predictions):
@@ -245,6 +253,7 @@ class NeuralNet(metaclass=ABCMeta):
                 else:
                     guess = int(predictions[i])  # KNN predict is one dimensional
 
+                guesses[i] = guess
                 if labels[i] == guess:
                     test_matrix[int(guess)][int(guess)] += 1
                     score += 1
@@ -255,6 +264,9 @@ class NeuralNet(metaclass=ABCMeta):
             print('Net performance: %.2f\n' % score)
             for row in test_matrix:
                 print(row)
+
+            names = ('Standing', 'Walking', 'Lying F', 'Lying L', 'Lying R', 'Fall F', 'Fall L', 'Fall R')
+            print(metrics.classification_report(labels, guesses, target_names=names, digits=4))
             return score
         else:
             return -1

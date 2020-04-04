@@ -7,7 +7,8 @@ from processing.DataProcessors import DataProcessors
 
 
 class ConvNeuralNet(NeuralNet, Tests):
-    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=8, activation='tanh', epochs=60, batch_size=64, lr=0.00045):
+    def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=8, activation='tanh',
+                 loss=losses.categorical_crossentropy, epochs=60, batch_size=64, lr=0.00045):
         super().__init__()
         self.name = self.__class__.__name__
         self._mag = mag
@@ -17,6 +18,7 @@ class ConvNeuralNet(NeuralNet, Tests):
         self._hiddens = hiddens
         self._outputs = outputs
         self._activation = activation
+        self._loss = loss
         self._epochs = epochs
         self._batch_size = batch_size
         self._lr = lr
@@ -51,7 +53,7 @@ class ConvNeuralNet(NeuralNet, Tests):
         output_layer = layers.Dense(self._outputs, activation='softmax')(x)
 
         # Choose loss and optimisation functions/algorithms
-        model_loss = losses.categorical_crossentropy  # losses.mean_squared_error
+        model_loss = self._loss
         model_optimiser = optimizers.Adam(learning_rate=self._lr)  # optimizers.RMSprop(learning_rate=self._lr)   #  optimizers.SGD(learning_rate=self._lr)
 
         # Instantiate and compile model
@@ -64,7 +66,8 @@ class ConvNeuralNet(NeuralNet, Tests):
         normalised = DataProcessors.raw_normalise(raw_data)
 
         if single:
-            normalised = expand(normalised, axis=2)
+            normalised = expand(normalised, axis=1)
+            normalised = expand(normalised, axis=0)
 
         return normalised
 
@@ -84,9 +87,10 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'tanh',
+        'loss': losses.mean_squared_error,  # losses.categorical_crossentropy
         'learning rate': 0.0005,
         'epochs': 30,
-        'batch size': 64,
+        'batch size': 32,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
@@ -94,8 +98,8 @@ if __name__ == '__main__':
     }
 
     nn = ConvNeuralNet(mag=params['mag'], cutoff=params['cutoff'], max_samples=params['max samples'],
-                       hiddens=params['hiddens'], outputs=params['outputs'],
-                       activation=params['activation'], epochs=params['epochs'], batch_size=params['batch size'],
+                       hiddens=params['hiddens'], outputs=params['outputs'], activation=params['activation'],
+                       loss=params['loss'], epochs=params['epochs'], batch_size=params['batch size'],
                        lr=params['learning rate'])
 
     tests = Tests(params=params)

@@ -7,7 +7,7 @@ from StreamManager import StreamManager
 from processing.CSVConverters import CSVConverters
 from AudioPlayer import AudioPlayer
 from processing.DataProcessors import DataProcessors
-from deep_learning import RawNeuralNet, SMVNeuralNet, KNNClassifier
+from deep_learning import RawNeuralNet, SMVNeuralNet, ConvNeuralNet, KNNClassifier
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QCoreApplication, QThreadPool
@@ -161,10 +161,12 @@ class MainView(QMainWindow):
 
             if self._live_mode:
 
-                if 'SMV' in self._model_filename:  # TODO: Add classifier name to model filenames
-                    self._classifier = SMVNeuralNet
-                elif 'Raw' in self._model_filename:
+                if 'Raw' in self._model_filename:
                     self._classifier = RawNeuralNet
+                elif 'SMV' in self._model_filename:
+                    self._classifier = SMVNeuralNet
+                elif 'Conv' in self._model_filename:
+                    self._classifier = ConvNeuralNet
                 elif 'KNN' in self._model_filename:
                     self._classifier = KNNClassifier
                 else:
@@ -302,10 +304,10 @@ class MainView(QMainWindow):
         if capture:
             self.capture_packet_ready(new_data)
         else:
-            features = self._classifier.pre_process(new_data, single=True)
-            prediction = self._model.predict(features)
-
             try:
+                features = self._classifier.pre_process(new_data, single=True)
+                prediction = self._model.predict(features)
+
                 if np.ndim(prediction) > 1:
                     guess = np.argmax(prediction)  # Best guess is highest probability* score in prediction
                 else:

@@ -1,6 +1,6 @@
-#from .NeuralNet import NeuralNet
 from .RawNeuralNet import RawNeuralNet
 from .SMVNeuralNet import SMVNeuralNet
+from .ConvNeuralNet import ConvNeuralNet
 from .KNNClassifier import KNNClassifier
 
 import os
