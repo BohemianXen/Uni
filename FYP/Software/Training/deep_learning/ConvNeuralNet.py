@@ -8,7 +8,7 @@ from processing.DataProcessors import DataProcessors
 
 class ConvNeuralNet(NeuralNet, Tests):
     def __init__(self, mag=False, cutoff=0.25, max_samples=480, hiddens=240,  outputs=8, activation='tanh',
-                 loss=losses.categorical_crossentropy, epochs=60, batch_size=64, lr=0.00045):
+                 loss=losses.categorical_crossentropy, epochs=25, batch_size=64, lr=0.00045):
         super().__init__()
         self.name = self.__class__.__name__
         self._mag = mag
@@ -87,10 +87,10 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'tanh',
-        'loss': losses.mean_squared_error,  # losses.categorical_crossentropy
-        'learning rate': 0.0005,
-        'epochs': 30,
-        'batch size': 32,
+        'loss':  losses.categorical_crossentropy,  # losses.mean_squared_error,
+        'learning rate': 0.00042,
+        'epochs': 25,
+        'batch size': 64,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'

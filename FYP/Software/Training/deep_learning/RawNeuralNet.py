@@ -79,7 +79,7 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'relu',
-        'loss': losses.categorical_crossentropy,  # losses.mean_squared_error
+        'loss': losses.mean_squared_error,  # losses.categorical_crossentropy
         'learning rate': 0.00045,
         'epochs': 80,
         'batch size': 64,

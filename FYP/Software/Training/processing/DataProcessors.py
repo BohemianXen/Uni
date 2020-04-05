@@ -24,17 +24,20 @@ class DataProcessors:
         return converted_array
 
     @staticmethod
-    def raw_normalise(data):
+    def raw_normalise(data, transpose=True):
         """Normalises data using raw sensor limits then flatten series' to 1D (if not already)"""
         normalised = DataProcessors.normalise(data)
-        acc_raw = normalised[:, :3].T
-        gyro_raw = normalised[:, 3:].T
-        normalised = np.concatenate([acc_raw, gyro_raw])
 
-        if len(data) != 1:
-            normalised = normalised.flatten()
+        if normalised is None:
+            return None
+        else:
+            if transpose:
+                normalised = normalised.T
 
-        return normalised
+            if len(data) != 1:
+                normalised = normalised.flatten()
+
+            return normalised
 
     @staticmethod
     def normalise(data):
@@ -43,11 +46,22 @@ class DataProcessors:
         else:
             limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
-        return np.array(data) / limits[:, ]  # TODO: MinMaxScaler but only after splitting data!
+        normalised = np.array(data) / limits[:, ]
+        if -1.0 <= np.min(normalised) and np.max(normalised) <= 1.0:
+            return normalised
+        else:
+            return None
+
+
+        return  # TODO: MinMaxScaler but only after splitting data!
 
     @staticmethod
     def smv(raw_data, smooth=False, plot=False, no_smv=False):
         data = DataProcessors.normalise(raw_data)  # np.array(raw_data)
+
+        if data is None:
+            return None
+
         acc_raw = data[:, :3].T
         gyro_raw = data[:, 3:].T
         acc_smoothed = acc_raw

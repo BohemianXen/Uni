@@ -73,9 +73,9 @@ if __name__ == '__main__':
         'hiddens': 8,
         'outputs': 8,
         'activation': 'tanh',
-        'loss': losses.categorical_crossentropy,  # losses.mean_squared_error
-        'learning rate': 0.004,
-        'epochs': 60,
+        'loss': losses.categorical_crossentropy,  # losses.mean_squared_error, 0.008, 40
+        'learning rate': 0.008,
+        'epochs': 40,
         'batch size': 64,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',

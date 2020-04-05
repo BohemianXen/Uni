@@ -119,6 +119,7 @@ class MainView(QMainWindow):
         self._connected = False
         self._model = None
         self._live_data = []
+        self._prev_guess = None
 
     def update_console(self, message):
         """Writes a line to the console text widget during a port test.
@@ -306,18 +307,23 @@ class MainView(QMainWindow):
         else:
             try:
                 features = self._classifier.pre_process(new_data, single=True)
-                prediction = self._model.predict(features)
+                if features is not None:
+                    prediction = self._model.predict(features)
 
-                if np.ndim(prediction) > 1:
-                    guess = np.argmax(prediction)  # Best guess is highest probability* score in prediction
-                else:
-                    guess = int(prediction[0])  # KNN predict is absolute
+                    if np.ndim(prediction) > 1:
+                        guess = np.argmax(prediction)  #  Best guess is highest probability* score in prediction  TODO: Add threshold to minimise poor guessing
+                    else:
+                        guess = int(prediction[0])  # KNN predict is absolute
 
-                action = params['actions'][guess]
-                self.update_console(action)
-                # print(prediction)
-                self._ui.actionLabel.setText(action)
-                self._ui.actionLabel.setStyleSheet('color: ' + params['actions colours'][guess])
+                    self.update_console(params['actions'][guess])
+                    
+                    if guess != self._prev_guess:
+                        if guess > 4:
+                            print(prediction)
+                        self._ui.actionLabel.setText(params['actions'][guess])
+                        self._ui.actionLabel.setStyleSheet('color: ' + params['actions colours'][guess])
+                        self._prev_guess = guess
+
             except Exception as e:
                 print(e)
 

@@ -93,6 +93,7 @@ class NeuralNet(metaclass=ABCMeta):
             if len(files) == 0:
                 return False
             else:
+                ignored = 0
                 for i, file in enumerate(files):
                     data = CSVConverters.csv_to_list(file, remove_mag=(not self._mag))  # Read samples in current file
 
@@ -102,11 +103,19 @@ class NeuralNet(metaclass=ABCMeta):
 
                     # Normalise and flatten the data samples then prefix the label
                     features = self.pre_process(data)
-                    all_data.append(np.concatenate([[labels[i]], features]))
+                    if features is not None:
+                        all_data.append(np.concatenate([[labels[i]], features]))
+                    else:
+                        print('Out of range value detected in:', file)
+                        ignored += 1
+
+                print('\nIgnored %d files that had out-of-range values; a ~%.2f%% occurrence rate\n'
+                      % (ignored, (ignored/len(all_data) * 100.0)))
 
             if len(all_data) == 0:
                 return False  # No data read in
             else:
+
                 if test:
                     return np.copy(all_data)  # Only need a copy of the data if parsing test directories
                 elif train:
@@ -132,7 +141,7 @@ class NeuralNet(metaclass=ABCMeta):
         if len(self.model.input_shape) == 3:
             train_data = np.expand_dims(train_data, axis=2)
 
-        # Fit model, validating either using given validation data or by splitting the training data
+        # Fit model and validate either using given validation data or by splitting the training data
         if val_given:
             val_data, val_targets = DataProcessors.parse_train_data(self._val_data, self._outputs, shuffle)
 
@@ -178,7 +187,7 @@ class NeuralNet(metaclass=ABCMeta):
             full_filename = '{0}_{1}.csv'.format(filename, len(self._train_data))
             print('Saving training data in: ' + filename)
             try:
-                #np.save(full_filename, self._train_data, delimiter=',')
+                # np.save(full_filename, self._train_data, delimiter=',')
                 cols = {'labels': self._train_data[:, 0], 'data': self._train_data[:, 1:]}
                 savemat(full_filename.rstrip('.csv') + '.mat', cols)
 
@@ -192,7 +201,7 @@ class NeuralNet(metaclass=ABCMeta):
         if self._history is None:
             return False
         else:
-            fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex=True)
+            fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex='all')
             fig.tight_layout(pad=3.0)
 
             # Loss plot
@@ -200,7 +209,6 @@ class NeuralNet(metaclass=ABCMeta):
             ax1.plot(self._history.history['val_loss'], label='Validation')
             ax1.legend()
             ax1.set_title('Loss')
-            ax1.set_xlabel('Epoch')
             ax1.set_ylabel('Loss')
 
             # Accuracy plot
@@ -208,6 +216,7 @@ class NeuralNet(metaclass=ABCMeta):
             ax2.plot(self._history.history['val_accuracy'], label='Validation')
             ax2.legend()
             ax2.set_title('Accuracy')
+            ax2.set_xlabel('Epoch')
             ax2.set_ylabel('Accuracy')
 
             plt.show()
@@ -246,7 +255,7 @@ class NeuralNet(metaclass=ABCMeta):
 
             test_matrix = np.zeros(shape=(self._outputs, self._outputs))
             for i, sample in enumerate(predictions):
-                print(predictions[i])
+                # print(predictions[i])
 
                 if np.ndim(predictions) > 1:
                     guess = np.argmax(predictions[i])  # Best guess is highest probability* score in prediction
@@ -259,13 +268,17 @@ class NeuralNet(metaclass=ABCMeta):
                     score += 1
                 else:
                     test_matrix[int(labels[i])][int(guess)] += 1
+                    # pred = predictions[i]
+                    # true = labels[i]
+                    # print(true, guess, pred)
 
             score = (score / size) * 100.0
-            print('Net performance: %.2f\n' % score)
+            print('Net performance: %.2f%%\n' % score)
             for row in test_matrix:
                 print(row)
 
-            names = ('Standing', 'Walking', 'Lying F', 'Lying L', 'Lying R', 'Fall F', 'Fall L', 'Fall R')
+            names = ['Standing', 'Walking', 'Lying F', 'Lying L', 'Lying R', 'Fall F', 'Fall L', 'Fall R']
+            print('\n')
             print(metrics.classification_report(labels, guesses, target_names=names, digits=4))
             return score
         else:
