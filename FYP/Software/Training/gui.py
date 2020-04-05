@@ -30,7 +30,8 @@ params = {
     'root': 'General',
     'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Forwards'.upper(), 'Lying Left'.upper(),
                 'Lying Right'.upper(),  'Forward Fall'.upper(), 'Left Fall'.upper(), 'Right Fall'.upper()),
-    'actions colours': ('Green', 'Green', 'Green', 'Green', 'Green', 'Red', 'Red', 'Red')
+    'actions colours': ('Green', 'Green', 'Green', 'Green', 'Green', 'Red', 'Red', 'Red'),
+    'probability threshold': 0.92
 }
 
 
@@ -311,15 +312,19 @@ class MainView(QMainWindow):
                     prediction = self._model.predict(features)
 
                     if np.ndim(prediction) > 1:
-                        guess = np.argmax(prediction)  #  Best guess is highest probability* score in prediction  TODO: Add threshold to minimise poor guessing
+                        most_likely = np.argmax(prediction)
+                        if most_likely > 4:
+                            guess = most_likely if np.max(prediction) >= params['probability threshold'] else self._prev_guess
+                        else:
+                            guess = most_likely
                     else:
                         guess = int(prediction[0])  # KNN predict is absolute
 
                     self.update_console(params['actions'][guess])
-                    
+
                     if guess != self._prev_guess:
-                        if guess > 4:
-                            print(prediction)
+                        # if guess > 4:
+                        #     print(prediction)
                         self._ui.actionLabel.setText(params['actions'][guess])
                         self._ui.actionLabel.setStyleSheet('color: ' + params['actions colours'][guess])
                         self._prev_guess = guess

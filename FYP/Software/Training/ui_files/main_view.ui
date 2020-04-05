@@ -210,7 +210,7 @@ QTextEdit {background-color: rgb(39, 39, 52); color: white}</string>
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>22</pointsize>
+                  <pointsize>18</pointsize>
                  </font>
                 </property>
                 <property name="text">

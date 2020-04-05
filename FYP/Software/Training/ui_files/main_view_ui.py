@@ -105,7 +105,7 @@ class Ui_MainWindow(object):
         self.actionLabel.setMinimumSize(QtCore.QSize(280, 50))
         self.actionLabel.setMaximumSize(QtCore.QSize(280, 16777215))
         font = QtGui.QFont()
-        font.setPointSize(22)
+        font.setPointSize(18)
         self.actionLabel.setFont(font)
         self.actionLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.actionLabel.setObjectName("actionLabel")
