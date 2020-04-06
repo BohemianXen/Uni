@@ -89,11 +89,11 @@ if __name__ == '__main__':
         'activation': 'tanh',
         'loss':  losses.categorical_crossentropy,  # losses.mean_squared_error,
         'learning rate': 0.00042,
-        'epochs': 25,
-        'batch size': 64,
-        'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-        'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
+        'epochs': 30,
+        'batch size': 60,
+        'train_root': r'..\Training Data',
+        'val_root': r'..\Validation Data',
+        'test_root': r'..\Test Data'
 
     }
 

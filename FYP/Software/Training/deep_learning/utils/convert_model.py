@@ -12,7 +12,7 @@ def convert_model(source='', target=''):
 if __name__ == '__main__':
     # import sys
     # sys.argv
-    source = r"C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\MSE\Loss - 0.001872 - 720 inputs_ConvNeuralNet.h5"
-        # r"C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\deep_learning\Saved Models\Categorical\Loss - 0.052453 - 14 inputs_SMVNeuralNet.h5"
+    source = r"C..\Saved Models\MSE\Loss - 0.001872 - 720 inputs_ConvNeuralNet.h5"
+    # r"..\Saved Models\Categorical\Loss - 0.052453 - 14 inputs_SMVNeuralNet.h5"
     target = source[source.rfind('\\') + 1:].rstrip('.h5')
     convert_model(source=source, target=target)

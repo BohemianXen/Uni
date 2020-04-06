@@ -88,7 +88,7 @@ class DataProcessors:
         gz_mean = np.mean(gyro_smoothed[2])
 
         stds = np.array([ax_std, ay_std, az_std, gx_std, gy_std, gz_std])
-        means = np.array([ax_mean, ay_mean, az_mean, gx_mean, gy_mean, gz_mean])
+        means = np.array([ax_mean, ay_mean, az_mean, gx_mean, gy_mean, gz_mean])  # TODO: Minimisation
 
         # Both for testing only; remember to adjust no. of inputs in SMVNeuralNet if used
         if plot:
@@ -101,12 +101,13 @@ class DataProcessors:
         acc = np.sqrt(np.sum([np.mean(acc_smoothed[0])**2, np.mean(acc_smoothed[1])**2, np.mean(acc_smoothed[2])**2]))
         gyro = np.sqrt(np.sum([np.mean(gyro_smoothed[0])**2, np.mean(gyro_smoothed[1]**2), np.mean(gyro_smoothed[2])**2]))
 
-        #acc_sum = np.sum(np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1)))
-        #gyro_sum = np.sum(np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1)))
-        #acc_mags = np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1))
-        #gyro_mags = np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1))
+        # acc_sum = np.sum(np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1)))
+        # gyro_sum = np.sum(np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1)))
+        # acc_mags = np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1))
+        # gyro_mags = np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1))
 
         features = np.concatenate([stds, means, [acc], [gyro]])
+        # print(features)
 
         return features
 

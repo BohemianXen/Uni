@@ -31,7 +31,9 @@ params = {
     'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Forwards'.upper(), 'Lying Left'.upper(),
                 'Lying Right'.upper(),  'Forward Fall'.upper(), 'Left Fall'.upper(), 'Right Fall'.upper()),
     'actions colours': ('Green', 'Green', 'Green', 'Green', 'Green', 'Red', 'Red', 'Red'),
-    'probability threshold': 0.92
+    'raw threshold': 0.92,  # TODO: Add these (and many other params) to gui for code cleanup + quicker config changes
+    'smv threshold': 0.95,
+    'conv threshold': 0.92
 }
 
 
@@ -121,6 +123,7 @@ class MainView(QMainWindow):
         self._model = None
         self._live_data = []
         self._prev_guess = None
+        self._threshold = min(params['raw threshold'], params['smv threshold'], params['conv threshold'])
 
     def update_console(self, message):
         """Writes a line to the console text widget during a port test.
@@ -165,10 +168,13 @@ class MainView(QMainWindow):
 
                 if 'Raw' in self._model_filename:
                     self._classifier = RawNeuralNet
+                    self._threshold = params['raw threshold']
                 elif 'SMV' in self._model_filename:
                     self._classifier = SMVNeuralNet
+                    self._threshold = params['smv threshold']
                 elif 'Conv' in self._model_filename:
                     self._classifier = ConvNeuralNet
+                    self._threshold = params['conv threshold']
                 elif 'KNN' in self._model_filename:
                     self._classifier = KNNClassifier
                 else:
@@ -314,7 +320,7 @@ class MainView(QMainWindow):
                     if np.ndim(prediction) > 1:
                         most_likely = np.argmax(prediction)
                         if most_likely > 4:
-                            guess = most_likely if np.max(prediction) >= params['probability threshold'] else self._prev_guess
+                            guess = most_likely if np.max(prediction) >= self._threshold else self._prev_guess
                         else:
                             guess = most_likely
                     else:
@@ -348,6 +354,7 @@ class MainView(QMainWindow):
 
 if __name__ == '__main__':
     gui = GUI(sys.argv)
-    if gui.arguments()[1] == '-d':
+    if len(gui.arguments()) > 1 and gui.arguments()[1] == '-d':
         gui.DEBUG_MODE = True
-        sys.exit(gui.exec_())
+
+    sys.exit(gui.exec_())

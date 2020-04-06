@@ -51,7 +51,7 @@ class CSVConverters:
         return data
 
     @staticmethod
-    def get_data_files(root=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data'): # TODO: See write_data
+    def get_data_files(root=r'..\Training Data'): # TODO: See write_data
         print('Parsing data in root directory \'%s\'\n' % root[root.rfind('\\') + 1:])
         root = path.normpath(root)
         dirs = [path.join(root, d) for d in listdir(root) if path.isdir(path.join(root, d)) and 'General' not in d]
@@ -71,9 +71,9 @@ class CSVConverters:
         return [all_files, all_labels]
 
     @staticmethod
-    def get_test_set(root=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-                     target=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-                     test_size=42, dir_prefix='24Mar_Generated_Validation_LyingRight_', copy=True):
+    def get_test_set(root=r'..\Training Data',
+                     target=r'..\Validation Data',
+                     test_size=42, dir_prefix='06Apr_Generated_Validation_WalkingDynamic_', copy=True):
 
         files, labels = CSVConverters.get_data_files(root)
 
@@ -117,8 +117,8 @@ class CSVConverters:
             return dir_counts #  == test_size
 
     @staticmethod
-    def mirror(root=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-               target=r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
+    def mirror(root=r'..\Training Data',
+               target=r'..\Training Data',
                output_dir='23Mar_Train_LeftFallMirrored_4', mask=(1, 1, 1, 1, 1, 1)):
 
         files, labels = CSVConverters.get_data_files(root)
@@ -156,7 +156,7 @@ class Tests:
 
 
 if __name__ == '__main__':
-    test = r'C:\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data'
-    #print(CSVConverters.get_test_set(copy=True))
+    test = r'..\Training Data'
+    # print(CSVConverters.get_test_set(copy=True)) NEVER SET COPY=FALSE AND RUN UNLESS READY TO SPLIT TEST/VAL/TRAIN
 
     #CSVConverters.mirror(mask=(1, -1, 1, 1, 1, -1))

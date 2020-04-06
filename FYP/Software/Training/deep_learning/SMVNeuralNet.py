@@ -77,9 +77,9 @@ if __name__ == '__main__':
         'learning rate': 0.008,
         'epochs': 40,
         'batch size': 64,
-        'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-        'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
+        'train_root': r'..\Training Data',
+        'val_root': r'..\Validation Data',
+        'test_root': r'..\Test Data'
 
     }
 
@@ -89,4 +89,4 @@ if __name__ == '__main__':
                       batch_size=params['batch size'], lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
+    tests.train_net(nn, shuffle=True, save_model=True, save_data=False, test_save=False)

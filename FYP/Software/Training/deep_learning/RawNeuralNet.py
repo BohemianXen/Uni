@@ -42,6 +42,7 @@ class RawNeuralNet(NeuralNet, Tests):
         # Instantiate layers
         input_layer = tf.keras.Input(shape=(self._inputs,))  # , batch_input_shape=(batch_size, inputs))
         x = layers.Dense(self._hiddens, activation=self._activation)(input_layer)
+        x = layers.Dropout(0.3)(x)
         x = layers.Dense(self._hiddens, activation=self._activation)(x)
         output_layer = layers.Dense(self._outputs, activation='softmax')(x)
 
@@ -79,13 +80,13 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'relu',
-        'loss': losses.mean_squared_error,  # losses.categorical_crossentropy
+        'loss': losses.mean_squared_error,  # losses.categorical_crossentropy,  # , 0.0004 lr
         'learning rate': 0.00045,
-        'epochs': 80,
+        'epochs': 100,
         'batch size': 64,
-        'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-        'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data'
+        'train_root': r'..\Training Data',
+        'val_root': r'..\Validation Data',
+        'test_root': r'C..\Test Data'
 
     }
 

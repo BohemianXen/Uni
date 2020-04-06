@@ -193,16 +193,16 @@ class Tests:
 
 if __name__ == '__main__':
     params = {
-        'neighbours': 3,   # nca best is 10, 2, 10
+        'neighbours': 5,   # nca best is 10, 2, 10
         'distance': 2,
         'weights': 'distance',  # 'distance'
-        'decomposer': sk_pca,
+        'decomposer': None,  # sk_pca,
         'components': 3,
-        'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
-        'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
-        'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
+        'train_root': r'..\Training Data',
+        'val_root': r'..\Validation Data',
+        'test_root': r'..\Test Data',
         'save': False,
-        'plot': False
+        'plot': True
 
     }
 
