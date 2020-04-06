@@ -3,15 +3,18 @@ from __future__ import print_function
 import pickle
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import NeighborhoodComponentsAnalysis as sk_nca
+from sklearn.decomposition import PCA as sk_pca
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as sk_lda
 from deep_learning import RawNeuralNet, SMVNeuralNet
+
 import matplotlib.pyplot as plt
 import matplotlib
-from sklearn import neighbors
 
 
 class KNNClassifier:
 
-    def __init__(self, neighbours=5, distance=3, weights='uniform', train_root='', val_root=''):
+    def __init__(self, neighbours=5, distance=3, weights='uniform', decomposer=None, components=2, train_root='', val_root=''):
         super().__init__()
         self.name = self.__class__.__name__
         self._neighbours = neighbours
@@ -21,7 +24,10 @@ class KNNClassifier:
         self._val_root = val_root
         self._model = None
         self._train_data = None
-        self._helper = SMVNeuralNet()
+        self._components = components
+        self._decomposer = None if decomposer is None else decomposer(n_components=components)
+        self._helper = RawNeuralNet() if self._decomposer else SMVNeuralNet()
+
 
         self.load_data()
         self.create_model()
@@ -39,17 +45,23 @@ class KNNClassifier:
         """Creates and fits a KNN classifier using the scikit-learn lib"""
 
         self._model = KNeighborsClassifier(n_neighbors=self._neighbours, p=self._distance, weights=self._weights)
-        features = self._train_data[:, 1:]
         labels = self._train_data[:, 0]
+
+        if self._decomposer is not None:
+            # lda = sk_lda(n_components=self._components)
+            features = self._decomposer.fit_transform(self._train_data[:, 1:], labels)
+
+        else:
+            features = self._train_data[:, 1:]
+
         self._model.fit(features, labels)
 
-        # import seaborn as sns
-        # import pandas as pd
-        # data = pd.DataFrame(self._train_data)  # columns=(['label'].extend([('c' + str(i)) for i in range(14)])))
-        # data_corr = data.corr()
-        # sns.heatmap(data_corr)
-        # plt.show()
-
+            # import seaborn as sns
+            # import pandas as pd
+            # data = pd.DataFrame(self._train_data)  # columns=(['label'].extend([('c' + str(i)) for i in range(14)])))
+            # data_corr = data.corr()
+            # sns.heatmap(data_corr)
+            # plt.show()
 
     @staticmethod
     def pre_process(raw_data, single=False):
@@ -65,7 +77,10 @@ class KNNClassifier:
     def save_model(self):
         filename = '%d Neighbours - %d Norm - %d classes_%s' % (self._neighbours, self._distance,
                                                                 len(self._model.classes_), self.name)
-        filename = 'Saved Models\\' + filename
+        if self._pca:
+            filename = 'Saved Models\\' + '%d PCA - ' % self._components + filename
+        else:
+            filename = 'Saved Models\\' + filename
         try:
             pickle.dump(self._model, open(filename, 'wb'))
         except Exception as e:
@@ -90,7 +105,7 @@ class KNNClassifier:
 
     def predict_directory(self, root, shuffle=True):
         self._helper.model = self._model
-        return self._helper.predict_directory(root=root, shuffle=shuffle)
+        return self._helper.predict_directory(root=root, shuffle=shuffle, decomposer=self._decomposer)
 
 # ---------------------------------------------------- Plotting --------------------------------------------------------
     from matplotlib.colors import ListedColormap
@@ -102,10 +117,14 @@ class KNNClassifier:
         cmap_light = cmap_map(lambda x: x/2 + 0.5, matplotlib.cm.jet)
         cmap_bold = matplotlib.cm.jet
 
-        X = self._train_data[:, [13, 14]]
+        if self._decomposer is None:
+            X = self._train_data[:, [13, 14]]
+        else:
+            X = self._decomposer.transform(self._train_data[:, 1:])
+
         y = self._train_data[:, 0]
 
-        clf = neighbors.KNeighborsClassifier(self._neighbours, weights=self._weights)
+        clf = KNeighborsClassifier(self._neighbours, weights=self._weights)
         clf.fit(X, y)
 
         # Plot the decision boundary. For that, we will assign a color to each
@@ -174,9 +193,11 @@ class Tests:
 
 if __name__ == '__main__':
     params = {
-        'neighbours': 5,
+        'neighbours': 3,   # nca best is 10, 2, 10
         'distance': 2,
         'weights': 'distance',  # 'distance'
+        'decomposer': sk_pca,
+        'components': 3,
         'train_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Training Data',
         'val_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Validation Data',
         'test_root': r'C:\\Users\blaze\Desktop\Programming\Uni\trunk\FYP\Software\Training\Test Data',
@@ -186,12 +207,13 @@ if __name__ == '__main__':
     }
 
     knn = KNNClassifier(neighbours=params['neighbours'], distance=params['distance'], weights=params['weights'],
-                        train_root=params['train_root'], val_root=params['val_root'])
+                        decomposer=params['decomposer'], components=params['components'], train_root=params['train_root'],
+                        val_root=params['val_root'])
 
     if params['plot']:
         knn.plot()
 
     knn.predict_directory(params['test_root'])
 
-    if params['save']:
+    if params['save'] and params['decomposer'] is None:
         knn.save_model()
