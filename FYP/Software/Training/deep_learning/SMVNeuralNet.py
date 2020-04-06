@@ -80,7 +80,6 @@ if __name__ == '__main__':
         'train_root': r'..\Training Data',
         'val_root': r'..\Validation Data',
         'test_root': r'..\Test Data'
-
     }
 
     nn = SMVNeuralNet(mag=params['mag'], cutoff=params['cutoff'], max_samples=params['max samples'],
@@ -89,4 +88,4 @@ if __name__ == '__main__':
                       batch_size=params['batch size'], lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, shuffle=True, save_model=True, save_data=False, test_save=False)
+    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)

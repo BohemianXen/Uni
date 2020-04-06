@@ -278,10 +278,11 @@ class NeuralNet(metaclass=ABCMeta):
 
             score = (score / size) * 100.0
             print('Net performance: %.2f%%\n' % score)
-            results_plotter = ResultsPlotter(labels=labels, guesses=guesses, test_matrix=test_matrix)
+
+            save_path = 'Test Reports\\%s.csv' % self.name
+            results_plotter = ResultsPlotter(labels, guesses, test_matrix, filename=save_path, history=self._history)
             results_plotter.print_test_matrix()
             results_plotter.print_test_report()
-            results_plotter.concatenate_report()
             return score
         else:
             return -1

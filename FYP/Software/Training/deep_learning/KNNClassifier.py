@@ -27,7 +27,7 @@ class KNNClassifier:
         self._components = components
         self._decomposer = None if decomposer is None else decomposer(n_components=components)
         self._helper = RawNeuralNet() if self._decomposer else SMVNeuralNet()
-
+        self._helper.name = self.name
 
         self.load_data()
         self.create_model()
@@ -202,7 +202,7 @@ if __name__ == '__main__':
         'val_root': r'..\Validation Data',
         'test_root': r'..\Test Data',
         'save': False,
-        'plot': True
+        'plot': False
 
     }
 

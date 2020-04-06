@@ -86,7 +86,7 @@ if __name__ == '__main__':
         'batch size': 64,
         'train_root': r'..\Training Data',
         'val_root': r'..\Validation Data',
-        'test_root': r'C..\Test Data'
+        'test_root': r'..\Test Data'
 
     }
 
