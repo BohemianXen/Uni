@@ -171,8 +171,8 @@ class NeuralNet(metaclass=ABCMeta):
         """Saves the model held in the _model instance attribute as HDF5 file"""
         # TODO: Better to use checkpoints during training, save only best (lowest)
 
-        filename = '%f - %d inputs_%s.h5' % ((self._history.history['loss'][-1]), self._inputs, self.name)
-        filename = 'Saved Models\\Loss - ' + filename
+        filename = '%f - %d inputs_%s.h5' % ((self._history.history['val_loss'][-1]), self._inputs, self.name)
+        filename = 'Saved Models\\Val Loss - ' + filename
         try:
             self._model.save(filename, overwrite=True)
             return filename

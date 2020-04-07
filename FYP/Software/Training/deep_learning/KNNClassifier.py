@@ -56,12 +56,12 @@ class KNNClassifier:
 
         self._model.fit(features, labels)
 
-            # import seaborn as sns
-            # import pandas as pd
-            # data = pd.DataFrame(self._train_data)  # columns=(['label'].extend([('c' + str(i)) for i in range(14)])))
-            # data_corr = data.corr()
-            # sns.heatmap(data_corr)
-            # plt.show()
+        # import seaborn as sns
+        # import pandas as pd
+        # data = pd.DataFrame(self._train_data)  # columns=(['label'].extend([('c' + str(i)) for i in range(14)])))
+        # data_corr = data.corr()
+        # sns.heatmap(data_corr)
+        # plt.show()
 
     @staticmethod
     def pre_process(raw_data, single=False):

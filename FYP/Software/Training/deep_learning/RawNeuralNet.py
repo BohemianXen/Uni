@@ -42,7 +42,7 @@ class RawNeuralNet(NeuralNet, Tests):
         # Instantiate layers
         input_layer = tf.keras.Input(shape=(self._inputs,))  # , batch_input_shape=(batch_size, inputs))
         x = layers.Dense(self._hiddens, activation=self._activation)(input_layer)
-        x = layers.Dropout(0.3)(x)
+        x = layers.Dropout(0.5)(x)
         x = layers.Dense(self._hiddens, activation=self._activation)(x)
         output_layer = layers.Dense(self._outputs, activation='softmax')(x)
 
@@ -67,7 +67,7 @@ class RawNeuralNet(NeuralNet, Tests):
     @staticmethod
     def get_stop_conditions():
         callback_list = []
-        #callback_list.append(callbacks.EarlyStopping(monitor='val_accuracy', patience=15, mode='auto'))
+        # callback_list.append(callbacks.EarlyStopping(monitor='val_accuracy', patience=20, mode='auto'))
         callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=10, mode='auto'))
         return callback_list
 
@@ -80,10 +80,10 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'relu',
-        'loss': losses.mean_squared_error,  # losses.categorical_crossentropy,  # , 0.0004 lr
+        'loss': losses.categorical_crossentropy,  # losses.mean_squared_error,  # losses.categorical_crossentropy,  # , 0.0004 lr
         'learning rate': 0.00045,
-        'epochs': 100,
-        'batch size': 64,
+        'epochs': 200,
+        'batch size': 60,
         'train_root': r'..\Training Data',
         'val_root': r'..\Validation Data',
         'test_root': r'..\Test Data'

@@ -35,6 +35,7 @@ class SMVNeuralNet(NeuralNet, Tests):
         # Instantiate layers
         input_layer = tf.keras.Input(shape=(self._inputs,))  # , batch_input_shape=(batch_size, inputs))
         x = layers.Dense(self._hiddens, activation=self._activation)(input_layer)
+        # x = layers.Dropout(0.3)(x)
         x = layers.Dense(self._hiddens, activation=self._activation)(x)
         output_layer = layers.Dense(self._outputs, activation='softmax')(x)
 
@@ -73,10 +74,10 @@ if __name__ == '__main__':
         'hiddens': 8,
         'outputs': 8,
         'activation': 'tanh',
-        'loss': losses.categorical_crossentropy,  # losses.mean_squared_error, 0.008, 40
+        'loss': losses.categorical_crossentropy,
         'learning rate': 0.008,
-        'epochs': 40,
-        'batch size': 64,
+        'epochs': 32,
+        'batch size': 60,
         'train_root': r'..\Training Data',
         'val_root': r'..\Validation Data',
         'test_root': r'..\Test Data'

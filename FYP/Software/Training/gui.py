@@ -31,8 +31,8 @@ params = {
     'actions': ('Standing'.upper(), 'Walking'.upper(), 'Lying Forwards'.upper(), 'Lying Left'.upper(),
                 'Lying Right'.upper(),  'Forward Fall'.upper(), 'Left Fall'.upper(), 'Right Fall'.upper()),
     'actions colours': ('Green', 'Green', 'Green', 'Green', 'Green', 'Red', 'Red', 'Red'),
-    'raw threshold': 0.92,  # TODO: Add these (and many other params) to gui for code cleanup + quicker config changes
-    'smv threshold': 0.95,
+    'raw threshold': 0.94,  # TODO: Add these (and many other params) to gui for code cleanup + quicker config changes
+    'smv threshold': 0.94,
     'conv threshold': 0.92
 }
 
@@ -182,6 +182,7 @@ class MainView(QMainWindow):
 
                 if self._classifier is not None:
                     self._model = self._classifier.load_model(self._model_filename)
+                    self._model.plot()
         else:
             self._ui.fileLabel.setText('No Model Selected')
 

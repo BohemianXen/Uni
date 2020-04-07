@@ -87,10 +87,10 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'tanh',
-        'loss':  losses.categorical_crossentropy,  # losses.mean_squared_error,
-        'learning rate': 0.00042,
-        'epochs': 30,
-        'batch size': 60,
+        'loss':  losses.categorical_crossentropy,
+        'learning rate': 0.0004,  # 0.00042,
+        'epochs': 25,
+        'batch size': 30,
         'train_root': r'..\Training Data',
         'val_root': r'..\Validation Data',
         'test_root': r'..\Test Data'
@@ -103,4 +103,4 @@ if __name__ == '__main__':
                        lr=params['learning rate'])
 
     tests = Tests(params=params)
-    tests.train_net(nn, shuffle=True, save_model=True, save_data=False, test_save=False)
+    tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
