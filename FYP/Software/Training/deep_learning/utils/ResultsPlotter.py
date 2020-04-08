@@ -16,7 +16,8 @@ class ResultsPlotter:
         self.filename = filename
         self.history = history
 
-        self.df = pd.DataFrame(metrics.classification_report(self.labels, self.guesses, target_names=self.names, digits=4, output_dict=True))
+        self.df = pd.DataFrame(metrics.classification_report(self.labels, self.guesses, target_names=self.names,
+                                                             digits=4, output_dict=True, zero_division=0.0))
         self.supports = self.df.iloc[3, :-3]
         self.df = self.df.drop(['f1-score', 'support'])
         self.df = self.df.drop(['macro avg', 'weighted avg'], axis=1)
@@ -36,7 +37,8 @@ class ResultsPlotter:
 
     def print_test_report(self):
         print('Test Report:')
-        print(metrics.classification_report(self.labels, self.guesses, target_names=self.names, digits=4))
+        print(metrics.classification_report(self.labels, self.guesses, target_names=self.names,
+                                            digits=4, zero_division=0.0))
         print('\n')
 
     def concatenate_report(self):
@@ -53,7 +55,7 @@ class ResultsPlotter:
             total_added += 1
 
         [self.df['global_PR'], self.df['global_SE'], self.df['global_SP']] = self.calculate_global_metrics()
-        self.df['global_ACC'] = accuracy
+        self.df['test_ACC'] = accuracy
 
     def calculate_global_metrics(self):
         r_fall_head = len(self.names) - self.fall_head  # reverse index of first fall index
@@ -66,9 +68,27 @@ class ResultsPlotter:
         fn = np.sum(self.test_matrix[self.fall_head:, :self.fall_head])  # (np.triu(self.test_matrix, k=1))
         assert (tp + tn + fp + fn == self.supports.sum())
 
-        pr = tp / (tp + fp)
-        se = tp / (tp + fn)
-        sp = tn / (tn + fp)
+        pr = 0.0
+        se = 0.0
+        sp = 0.0
+
+        # Zero divisions and NaNs are expected during learning rate testing for final year report
+        try:
+            pr = tp / (tp + fp)
+        except Exception as e:
+            print('Precision zero division')
+            pass
+
+        try:
+            se = tp / (tp + fn)
+        except Exception as e:
+            print('Sensitivity zero division')
+
+        try:
+            sp = tn / (tn + fp)
+        except Exception as e:
+            print('Sensitivity zero division')
+
         print('GLOBAL STATS:\tPrecision = %.4f, Sensitivity = %.4f, Specificity = %.4f\n' % (pr, se, sp))
 
         return [pr, se, sp]

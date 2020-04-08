@@ -80,10 +80,10 @@ if __name__ == '__main__':
         'hiddens': 240,
         'outputs': 8,
         'activation': 'relu',
-        'loss': losses.categorical_crossentropy,  # losses.mean_squared_error,  # losses.categorical_crossentropy,  # , 0.0004 lr
-        'learning rate': 0.00045,
+        'loss': losses.categorical_crossentropy,
+        'learning rate': 0.0007,  # 0.0007
         'epochs': 200,
-        'batch size': 60,
+        'batch size': 70,
         'train_root': r'..\Training Data',
         'val_root': r'..\Validation Data',
         'test_root': r'..\Test Data'

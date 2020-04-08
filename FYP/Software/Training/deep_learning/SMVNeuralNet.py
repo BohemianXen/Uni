@@ -75,9 +75,9 @@ if __name__ == '__main__':
         'outputs': 8,
         'activation': 'tanh',
         'loss': losses.categorical_crossentropy,
-        'learning rate': 0.008,
+        'learning rate': 0.009,  # 0.009
         'epochs': 32,
-        'batch size': 60,
+        'batch size': 42,
         'train_root': r'..\Training Data',
         'val_root': r'..\Validation Data',
         'test_root': r'..\Test Data'

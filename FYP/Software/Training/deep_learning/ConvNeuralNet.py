@@ -42,19 +42,25 @@ class ConvNeuralNet(NeuralNet, Tests):
         # Instantiate layers
         input_layer = tf.keras.Input(shape=(self._inputs, 1))
 
-        x = layers.Conv1D(32, kernel_size=3, activation=self._activation, padding='same', data_format='channels_last')(input_layer)
-        x = layers.MaxPool1D()(x)
-        x = layers.Conv1D(64, kernel_size=9, activation=self._activation, padding='valid', data_format='channels_last')(x)
+        layer1_features = 16
+        layer2_features = 32
+        no_of_nodes = (self._inputs / (3 * 3 * 2)) * layer2_features  # No. of nodes required for fully connected layer
+
+        x = layers.Conv1D(layer1_features, kernel_size=3, strides=3, activation=self._activation, padding='valid',
+                          data_format='channels_last')(input_layer)
+        x = layers.MaxPool1D(pool_size=3)(x)
+        x = layers.Conv1D(layer2_features, kernel_size=3, activation=self._activation, padding='same',
+                          data_format='channels_last')(x)
         x = layers.MaxPool1D()(x)
         x = layers.Dropout(0.4)(x)
 
         x = layers.Flatten()(x)
-        x = layers.Dense(self._hiddens, activation='relu')(x)
+        x = layers.Dense(no_of_nodes, activation='relu')(x)
         output_layer = layers.Dense(self._outputs, activation='softmax')(x)
 
         # Choose loss and optimisation functions/algorithms
         model_loss = self._loss
-        model_optimiser = optimizers.Adam(learning_rate=self._lr)  # optimizers.RMSprop(learning_rate=self._lr)   #  optimizers.SGD(learning_rate=self._lr)
+        model_optimiser = optimizers.Adam(learning_rate=self._lr)
 
         # Instantiate and compile model
         self._model = tf.keras.Model(inputs=input_layer, outputs=output_layer)
@@ -63,7 +69,7 @@ class ConvNeuralNet(NeuralNet, Tests):
     @staticmethod
     def pre_process(raw_data, single=False):
         """Simply flattens and normalises raw data as per sensor max/mins"""
-        normalised = DataProcessors.raw_normalise(raw_data)
+        normalised = DataProcessors.raw_normalise(raw_data, transpose=True)
 
         if single:
             normalised = expand(normalised, axis=1)
@@ -84,13 +90,13 @@ if __name__ == '__main__':
         'mag': False,
         'cutoff': 0.25,
         'max samples': 480,
-        'hiddens': 240,
+        'hiddens': 1080,  # Not used for CNN, for testing only
         'outputs': 8,
         'activation': 'tanh',
         'loss':  losses.categorical_crossentropy,
-        'learning rate': 0.0004,  # 0.00042,
+        'learning rate': 0.001,
         'epochs': 25,
-        'batch size': 30,
+        'batch size': 84,
         'train_root': r'..\Training Data',
         'val_root': r'..\Validation Data',
         'test_root': r'..\Test Data'
