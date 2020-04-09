@@ -29,8 +29,6 @@ class KNNClassifier:
         self._helper = RawNeuralNet() if self._decomposer else SMVNeuralNet()
         self._helper.name = self.name
 
-        self.load_data()
-        self.create_model()
     # ------------------------------------------------- Properties -----------------------------------------------------
 
     @property
@@ -44,6 +42,7 @@ class KNNClassifier:
     def create_model(self):
         """Creates and fits a KNN classifier using the scikit-learn lib"""
 
+        self.load_data()
         self._model = KNeighborsClassifier(n_neighbors=self._neighbours, p=self._distance, weights=self._weights)
         labels = self._train_data[:, 0]
 
@@ -77,7 +76,7 @@ class KNNClassifier:
     def save_model(self):
         filename = '%d Neighbours - %d Norm - %d classes_%s' % (self._neighbours, self._distance,
                                                                 len(self._model.classes_), self.name)
-        if self._pca:
+        if self._decomposer is not None:
             filename = 'Saved Models\\' + '%d PCA - ' % self._components + filename
         else:
             filename = 'Saved Models\\' + filename
@@ -209,6 +208,7 @@ if __name__ == '__main__':
     knn = KNNClassifier(neighbours=params['neighbours'], distance=params['distance'], weights=params['weights'],
                         decomposer=params['decomposer'], components=params['components'], train_root=params['train_root'],
                         val_root=params['val_root'])
+    knn.create_model()
 
     if params['plot']:
         knn.plot()

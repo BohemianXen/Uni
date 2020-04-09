@@ -32,8 +32,6 @@ class RawNeuralNet(NeuralNet, Tests):
         # else:
         #     self._limits = np.array([4, 4, 4, 2000, 2000, 2000])
 
-        self.create_model()
-
     # --------------------------------------------------- Overrides ----------------------------------------------------
 
     def create_model(self):
@@ -94,7 +92,6 @@ if __name__ == '__main__':
                       hiddens=params['hiddens'], outputs=params['outputs'], activation=params['activation'],
                       loss=params['loss'], epochs=params['epochs'], batch_size=params['batch size'],
                       lr=params['learning rate'])
-
+    nn.create_model()
     tests = Tests(params=params)
     tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)
-

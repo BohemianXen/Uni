@@ -182,7 +182,7 @@ class MainView(QMainWindow):
 
                 if self._classifier is not None:
                     self._model = self._classifier.load_model(self._model_filename)
-                    self._model.plot()
+
         else:
             self._ui.fileLabel.setText('No Model Selected')
 

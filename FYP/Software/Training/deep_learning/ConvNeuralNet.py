@@ -23,7 +23,6 @@ class ConvNeuralNet(NeuralNet, Tests):
         self._batch_size = batch_size
         self._lr = lr
 
-        self.create_model()
     # ------------------------------------------------- Properties -----------------------------------------------------
 
     @property
@@ -107,6 +106,6 @@ if __name__ == '__main__':
                        hiddens=params['hiddens'], outputs=params['outputs'], activation=params['activation'],
                        loss=params['loss'], epochs=params['epochs'], batch_size=params['batch size'],
                        lr=params['learning rate'])
-
+    nn.create_model()
     tests = Tests(params=params)
     tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)

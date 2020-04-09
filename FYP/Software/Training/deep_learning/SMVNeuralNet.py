@@ -25,8 +25,6 @@ class SMVNeuralNet(NeuralNet, Tests):
         self._samples = int(self._total_samples * cutoff)
         #self._inputs = (self._samples * 3) if self._mag else (self._samples * 2)
 
-        self.create_model()
-
     # --------------------------------------------------- Overrides ----------------------------------------------------
 
     def create_model(self):
@@ -87,6 +85,6 @@ if __name__ == '__main__':
                       inputs=params['inputs'], hiddens=params['hiddens'], outputs=params['outputs'],
                       loss=params['loss'], activation=params['activation'], epochs=params['epochs'],
                       batch_size=params['batch size'], lr=params['learning rate'])
-
+    nn.create_model()
     tests = Tests(params=params)
     tests.train_net(nn, shuffle=True, save_model=False, save_data=False, test_save=False)

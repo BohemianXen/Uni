@@ -7,7 +7,7 @@ from tensorflow.keras import models
 from tensorflow.keras.utils import plot_model
 from processing.DataProcessors import DataProcessors
 from processing.CSVConverters import CSVConverters
-from .utils.ResultsPlotter import ResultsPlotter
+from deep_learning.utils import ResultsPlotter
 
 
 import os
@@ -314,10 +314,40 @@ class Tests:
     def save_model(self, net, filename):
         net.model = None
         full_path = os.path.join(os.getcwd(), filename)
-        model = NeuralNet.load_model(full_path)
+        model = NeuralNet.load_model(full_path)  # TODO: Overwrite for KNN as it has pickle based loading
         assert model is not None
 
         net.model = model
         score = net.predict_directory(root=self._params['test_root'])
 
         return score
+
+
+if __name__ == '__main__':
+    from deep_learning import RawNeuralNet, SMVNeuralNet, ConvNeuralNet, KNNClassifier
+    from tkinter import filedialog
+
+    classifier = None
+    default_dir = 'deep_learning\\Saved Models'
+    model_filename = filedialog.askopenfilename(title='Open file', initialdir=default_dir)
+
+    if model_filename != '':
+        msg = 'Selected: ' + model_filename[model_filename.rfind('/') + 1:]
+
+        if 'Raw' in model_filename:
+            classifier = RawNeuralNet()
+        elif 'SMV' in model_filename:
+            classifier = SMVNeuralNet()
+        elif 'Conv' in model_filename:
+            classifier = ConvNeuralNet()
+        elif 'KNN' in model_filename:
+            classifier = KNNClassifier()
+        else:
+            pass
+
+        if classifier is not None:
+            classifier.model = classifier.load_model(model_filename)
+            print('%s Selected\n' % classifier.name)
+            classifier.predict_directory(root=r'..\Test Data', shuffle=True)
+    else:
+        print('No Model Selected')
