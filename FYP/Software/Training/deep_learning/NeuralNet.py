@@ -9,7 +9,6 @@ from processing.DataProcessors import DataProcessors
 from processing.CSVConverters import CSVConverters
 from deep_learning.utils import ResultsPlotter
 
-
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -257,7 +256,7 @@ class NeuralNet(metaclass=ABCMeta):
             predictions = self._model.predict(data)
             guesses = np.zeros(len(predictions))
 
-            test_matrix = np.zeros(shape=(self._outputs, self._outputs))
+            confusion_matrix = np.zeros(shape=(self._outputs, self._outputs))
             for i, sample in enumerate(predictions):
                 # print(predictions[i])
 
@@ -268,10 +267,10 @@ class NeuralNet(metaclass=ABCMeta):
 
                 guesses[i] = guess
                 if labels[i] == guess:
-                    test_matrix[int(guess)][int(guess)] += 1
+                    confusion_matrix[int(guess)][int(guess)] += 1
                     score += 1
                 else:
-                    test_matrix[int(labels[i])][int(guess)] += 1
+                    confusion_matrix[int(labels[i])][int(guess)] += 1
                     # pred = predictions[i]
                     # true = labels[i]
                     # print(true, guess, pred)
@@ -280,9 +279,10 @@ class NeuralNet(metaclass=ABCMeta):
             print('Net performance: %.2f%%\n' % score)
 
             save_path = 'Test Reports\\%s.csv' % self.name
-            results_plotter = ResultsPlotter(labels, guesses, test_matrix, filename=save_path, history=self._history)
-            results_plotter.print_test_matrix()
+            results_plotter = ResultsPlotter(labels, guesses, confusion_matrix, filename=save_path, history=self._history)
+            results_plotter.print_confusion_matrix()
             results_plotter.print_test_report()
+            results_plotter.plot_confusion_matrix()
             return score
         else:
             return -1
