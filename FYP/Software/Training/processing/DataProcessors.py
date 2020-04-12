@@ -98,8 +98,8 @@ class DataProcessors:
             gyro_smoothed = gyro_smoothed.T.flatten()
             return np.concatenate([acc_smoothed, gyro_smoothed])
 
-        acc = np.sqrt(np.sum([np.mean(acc_smoothed[0])**2, np.mean(acc_smoothed[1])**2, np.mean(acc_smoothed[2])**2]))
-        gyro = np.sqrt(np.sum([np.mean(gyro_smoothed[0])**2, np.mean(gyro_smoothed[1]**2), np.mean(gyro_smoothed[2])**2]))
+        acc = np.sqrt(np.sum([ax_mean**2, ay_mean**2, az_mean**2]))
+        gyro = np.sqrt(np.sum([gx_mean**2, gy_mean**2, gz_mean**2]))
 
         # acc_sum = np.sum(np.sqrt(np.sum(np.square(acc_smoothed.T), axis=1)))
         # gyro_sum = np.sum(np.sqrt(np.sum(np.square(gyro_smoothed.T), axis=1)))

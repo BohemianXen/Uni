@@ -192,7 +192,7 @@ class Tests:
 
 if __name__ == '__main__':
     params = {
-        'neighbours': 5,   # nca best is 10, 2, 10
+        'neighbours': 7,   # nca best is 10, 2, 10
         'distance': 2,
         'weights': 'distance',  # 'distance'
         'decomposer': None,  # sk_pca,

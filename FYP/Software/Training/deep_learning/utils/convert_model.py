@@ -12,7 +12,14 @@ def convert_model(source='', target=''):
 if __name__ == '__main__':
     # import sys
     # sys.argv
-    source = r"C..\Saved Models\MSE\Loss - 0.001872 - 720 inputs_ConvNeuralNet.h5"
-    # r"..\Saved Models\Categorical\Loss - 0.052453 - 14 inputs_SMVNeuralNet.h5"
-    target = source[source.rfind('\\') + 1:].rstrip('.h5')
-    convert_model(source=source, target=target)
+    from tkinter import filedialog
+
+    classifier = None
+    default_dir = 'deep_learning\\Saved Models'
+    model_filename = filedialog.askopenfilename(title='Open file', initialdir=default_dir)
+
+    if model_filename != '':
+        msg = 'Selected: ' + model_filename[model_filename.rfind('/') + 1:]
+        # r"..\Saved Models\Categorical\Loss - 0.052453 - 14 inputs_SMVNeuralNet.h5"
+        target = model_filename[model_filename.rfind('\\') + 1:].rstrip('.h5')
+        convert_model(source=model_filename, target=target)
