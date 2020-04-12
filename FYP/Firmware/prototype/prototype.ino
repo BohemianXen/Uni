@@ -40,40 +40,38 @@ constexpr int tensorArenaSize = 60 * 1024;
 byte tensorArena[tensorArenaSize];
 
 
-const char* GESTURES[] = {
-  "punch",
-  "flex"
-};
+const char* ACTIONS[] = {"standing", "walking", "lying_f", "lying_l", "lying_r", "fall_f", "fall_l", "fall_r"};
 
-#define NUM_GESTURES (sizeof(GESTURES) / sizeof(GESTURES[0]))  //TODO: All below should be defined as macros too
-
+#define NUM_ACTIONS (sizeof(ACTIONS) / sizeof(ACTIONS[0]))  //TODO: All below should be defined as macros too
 int inputLength;
 const byte totalFeatures = 14;
+int current_action = 0;
+float threshold = 0.85;
+
 const byte sampleLength = 6; //No. of parameters in a single sample (9 if all, 6 w/o magnetometer)
-const byte packetLength = 8; // No. of samples in a single data packet
-const unsigned short packetSize = sampleLength * packetLength * 4; // No. of bytes in an entire packet
-//const unsigned long debounceTime = 1000;
 const unsigned short totalSamples = 119; //sampleRates[0] * captureTimeSecs;
-const unsigned short totalPackets = totalSamples / packetLength; //TODO: What do to if float result
+
 byte saveStatus, sendStatus = 0;
 byte sampleRates[3] = { 0, 0, 0 }; // {IMU.accelerationSampleRate(), IMU.gyroscopeSampleRate(), IMU.magneticFieldSampleRate()};
 
 unsigned long timer1 = 0;
 unsigned long timer2 = 0;
 //BLE
-BLEService dataReadyService("a34984b9-7b89-4553-aced-242a0b289bbc");
-BLEBoolCharacteristic dataReadyChar("4174c433-4064-4349-bfa2-009a432a24a4", BLERead | BLENotify);
 
-BLEService imuService("f9dd156e-f108-4139-925c-dd1f157cffa0");
-BLECharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLEIndicate, packetSize);
-
-BLEService sendDataService("ab36b3d9-12e4-4922-ac94-8873e8252045");
-BLEBoolCharacteristic sendDataChar("976aca21-135a-4dfa-b548-68308f7acceb", BLERead | BLEWrite);
+BLEService predictionService("e77f260c-813a-4f0b-bb63-4e4ee0c3a103");
+BLEByteCharacteristic predictionChar("f29c6ec0-13ef-4266-9fb7-b32c0feec1b3", BLERead | BLENotify);
 
 BLEService startingStreamService("05b7f95e-0d89-43da-973c-3aa5a67b6031");
 BLEBoolCharacteristic startingStreamChar("20b35680-9cf5-4f41-bde9-308abbc3c019", BLERead | BLENotify);
 
-//BLEDevice central;
+BLEService sendDataService("ab36b3d9-12e4-4922-ac94-8873e8252045");
+BLEBoolCharacteristic sendDataChar("976aca21-135a-4dfa-b548-68308f7acceb", BLERead | BLEWrite);
+
+/* BLEService dataReadyService("a34984b9-7b89-4553-aced-242a0b289bbc");
+BLEBoolCharacteristic dataReadyChar("4174c433-4064-4349-bfa2-009a432a24a4", BLERead | BLENotify);
+
+BLEService imuService("f9dd156e-f108-4139-925c-dd1f157cffa0");
+BLECharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLEIndicate, packetSize); */
 
 
 void setup() {
@@ -105,18 +103,16 @@ void setup() {
     BLE.setLocalName("FallDetector");
     BLE.setDeviceName("FallDetector");
 
-    dataReadyService.addCharacteristic(dataReadyChar);
-    imuService.addCharacteristic(imuChar);
-    sendDataService.addCharacteristic(sendDataChar);
+   
+    predictionService.addCharacteristic(predictionChar);
     startingStreamService.addCharacteristic(startingStreamChar);
-    BLE.addService(dataReadyService);
-    BLE.addService(imuService);
-    BLE.addService(sendDataService);
+    sendDataService.addCharacteristic(sendDataChar);
+   
+    BLE.addService(predictionService);
     BLE.addService(startingStreamService);
+    BLE.addService(sendDataService);
 
-    //sendDataChar.setEventHandler(BLEWritten, sendData);
-
-    BLE.setAdvertisedService(dataReadyService);
+    BLE.setAdvertisedService(predictionService);
     BLE.setConnectionInterval(0x0006, 0x0028); // 0x0320);
     BLE.advertise();
 
@@ -126,16 +122,16 @@ void setup() {
     // An easier approach is to just use the AllOpsResolver, but this will
     // incur some penalty in code space for op implementations that are not
     // needed by this graph.
-    static tflite::MicroMutableOpResolver micro_mutable_op_resolver;  // NOLINT
+    /*static tflite::MicroMutableOpResolver micro_mutable_op_resolver;  // NOLINT
     //micro_mutable_op_resolver.AddBuiltin(tflite::BuiltinOperator_TANH,
     //    tflite::ops::micro::Register_TANH());
     micro_mutable_op_resolver.AddBuiltin(tflite::BuiltinOperator_RELU,
         tflite::ops::micro::Register_RELU());
     micro_mutable_op_resolver.AddBuiltin(tflite::BuiltinOperator_SOFTMAX,
-        tflite::ops::micro::Register_SOFTMAX());
+        tflite::ops::micro::Register_SOFTMAX());*/
 
     // get the TFL representation of the model byte array
-    tflModel = tflite::GetModel(model);
+    tflModel = tflite::GetModel(smv_model);
     if (tflModel->version() != TFLITE_SCHEMA_VERSION) {
         Serial.println("Model schema mismatch!");
         while (1);
@@ -152,6 +148,7 @@ void setup() {
     tflOutputTensor = tflInterpreter->output(0);
 
     inputLength = tflInputTensor->bytes / sizeof(float);
+    Serial.println(inputLength);
 
 }
 
@@ -160,45 +157,54 @@ void loop() {
     float smv [totalFeatures];
     initialiseData(imuDataL, smv);
     bool dataReady = 0;
-    byte external_start = 0;
+    byte externalStart = 0;
     BLEDevice central = BLE.central();
 
     if (central) {
         Serial.print("Connected to: ");
         Serial.println(central.address());
         digitalWrite(LED_BUILTIN, HIGH);
-        digitalWrite(sendLED, HIGH);
-        dataReadyChar.writeValue(0);
+        //digitalWrite(saveLED, HIGH);
+        predictionChar.writeValue(0);
         sendDataChar.writeValue(0);
         startingStreamChar.writeValue(0);
 
         while (central.connected()) {
-            //digitalWrite(saveLED, LOW);
 
-            //external_start = 0;
-            sendDataChar.readValue(external_start);
-            delay(100);
-            bool startStream = external_start || digitalRead(saveButton);
+            sendDataChar.readValue(externalStart);
+            bool startStream = externalStart || digitalRead(saveButton);
             bool stopStream = 1;
 
+            if (startStream) {
+                startingStreamChar.writeValue(1);
+                stopStream = 0;
+            }
+
             while (!stopStream && central.connected()) {
+                
                 dataReady = startSave(imuDataL, smv);
-                //dataReadyChar.writeValue(dataReady);
-                //digitalWrite(saveLED, LOW);
-                //delay(100);
-                //bool dataSent = sendData(imuDataL);
+                sendDataChar.writeValue(1);
+
                 if (dataReady) {
-                    int guess = interpret(smv);
+                    current_action = interpret(smv);
+                    predictionChar.writeValue(current_action);
+                    //Serial.print("Prediction: ");
+                    //Serial.println(ACTIONS[current_action]);
                 }
+
+                sendDataChar.readValue(externalStart);
                 stopStream = digitalRead(saveButton);
-                if (stopStream) {
-                    dataReadyChar.writeValue(0);
+
+                if ((!dataReady || stopStream) || !externalStart) {
+                    Serial.println("Stopping stream...");
                     sendDataChar.writeValue(0);
                     startingStreamChar.writeValue(0);
-                    digitalWrite(saveLED, HIGH);
-                    delay(1000);
+                    digitalWrite(sendLED, HIGH);
+                    delay(500);
+                    initialiseData(imuDataL, smv);
+                    digitalWrite(sendLED, LOW);
                 }
-                delay(10);
+                delay(50);
             }
         }
     }
@@ -222,24 +228,7 @@ void initialiseData(long imuDataL[sampleLength][totalSamples], float smv[totalFe
 }
 
 
-void blinkSaveLED(int period) {
-    digitalWrite(saveLED, HIGH);
-    delay(period);
-    digitalWrite(saveLED, LOW);
-    delay(period);
-    digitalWrite(saveLED, HIGH);
-    delay(period);
-    digitalWrite(saveLED, LOW);
-    delay(period);
-    digitalWrite(saveLED, HIGH);
-    delay(period);
-    digitalWrite(saveLED, LOW);
-    delay(period);
-    if (period == 500) { digitalWrite(saveLED, HIGH); }
-}
-
 bool startSave(long imuDataL[sampleLength][totalSamples], float smv[totalFeatures]) {
-    const byte captureTimeSecs = 2;
     unsigned short samplesRead = 0;
     float imuDataF[sampleLength][totalSamples];
     bool success = 0;
@@ -253,25 +242,28 @@ bool startSave(long imuDataL[sampleLength][totalSamples], float smv[totalFeature
 
         success = saveData(imuDataF, imuDataL, smv);
 
-        if (!success) { blinkSaveLED(50); }
+        // if (!success) { blinkSaveLED(50); }
     }
 
     return success;
 }
 
 unsigned short getVals(float dataOut[sampleLength][totalSamples], unsigned short sampleNo) {
+    int minSamplePeriod = 1000 / sampleRates[0];
 
     while (sampleNo != totalSamples && IMU.accelerationAvailable() && IMU.gyroscopeAvailable()) {
         IMU.readAcceleration(dataOut[0][sampleNo], dataOut[1][sampleNo], dataOut[2][sampleNo]);
         IMU.readGyroscope(dataOut[3][sampleNo], dataOut[4][sampleNo], dataOut[5][sampleNo]);
         sampleNo++;
+        // Serial.println(sampleNo);
+        delay(minSamplePeriod);
     }
-    // Serial.println("Done");
+    //Serial.println("Done");
     return sampleNo;
 }
 
 bool saveData(float imuDataF[sampleLength][totalSamples], long imuDataL[sampleLength][totalSamples], float smv[totalFeatures]) {
-    Serial.println("Sending data...");
+    Serial.println("Pre-processing raw data...");
     int totalRead = 0;
     for (int i = 0; i < sampleLength; i++) {
         for (int j = 0; j < totalSamples; j++) {
@@ -279,23 +271,37 @@ bool saveData(float imuDataF[sampleLength][totalSamples], long imuDataL[sampleLe
             imuDataL[i][j] = (long)scaled;
             //imuChar.writeValue(imuDataL[i][j]);
             totalRead++;
-            Serial.print(imuDataL[i][j]);
-            Serial.print(",");
+            //Serial.print(imuDataL[i][j]);
+            //Serial.print(",");
         }    
     }
 
+    //Serial.print("\n");
     //Serial.println(totalRead);
+
     if (totalRead == (totalSamples * sampleLength)) {
         for (int i = 0; i < 3; i++) {
             updateStdMean(imuDataL[i], totalSamples, 4, &smv[i], &smv[i+6]);
+            /* Serial.print(smv[i], 4);
+            Serial.print(",");
+            Serial.print(smv[i+6], 4);
+            Serial.print(","); */
         }
 
         for (int i = 3; i < 6; i++) {
             updateStdMean(imuDataL[i], totalSamples, 2000, &smv[i], &smv[i+6]);
+            /* Serial.print(smv[i], 4);
+            Serial.print(",");
+            Serial.print(smv[i+6], 4);
+            Serial.print(","); */
+
         }
 
         smv[12] = sqrt(pow(smv[6], 2) + pow(smv[7], 2) + pow(smv[8], 2));
         smv[13] = sqrt(pow(smv[9], 2) + pow(smv[10], 2) + pow(smv[11], 2));
+        /* Serial.print(smv[12]);
+        Serial.print(", ");
+        Serial.println(smv[13]); */
 
         return 1;
     }
@@ -312,11 +318,20 @@ int interpret(float smv[totalFeatures]) {
         //while (1);
         return 0;
     }
-    for (int i = 0; i < totalFeatures; i++) {
-        //Serial.print(GESTURES[i]);
-        //Serial.print(": ");
-        Serial.println(tflOutputTensor->data.f[i]); // , 14);
+    float max = 0.0;
+    int max_index = current_action;
+
+    for (int i = 0; i < 8; i++) {
+        float prediction = tflOutputTensor->data.f[i];
+        
+        /*Serial.print(ACTIONS[i]);
+        Serial.print(": ");
+        Serial.println(prediction, 6);*/
+
+        if (prediction > threshold) {
+            max_index = i;
+        }
     }
     Serial.println();
-    return 1;
+    return max_index;
 }

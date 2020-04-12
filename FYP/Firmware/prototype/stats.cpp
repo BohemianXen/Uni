@@ -20,11 +20,10 @@ float mean_f(long dataIn[], int length, int normalisation) {
 }
 
 int updateStdMean(long dataIn[], int length, int normalisation, float *std, float *mean) {
-	float result = 0.0;
 	*mean = mean_f(dataIn, length, normalisation);
 	
 	for (int i = 0; i < length; i++) {
-		*std += pow((dataIn[i]/(normalisation * 1000)) - *mean, 2);
+		*std += pow(((float)dataIn[i]/(normalisation * 1000)) - *mean, 2);
 	}
 
 	if (length != 0) {

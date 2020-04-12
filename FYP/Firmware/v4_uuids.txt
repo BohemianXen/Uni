@@ -6,5 +6,7 @@ ab36b3d9-12e4-4922-ac94-8873e8252045 - sendDataService
 976aca21-135a-4dfa-b548-68308f7acceb - sendDataChar
 05b7f95e-0d89-43da-973c-3aa5a67b6031 - startingStreamService
 20b35680-9cf5-4f41-bde9-308abbc3c019 - startingStreamChar
+e77f260c-813a-4f0b-bb63-4e4ee0c3a103 - predictionService
+f29c6ec0-13ef-4266-9fb7-b32c0feec1b3 - predictionChar
 
 
