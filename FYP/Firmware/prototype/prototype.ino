@@ -16,9 +16,9 @@
 #include "model.h"
 
 #//GLOBALS
-const byte saveLED = 3;
-const byte sendLED = 4;
-const byte saveButton = 5;
+const byte startLED = 3;
+const byte stopLED = 4;
+const byte toggleButton = 5;
 const byte sendButton = 6;
 
 // global variables used for TensorFlow Lite (Micro)
@@ -76,11 +76,9 @@ BLECharacteristic imuChar("41277a1b-b4f8-4ddc-871a-db0dd23a3a31", BLERead | BLEI
 
 void setup() {
     // put your setup code here, to run once:
-    pinMode(saveLED, OUTPUT);
-    pinMode(sendLED, OUTPUT);
-    pinMode(saveButton, INPUT);
-    pinMode(sendButton, INPUT);
-    //pinMode(7, INPUT);
+    pinMode(startLED, OUTPUT);
+    pinMode(stopLED, OUTPUT);
+    pinMode(toggleButton, INPUT);
 
     Serial.begin(115200);
 
@@ -117,21 +115,21 @@ void setup() {
     BLE.advertise();
 
 
-    // Pull in only the operation implementations we need.
+    /* Pull in only the operation implementations we need.
     // This relies on a complete list of all the ops needed by this graph.
     // An easier approach is to just use the AllOpsResolver, but this will
     // incur some penalty in code space for op implementations that are not
     // needed by this graph.
-    /*static tflite::MicroMutableOpResolver micro_mutable_op_resolver;  // NOLINT
+    static tflite::MicroMutableOpResolver micro_mutable_op_resolver;  // NOLINT
     //micro_mutable_op_resolver.AddBuiltin(tflite::BuiltinOperator_TANH,
     //    tflite::ops::micro::Register_TANH());
     micro_mutable_op_resolver.AddBuiltin(tflite::BuiltinOperator_RELU,
         tflite::ops::micro::Register_RELU());
     micro_mutable_op_resolver.AddBuiltin(tflite::BuiltinOperator_SOFTMAX,
-        tflite::ops::micro::Register_SOFTMAX());*/
+        tflite::ops::micro::Register_SOFTMAX()); */
 
     // get the TFL representation of the model byte array
-    tflModel = tflite::GetModel(smv_model);
+    tflModel = tflite::GetModel(SMVNeuralNet_ReLU_tflite);
     if (tflModel->version() != TFLITE_SCHEMA_VERSION) {
         Serial.println("Model schema mismatch!");
         while (1);
@@ -153,6 +151,8 @@ void setup() {
 }
 
 void loop() {
+    digitalWrite(startLED, LOW);
+    digitalWrite(stopLED, LOW);
     long imuDataL[sampleLength][totalSamples];
     float smv [totalFeatures];
     initialiseData(imuDataL, smv);
@@ -164,7 +164,8 @@ void loop() {
         Serial.print("Connected to: ");
         Serial.println(central.address());
         digitalWrite(LED_BUILTIN, HIGH);
-        //digitalWrite(saveLED, HIGH);
+        digitalWrite(startLED, LOW);
+        digitalWrite(stopLED, LOW);
         predictionChar.writeValue(0);
         sendDataChar.writeValue(0);
         startingStreamChar.writeValue(0);
@@ -172,12 +173,13 @@ void loop() {
         while (central.connected()) {
 
             sendDataChar.readValue(externalStart);
-            bool startStream = externalStart || digitalRead(saveButton);
+            bool startStream = externalStart || digitalRead(toggleButton);
             bool stopStream = 1;
 
             if (startStream) {
                 startingStreamChar.writeValue(1);
                 stopStream = 0;
+                blinkLED(startLED, 500, 1);
             }
 
             while (!stopStream && central.connected()) {
@@ -193,25 +195,24 @@ void loop() {
                 }
 
                 sendDataChar.readValue(externalStart);
-                stopStream = digitalRead(saveButton);
+                stopStream = digitalRead(toggleButton);
 
                 if ((!dataReady || stopStream) || !externalStart) {
                     Serial.println("Stopping stream...");
                     sendDataChar.writeValue(0);
                     startingStreamChar.writeValue(0);
-                    digitalWrite(sendLED, HIGH);
-                    delay(500);
+                    blinkLED(stopLED, 500, 0);
                     initialiseData(imuDataL, smv);
-                    digitalWrite(sendLED, LOW);
                 }
-                delay(50);
+                else {
+                    initialiseSMV(smv);
+                    delay(50);
+                }       
             }
         }
     }
 
     digitalWrite(LED_BUILTIN, LOW);
-    digitalWrite(sendLED, LOW);
-    digitalWrite(saveLED, LOW);
     Serial.print("Disconnected from: ");
     Serial.println(central.address());
     delay(200);
@@ -224,7 +225,21 @@ void initialiseData(long imuDataL[sampleLength][totalSamples], float smv[totalFe
         }
     }
 
-    for (int i = 0; i < totalFeatures; i++) { smv[i] = 0.0; }   
+    initialiseSMV(smv);
+}
+
+void initialiseSMV(float smv[totalFeatures]) {
+    for (int i = 0; i < totalFeatures; i++) { smv[i] = 0.0; }
+}
+
+void blinkLED(int LED, int period, int end) {
+    int toggle = HIGH;
+    for (int i = 0; i < 6; i++) {
+        digitalWrite(LED, toggle);
+        delay(period);
+        toggle = !toggle;
+    }
+    digitalWrite(LED, end);
 }
 
 
@@ -237,12 +252,7 @@ bool startSave(long imuDataL[sampleLength][totalSamples], float smv[totalFeature
     samplesRead = getVals(imuDataF, samplesRead);
 
     if (samplesRead == totalSamples) {
-        //digitalWrite(saveLED, LOW);
-        //digitalWrite(sendLED, HIGH);
-
         success = saveData(imuDataF, imuDataL, smv);
-
-        // if (!success) { blinkSaveLED(50); }
     }
 
     return success;
@@ -276,33 +286,15 @@ bool saveData(float imuDataF[sampleLength][totalSamples], long imuDataL[sampleLe
         }    
     }
 
-    //Serial.print("\n");
-    //Serial.println(totalRead);
-
     if (totalRead == (totalSamples * sampleLength)) {
-        for (int i = 0; i < 3; i++) {
-            updateStdMean(imuDataL[i], totalSamples, 4, &smv[i], &smv[i+6]);
-            /* Serial.print(smv[i], 4);
-            Serial.print(",");
-            Serial.print(smv[i+6], 4);
-            Serial.print(","); */
-        }
-
-        for (int i = 3; i < 6; i++) {
-            updateStdMean(imuDataL[i], totalSamples, 2000, &smv[i], &smv[i+6]);
-            /* Serial.print(smv[i], 4);
-            Serial.print(",");
-            Serial.print(smv[i+6], 4);
-            Serial.print(","); */
-
+        for (int i = 0; i < 6; i++) {
+            if (i < 3) { updateStdMean(imuDataL[i], totalSamples, 4, &smv[i], &smv[i + 6]); }
+            else { updateStdMean(imuDataL[i], totalSamples, 2000, &smv[i], &smv[i + 6]); }
         }
 
         smv[12] = sqrt(pow(smv[6], 2) + pow(smv[7], 2) + pow(smv[8], 2));
         smv[13] = sqrt(pow(smv[9], 2) + pow(smv[10], 2) + pow(smv[11], 2));
-        /* Serial.print(smv[12]);
-        Serial.print(", ");
-        Serial.println(smv[13]); */
-
+        //print_smv(smv);
         return 1;
     }
     else {
@@ -310,12 +302,22 @@ bool saveData(float imuDataF[sampleLength][totalSamples], long imuDataL[sampleLe
     }
 }
 
+void print_smv(float smv[totalFeatures]) {
+    Serial.print("\n");
+    for (int i = 0; i < 14; i++) {
+        Serial.print(smv[i], 6);
+        Serial.print(", ");
+    }
+    Serial.print("\n");
+}
 int interpret(float smv[totalFeatures]) {
+    Serial.println("Predicting...");
+
     tflInputTensor->data.f = smv;
     TfLiteStatus invokeStatus = tflInterpreter->Invoke();
     if (invokeStatus != kTfLiteOk) {
         Serial.println("Invoke failed!");
-        //while (1);
+        // while (1);
         return 0;
     }
     float max = 0.0;

@@ -19,7 +19,7 @@ tf.get_logger().setLevel('DEBUG')  # Reduce logging
 
 params = {
     'live mode': True,
-    'quick capture': False,  # TODO: Ensure standard capture mode isn't broken
+    'quick capture': False,
     'on-board predict': True,  # TODO: Auto-predict mode from advertised service
     'play audio': False,
     'name': 'FallDetector',
