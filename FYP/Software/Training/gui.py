@@ -19,7 +19,8 @@ tf.get_logger().setLevel('DEBUG')  # Reduce logging
 
 params = {
     'live mode': True,
-    'quick capture': False,
+    'quick capture': False,  # TODO: Ensure standard capture mode isn't broken
+    'on-board predict': True,  # TODO: Auto-predict mode from advertised service
     'play audio': False,
     'name': 'FallDetector',
     'live packet size': 40,
@@ -33,7 +34,7 @@ params = {
     'actions colours': ('Green', 'Green', 'Green', 'Green', 'Green', 'Red', 'Red', 'Red'),
     'raw threshold': 0.92,  # TODO: Add these (and many other params) to gui for code cleanup + quicker config changes
     'smv threshold': 0.94,
-    'conv threshold': 0.94
+    'conv threshold': 0.92
 }
 
 
@@ -96,15 +97,19 @@ class MainView(QMainWindow):
                                                         total_samples=params['total capture samples'],
                                                         sample_length=params['sample length'],
                                                         packet_length=params['packet length'],
-                                                        live_mode=params['live mode'])
+                                                        live_mode=params['live mode'],
+                                                        onboard_predict=params['on-board predict'])
 
         self._stream_manager = StreamManager(params, self._connection_manager)
 
         self._live_mode = params['live mode']
-        if self._live_mode:
+        self._onboard_prediction_mode = params['on-board predict']
+        if self._onboard_prediction_mode:
+            self._logger.log('Starting in Onboard Prediction Mode', Logger.DEBUG)
+            self._connection_manager.total_samples = 1
+        elif self._live_mode:
             self._logger.log('Starting in Live Mode', Logger.DEBUG)
             self._connection_manager.total_samples = params['live packet size']
-
         else:
             self._logger.log('Starting in Data Capture Mode', Logger.DEBUG)
 
@@ -223,7 +228,8 @@ class MainView(QMainWindow):
 
             self._ui.connectPushButton.setEnabled(False)
             if not self._connection_manager.start_stream:
-                self._connection_manager.start_stream = True
+                self._connection_manager.start_stream = True  # TODO: Stop stream using record button too
+
         else:
             msg = 'Record button clicked but no device is connected'
             self.update_console(msg)
@@ -276,20 +282,23 @@ class MainView(QMainWindow):
     @pyqtSlot(list)
     def data_ready(self, data):
         """Slot triggered when a data packet has been received in full"""
-
-        converted_data = DataProcessors.bytearray_to_float(data)  # Convert byte array to signed floats
-
-        if not self._live_mode:
-            self.capture_packet_ready(converted_data)
+        if self._onboard_prediction_mode:
+           guess = int.from_bytes(data[0], byteorder='little', signed=False)  # Convert byte array to unsigned int
+           self.update_prediction(guess)
         else:
-            self._live_data.extend(converted_data)
-            overlap = len(self._live_data) - params['total live samples']
-            if overlap >= 0 and (params['quick capture'] or self._model is not None):
-                if overlap == 0:
-                    self.live_packet_ready(self._live_data, capture=params['quick capture'])
-                else:
-                    self.live_packet_ready(self._live_data[-params['total live samples']:], capture=params['quick capture'])
-                    self._live_data = self._live_data[overlap:]
+            converted_data = DataProcessors.bytearray_to_float(data)  # Convert byte array to signed floats
+
+            if not self._live_mode:
+                self.capture_packet_ready(converted_data)
+            else:
+                self._live_data.extend(converted_data)
+                overlap = len(self._live_data) - params['total live samples']
+                if overlap >= 0 and (params['quick capture'] or self._model is not None):
+                    if overlap == 0:
+                        self.live_packet_ready(self._live_data, capture=params['quick capture'])
+                    else:
+                        self.live_packet_ready(self._live_data[-params['total live samples']:], capture=params['quick capture'])
+                        self._live_data = self._live_data[overlap:]
 
     # ------------------------------------------- Data Packet Funcs ----------------------------------------------------
 
@@ -327,17 +336,20 @@ class MainView(QMainWindow):
                     else:
                         guess = int(prediction[0])  # KNN predict is absolute
 
-                    self.update_console(params['actions'][guess])
-
-                    if guess != self._prev_guess:
-                        # if guess > 4:
-                        #     print(prediction)
-                        self._ui.actionLabel.setText(params['actions'][guess])
-                        self._ui.actionLabel.setStyleSheet('color: ' + params['actions colours'][guess])
-                        self._prev_guess = guess
+                    self.update_prediction(guess)
 
             except Exception as e:
                 print(e)
+
+    def update_prediction(self, guess):
+        self.update_console(params['actions'][guess])
+
+        if guess != self._prev_guess:
+            # if guess > 4:
+            #     print(prediction)
+            self._ui.actionLabel.setText(params['actions'][guess])
+            self._ui.actionLabel.setStyleSheet('color: ' + params['actions colours'][guess])
+            self._prev_guess = guess
 
     # -------------------------------------------------- On Close ------------------------------------------------------
 

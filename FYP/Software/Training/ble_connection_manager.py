@@ -9,7 +9,8 @@ UUIDs = {
     'data ready': ('a34984b9-7b89-4553-aced-242a0b289bbc', '4174c433-4064-4349-bfa2-009a432a24a4'),
     'imu': ('f9dd156e-f108-4139-925c-dd1f157cffa0', '41277a1b-b4f8-4ddc-871a-db0dd23a3a31'),
     'data send': ('ab36b3d9-12e4-4922-ac94-8873e8252045', '976aca21-135a-4dfa-b548-68308f7acceb'),
-    'starting stream': ("05b7f95e-0d89-43da-973c-3aa5a67b6031", "20b35680-9cf5-4f41-bde9-308abbc3c019")
+    'starting stream': ("05b7f95e-0d89-43da-973c-3aa5a67b6031", "20b35680-9cf5-4f41-bde9-308abbc3c019"),
+    'prediction': ('e77f260c-813a-4f0b-bb63-4e4ee0c3a103', 'f29c6ec0-13ef-4266-9fb7-b32c0feec1b3')
 }
 
 params = {
@@ -27,13 +28,12 @@ class ConnectionManagerSignals(QObject):
     progressUpdated = pyqtSignal(int)
     dataReady = pyqtSignal(list)
 
-
     def __init__(self):
         super(ConnectionManagerSignals, self).__init__()
 
 
 class ConnectionManagerBLE(QObject):
-    def __init__(self, caller=None, target_name='FallDetector', total_samples=480, sample_length=6, packet_length=8, live_mode = False):
+    def __init__(self, caller=None, target_name='FallDetector', total_samples=480, sample_length=6, packet_length=8, live_mode=False, onboard_predict=False):
         super().__init__()
         self.name = self.__class__.__name__
         self._logger = Logger(self.name)
@@ -42,9 +42,10 @@ class ConnectionManagerBLE(QObject):
         self.target_name = target_name
         self._total_samples = total_samples
         self.sample_length = sample_length
-        self.packet_length = packet_length
+        self.packet_length = packet_length if not onboard_predict else 1
         self.total_packets = int(self._total_samples/self.packet_length)
         self.live_mode = live_mode
+        self.onboard_predict = onboard_predict
 
         self.devices_found = {}
         self.target_address = None
@@ -53,7 +54,7 @@ class ConnectionManagerBLE(QObject):
         self.current_packet = 0
         self._start_stream = False
 
-        self.short_delay = 1.0 # 0.2
+        self.short_delay = 1.0  # 0.2
         self.long_delay = self._total_samples / 6
         self.delay = self.short_delay
         self.force_disconnect = False
@@ -81,8 +82,6 @@ class ConnectionManagerBLE(QObject):
     @start_stream.setter
     def start_stream(self, value):
         self._start_stream = value
-
-
 
     async def discover_devices(self):
         from bleak import discover
@@ -126,8 +125,11 @@ class ConnectionManagerBLE(QObject):
                 print('Starting data transfer notification')
 
                 await client.start_notify(UUIDs['starting stream'][1], self.starting_stream_notification_handler)
-                await client.start_notify(UUIDs['imu'][1], self.imu_notification_handler)
-                #await client.start_notify(UUIDs['data ready'][1], self.data_ready_notification_handler)
+                if not self.onboard_predict:
+                    await client.start_notify(UUIDs['imu'][1], self.data_notification_handler)
+                else:
+                    await client.start_notify(UUIDs['prediction'][1], self.data_notification_handler)
+                # await client.start_notify(UUIDs['data ready'][1], self.data_ready_notification_handler)
                 # await client.set_disconnected_callback(self.disconnect_handler)
 
                 self.current_packet = 0
@@ -136,7 +138,11 @@ class ConnectionManagerBLE(QObject):
                 while self.connected:
                     if self.current_packet >= self.total_packets: # self._total_samples: # len(self.data) == self._total_samples:
                         if self.caller is not None:
-                            self.signals.dataReady.emit(self.data[:])
+
+                            try:
+                                self.signals.dataReady.emit(self.data[:])
+                            except Exception as e:
+                                print(e)
                             print('Done transferring data')
                             self.current_packet = 0
                             self.data = []
@@ -145,34 +151,33 @@ class ConnectionManagerBLE(QObject):
                             #await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x00]), response=True)
                         else:
                             #loop.stop()
-                            await client.stop_notify(UUIDs['imu'][1])
+                            if not self.onboard_predict:
+                                await client.stop_notify(UUIDs['imu'][1])
+                            else:
+                                await client.stop_notify(UUIDs['prediction'][1])
                             return self.data[:]
 
                     if self.start_stream:
                         print('Starting recording through UI')
-                        await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x01]), response=True)  # TODO: Fix issue with instability when mixing UI and physical starts
+                        await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x01]), response=True)  # TODO: Toggle off too
                         self.start_stream = False
 
                     self.connected = await client.is_connected() and not self.force_disconnect
                     #print('\nLooping ' + str(self.current_packet) + '\n')
                     await asyncio.sleep(self.delay, loop=loop)
 
-
                 print('Stopping data transfer notification')
                 await client.stop_notify(UUIDs['starting stream'][1])
-                await client.stop_notify(UUIDs['imu'][1])
+                if not self.onboard_predict:
+                    await client.stop_notify(UUIDs['imu'][1])
+                else:
+                    await client.stop_notify(UUIDs['prediction'][1])
                 #await client.stop_notify(UUIDs['data ready'][1])
             else:
                 print('Disconnected')
                 if self.caller is not None:
                     self.signals.connected.emit(False)
 
-    # def disconnect_handler(self, client):
-    #     print('Device disconnected, cleaning up...')
-    #     client.stop_notify(UUIDs['imu'][1])
-    #     client.stop_notify(UUIDs['data ready'][1])
-    #     self.data = []
-    #     self.current_packet = 0
     def starting_stream_notification_handler(self, sender, data):
         if int.from_bytes(data, byteorder='little', signed=False):
             if self.caller is not None:
@@ -184,14 +189,15 @@ class ConnectionManagerBLE(QObject):
         print("Data ready: %d" % ready)
         self.delay = self.long_delay if ready else self.short_delay
 
-    def imu_notification_handler(self, sender, packet):
+    def data_notification_handler(self, sender, packet):
         """Simple notification handler which prints the data received."""
 
         self.data.append(packet)
         self.current_packet += 1
-        #print("Packet no. {0}: {1}".format(self.current_packet, self.data[-1]))
 
-        if self.caller is not None:
+        # print("Packet no. {0}: {1}".format(self.current_packet, self.data[-1]))
+
+        if self.caller is not None and not self.onboard_predict:
             self.signals.progressUpdated.emit(self.current_packet)
         self.start_stream = False
 
