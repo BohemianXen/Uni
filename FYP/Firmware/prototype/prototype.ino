@@ -201,8 +201,10 @@ void loop() {
                     Serial.println("Stopping stream...");
                     sendDataChar.writeValue(0);
                     startingStreamChar.writeValue(0);
+                    digitalWrite(startLED, LOW);
                     blinkLED(stopLED, 500, 0);
                     initialiseData(imuDataL, smv);
+                    stopStream = 1;
                 }
                 else {
                     initialiseSMV(smv);
