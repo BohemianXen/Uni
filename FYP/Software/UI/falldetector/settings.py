@@ -25,12 +25,13 @@ SECRET_KEY = 'x0-$d@qxlnf8f+-njt+^%6g3$_yrzgv)172r3yzy_b=xoh7@b)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhst', '192.168.1.84', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '192.168.1.85', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'app.apps.MyAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,8 +76,10 @@ WSGI_APPLICATION = 'falldetector.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': os.path.join(BASE_DIR, 'mysql_config.conf'),
+        },
     }
 }
 
