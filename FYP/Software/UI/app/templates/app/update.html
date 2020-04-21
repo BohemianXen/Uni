@@ -1,0 +1,18 @@
+{% load static %}
+
+<form action="" id=connectForm method="post">
+  {% csrf_token %}
+  {% with enabled=""%}
+  <button type="button" id="connectButton" {{enabled}}> Connect </button>
+  {% endwith %}
+</form>
+
+{% with status="Disconnected" %}
+<h4 id="statusLabel"> {{status}} </h4>
+{% endwith %}
+{% with action="Standing" %}
+<h2 id="actionLabel"> {{action}} </h2>
+{% endwith %}
+
+<script type="text/javascript" src="{% static "app/jquery-3.5.0.js" %}"></script>
+<script type="text/javascript" src="{% static "app/script.js" %}"></script>

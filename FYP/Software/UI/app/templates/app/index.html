@@ -8,14 +8,23 @@
   <meta name="description" content="FYP Fall Detector">
   <meta name="author" content="Ralph Mukusa">
   <link rel="stylesheet" type="text/css" href="{% static "app/style.css" %}">
+  {% block stylesheet %}{% endblock %}
 </head>
 
 <body>
   <h1> Fall Detector </h1>
-  <button type="button" id="connectButton"> Connect </button>
-  <h4> Disconnected </h4>
-  <h2 id="actionLabel"> Walking </h2>
+  <!--<form action="" id=connectForm method="post">
+    {% csrf_token %}
+    {% with enabled=""%}
+    <button type="submit" id="connectButton" {{enabled}}> Connect </button>
+    {% endwith %}
+  </form>-->
+  <div class="updateFields">
+    {% include "app/update.html" %}
+  </div>
 
-  <script type="text/javascript" src="{% static "app/script.js" %}"></script>
+  <!--<script type="text/javascript" src="{% static "app/script.js" %}"></script>
+  <script type="text/javascript" src="{% static "app/jquery-3.5.0.js" %}"></script> -->
+  {% block javascript %}{% endblock %}
 </body>
 </html>

@@ -1,7 +1,4 @@
-from PyQt5.QtCore import QElapsedTimer, QObject, pyqtSignal
 import asyncio
-
-
 
 UUIDs = {
     'data ready': ('a34984b9-7b89-4553-aced-242a0b289bbc', '4174c433-4064-4349-bfa2-009a432a24a4'),
@@ -20,31 +17,21 @@ params = {
 }
 
 
-class ConnectionManagerSignals(QObject):
-    connected = pyqtSignal(bool)
-    startingStream = pyqtSignal(bool)
-    progressUpdated = pyqtSignal(int)
-    dataReady = pyqtSignal(list)
-
-    def __init__(self):
-        super(ConnectionManagerSignals, self).__init__()
-
-
-class ConnectionManagerBLE(QObject):
-    def __init__(self, caller=None, target_name='FallDetector'):
+class ConnectionManager:
+    def __init__(self, device=None, target_name='FallDetector', timeout=2.0):
         super().__init__()
         self.name = self.__class__.__name__
-
+        self.device = device
+        self.timeout = timeout
+        self.target_name = target_name
         self.discovered_devices = None
         self.devices_found = {}
         self.target_address = None
         self.connected = False
-        self.data = []  # zeros((total_samples, sample_length))
-        self.current_packet = 0
+        self.streaming = False
         self._start_stream = False
-        self.new_reading = False
-        self.guess = None
 
+        self.action = None
         self.short_delay = 1.0  # 0.2
 
     @property
@@ -58,24 +45,22 @@ class ConnectionManagerBLE(QObject):
     async def discover_devices(self):
         from bleak import discover
         self.discovered_devices = await discover()
-        for d in self.discovered_devices:
-            print(d)
+        if len(self.discovered_devices) > 0:
+            return self.find_detector()
 
     def find_detector(self):
+        self.target_address = None
         try:
             # places discovered devices into a dictionary in address: name format
+
             for device in self.discovered_devices:
                 self.devices_found[device.address] = device.name
                 if self.target_name in device.name:
                     self.target_address = device.address
         except Exception as error:
             print(str(error))
-            return -1
 
-        if self.target_address is not None:
-            return len(self.discovered_devices)
-        else:
-            return -1
+        return [self.target_name, self.target_address]
 
     def list_found_devices(self):
         if len(self.devices_found) != 0:
@@ -85,14 +70,14 @@ class ConnectionManagerBLE(QObject):
     # TODO: Add attempt counter
     async def connect(self, loop):
         from bleak import BleakClient
+        from bleak.exc import BleakDotNetTaskError
 
-        async with BleakClient(self.target_address, loop=loop, timeout=5.0) as client:
+        async with BleakClient(self.target_address, loop=loop, timeout=self.timeout) as client:
             self.connected = await client.is_connected()
             print("Connected: {0}".format(self.connected))
             if self.connected:
-                if self.caller is not None:
-                    self.signals.connected.emit(True)
                 self.force_disconnect = False
+
                 print('Starting data transfer notification')
 
                 await client.start_notify(UUIDs['starting stream'][1], self.starting_stream_notification_handler)
@@ -101,50 +86,33 @@ class ConnectionManagerBLE(QObject):
                 # await client.start_notify(UUIDs['data ready'][1], self.data_ready_notification_handler)
                 # await client.set_disconnected_callback(self.disconnect_handler)
 
-                self.new_reading = False
+                self.streaming = False
+                self.action = None
                 print('Waiting for readings...')
 
                 while self.connected:
-                    if self.new_reading:  # self._total_samples: # len(self.data) == self._total_samples:
-
-                        self.guess = int.from_bytes(data[0], byteorder='little', signed=False)
-
-                        self.current_packet = False
-                        self.data = []
-
-                        self.delay = self.short_delay
-                    else:
-                        #loop.stop()
-
-                        await client.stop_notify(UUIDs['prediction'][1])
-                        return self.data[:]
-
                     if self.start_stream:
                         print('Starting recording through UI')
                         await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x01]), response=True)  # TODO: Toggle off too
                         self.start_stream = False
-
+                    self.streaming = False
                     self.connected = await client.is_connected() and not self.force_disconnect
-                    #print('\nLooping ' + str(self.current_packet) + '\n')
-                    await asyncio.sleep(self.delay, loop=loop)
+                    await asyncio.sleep(self.short_delay, loop=loop)
 
                 print('Stopping data transfer notification')
-                await client.stop_notify(UUIDs['starting stream'][1])
-                if not self.onboard_predict:
-                    await client.stop_notify(UUIDs['imu'][1])
-                else:
+                try:
+                    self.streaming = False
+                    await client.stop_notify(UUIDs['starting stream'][1])
                     await client.stop_notify(UUIDs['prediction'][1])
-                #await client.stop_notify(UUIDs['data ready'][1])
+                except BleakDotNetTaskError as e:
+                    print(e)
+
             else:
-                print('Disconnected')
-                if self.caller is not None:
-                    self.signals.connected.emit(False)
+                self.connected = False
 
     def starting_stream_notification_handler(self, sender, data):
         if int.from_bytes(data, byteorder='little', signed=False):
-            if self.caller is not None:
-                self.signals.startingStream.emit(True)
-                #self.delay = self.long_delay
+            pass
 
     def data_ready_notification_handler(self, sender, data):
         ready = int.from_bytes(data, byteorder='little', signed=False)
@@ -153,9 +121,10 @@ class ConnectionManagerBLE(QObject):
 
     def data_notification_handler(self, sender, packet):
         """Simple notification handler which prints the data received."""
+        self.action = int.from_bytes(packet, byteorder='little', signed=False) + 1
 
-        self.data.append(packet)
-        self.new_reading = True
+        self.streaming = True
+        print(self.action)
 
         # print("Packet no. {0}: {1}".format(self.current_packet, self.data[-1]))
         self.start_stream = False
