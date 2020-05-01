@@ -33,7 +33,7 @@ params = {
                 'Lying Right'.upper(),  'Forward Fall'.upper(), 'Left Fall'.upper(), 'Right Fall'.upper()),
     'actions colours': ('Green', 'Green', 'Green', 'Green', 'Green', 'Red', 'Red', 'Red'),
     'raw threshold': 0.92,  # TODO: Add these (and many other params) to gui for code cleanup + quicker config changes
-    'smv threshold': 0.94,
+    'smv threshold': 0.92,
     'conv threshold': 0.92
 }
 

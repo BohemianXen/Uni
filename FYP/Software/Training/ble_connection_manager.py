@@ -179,10 +179,10 @@ class ConnectionManagerBLE(QObject):
                     self.signals.connected.emit(False)
 
     def starting_stream_notification_handler(self, sender, data):
-        if int.from_bytes(data, byteorder='little', signed=False):
-            if self.caller is not None:
-                self.signals.startingStream.emit(True)
-                #self.delay = self.long_delay
+        streaming = int.from_bytes(data, byteorder='little', signed=False)
+
+        if self.caller is not None:
+            self.signals.startingStream.emit(streaming)
 
     def data_ready_notification_handler(self, sender, data):
         ready = int.from_bytes(data, byteorder='little', signed=False)
