@@ -1,3 +1,13 @@
+/**
+* @file model.h
+*
+* Generated file from converting the TFLite Model into a buffer array.
+*
+* @author Ralph Mukusa
+* contact: ralph.mukusa@gmail.com
+*
+**/
+
 #ifndef _MODEL_h
 #define _MODEL_h
 

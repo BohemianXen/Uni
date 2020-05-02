@@ -216,7 +216,7 @@ void initialiseData(long imuDataL[][sampleLength]) {
 
 
 /**
- * Blinks an LED 6 times at the requested frequency.
+ * Blinks an LED 3/4 times at the requested frequency.
  *
  * @param int LED: The digital pin number of the LED to be toggled.
  * @param int period: The blinking interval.
