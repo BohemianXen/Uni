@@ -7,15 +7,17 @@ from processing.DataProcessors import DataProcessors
 
 
 class CSVConverters:
-    def __init__(self):
-       None
 
     @staticmethod
-    def write_data(data, root='General', suffix=None): # TODO: only works because only method to call this (gui) currently shares same parent directory as 'Training Data'
+    def write_data(data, root='General', suffix=None):
+        """Writes the values in data into a timestamped csv file."""
+
         print('Saving as csv')
+
         filename = 'Training Data\\{0}\\{1}'.format(root, datetime.now().strftime("%Y-%m-%d %H_%M_%S"))
 
         if suffix is not None and type(suffix) is int:
+            # Add a label to the end of filename - used for simulated files
             filename = '..\\' + filename
             filename += '_' + str(suffix)
 
@@ -23,7 +25,7 @@ class CSVConverters:
 
         written = 0
         with open(filename, 'w', newline='') as f:
-            col_headers = ['ax', 'ay', 'az', 'gx', 'gy', 'gz']  #  'mx', 'my', 'mz']
+            col_headers = ['ax', 'ay', 'az', 'gx', 'gy', 'gz']
             if len(data[0]) == 9:
                 col_headers.extend(['mx', 'my', 'mz'])
             try:
@@ -35,10 +37,13 @@ class CSVConverters:
             except Exception as e:
                 print(str(e))
                 return -1
+
         return written
 
     @staticmethod
     def csv_to_list(filename, remove_mag=True):
+        """Reads a csv file and saves the values as a list type."""
+
         data = []
         with open(filename, 'r', newline='') as file:
             reader = csv.reader(file, delimiter=',')
@@ -51,8 +56,11 @@ class CSVConverters:
         return data
 
     @staticmethod
-    def get_data_files(root=r'..\Training Data'): # TODO: See write_data
+    def get_data_files(root=r'..\Training Data'):
+        """Finds all csv data files in a root directory - returns found files along with their class labels."""
+
         print('Parsing data in root directory \'%s\'\n' % root[root.rfind('\\') + 1:])
+
         root = path.normpath(root)
         dirs = [path.join(root, d) for d in listdir(root) if path.isdir(path.join(root, d)) and 'General' not in d]
         all_files = []
@@ -60,7 +68,7 @@ class CSVConverters:
 
         if dirs != 0:
             for directory in dirs:
-                label = int(directory[directory.rfind('_') + 1:])  # TODO: Regex practice!
+                label = int(directory[directory.rfind('_') + 1:])  # Label should be after final underscore of dirname
                 files = [path.join(directory, f) for f in listdir(directory) if
                          (path.isfile(path.join(directory, f)) and ('.csv' in f))]
                 if len(files) != 0:
@@ -71,15 +79,28 @@ class CSVConverters:
         return [all_files, all_labels]
 
     @staticmethod
-    def get_test_set(root=r'..\Training Data',
-                     target=r'..\Validation Data',
+    def get_test_set(root=r'..\Training Data', target=r'..\Validation Data',
                      test_size=42, dir_prefix='06Apr_Generated_Validation_WalkingDynamic_', copy=True):
+        """Randomly moves a given number of files from one root directory to another - used for dataset splitting.
+
+        Args:
+            root (str): The directory holding the files to be randomly moved elsewhere.
+            target (str): The directory where a new directory filled with the randomly selected files will be created.
+            test_size (str): The number of files to be randomly selected.
+            dir_prefix (str): The major part of the new directory name. The minor part will be the class label.
+            copy (bool): Whether to just copy the files or actually move them. For testing and anti-idiocy.
+
+        Return:
+            (list): A list with the total number of files moved for each activity/action.
+        """
 
         files, labels = CSVConverters.get_data_files(root)
+        unique_labels, counts = np.unique(labels, return_counts=True)  # No. of different classes present in root dir
 
-        unique_labels, counts = np.unique(labels, return_counts=True)
         if len(unique_labels) != 0:
             for label in unique_labels:
+                # Create new directory for each class in root that will hold the randomly selected files
+
                 dir_name = dir_prefix + str(label)
                 dir_path = path.join(target, dir_name)
                 if not path.exists(dir_path):
@@ -90,15 +111,20 @@ class CSVConverters:
                         print(e)
                         return -1
 
-            dir_counts = np.zeros(8)
+            dir_counts = np.zeros(8)  # Scale this up if more classes added in future
             chosen = np.random.choice(files, size=test_size, replace=False)
+
             for file in chosen:
+                # Move (or copy) each of the randomly chosen files into the relevant target directory child
+
                 label = labels[files.index(file)]
                 dir_name = dir_prefix + str(label)
                 full_dir_name = path.join(target, dir_name)
                 filename = file[file.rfind('\\')+1:]
 
+                # Check destination directory exists and there isn't already a copy of this file present in there
                 if path.exists(full_dir_name) and not path.exists(path.join(full_dir_name, filename)):
+
                     try:
                         if copy:
                             print('Copying ' + file + ' to ' + full_dir_name)
@@ -114,12 +140,14 @@ class CSVConverters:
                 else:
                     return False
 
-            return dir_counts #  == test_size
+            return dir_counts
 
     @staticmethod
-    def mirror(root=r'..\Training Data',
-               target=r'..\Training Data',
+    def mirror(root=r'..\Training Data', target=r'..\Training Data',
                output_dir='23Mar_Train_LeftFallMirrored_4', mask=(1, 1, 1, 1, 1, 1)):
+        """Alters all the values of the data files in a director depending on a multiplication mask.
+           Used for simulating data files (e.g. left falls) from real ones (e.g. right falls) by flipping axial values.
+        """
 
         files, labels = CSVConverters.get_data_files(root)
 
@@ -156,7 +184,8 @@ class Tests:
 
 
 if __name__ == '__main__':
-    test = r'..\Training Data'
+    """Uncomment line below when ready to run train/test/validation splitting."""
     # print(CSVConverters.get_test_set(copy=True)) NEVER SET COPY=FALSE AND RUN UNLESS READY TO SPLIT TEST/VAL/TRAIN
 
-    #CSVConverters.mirror(mask=(1, -1, 1, 1, 1, -1))
+    """Uncomment line below when ready to simulate some actions. mask is in ax, ay, az, gx, gy, gz order."""
+    # CSVConverters.mirror(mask=(1, -1, 1, 1, 1, -1))

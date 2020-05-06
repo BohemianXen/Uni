@@ -195,7 +195,6 @@ class MainView(QMainWindow):
 
         if len(data) != 0:
             self._plotter.clear_plots(legend_clear=False)
-            self._plotter.add_legends()
             mag = True if len(data[0]) == 9 else False
             self._plotter.plot(data, mag=mag)
 

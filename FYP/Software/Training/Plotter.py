@@ -19,56 +19,50 @@ class Plotter:
 
         self._acc_plot = self._ui.accPlot.getPlotItem()
         self._acc_plot.setContentsMargins(10, 10, 10, 10)
-        #self._acc_plot.plot().getViewBox().disableAutoRange()
 
         self._gyro_plot = self._ui.gyroPlot.getPlotItem()
         self._gyro_plot.setContentsMargins(10, 10, 10, 10)
-        #self._gyro_plot.plot().getViewBox().disableAutoRange()
 
         self._mag_plot = self._ui.magPlot.getPlotItem()
         self._mag_plot.setContentsMargins(10, 10, 10, 10)
-        #self._mag_plot.plot().getViewBox().disableAutoRange()
 
         self._acc_plot.setTitle('Accelerometer')
         self._acc_plot.setLabels(left='gs', bottom='Sample No.')
-        #self._acc_plot.addLegend(size=(100, 100))
 
         self._gyro_plot.setTitle('Gyroscope')
         self._gyro_plot.setLabels(left='dps', bottom='Sample No.')
-        #self._gyro_plot.addLegend(size=(100, 100))
 
         self._mag_plot.setTitle('Magnetometer')
         self._mag_plot.setLabels(left='uT', bottom='Sample No.')
-        #self._mag_plot.addLegend(size=(100, 100))
-        #self.clear_plots(legend_clear=True)
 
-        # self._ui.gyroView.setYRange(-500, 500, padding=0)
-        # self._ui.accView.setYRange(-, 5, padding=0)
+        self.add_legends()
+
     def add_legends(self):
+        """Add legends to each plot."""
+
         self._acc_plot.addLegend(size=(100, 100))
         self._gyro_plot.addLegend(size=(100, 100))
         self._mag_plot.addLegend(size=(100, 100))
 
     def clear_plots(self, legend_clear=False):
         """Clears the plot ahead of updates."""
-        # clear legends
+
         if legend_clear:
             if self._acc_plot.legend is not None:
                 try:
                     if self._acc_plot.legend.scene() is not None:
                         self._acc_plot.legend.scene().removeItem(self._acc_plot.legend)
                 except Exception as e:
-                    self._logger.log('Error removing dummy plot legend', Logger.DEBUG)
+                    self._logger.log('Error removing acc plot legend', Logger.DEBUG)
                     self._logger.log(str(e), Logger.ERROR)
 
-            # TODO proper clearing
             if self._gyro_plot.legend is not None:
                 try:
                     if self._gyro_plot.legend.scene() is not None:
                         self._gyro_plot.legend.scene().removeItem(self._gyro_plot.legend)
                         self._gyro_plot.legend.scene().removeItem(self._gyro_plot.legend)
                 except Exception as e:
-                    self._logger.log('Error removing live plot legend', Logger.DEBUG)
+                    self._logger.log('Error removing gyro plot legend', Logger.DEBUG)
                     self._logger.log(str(e), Logger.ERROR)
 
             if self._mag_plot.legend is not None:
@@ -77,7 +71,7 @@ class Plotter:
                         self._mag_plot.legend.scene().removeItem(self._mag_plot.legend)
                         self._mag_plot.legend.scene().removeItem(self._mag_plot.legend)
                 except Exception as e:
-                    self._logger.log('Error removing live plot legend', Logger.DEBUG)
+                    self._logger.log('Error removing mag plot legend', Logger.DEBUG)
                     self._logger.log(str(e), Logger.ERROR)
 
         self._acc_plot.clear()
@@ -85,7 +79,7 @@ class Plotter:
         self._mag_plot.clear()
 
     def plot(self, data, mag=False):
-        """Updates the motion graphs with new data."""
+        """Updates the embedded motion graphs with new data."""
 
         sensor_names = ('Acc X', 'Acc Y', 'Acc Z', 'Gyro X', 'Gyro Y', 'Gyro Z', 'Mag X', 'Mag Y', 'Mag Z')
         pens = ('r', 'g', 'b', 'w')
@@ -93,12 +87,10 @@ class Plotter:
         self._ui.gyroPlot.setXRange(0, len(data), padding=0.02)
         self._ui.magPlot.setXRange(0, len(data), padding=0.02)
 
-        self._acc_plot.plot().getViewBox().enableAutoRange()
-
         for sensor in range(3):
             acc_series = [packet[sensor] for packet in data]
             gyro_series = [packet[sensor+3] for packet in data]
-            # TODO: Accx legend always uses default grey pen
+
             self._acc_plot.plot().setData(y=acc_series, pen=pg.mkPen(pens[sensor]), name=sensor_names[sensor])
             self._gyro_plot.plot().setData(y=gyro_series, pen=pg.mkPen(pens[sensor]), name=sensor_names[sensor+3])
 
@@ -109,13 +101,15 @@ class Plotter:
         if len(self._acc_plot.legend.items) == 0:
             for sensor in range(3):
                 self._acc_plot.legend.addItem(self._acc_plot.items[sensor], name=sensor_names[sensor])
-                self._gyro_plot.legend.addItem(self._gyro_plot.items[sensor], name=sensor_names[sensor+3])
+                self._gyro_plot.legend.addItem(self._gyro_plot.items[sensor], name=sensor_names[sensor + 3])
 
                 if mag:
-                    self._mag_plot.legend.addItem(self._mag_plot.items[sensor], name=sensor_names[sensor+6])
+                    self._mag_plot.legend.addItem(self._mag_plot.items[sensor], name=sensor_names[sensor + 6])
 
     @staticmethod
     def pyplot_plot(acc_raw, acc_smoothed, gyro_raw, gyro_smoothed):
+        """External window plotting for report."""
+
         fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex=True)
         fig.tight_layout(pad=3.0)
         axes = ('X', 'Y', 'Z')
