@@ -4,6 +4,7 @@ from Logger import Logger
 
 
 class StreamManagerSignals(QObject):
+    """Slot signals to link back to main thread. Not currently used."""
     deviceFound = pyqtSignal(bool)
     dataReady = pyqtSignal(list)
     connected = pyqtSignal(bool)
@@ -13,6 +14,8 @@ class StreamManagerSignals(QObject):
 
 
 class StreamManager(QRunnable):
+    """QRunnable class for starting processes in a different QThread."""
+
     def __init__(self, params, connection_manager):
         super(StreamManager, self).__init__()
         self.name = self.__class__.__name__
@@ -22,6 +25,8 @@ class StreamManager(QRunnable):
         self._connection_manager = connection_manager
 
     def run(self) -> None:
+        """Starts connection manager in a new thread."""
+
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         loop = asyncio.get_event_loop()
