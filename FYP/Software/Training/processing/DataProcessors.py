@@ -14,10 +14,10 @@ class DataProcessors:
         converted_array = []
 
         for packet in array:
-            # Convert bytes in little endian 4-byte chunks and scale from long to float
+            # Convert bytes from little endian 4-byte chunks and scale down from long to float
             parsed = [int.from_bytes(packet[i:i + 3], byteorder='little', signed=True) / 1000.0 for i in range(0, total_bytes, 4)]
 
-            # Split into each separate sensor sample and return
+            # Split each sample into its constituent acc x, y, z and gyro x,y, z values
             parsed_split = [parsed[i:i + 6] for i in range(0, total_samples, 6)]
             converted_array.extend(parsed_split)
 

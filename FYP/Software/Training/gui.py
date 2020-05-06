@@ -64,18 +64,7 @@ class GUI(QApplication):
 
 
 class MainView(QMainWindow):
-    """ View class. Instantiates all UI QWidgets associated with this view and links signals to controller slots.
-
-    Args:
-        controller (QWidget): The view's corresponding controller; that which manipulates this view.
-
-    Parameters:
-        _controller (QWidget): A reference to the passed controller.
-        _ui (Ui_LiveView): Holds all the generated UI elements for an added layer of abstraction.
-        name (str): The name of this class.
-        _logger (Logger): Logging instance for this class.
-        _tabs (dict): Maps the tab indexes to their corresponding view objects.
-    """
+    """ View class. Instantiates all UI QWidgets associated with this view and links signals to controller slots."""
 
     def __init__(self):
         super().__init__()
@@ -136,6 +125,7 @@ class MainView(QMainWindow):
         Args:
             message (str): The message to be written to the in-app console.
         """
+
         full_message = datetime.now().strftime("%H:%M:%S") + ':\t' + message + '\n'
         self._ui.consoleTextEdit.append(full_message)
         self._ui.consoleTextEdit.ensureCursorVisible()
@@ -197,6 +187,7 @@ class MainView(QMainWindow):
 
     def plot_button_clicked(self):
         """Plots data within the currently selected .csv file"""
+
         msg = 'Plot button clicked, reading {} then plotting'.format(self._filename)
         self.update_console(msg)
 
@@ -274,6 +265,7 @@ class MainView(QMainWindow):
     @pyqtSlot(int)
     def update_progress(self, value):
         """Updates progress bar packet-wise"""
+
         if not self._live_mode:
             percentage = int(((value*params['packet length'])/params['total capture samples']) * 100)
             self._ui.progressBar.setValue(percentage)
@@ -282,6 +274,7 @@ class MainView(QMainWindow):
     @pyqtSlot(list)
     def data_ready(self, data):
         """Slot triggered when a data packet has been received in full"""
+
         if self._onboard_prediction_mode:
            guess = int.from_bytes(data[0], byteorder='little', signed=False)  # Convert byte array to unsigned int
            self.update_prediction(guess)
@@ -342,6 +335,7 @@ class MainView(QMainWindow):
                 print(e)
 
     def update_prediction(self, guess):
+        """Updates the logged action prediction paramter and UI label if it has changed from the previous guess."""
         self.update_console(params['actions'][guess])
 
         if guess != self._prev_guess:
@@ -354,9 +348,12 @@ class MainView(QMainWindow):
     # -------------------------------------------------- On Close ------------------------------------------------------
 
     def closeEvent(self, *args, **kwargs):
+        """Waits for straggling threads to close gracefully."""
+
         self._logger.log('Close button clicked. Shutting down.', Logger.DEBUG)
 
         print('{} thread(s) running on termination'.format(self._pool.activeThreadCount()))
+
         while self._pool.activeThreadCount() > 0:
             self._connection_manager.force_disconnect = True
             self._pool.waitForDone(1000)
