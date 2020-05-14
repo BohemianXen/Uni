@@ -79,14 +79,14 @@ class CSVConverters:
         return [all_files, all_labels]
 
     @staticmethod
-    def get_test_set(root=r'..\Training Data', target=r'..\Validation Data',
-                     test_size=42, dir_prefix='06Apr_Generated_Validation_WalkingDynamic_', copy=True):
+    def split_data(root=r'..\Training Data', target=r'..\Validation Data',
+                     split_size=42, dir_prefix='06Apr_Generated_Validation_WalkingDynamic_', copy=True):
         """Randomly moves a given number of files from one root directory to another - used for dataset splitting.
 
         Args:
             root (str): The directory holding the files to be randomly moved elsewhere.
             target (str): The directory where a new directory filled with the randomly selected files will be created.
-            test_size (str): The number of files to be randomly selected.
+            split_size (str): The number of files to be randomly selected.
             dir_prefix (str): The major part of the new directory name. The minor part will be the class label.
             copy (bool): Whether to just copy the files or actually move them. For testing and anti-idiocy.
 
@@ -112,7 +112,7 @@ class CSVConverters:
                         return -1
 
             dir_counts = np.zeros(8)  # Scale this up if more classes added in future
-            chosen = np.random.choice(files, size=test_size, replace=False)
+            chosen = np.random.choice(files, size=split_size, replace=False)
 
             for file in chosen:
                 # Move (or copy) each of the randomly chosen files into the relevant target directory child
@@ -143,7 +143,7 @@ class CSVConverters:
             return dir_counts
 
     @staticmethod
-    def mirror(root=r'..\Training Data', target=r'..\Training Data',
+    def mirror_data(root=r'..\Training Data', target=r'..\Training Data',
                output_dir='23Mar_Train_LeftFallMirrored_4', mask=(1, 1, 1, 1, 1, 1)):
         """Alters all the values of the data files in a director depending on a multiplication mask.
            Used for simulating data files (e.g. left falls) from real ones (e.g. right falls) by flipping axial values.
@@ -185,7 +185,7 @@ class Tests:
 
 if __name__ == '__main__':
     """Uncomment line below when ready to run train/test/validation splitting."""
-    # print(CSVConverters.get_test_set(copy=True)) NEVER SET COPY=FALSE AND RUN UNLESS READY TO SPLIT TEST/VAL/TRAIN
+    # print(CSVConverters.split_data(copy=True)) NEVER SET COPY=FALSE AND RUN UNLESS READY TO SPLIT TEST/VAL/TRAIN
 
     """Uncomment line below when ready to simulate some actions. mask is in ax, ay, az, gx, gy, gz order."""
-    # CSVConverters.mirror(mask=(1, -1, 1, 1, 1, -1))
+    # CSVConverters.mirror_data(mask=(1, -1, 1, 1, 1, -1))

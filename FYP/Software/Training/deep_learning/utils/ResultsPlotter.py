@@ -44,6 +44,7 @@ class ResultsPlotter:
         print('\n')
 
     def plot_confusion_matrix(self):
+        """Produces seaborn heatmap of the heatmap."""
         ax = heatmap(self.confusion_matrix_pd, annot=True, vmin=0, vmax=self.supports[-3], cbar=False)
         ax.set_title('Confusion Matrix', fontsize=20)
         ax.set_ylabel('True', fontsize=16)
@@ -51,6 +52,7 @@ class ResultsPlotter:
         plt.show()
 
     def concatenate_report(self):
+        """Calculates global metrics and puts metrics into 1D pandas dataframe."""
         recalls = self.df.iloc[1, :-1].values
         accuracy = self.df.iloc[0, -1]
         self.df = self.df.drop('recall')
@@ -67,6 +69,7 @@ class ResultsPlotter:
         self.df['test_ACC'] = accuracy
 
     def calculate_global_metrics(self):
+        """Calculates global performance metrics (binary fall type vs. ADL classification)."""
         r_fall_head = len(self.names) - self.fall_head  # reverse index of first fall index
         falls = self.confusion_matrix[self.fall_head:, self.fall_head:]
         adls = self.confusion_matrix[:-r_fall_head, :-r_fall_head]
@@ -75,7 +78,7 @@ class ResultsPlotter:
         tn = np.sum(adls)  # np.sum(np.dot(adls, np.identity(5)))  For inter-adl stats
         fp = np.sum(self.confusion_matrix[:self.fall_head, self.fall_head:])  # (np.tril(self.confusion_matrix, k=-1))
         fn = np.sum(self.confusion_matrix[self.fall_head:, :self.fall_head])  # (np.triu(self.confusion_matrix, k=1))
-        assert (tp + tn + fp + fn == self.supports.sum())
+        assert (tp + tn + fp + fn == self.supports.sum())  # sanity check
 
         pr = 0.0
         se = 0.0
@@ -103,12 +106,14 @@ class ResultsPlotter:
         return [pr, se, sp]
 
     def add_history(self):
+        """Appends training history metrics if present."""
         self.df['train_ACC'] = self.history.history['accuracy'][-1]
         self.df['val_ACC'] = self.history.history['val_accuracy'][-1]
         self.df['train_LOSS'] = self.history.history['loss'][-1]
         self.df['val_LOSS'] = self.history.history['val_loss'][-1]
 
     def write_to_file(self):
+        """Appends the new dataframe to the class type's csv test report or creates a new one if non-existent."""
         full_path = path.abspath(self.filename)
 
         try:

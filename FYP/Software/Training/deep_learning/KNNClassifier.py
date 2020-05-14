@@ -118,8 +118,10 @@ class KNNClassifier:
 
         if self._decomposer is None:
             X = self._train_data[:, [13, 14]]
-        else:
+        elif self._decomposer is sk_pca:
             X = self._decomposer.transform(self._train_data[:, 1:])
+        else:  # TODO: Plot method does not work with lda and nca decomp so halt here until fixed
+            return -1
 
         y = self._train_data[:, 0]
 
@@ -192,9 +194,9 @@ class Tests:
 
 if __name__ == '__main__':
     params = {
-        'neighbours': 7,   # nca best is 10, 2, 10
+        'neighbours': 7,
         'distance': 2,
-        'weights': 'distance',  # 'distance'
+        'weights': 'distance',
         'decomposer': None,  # sk_pca,
         'components': 3,
         'train_root': r'..\Training Data',
@@ -202,7 +204,6 @@ if __name__ == '__main__':
         'test_root': r'..\Test Data',
         'save': False,
         'plot': False
-
     }
 
     knn = KNNClassifier(neighbours=params['neighbours'], distance=params['distance'], weights=params['weights'],

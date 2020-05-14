@@ -324,22 +324,29 @@ class Tests:
 
 
 if __name__ == '__main__':
+    # For loading and testing previously saved model
+
     from deep_learning import RawNeuralNet, SMVNeuralNet, ConvNeuralNet, KNNClassifier
     from tkinter import filedialog
 
+    save_model_graph = False  # for FYP report
     classifier = None
+    model_name = ''
     default_dir = 'deep_learning\\Saved Models'
-    model_filename = filedialog.askopenfilename(title='Open file', initialdir=default_dir)
 
+    model_filename = filedialog.askopenfilename(title='Open file', initialdir=default_dir)
     if model_filename != '':
         msg = 'Selected: ' + model_filename[model_filename.rfind('/') + 1:]
 
         if 'Raw' in model_filename:
             classifier = RawNeuralNet()
+            model_name = 'Raw'
         elif 'SMV' in model_filename:
             classifier = SMVNeuralNet()
+            model_name = 'SMV'
         elif 'Conv' in model_filename:
             classifier = ConvNeuralNet()
+            model_name = 'Conv'
         elif 'KNN' in model_filename:
             classifier = KNNClassifier()
         else:
@@ -348,6 +355,9 @@ if __name__ == '__main__':
         if classifier is not None:
             classifier.model = classifier.load_model(model_filename)
             print('%s Selected\n' % classifier.name)
+            if model_name != '' and save_model_graph:
+                plot_model(classifier.model, to_file=model_name + '.png', show_shapes=True,
+                           show_layer_names=True, rankdir='LR')
             classifier.predict_directory(root=r'..\Test Data', shuffle=True)
     else:
         print('No Model Selected')

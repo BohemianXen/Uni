@@ -3,6 +3,7 @@ from tensorflow.keras import models
 
 
 def convert_model(source='', target=''):
+    """Converts a tf.keras model into a TFLite model"""
     converter = tf.lite.TFLiteConverter.from_keras_model(models.load_model(source))
     converter.optimizations = [tf.lite.Optimize.DEFAULT]
     quantized_model = converter.convert()
@@ -10,6 +11,8 @@ def convert_model(source='', target=''):
 
 
 if __name__ == '__main__':
+    """Script for selecting and converting a tf.keras model into a TFLite model"""
+
     # import sys
     # sys.argv
     from tkinter import filedialog

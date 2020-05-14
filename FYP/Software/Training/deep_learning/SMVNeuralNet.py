@@ -58,7 +58,7 @@ class SMVNeuralNet(NeuralNet, Tests):
     @staticmethod
     def get_stop_conditions():
         callback_list = []
-        #callback_list.append(callbacks.EarlyStopping(monitor='val_accuracy', patience=15, mode='auto'))
+        # callback_list.append(callbacks.EarlyStopping(monitor='val_accuracy', patience=15, mode='auto'))
         callback_list.append(callbacks.EarlyStopping(monitor='loss', patience=4, mode='auto'))
         return callback_list
 

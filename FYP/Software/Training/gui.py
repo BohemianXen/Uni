@@ -151,7 +151,7 @@ class MainView(QMainWindow):
         """Opens .h5 file dialogue"""
 
         default_dir = 'deep_learning\\Saved Models'
-        #filters = "H5 Files (*.h5);;Pickle files (*.txt)"
+        # filters = "H5 Files (*.h5);;Pickle files (*.txt)"
         self._model_filename = QFileDialog.getOpenFileName(self, 'Open file', default_dir)[0]
 
         if self._model_filename != '':
