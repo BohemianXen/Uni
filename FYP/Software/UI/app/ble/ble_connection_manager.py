@@ -87,15 +87,15 @@ class ConnectionManager:
                 # await client.set_disconnected_callback(self.disconnect_handler)
 
                 self.streaming = False
-                self.action = None
+                self.action = 1
                 print('Waiting for readings...')
 
                 while self.connected:
                     if self.start_stream:
                         print('Starting recording through UI')
-                        await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x01]), response=True)  # TODO: Toggle off too
+                        await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x01]), response=True)
                         self.start_stream = False
-                    self.streaming = False
+                        self.streaming = True
                     self.connected = await client.is_connected() and not self.force_disconnect
                     await asyncio.sleep(self.short_delay, loop=loop)
 
@@ -112,7 +112,9 @@ class ConnectionManager:
 
     def starting_stream_notification_handler(self, sender, data):
         if int.from_bytes(data, byteorder='little', signed=False):
-            pass
+            self.streaming = True
+        else:
+            self.streaming = False
 
     def data_ready_notification_handler(self, sender, data):
         ready = int.from_bytes(data, byteorder='little', signed=False)

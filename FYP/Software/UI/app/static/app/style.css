@@ -1,23 +1,73 @@
 body {
-  background-image: linear-gradient(-45deg, rgb(39, 39, 52), rgb(90, 90, 121));
-  font-family: sans-serif;
+  background-image: linear-gradient(-45deg, rgb(29, 29, 42), rgb(80, 80, 111));
+  font-family: 'Montserrat', sans-serif;
   font-size: 50px;
   text-align: center;
+  color:  rgb(35, 32, 32);
 }
 
 h1 {
-  padding-bottom: 200px;
-  font-size: 3em;
+  padding-bottom: 150px;
+  font-family: 'Righteous', cursive;
+  font-size: 2.75em;
 }
 
 h2 {
-  padding-top: 250px;
-  font-size: 2.5em;
+  padding-top: 100px;
+  padding-bottom: 140px;
+  font-size: 2.25em;
+  color: 	rgb(240, 234, 214);
 }
 
+/* h4 {
+  color: rgb(0, 153, 51);
+} */
 
 #connectButton {
   font-size: 2em;
-  color: green;
-  padding: 50px;
+  background-color: rgb(29, 29, 42);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 20px;
+  border-width: 5px;
+  color: 	rgb(240, 234, 214); /*rgb(0, 153, 51);*/
+  padding: 65px;
+}
+
+.navbar {
+  background-color: rgb(35, 32, 32);
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.active {
+  color: rgb(153, 0, 153);
+}
+
+#contactsIcon {
+  padding-left: 25px;
+}
+
+/* https://stackoverflow.com/questions/22592064/how-to-align-text-below-an-image-in-css */
+figure.navItem {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: 10%;
+}
+
+figure.navItem.active {
+  background-color: red;
+}
+
+figure.navCaption {
+  display: block;
+}
+
+figcaption {
+  font-size: 28px;
+  color: white;
 }

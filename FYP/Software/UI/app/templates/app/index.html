@@ -7,8 +7,11 @@
   <title>Fall Detector</title>
   <meta name="description" content="FYP Fall Detector">
   <meta name="author" content="Ralph Mukusa">
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static "app/style.css" %}">
   {% block stylesheet %}{% endblock %}
+  <script src="https://kit.fontawesome.com/86dd638102.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -23,6 +26,28 @@
     {% include "app/update.html" %}
   </div>
 
+  <div class="navbar">
+    <figure class="navItem">
+      <a href="#"><i class="fas fa-map-marked-alt"></i></a>
+      <figcaption class="navCaption">Map</figcaption>
+    </figure>
+    <figure class="navItem">
+      <a href="#"><i class="fas fa-cogs"></i></a>
+      <figcaption class="navCaption">Device</figcaption>
+    </figure>
+    <figure class="navItem">
+      <a href="#" class="active"><i class="fas fa-upload"></i></a>
+      <figcaption class="navCaption">Stream </figcaption>
+    </figure>
+    <figure class="navItem">
+      <a href="#"><i class="fas fa-id-card" id="contactsIcon""></i></a>
+      <figcaption class="navCaption">Contacts</figcaption>
+    </figure>
+    <figure class="navItem">
+      <a href="#"><i class="fas fa-user-circle"></i></a>
+      <figcaption class="navCaption">Profile</figcaption>
+    </figure>
+  </div>
   <!--<script type="text/javascript" src="{% static "app/script.js" %}"></script>
   <script type="text/javascript" src="{% static "app/jquery-3.5.0.js" %}"></script> -->
   {% block javascript %}{% endblock %}
