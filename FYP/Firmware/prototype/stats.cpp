@@ -1,7 +1,7 @@
 /**
 * @file stats.cpp
 *
-* Statistical subroutines tailored forfall detector model inputs.
+* Statistical subroutines tailored for fall detector model inputs.
 *
 * @author Ralph Mukusa
 * contact: ralph.mukusa@gmail.com
@@ -17,7 +17,7 @@
  *
  * @param long* dataIn: 1D array holding the input data.
  * @param int length: Length of the input array.
- * @param int normalisation: A normalisaion factor for the inputs; 4(gs) for acc, 2000(dps) for gyro.
+ * @param int normalisation: A normalisation factor for the inputs; 4(gs) for acc, 2000(dps) for gyro.
  * @return float: The mean of the inputs.
 **/
 float mean_f(long dataIn[], int length, int normalisation) {
@@ -38,9 +38,9 @@ float mean_f(long dataIn[], int length, int normalisation) {
  *
  * @param long* dataIn: 1D array holding the input data.
  * @param int length: Length of the input array.
- * @param int normalisation: A normalisaion factor for the inputs; 4(gs) for acc, 2000(dps) for gyro.
- * @param float* std: Pointer to std calculaton destination.
- * @param float* mean:  Pointer to mean calculaton destination.
+ * @param int normalisation: A normalisation factor for the inputs; 4(gs) for acc, 2000(dps) for gyro.
+ * @param float* std: Pointer to std calculati	on destination.
+ * @param float* mean:  Pointer to mean calculation destination.
  * @return int: Success of mean and std calculations.
 **/
 int updateStdMean(long dataIn[], int length, int normalisation, float *std, float *mean) {
@@ -57,5 +57,5 @@ int updateStdMean(long dataIn[], int length, int normalisation, float *std, floa
 	else {
 		*std = 0.0;
 	}
-	return 1;  // TODO: when to return 0 if failure (e.g. input length of zero instead of just ignoring 
+	return 1;  // TODO: when to return 0 if failure (e.g. input length of zero instead of just ignoring) 
 }

@@ -1,11 +1,9 @@
 from django.db import models
 from . import ConnectionManager
-# Create your models here.
-import asyncio
-from time import sleep
 
 
 class Action(models.Model):
+    """Table for possible action/activity predictions."""
 
     class Actions(models.TextChoices):
         STANDING = 'Standing'
@@ -30,6 +28,8 @@ class Action(models.Model):
 
 
 class Device(models.Model):
+    """Table for registered devices and their current status."""
+
     class Status(models.IntegerChoices):
         DISCONNECTED = 0, 'Disconnected'
         CONNECTING = 1, 'Connecting'
@@ -44,6 +44,8 @@ class Device(models.Model):
 
 
 class User(models.Model):
+    """Table for FallDetector users and their linked registered device."""
+
     username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=64)
     device = models.OneToOneField(Device, on_delete=models.CASCADE, blank=True, null=True, unique=True)

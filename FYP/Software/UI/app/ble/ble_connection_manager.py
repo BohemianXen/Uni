@@ -9,7 +9,6 @@ UUIDs = {
 }
 
 params = {
-    # 'address': 57:0F:6E:FA:4E:C9',
     'name': 'FallDetector',
     'total samples': 480,
     'sample length': 6,
@@ -18,6 +17,7 @@ params = {
 
 
 class ConnectionManager:
+    """ Connection Manager class. Handles the connection to a peripheral device and all subsequent data transfer."""
     def __init__(self, device=None, target_name='FallDetector', timeout=2.0):
         super().__init__()
         self.name = self.__class__.__name__
@@ -43,16 +43,17 @@ class ConnectionManager:
         self._start_stream = value
 
     async def discover_devices(self):
+        """Finds and prints details of all nearby Bluetooth devices."""
         from bleak import discover
+
         self.discovered_devices = await discover()
         if len(self.discovered_devices) > 0:
             return self.find_detector()
 
     def find_detector(self):
+        """Specifically finds a 'FallDetector' named device and saves its name and address."""
         self.target_address = None
         try:
-            # places discovered devices into a dictionary in address: name format
-
             for device in self.discovered_devices:
                 self.devices_found[device.address] = device.name
                 if self.target_name in device.name:
@@ -63,28 +64,28 @@ class ConnectionManager:
         return [self.target_name, self.target_address]
 
     def list_found_devices(self):
+        """Alternate method for printing all found devices when in the devices_found parameter."""
+
         if len(self.devices_found) != 0:
             for address in self.devices_found.keys():
                 print('%s: %s' % (self.devices_found[address], address))
 
     # TODO: Add attempt counter
     async def connect(self, loop):
+        """Connects to a FallDetector, subscribes to relevant notifications, and manages the active stream."""
         from bleak import BleakClient
         from bleak.exc import BleakDotNetTaskError
 
         async with BleakClient(self.target_address, loop=loop, timeout=self.timeout) as client:
             self.connected = await client.is_connected()
             print("Connected: {0}".format(self.connected))
+
             if self.connected:
-                self.force_disconnect = False
 
                 print('Starting data transfer notification')
 
                 await client.start_notify(UUIDs['starting stream'][1], self.starting_stream_notification_handler)
-
                 await client.start_notify(UUIDs['prediction'][1], self.data_notification_handler)
-                # await client.start_notify(UUIDs['data ready'][1], self.data_ready_notification_handler)
-                # await client.set_disconnected_callback(self.disconnect_handler)
 
                 self.streaming = False
                 self.action = 1
@@ -96,7 +97,7 @@ class ConnectionManager:
                         await client.write_gatt_char(UUIDs['data send'][1], bytearray([0x01]), response=True)
                         self.start_stream = False
                         self.streaming = True
-                    self.connected = await client.is_connected() and not self.force_disconnect
+                    self.connected = await client.is_connected()
                     await asyncio.sleep(self.short_delay, loop=loop)
 
                 print('Stopping data transfer notification')
@@ -111,26 +112,18 @@ class ConnectionManager:
                 self.connected = False
 
     def starting_stream_notification_handler(self, sender, data):
+        """Notification handler for when the user toggles the stream using the device pushbutton."""
+
         if int.from_bytes(data, byteorder='little', signed=False):
             self.streaming = True
         else:
             self.streaming = False
 
-    def data_ready_notification_handler(self, sender, data):
-        ready = int.from_bytes(data, byteorder='little', signed=False)
-        print("Data ready: %d" % ready)
-        self.delay = self.long_delay if ready else self.short_delay
-
     def data_notification_handler(self, sender, packet):
-        """Simple notification handler which prints the data received."""
-        self.action = int.from_bytes(packet, byteorder='little', signed=False) + 1
+        """Notfication handler for new predictions."""
 
+        self.action = int.from_bytes(packet, byteorder='little', signed=False) + 1
         self.streaming = True
         print(self.action)
 
-        # print("Packet no. {0}: {1}".format(self.current_packet, self.data[-1]))
         self.start_stream = False
-
-
-if __name__ == '__main__':
-    pass

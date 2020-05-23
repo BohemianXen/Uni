@@ -60,7 +60,7 @@ figure.navItem {
 }
 
 figure.navItem.active {
-  background-color: red;
+  /* background-color: red; */
 }
 
 figure.navCaption {

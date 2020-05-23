@@ -45,15 +45,3 @@ $("#connectButton").click(function () {
      setTimeout(update, 1000);
   });
 })();
-
-
-/*$(document).ready(function () {
-  var label = status; // $("#statusLabel").html();
-  console.log("I Don't Know What I'm Doing")
-  console.log(label)
-  $.ajax({
-     data: {'status': label},
-     dataType: 'json',
-     success: function (data) { console.log(label)}
-   });
-});*/
